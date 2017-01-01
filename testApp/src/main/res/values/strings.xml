@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SimpleDialogFragments</string>
+    <string name="alert_dialog">Alert dialog</string>
+    <string name="check_dialog">Checkbox dialog</string>
+    <string name="input_dialog">Input dialog</string>
+    <string name="hello">Hello!</string>
+    <string name="hello_world">Hello World :)</string>
+    <string name="accept">Accept</string>
+    <string name="please_check">Please accept to continue.</string>
+    <string name="check">Accept?</string>
+    <string name="accepted">Accepted</string>
+    <string name="empty">Empty</string>
+    <string name="three_chars_min">Min 3 chars</string>
+    <string name="continue_">Continue</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Please enter your name:</string>
+    <string name="test">Welcome</string>
+    <string name="password">Password</string>
+</resources>
