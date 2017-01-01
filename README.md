@@ -12,7 +12,7 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Persistant on rotation
 
 ### Usage
-Building and showing an alert dialog
+Building and showing an **alert dialog** example
 ```java
 SimpleDialogFragment.build()
                     .title(R.string.hello)
@@ -20,7 +20,7 @@ SimpleDialogFragment.build()
                     .pos()
                     .show(MainActivity.this);
 ```
-Building and showing a checkbox dialog
+Building and showing a **checkbox dialog** example
 ```java
 SimpleCheckDialogFragment.build()
                          .title(R.string.title)
@@ -31,7 +31,7 @@ SimpleCheckDialogFragment.build()
                          .cancelable(false)
                          .show(LoginFragment.this, CHECK_DIALOG);
 ```
-Building and showing an input dialog
+Building and showing an **input dialog** example
 ```java
 SimpleInputDialogFragment.build()
                          .title(R.string.login)
@@ -66,4 +66,5 @@ Be sure to also check the demo project.
 ### Licence
 
 Copyright 2017 github.com/eltos
+
 Licenced under the Apache Licence 2.0
