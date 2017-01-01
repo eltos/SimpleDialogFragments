@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextInputLayout" parent="Widget.Design.TextInputLayout">
-
-    </style>
-
     <style name="OverflowText">
         <item name="android:textColor">#FFD50000</item>
     </style>
