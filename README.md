@@ -12,7 +12,7 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Persistant on rotation
 
 ### Example Usage
-*See [Wiki](wiki) for detailed api*
+*See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
 **Alert dialog**
 ```java
 SimpleDialog.build()
