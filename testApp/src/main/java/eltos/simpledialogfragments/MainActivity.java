@@ -218,24 +218,6 @@ public class MainActivity extends AppCompatActivity implements
             // ...
         }
         if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)) {
-//            long[] ids = extras.getLongArray(SimpleListDialog.SELECTED_IDS);
-//            ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
-//            if (ids != null) {
-//                String a = "";
-//                for (long id : ids) {
-//                    if (!a.isEmpty()) {
-//                        a += ", ";
-//                    }
-//                    a += getString((int) id);
-//                }
-//                Toast.makeText(getBaseContext(), getResources().getQuantityString(
-//                        R.plurals.selected, ids.length, ids.length) + "\n" + a, Toast.LENGTH_SHORT).show();
-//
-//            } else if (pos != null) {
-//                Toast.makeText(getBaseContext(), getResources().getQuantityString(
-//                        R.plurals.selected, pos.size(), pos.size()), Toast.LENGTH_SHORT).show();
-//            }
-
             ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
             int[] label = extras.getIntArray("labels");
             if (pos != null) {
