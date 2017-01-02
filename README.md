@@ -11,51 +11,50 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Input dialogs with validation
 * Persistant on rotation
 
-### Usage
-Building and showing an **alert dialog** example
+### Example Usage
+**Alert dialog**
 ```java
-SimpleDialogFragment.build()
-                    .title(R.string.hello)
-                    .msg(R.string.hello_world)
-                    .pos()
-                    .show(MainActivity.this);
+SimpleDialog.build()
+            .title(R.string.hello)
+            .msg(R.string.hello_world)
+            .show(MainActivity.this);
 ```
-Building and showing a **checkbox dialog** example
+**Choice dialog**
 ```java
-SimpleCheckDialogFragment.build()
-                         .title(R.string.title)
-                         .msg("GTC")
-                         .pos(R.string.continue_)
-                         .label(R.string.accept)
-                         .checkRequired(true)
-                         .cancelable(false)
-                         .show(LoginFragment.this, CHECK_DIALOG);
+int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
+
+SimpleListDialog.build()
+            .title(R.string.select_one)
+            .choiceMode(ListView.CHOICE_MODE_SINGLE_DIRECT)
+            .items(getBaseContext(), data)
+            .show(MainActivity.this, LIST_DIALOG);
 ```
-Building and showing an **input dialog** example
+**Input dialog**
 ```java
-SimpleInputDialogFragment.build()
-                         .title(R.string.login)
-                         .hint(R.string.password)
-                         .pos()
-                         .neut()
-                         .max(25)
-                         .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                         .show(LoginFragment.this, PASSWORD_DIALOG);
+SimpleInputDialog.build()
+            .title(R.string.login)
+            .hint(R.string.password)
+            .pos()
+            .neut()
+            .max(25)
+            .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            .show(LoginFragment.this, PASSWORD_DIALOG);
 ```
 
-Receive Results by implementing `SimpleDialogFragment.OnDialogFragmentResultListener`
+**Receive Results** by implementing `SimpleDialog.OnDialogResultListener`
 ```java
 @Override
-public boolean onDialogFragmentResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-    if (which == BUTTON_POSITIVE && CHECK_DIALOG.equals(dialogTag)){
-        Toast.makeText(getBaseContext(), R.string.accepted, Toast.LENGTH_SHORT).show();
+public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+    if (which == BUTTON_POSITIVE && PASSWORD_DIALOG.equals(dialogTag)){
+        String pw = extras.getString(SimpleInputDialogFragment.TEXT);
+        // ...
         return true;
     }
-    if (which == BUTTON_POSITIVE && PASSWORD_DIALOG.equals(dialogTag)){
-            String pw = extras.getString(SimpleInputDialogFragment.TEXT);
-            // ...
-            return true;
-        }
+	if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)){
+        ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
+		// ...
+        return true;
+    }
     return false;
 }
 

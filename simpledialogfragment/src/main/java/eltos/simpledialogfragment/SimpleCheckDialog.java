@@ -12,23 +12,23 @@ import android.widget.CompoundButton;
  *
  * Created by eltos on 14.10.2015.
  */
-public class SimpleCheckDialogFragment extends CustomViewDialogFragment<SimpleCheckDialogFragment> {
+public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
-    public static final String CHECKED = "simpleCheckDialogFragment.checked";
+    public static final String CHECKED = "simpleCheckDialog.checked";
 
-    private static final String CHECKBOX_LABEL = "simpleCheckDialogFragment.check_label";
-    private static final String CHECKBOX_REQUIRED = "simpleCheckDialogFragment.check_required";
+    private static final String CHECKBOX_LABEL = "simpleCheckDialog.check_label";
+    private static final String CHECKBOX_REQUIRED = "simpleCheckDialog.check_required";
 
     private CheckBox mCheckBox;
 
-    public static SimpleCheckDialogFragment build(){
-        return new SimpleCheckDialogFragment();
+    public static SimpleCheckDialog build(){
+        return new SimpleCheckDialog();
     }
 
-    public SimpleCheckDialogFragment check(boolean preset){ return setArg(CHECKED, preset); }
-    public SimpleCheckDialogFragment label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
-    public SimpleCheckDialogFragment label(int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
-    public SimpleCheckDialogFragment checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
+    public SimpleCheckDialog check(boolean preset){ return setArg(CHECKED, preset); }
+    public SimpleCheckDialog label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
+    public SimpleCheckDialog label(int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
+    public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
 
     private boolean canGoAhead() {
         return mCheckBox.isChecked() || !getArguments().getBoolean(CHECKBOX_REQUIRED);

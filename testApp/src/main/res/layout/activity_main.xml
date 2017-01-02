@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alert_dialog"
-        android:id="@+id/alert_dialog"
+        android:id="@+id/alert"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -22,37 +22,137 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/check_dialog"
-        android:id="@+id/check_dialog"
-        android:layout_below="@+id/alert_dialog"
+        android:id="@+id/check"
+        android:layout_below="@+id/alert"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/input_dialog"
-        android:id="@+id/input_dialog"
-        android:layout_below="@+id/check_dialog"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:alignmentMode="alignMargins"
+        android:orientation="vertical"
+        android:id="@+id/gridLayout"
+        android:layout_below="@+id/check">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignTop="@+id/input_dialog"
-        android:layout_toRightOf="@+id/input_dialog"
-        android:layout_toEndOf="@+id/input_dialog"
-        android:layout_alignBottom="@+id/input_dialog"
-        android:gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Input Dialogs"
+            android:id="@+id/textView2"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnSpan="3" />
 
-    <Button
-        android:layout_width="wrap_content"
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simple"
+            android:id="@+id/input"
+            android:layout_below="@+id/check"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:id="@+id/phone"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:id="@+id/mail"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:id="@+id/passwd"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="1"
+            android:layout_column="2" />
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:id="@+id/passwd_dialog"
-        android:layout_below="@+id/input_dialog"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:alignmentMode="alignMargins"
+        android:orientation="vertical"
+        android:layout_below="@+id/gridLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="List Dialogs"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnSpan="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="direct choice"
+            android:id="@+id/list3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="single choice"
+            android:id="@+id/list1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="multi choice"
+            android:id="@+id/list2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simple"
+            android:id="@+id/list0"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+    </GridLayout>
 
 </RelativeLayout>

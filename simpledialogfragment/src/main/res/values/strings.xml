@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="email_address">Email address</string>
+</resources>

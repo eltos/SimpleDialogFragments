@@ -1,27 +1,24 @@
 package eltos.simpledialogfragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 
 /**
  * Extend this class and implement/overwrite the methods to use your custom view
- * See {@link SimpleCheckDialogFragment} as an example.
+ * See {@link SimpleCheckDialog} as an example.
  *
  * Created by eltos on 11.10.2015.
  */
 
-public abstract class CustomViewDialogFragment<This extends CustomViewDialogFragment<This>>
-        extends SimpleDialogFragment<This> {
+public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
+        extends SimpleDialog<This> {
 
 
     /**
@@ -36,10 +33,10 @@ public abstract class CustomViewDialogFragment<This extends CustomViewDialogFrag
 
     /**
      * Overwrite this method to provide additional results from your custom view
-     * to be passed to the {@link OnDialogFragmentResultListener#onDialogFragmentResult}
+     * to be passed to the {@link OnDialogResultListener#onResult}
      *
-     * @param which see {@link SimpleDialogFragment.OnDialogFragmentResultListener}
-     * @return the bundle to merge with the results
+     * @param which see {@link OnDialogResultListener}
+     * @return the bundle to merge with the results or null
      */
     protected Bundle onResult(int which){
         return null;
@@ -140,7 +137,7 @@ public abstract class CustomViewDialogFragment<This extends CustomViewDialogFrag
     }
 
     @Override
-    protected boolean callResultListener(int which, Bundle extras) {
+    boolean callResultListener(int which, Bundle extras) {
         Bundle results = onResult(which);
         if (extras == null) extras = new Bundle();
         if (results != null) extras.putAll(results);

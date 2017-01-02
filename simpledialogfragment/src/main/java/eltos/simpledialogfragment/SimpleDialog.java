@@ -10,7 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
+import android.util.Log;
+import android.util.TypedValue;
 
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
@@ -18,19 +19,21 @@ import android.view.WindowManager;
  * Created by eltos on 03.08.2015.
  */
 @SuppressWarnings("unused")
-public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> extends DialogFragment {
+public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragment {
 
-    protected static final String TITLE = "simpleDialogFragment.title";
-    protected static final String MESSAGE = "simpleDialogFragment.message";
-    protected static final String POSITIVE_BUTTON_TEXT = "simpleDialogFragment.positiveButtonText";
-    protected static final String NEGATIVE_BUTTON_TEXT = "simpleDialogFragment.negativeButtonText";
-    protected static final String NEUTRAL_BUTTON_TEXT = "simpleDialogFragment.neutralButtonText";
-    protected static final String ICON_RESOURCE = "simpleDialogFragment.iconResource";
-    protected static final String CANCELABLE = "simpleDialogFragment.cancelable";
-    protected static final String BUNDLE = "simpleDialogFragment.bundle";
-    protected static final String STYLE = "simpleDialogFragment.style";
+    private static final String TITLE = "simpleDialog.title";
+    private static final String MESSAGE = "simpleDialog.message";
+    private static final String POSITIVE_BUTTON_TEXT = "simpleDialog.positiveButtonText";
+    private static final String NEGATIVE_BUTTON_TEXT = "simpleDialog.negativeButtonText";
+    private static final String NEUTRAL_BUTTON_TEXT = "simpleDialog.neutralButtonText";
+    private static final String ICON_RESOURCE = "simpleDialog.iconResource";
+    private static final String CANCELABLE = "simpleDialog.cancelable";
+    private static final String THEME = "simpleDialog.theme";
 
-    public interface OnDialogFragmentResultListener {
+    protected static final String BUNDLE = "simpleDialog.bundle";
+
+
+    public interface OnDialogResultListener {
         int CANCELED = 0;
         int BUTTON_POSITIVE = DialogInterface.BUTTON_POSITIVE;
         int BUTTON_NEGATIVE = DialogInterface.BUTTON_NEGATIVE;
@@ -47,30 +50,30 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
          * @param extras the extras passed with {@link #extra(Bundle)}
          * @return true if the result was handled, false otherwise
          */
-        boolean onDialogFragmentResult(@NonNull String dialogTag, int which, @NonNull Bundle extras);
+        boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras);
     }
 
-    protected DialogInterface.OnClickListener forwardOnClickListener = new DialogInterface.OnClickListener() {
+    private DialogInterface.OnClickListener forwardOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             callResultListener(which, null);
         }
     };
 
-    protected boolean callResultListener(int which, Bundle extras) {
+    boolean callResultListener(int which, Bundle extras) {
         if (extras == null) extras = new Bundle();
         if (getArguments().getBundle(BUNDLE) != null) {
             extras.putAll(getArguments().getBundle(BUNDLE));
         }
         boolean handled = false;
         if (getTag() != null) {
-            if (getTargetFragment() instanceof OnDialogFragmentResultListener) {
-                handled = ((OnDialogFragmentResultListener) getTargetFragment())
-                        .onDialogFragmentResult(getTag(), which, extras);
+            if (getTargetFragment() instanceof OnDialogResultListener) {
+                handled = ((OnDialogResultListener) getTargetFragment())
+                        .onResult(getTag(), which, extras);
             }
-            if (!handled && getActivity() instanceof OnDialogFragmentResultListener) {
-                handled = ((OnDialogFragmentResultListener) getActivity())
-                        .onDialogFragmentResult(getTag(), which, extras);
+            if (!handled && getActivity() instanceof OnDialogResultListener) {
+                handled = ((OnDialogResultListener) getActivity())
+                        .onResult(getTag(), which, extras);
             }
         }
         return handled;
@@ -80,19 +83,17 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
 
     private AlertDialog dialog;
 
-    public SimpleDialogFragment(){
+    public SimpleDialog(){
         Bundle args = getArguments();
         if (args == null) args = new Bundle();
         setArguments(args);
+        // positive button default
+        pos(android.R.string.ok);
     }
 
-    public static SimpleDialogFragment build(){
-        return new SimpleDialogFragment();
+    public static SimpleDialog build(){
+        return new SimpleDialog();
     }
-
-//    public static SimpleDialogFragment createError(int messageResourceId){
-//        return build().title(R.string.error).msg(messageResourceId).pos(R.string.ok);
-//    }
 
     @SuppressWarnings("unchecked cast")
     protected This setArg(String key, boolean value){
@@ -125,7 +126,7 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
     public This msg(int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
     public This pos(String positiveButton){ return setArg(POSITIVE_BUTTON_TEXT, positiveButton); }
     public This pos(int positiveButtonResourceId){ return setArg(POSITIVE_BUTTON_TEXT, positiveButtonResourceId); }
-    public This pos(){ return pos(android.R.string.ok); }
+//    public This pos(){ return pos(android.R.string.ok); }
     public This neg(String negativeButton){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButton); }
     public This neg(int negativeButtonResourceId){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButtonResourceId); }
     public This neg(){ return neg(android.R.string.no); }
@@ -138,10 +139,11 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
     public This extra(Bundle extras){ getArguments().putBundle(BUNDLE, extras); return (This) this; }
 
     /**
-     * Set a custom style. Default is using the "AlertDialogCustom"-Style if it exists
-     * @param style the resource id of the custom style
+     * Set a custom theme. Default is using the theme
+     * defined by the 'alertDialogTheme'-attribute.
+     * @param theme the resource id of the custom theme
      */
-    public This style(int style){ return setArg(STYLE, style); }
+    public This theme(int theme){ return setArg(THEME, theme); }
 
 
 
@@ -186,12 +188,15 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int style = getArguments().getInt(STYLE, -1);
-        if (style > -1){
-            dialog = new AlertDialog.Builder(getActivity(), getArguments().getInt(STYLE)).create();
-        } else {
+
+        int theme = getArguments().getInt(THEME, -1);
+        if (theme < 0){
+            // default theme or 'alertDialogTheme'
             dialog = new AlertDialog.Builder(getActivity()).create();
+        } else {
+            dialog = new AlertDialog.Builder(getActivity(), theme).create();
         }
+
         dialog.setTitle(getArgString(TITLE));
         dialog.setMessage(getArgString(MESSAGE));
         String positiveButtonText = getArgString(POSITIVE_BUTTON_TEXT);
@@ -242,7 +247,7 @@ public class SimpleDialogFragment<This extends SimpleDialogFragment<This>> exten
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        callResultListener(OnDialogFragmentResultListener.CANCELED, null);
+        callResultListener(OnDialogResultListener.CANCELED, null);
     }
 
     // This is to work around what is apparently a bug. If you don't have it

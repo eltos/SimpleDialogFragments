@@ -1,4 +1,4 @@
-package eltos.simpledialogfragment;
+package eltos.simpledialogfragment.input;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,39 +18,42 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import eltos.simpledialogfragment.CustomViewDialog;
+import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.SimpleDialog;
+
 /**
  * An SimpleDialogFragment with an input field
  *
  * Created by eltos on 14.10.2015.
  */
-public class SimpleInputDialogFragment extends CustomViewDialogFragment<SimpleInputDialogFragment> {
+public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
-    public static final String TEXT = "simpleInputDialogFragment.text";
+    public static final String TEXT = "simpleInputDialog.text";
 
-    private static final String HINT = "simpleInputDialogFragment.hint";
-    private static final String INPUT_TYPE = "simpleInputDialogFragment.input_type";
-    private static final String ALLOW_EMPTY = "simpleInputDialogFragment.allow_empty";
-    private static final String MAX_LENGTH = "simpleInputDialogFragment.max_length";
+    private static final String HINT = "simpleInputDialog.hint";
+    private static final String INPUT_TYPE = "simpleInputDialog.input_type";
+    private static final String ALLOW_EMPTY = "simpleInputDialog.allow_empty";
+    private static final String MAX_LENGTH = "simpleInputDialog.max_length";
 
-
-    public interface OnDialogFragmentResultListener extends SimpleDialogFragment.OnDialogFragmentResultListener {
-        String TEXT = SimpleInputDialogFragment.TEXT;
+    public interface OnDialogResultListener extends SimpleDialog.OnDialogResultListener {
+        String TEXT = SimpleInputDialog.TEXT;
     }
 
     private EditText mInput;
     private TextInputLayout mInputLayout;
 
-    public static SimpleInputDialogFragment build(){
-        return new SimpleInputDialogFragment();
+    public static SimpleInputDialog build(){
+        return new SimpleInputDialog();
     }
 
-    public SimpleInputDialogFragment hint(boolean hint){ return setArg(HINT, hint); }
-    public SimpleInputDialogFragment hint(int hintResourceId){ return setArg(HINT, hintResourceId); }
-    public SimpleInputDialogFragment text(String text){ return setArg(TEXT, text); }
-    public SimpleInputDialogFragment text(int textResourceId){ return setArg(TEXT, textResourceId); }
-    public SimpleInputDialogFragment inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
-    public SimpleInputDialogFragment allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
-    public SimpleInputDialogFragment max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }
+    public SimpleInputDialog hint(boolean hint){ return setArg(HINT, hint); }
+    public SimpleInputDialog hint(int hintResourceId){ return setArg(HINT, hintResourceId); }
+    public SimpleInputDialog text(String text){ return setArg(TEXT, text); }
+    public SimpleInputDialog text(int textResourceId){ return setArg(TEXT, textResourceId); }
+    public SimpleInputDialog inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
+    public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
+    public SimpleInputDialog max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }
 
     @Nullable
     public String getText(){
@@ -140,7 +143,7 @@ public class SimpleInputDialogFragment extends CustomViewDialogFragment<SimpleIn
     @Override
     protected boolean acceptsPositiveButtonPress() {
         String input = getText();
-        String error = callInputValidator(input);
+        String error = onValidateInput(input);
         if (error == null) {
             return true;
         } else {
@@ -165,7 +168,7 @@ public class SimpleInputDialogFragment extends CustomViewDialogFragment<SimpleIn
         String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
     }
 
-    protected String callInputValidator(@Nullable String input){
+    protected String onValidateInput(@Nullable String input){
         Bundle extras = getArguments().getBundle(BUNDLE);
         if (extras == null) extras = new Bundle();
         if (getTargetFragment() instanceof InputValidator) {
