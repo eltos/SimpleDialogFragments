@@ -13,6 +13,7 @@ A collection of easy to use and extendable DialogFragment's for Android
 
 ### Example Usage
 *See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
+
 **Alert dialog**
 ```java
 SimpleDialog.build()
