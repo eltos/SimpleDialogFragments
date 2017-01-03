@@ -82,6 +82,6 @@ Be sure to also check the demo project.
 
 ### Licence
 
-Copyright 2017 github.com/eltos
+Copyright 2017 Philipp Niedermayer (github.com/eltos)
 
 Licenced under the Apache Licence 2.0
