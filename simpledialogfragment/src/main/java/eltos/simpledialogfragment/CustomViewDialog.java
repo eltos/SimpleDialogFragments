@@ -29,7 +29,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      *
      * @return Return a new View to be displayed by the Fragment.
      */
-    protected abstract View onCreateContentView(Bundle savedInstanceState, AlertDialog dialog);
+    protected abstract View onCreateContentView(Bundle savedInstanceState);
 
     /**
      * Overwrite this method to provide additional results from your custom view
@@ -115,7 +115,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
-        View content = onCreateContentView(savedInstanceState, dialog);
+        View content = onCreateContentView(savedInstanceState);
         dialog.setView(content);
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {

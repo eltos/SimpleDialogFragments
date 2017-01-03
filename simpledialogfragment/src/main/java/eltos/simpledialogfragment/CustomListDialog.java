@@ -105,7 +105,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
     @Override
-    protected View onCreateContentView(Bundle savedInstanceState, AlertDialog dialog) {
+    protected View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
         LayoutInflater inflater = getActivity().getLayoutInflater();
 

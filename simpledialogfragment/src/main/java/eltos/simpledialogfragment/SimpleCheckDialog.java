@@ -35,7 +35,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
     }
 
     @Override
-    public View onCreateContentView(Bundle savedInstanceState, final AlertDialog dialog) {
+    public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
