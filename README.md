@@ -4,7 +4,6 @@
 [ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
 
 
-
 A collection of easy to use and extendable DialogFragment's for Android
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/blob/master/wiki/simpleemaildialog.png"/>
@@ -19,7 +18,7 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Input dialogs with validation
 * Persistant on rotation
 
-<!--
+
 ### Usage
 
 In your ``build.gradle`` file:
@@ -28,7 +27,7 @@ dependencies {
     compile 'com.github.eltos:simpledialogfragment:0.2'
 }
 ```
--->
+
 
 ### Examples
 *See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
