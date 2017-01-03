@@ -1,4 +1,7 @@
 # SimpleDialogFragments
+
+[ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
+
 A collection of easy to use and extendable DialogFragment's for Android
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/blob/master/wiki/simpleemaildialog.png"/>
