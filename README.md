@@ -1,6 +1,9 @@
 # SimpleDialogFragments
 
+![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)
 [ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
+
+
 
 A collection of easy to use and extendable DialogFragment's for Android
 
