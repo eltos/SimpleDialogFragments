@@ -19,7 +19,7 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Persistant on rotation
 
 
-### Usage
+## Usage
 
 In your ``build.gradle`` file:
 ```groovy
@@ -82,7 +82,7 @@ public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle ex
 
 Be sure to also check the demo project.
 
-### Licence
+## Licence
 
 Copyright 2017 Philipp Niedermayer (github.com/eltos)
 
