@@ -1,6 +1,6 @@
 # SimpleDialogFragments
 
-![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)
+[ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/versions/android-3.0.html)
 [ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
 
 
