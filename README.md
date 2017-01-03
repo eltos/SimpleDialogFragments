@@ -13,7 +13,18 @@ A collection of easy to use and extendable DialogFragment's for Android
 * Input dialogs with validation
 * Persistant on rotation
 
-### Example Usage
+<!--
+### Usage
+
+In your ``build.gradle`` file:
+```groovy
+dependencies {
+    compile 'com.github.eltos:simpledialogfragment:0.2'
+}
+```
+-->
+
+### Examples
 *See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
 
 **Alert dialog**
