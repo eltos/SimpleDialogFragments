@@ -1,13 +1,16 @@
 package eltos.simpledialogfragment;
 
 import android.os.Bundle;
+import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -43,6 +46,9 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     protected static final String CHOICE_MIN_COUNT = "customListDialog.choice_min";
     protected static final String CHOICE_MAX_COUNT = "customListDialog.choice_max";
     protected static final String INITIALLY_CHECKED_POSITIONS = "customListDialog.init_check";
+    private static final String GRID = "customListDialog.grid";
+    private static final String GRID_N = "customListDialog.grid_N";
+    private static final String GRID_W = "customListDialog.grid_W";
 
 
     /**
@@ -74,6 +80,19 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         getArguments().putIntArray(INITIALLY_CHECKED_POSITIONS, positions);
         return (This) this;
     }
+    public This choicePreset(int position){
+        return choicePreset(new int[]{position});
+    }
+    public This grid(){
+        return setArg(GRID, true);
+    }
+    public This gridNumColumn(int numColumns){
+        return setArg(GRID_N, numColumns);
+    }
+    public This gridColumnWidth(@DimenRes int columnWidthDimenResId){
+        return setArg(GRID_W, columnWidthDimenResId);
+    }
+
     @Override
     public This pos(String positiveButton) {
         pmFlag = true;
@@ -100,7 +119,8 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
 
-    private ListView mListView;
+
+    private AbsListView mListView;
     private ListAdapter mAdapter;
 
 
@@ -109,8 +129,19 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         // inflate and set your custom view here
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_list, null);
-        mListView = (ListView) view.findViewById(R.id.listView);
+        View view;
+        if (getArguments().containsKey(GRID)){
+            view = inflater.inflate(R.layout.dialog_grid, null);
+            mListView = (GridView) view.findViewById(R.id.gridView);
+            if (getArguments().containsKey(GRID_W)){
+                ((GridView) mListView).setColumnWidth(getResources().getDimensionPixelSize(
+                        getArguments().getInt(GRID_W)));
+            }
+            ((GridView) mListView).setNumColumns(getArguments().getInt(GRID_N, GridView.AUTO_FIT));
+        } else {
+            view = inflater.inflate(R.layout.dialog_list, null);
+            mListView = (ListView) view.findViewById(R.id.listView);
+        }
 
         mAdapter = onCreateAdapter();
         mListView.setAdapter(mAdapter);
@@ -160,7 +191,13 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     }
 
 
+    public boolean isItemChecked(int position){
+        return mListView.isItemChecked(position);
+    }
 
+    protected AbsListView getListView(){
+        return mListView;
+    }
 
     @Override
     protected void onDialogShown() {

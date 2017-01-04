@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -48,9 +49,9 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     }
 
     public SimpleInputDialog hint(boolean hint){ return setArg(HINT, hint); }
-    public SimpleInputDialog hint(int hintResourceId){ return setArg(HINT, hintResourceId); }
+    public SimpleInputDialog hint(@StringRes int hintResourceId){ return setArg(HINT, hintResourceId); }
     public SimpleInputDialog text(String text){ return setArg(TEXT, text); }
-    public SimpleInputDialog text(int textResourceId){ return setArg(TEXT, textResourceId); }
+    public SimpleInputDialog text(@StringRes int textResourceId){ return setArg(TEXT, textResourceId); }
     public SimpleInputDialog inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
     public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
     public SimpleInputDialog max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }

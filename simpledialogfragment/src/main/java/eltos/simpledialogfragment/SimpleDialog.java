@@ -3,7 +3,10 @@ package eltos.simpledialogfragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -121,19 +124,19 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     public This title(String title){ return setArg(TITLE, title); }
-    public This title(int titleResourceId){ return setArg(TITLE, titleResourceId); }
+    public This title(@StringRes int titleResourceId){ return setArg(TITLE, titleResourceId); }
     public This msg(String message){ return setArg(MESSAGE, message); }
-    public This msg(int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
+    public This msg(@StringRes int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
     public This pos(String positiveButton){ return setArg(POSITIVE_BUTTON_TEXT, positiveButton); }
-    public This pos(int positiveButtonResourceId){ return setArg(POSITIVE_BUTTON_TEXT, positiveButtonResourceId); }
+    public This pos(@StringRes int positiveButtonResourceId){ return setArg(POSITIVE_BUTTON_TEXT, positiveButtonResourceId); }
 //    public This pos(){ return pos(android.R.string.ok); }
     public This neg(String negativeButton){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButton); }
-    public This neg(int negativeButtonResourceId){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButtonResourceId); }
+    public This neg(@StringRes int negativeButtonResourceId){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButtonResourceId); }
     public This neg(){ return neg(android.R.string.no); }
     public This neut(String neutralButton){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButton); }
-    public This neut(int neutralButtonResourceId){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButtonResourceId); }
+    public This neut(@StringRes int neutralButtonResourceId){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButtonResourceId); }
     public This neut(){ return neut(android.R.string.cancel); }
-    public This icon(int iconResourceId){ return setArg(ICON_RESOURCE, iconResourceId); }
+    public This icon(@DrawableRes int iconResourceId){ return setArg(ICON_RESOURCE, iconResourceId); }
     public This cancelable(boolean cancelable){ return setArg(CANCELABLE, cancelable); }
     @SuppressWarnings("unchecked cast")
     public This extra(Bundle extras){ getArguments().putBundle(BUNDLE, extras); return (This) this; }
@@ -143,7 +146,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * defined by the 'alertDialogTheme'-attribute.
      * @param theme the resource id of the custom theme
      */
-    public This theme(int theme){ return setArg(THEME, theme); }
+    public This theme(@StyleRes int theme){ return setArg(THEME, theme); }
 
 
 
@@ -189,12 +192,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        int theme = getArguments().getInt(THEME, -1);
-        if (theme < 0){
+        if (getArguments().containsKey(THEME)){
+            dialog = new AlertDialog.Builder(getActivity(), getArguments().getInt(THEME)).create();
+        } else {
             // default theme or 'alertDialogTheme'
             dialog = new AlertDialog.Builder(getActivity()).create();
-        } else {
-            dialog = new AlertDialog.Builder(getActivity(), theme).create();
         }
 
         dialog.setTitle(getArgString(TITLE));
@@ -214,9 +216,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             dialog.setButton(DialogInterface.BUTTON_NEUTRAL,
                     neutralButtonText, forwardOnClickListener);
         }
-        int iconResourceId = getArguments().getInt(ICON_RESOURCE);
-        if (iconResourceId != 0) {
-            dialog.setIcon(iconResourceId);
+        if (getArguments().containsKey(ICON_RESOURCE)){
+            dialog.setIcon(getArguments().getInt(ICON_RESOURCE));
         }
         dialog.setCancelable(getArguments().getBoolean(CANCELABLE, true));
 

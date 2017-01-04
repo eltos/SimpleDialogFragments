@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
+import eltos.simpledialogfragment.SimpleColorDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleListDialog;
 import eltos.simpledialogfragment.input.SimpleEMailDialog;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String INPUT_DIALOG = "inputDialogTag";
     private static final String MAIL_DIALOG = "mailDialogTag";
     private static final String LIST_DIALOG = "listDialogTag";
+    private static final String COLOR_DIALOG = "colorDialogTag";
     private Button mAlertButton;
     private Button mCheckButton;
     private Button mInputButton;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements
     private Button mListMultiplebutton;
     private Button mListDirectbutton;
     private Button mListbutton;
-
+    private Button mColorbutton;
+    private int mColor = SimpleColorDialog.NONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements
         mListSinglebutton = (Button) findViewById(R.id.list1);
         mListMultiplebutton = (Button) findViewById(R.id.list2);
         mListDirectbutton = (Button) findViewById(R.id.list3);
+        mColorbutton = (Button) findViewById(R.id.color);
 
         mAlertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +200,18 @@ public class MainActivity extends AppCompatActivity implements
 
             }
         });
+        mColorbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleColorDialog.build()
+                        .title(R.string.pick_a_color)
+                        .colorPreset(mColor)
+//                        .choiceMode(SimpleColorDialog.SINGLE_CHOICE_DIRECT)
+                        .show(MainActivity.this, COLOR_DIALOG);
+
+            }
+        });
 
 
     }
@@ -236,6 +251,9 @@ public class MainActivity extends AppCompatActivity implements
                             R.plurals.selected, pos.size(), pos.size()), Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+        if (which == BUTTON_POSITIVE && COLOR_DIALOG.equals(dialogTag)) {
+            mColor = extras.getInt(SimpleColorDialog.COLOR);
         }
         return false;
     }

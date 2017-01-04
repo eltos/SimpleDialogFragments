@@ -134,6 +134,17 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Color"
+            android:id="@+id/color"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/check"
+            android:layout_row="3"
+            android:layout_column="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="multi choice"
             android:id="@+id/list2"
             android:layout_alignParentLeft="true"

@@ -1,6 +1,7 @@
 package eltos.simpledialogfragment;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
     public SimpleCheckDialog check(boolean preset){ return setArg(CHECKED, preset); }
     public SimpleCheckDialog label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
-    public SimpleCheckDialog label(int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
+    public SimpleCheckDialog label(@StringRes int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
     public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
 
     private boolean canGoAhead() {
@@ -46,7 +47,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
         if (savedInstanceState != null){
             mCheckBox.setChecked(savedInstanceState.getBoolean(CHECKED, false));
-        } else if (getArguments() != null) {
+        } else {
             mCheckBox.setChecked(getArguments().getBoolean(CHECKED, false));
         }
 

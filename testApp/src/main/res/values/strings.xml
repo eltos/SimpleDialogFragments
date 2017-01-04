@@ -24,4 +24,5 @@
     <string name="choice_C">Choice C</string>
     <string name="select_any">Select any</string>
     <string name="numers">Numbers</string>
+    <string name="pick_a_color">Pick a color</string>
 </resources>
