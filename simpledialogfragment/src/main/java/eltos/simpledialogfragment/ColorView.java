@@ -47,7 +47,7 @@ import android.widget.ImageView;
  *
  */
 
-public class ColorView extends FrameLayout implements Checkable {
+class ColorView extends FrameLayout implements Checkable {
 
     private @ColorInt int mColor;
     private boolean mChecked = false;
