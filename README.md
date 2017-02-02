@@ -29,7 +29,7 @@ dependencies {
 
 
 ### Examples
-*See [Showcase](Showcase) for screenshots.*
+*See [Showcase](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase) for screenshots.*
 *See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
 
 **Alert dialog**
