@@ -1,19 +1,26 @@
-package eltos.simpledialogfragment;
+package eltos.simpledialogfragment.list;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import eltos.simpledialogfragment.R;
+
 
 /**
- * Created by Philipp on 17.04.2016.
+ *
+ * Created by eltos on 17.04.2016.
  */
 public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
 
@@ -54,13 +61,13 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
 
 
     @Override
-    protected ListAdapter onCreateAdapter() {
+    protected AdvancedAdapter onCreateAdapter() {
 
         int[] colors = getArguments().getIntArray(COLORS);
         if (colors == null) colors = new int[0];
 
         if (getArguments().containsKey(COLOR)){
-        int preset = getArguments().getInt(COLOR, NONE);
+            int preset = getArguments().getInt(COLOR, NONE);
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i] == preset){
                     choicePreset(i);
@@ -84,36 +91,20 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
     }
 
 
-    private class ColorAdapter extends BaseAdapter{
+    private class ColorAdapter extends AdvancedAdapter<Integer>{
 
         @NonNull
         private int[] mColors;
 
         ColorAdapter(int[] colors){
             mColors = colors == null ? new int[0] : colors;
-        }
-
-        @Override
-        public int getCount() {
-            return mColors.length;
-        }
-
-        @Override
-        public Integer getItem(int position) {
-            if (position >= 0 && position < mColors.length){
-                return mColors[position];
+            if (colors != null) {
+                ArrayList<Pair<Integer, Long>> cs = new ArrayList<>(colors.length);
+                for (int color : colors) {
+                    cs.add(new Pair<>(color, (long) color));
+                }
+                setDataAndIds(cs);
             }
-            return NONE;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return getItem(position);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
         }
 
         @Override
@@ -128,8 +119,56 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
 
             item.setColor(getItem(position));
 
-            return item;
+            return super.getView(position, item, parent);
         }
     }
+
+//    private class ColorAdapter extends BaseAdapter{
+//
+//        @NonNull
+//        private int[] mColors;
+//
+//        ColorAdapter(int[] colors){
+//            mColors = colors == null ? new int[0] : colors;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mColors.length;
+//        }
+//
+//        @Override
+//        public Integer getItem(int position) {
+//            if (position >= 0 && position < mColors.length){
+//                return mColors[position];
+//            }
+//            return NONE;
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return getItem(position);
+//        }
+//
+//        @Override
+//        public boolean hasStableIds() {
+//            return true;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ColorView item;
+//
+//            if (convertView instanceof ColorView){
+//                item = (ColorView) convertView;
+//            } else {
+//                item = new ColorView(getContext());
+//            }
+//
+//            item.setColor(getItem(position));
+//
+//            return item;
+//        }
+//    }
 
 }

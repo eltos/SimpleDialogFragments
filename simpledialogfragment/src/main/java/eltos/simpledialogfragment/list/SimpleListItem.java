@@ -1,4 +1,4 @@
-package eltos.simpledialogfragment;
+package eltos.simpledialogfragment.list;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import android.widget.ListView;
  *
  * Created by eltos on 02.01.2017.
  */
-class SimpleListItem implements Parcelable {
+public class SimpleListItem implements Parcelable {
 
     private String string;
     private long id;

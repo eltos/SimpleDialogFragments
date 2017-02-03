@@ -1,4 +1,4 @@
-package eltos.simpledialogfragment;
+package eltos.simpledialogfragment.list;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -19,6 +19,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import eltos.simpledialogfragment.R;
 
 
 /**

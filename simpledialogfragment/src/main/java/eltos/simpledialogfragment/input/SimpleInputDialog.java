@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,18 +32,21 @@ import eltos.simpledialogfragment.SimpleDialog;
  */
 public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
-    public static final String TEXT = "simpleInputDialog.text";
+    private static final String TAG = "simpleInputDialog";
 
-    private static final String HINT = "simpleInputDialog.hint";
-    private static final String INPUT_TYPE = "simpleInputDialog.input_type";
-    private static final String ALLOW_EMPTY = "simpleInputDialog.allow_empty";
-    private static final String MAX_LENGTH = "simpleInputDialog.max_length";
+    public static final String TEXT = TAG + "text";
+
+    private static final String HINT = TAG + "hint";
+    private static final String INPUT_TYPE = TAG + "input_type";
+    private static final String ALLOW_EMPTY = TAG + "allow_empty";
+    private static final String MAX_LENGTH = TAG + "max_length";
+    private static final String SUGGESTIONS = TAG + "suggestions";
 
     public interface OnDialogResultListener extends SimpleDialog.OnDialogResultListener {
         String TEXT = SimpleInputDialog.TEXT;
     }
 
-    private EditText mInput;
+    private AutoCompleteTextView mInput;
     private TextInputLayout mInputLayout;
 
     public static SimpleInputDialog build(){
@@ -55,6 +60,17 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     public SimpleInputDialog inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
     public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
     public SimpleInputDialog max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }
+    public SimpleInputDialog suggest(Context context, int[] stringResourceIds){
+        String[] strings = new String[stringResourceIds.length];
+        for (int i = 0; i < stringResourceIds.length; i++) {
+            strings[i] = context.getString(stringResourceIds[i]);
+        }
+        return suggest(strings);
+    }
+    public SimpleInputDialog suggest(String[] strings){
+        getArguments().putStringArray(SUGGESTIONS, strings);
+        return this;
+    }
 
     @Nullable
     public String getText(){
@@ -77,7 +93,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_input, null);
-        mInput = (EditText) view.findViewById(R.id.editText);
+        mInput = (AutoCompleteTextView) view.findViewById(R.id.editText);
         mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
 
         // Note: setting TYPE_CLASS_TEXT as default is very important!
@@ -123,6 +139,16 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
                 setPositiveButtonEnabled(posEnabled());
             }
         });
+
+        // Auto complete
+        String[] suggestionList = getArguments().getStringArray(SUGGESTIONS);
+        if (suggestionList != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                    // android.R.layout.simple_dropdown_item_1line
+                    android.R.layout.simple_list_item_1, suggestionList);
+            mInput.setAdapter(adapter);
+            mInput.setThreshold(1);
+        }
 
         return view;
     }

@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
-import eltos.simpledialogfragment.SimpleColorDialog;
+import eltos.simpledialogfragment.list.SimpleColorDialog;
+import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
-import eltos.simpledialogfragment.SimpleListDialog;
+import eltos.simpledialogfragment.list.SimpleListDialog;
+import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.input.SimpleEMailDialog;
 import eltos.simpledialogfragment.input.SimpleInputDialog;
 
@@ -28,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements
     private static final String MAIL_DIALOG = "mailDialogTag";
     private static final String LIST_DIALOG = "listDialogTag";
     private static final String COLOR_DIALOG = "colorDialogTag";
+    private static final String DATE = "datePickerTag";
+    private static final String TIME = "timePickerTag";
+    private static final String DATETIME1 = "datetime1";
+    private static final String DATETIME2 = "datetime2";
     private Button mAlertButton;
     private Button mCheckButton;
     private Button mInputButton;
@@ -39,7 +47,11 @@ public class MainActivity extends AppCompatActivity implements
     private Button mListDirectbutton;
     private Button mListbutton;
     private Button mColorbutton;
+    private Button mRecursiveButton;
     private int mColor = SimpleColorDialog.NONE;
+    private Button mDatePickerButton;
+    private Button mTimePickerButton;
+    private Button mDateTimePickerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements
         mListMultiplebutton = (Button) findViewById(R.id.list2);
         mListDirectbutton = (Button) findViewById(R.id.list3);
         mColorbutton = (Button) findViewById(R.id.color);
+        mRecursiveButton = (Button) findViewById(R.id.recursive);
+        mDatePickerButton = (Button) findViewById(R.id.datePicker);
+        mTimePickerButton = (Button) findViewById(R.id.timePicker);
+        mDateTimePickerButton = (Button) findViewById(R.id.dateTimePicker);
 
         mAlertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +102,15 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
+                String[] countries = getResources().getStringArray(R.array.countries_locale);
+
                 SimpleInputDialog.build()
                         .title(R.string.test)
-                        .msg(R.string.enter_name)
-                        .hint(R.string.name)
+                        .msg(R.string.enter_country)
+                        .hint(R.string.country)
                         .neut()
                         .pos(R.string.continue_)
+                        .suggest(countries)
                         .show(MainActivity.this, INPUT_DIALOG);
 
             }
@@ -140,11 +159,16 @@ public class MainActivity extends AppCompatActivity implements
             public void onClick(View v) {
 
 
-                String[] data = new String[]{"1", "2", "3", "4", "5", "9", "7", "8", "9", "10"};
+                String[] data = new String[]{"Amelia", "Ava", "Charlie", "Ella", "Emily", "George",
+                        "Harry", "Isabella", "Isla", "Jack", "Jacob", "Jessica", "Mia", "Noah",
+                        "Oliver", "Olivia", "Oscar", "Poppy", "Thomas", "William"};
 
                 SimpleListDialog.build()
-                        .title(R.string.numers)
+                        .title(R.string.names)
                         .items(data)
+                        .divider(true)
+                        .filterable(true)
+                        .emptyText(R.string.not_found)
                         .show(MainActivity.this, LIST_DIALOG);
 
             }
@@ -196,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements
                         .choiceMode(SimpleListDialog.MULTI_CHOICE)
                         .choicePreset(new int[]{0,2})
                         .items(getBaseContext(), data)
+                        .filterable(true)
                         .show(MainActivity.this, LIST_DIALOG);
 
             }
@@ -212,48 +237,118 @@ public class MainActivity extends AppCompatActivity implements
 
             }
         });
+        mRecursiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                RecursiveDialog.build()
+                        .show(MainActivity.this);
+
+            }
+        });
+        mDatePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleDateDialog.build()
+                        .minDate(new Date())    // only future days
+                        .show(MainActivity.this, DATE);
+
+            }
+        });
+        mTimePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleTimeDialog.build()
+                        .neut()
+                        .hour(12).minute(0)
+                        .show(MainActivity.this, TIME);
+
+            }
+        });
+        mDateTimePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleDateDialog.build()
+                        .show(MainActivity.this, DATETIME1);
+
+            }
+        });
 
     }
 
 
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-        if (which == BUTTON_POSITIVE && CHECK_DIALOG.equals(dialogTag)){
-            Toast.makeText(getBaseContext(), R.string.accepted, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        if (which == BUTTON_POSITIVE && INPUT_DIALOG.equals(dialogTag)){
-            String name = extras.getString(SimpleInputDialog.TEXT);
-            // ...
-        }
-        if (which == BUTTON_POSITIVE && MAIL_DIALOG.equals(dialogTag)){
-            int id = extras.getInt("ID");
-            String mail = extras.getString(SimpleEMailDialog.EMAIL);
-            // ...
-        }
-        if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)) {
-            ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
-            int[] label = extras.getIntArray("labels");
-            if (pos != null) {
-                if (label != null) {
-                    String a = "";
-                    for (int i : pos) {
-                        if (!a.isEmpty()) {
-                            a += ", ";
+        if (which == BUTTON_POSITIVE) {
+            switch (dialogTag) {
+                case CHECK_DIALOG:
+                    Toast.makeText(getBaseContext(), R.string.accepted, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case INPUT_DIALOG:
+                    String name = extras.getString(SimpleInputDialog.TEXT);
+                    // ...
+                    return true;
+
+                case MAIL_DIALOG:
+                    int id = extras.getInt("ID");
+                    String mail = extras.getString(SimpleEMailDialog.EMAIL);
+                    // ...
+                    return true;
+
+                case LIST_DIALOG:
+                    ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
+                    int[] label = extras.getIntArray("labels");
+                    if (pos != null) {
+                        if (label != null) {
+                            String a = "";
+                            for (int i : pos) {
+                                if (!a.isEmpty()) {
+                                    a += ", ";
+                                }
+                                a += getString(label[i]);
+                            }
+                            Toast.makeText(getBaseContext(), getResources().getQuantityString(
+                                    R.plurals.selected, pos.size(), pos.size()) + "\n" + a, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), getResources().getQuantityString(
+                                    R.plurals.selected, pos.size(), pos.size()), Toast.LENGTH_SHORT).show();
                         }
-                        a += getString(label[i]);
                     }
-                    Toast.makeText(getBaseContext(), getResources().getQuantityString(
-                            R.plurals.selected, pos.size(), pos.size()) + "\n" + a, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), getResources().getQuantityString(
-                            R.plurals.selected, pos.size(), pos.size()), Toast.LENGTH_SHORT).show();
-                }
+                    return true;
+
+                case COLOR_DIALOG:
+                    mColor = extras.getInt(SimpleColorDialog.COLOR);
+                    return true;
+
+                case DATE:
+                    Date date = new Date(extras.getLong(SimpleDateDialog.DATE));
+                    Toast.makeText(getBaseContext(), SimpleDateFormat.getDateInstance().format(date), Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case TIME:
+                    int hour = extras.getInt(SimpleTimeDialog.HOUR);
+                    int minute = extras.getInt(SimpleTimeDialog.MINUTE);
+                    Date time = new Date(0, 0, 0, hour, minute);
+                    Toast.makeText(getBaseContext(), SimpleDateFormat.getTimeInstance().format(time), Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case DATETIME1:
+                    SimpleTimeDialog.build()
+                            .extra(extras)
+                            .show(MainActivity.this, DATETIME2);
+                    return true;
+
+                case DATETIME2:
+                    Date datetime = new Date(extras.getLong(SimpleDateDialog.DATE));
+                    datetime.setHours(extras.getInt(SimpleTimeDialog.HOUR));
+                    datetime.setMinutes(extras.getInt(SimpleTimeDialog.MINUTE));
+                    Toast.makeText(getBaseContext(), SimpleDateFormat.getDateTimeInstance().format(datetime), Toast.LENGTH_SHORT).show();
+                    return true;
             }
-        }
-        if (which == BUTTON_POSITIVE && COLOR_DIALOG.equals(dialogTag)) {
-            mColor = extras.getInt(SimpleColorDialog.COLOR);
         }
         return false;
     }

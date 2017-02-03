@@ -21,6 +21,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         extends SimpleDialog<This> {
 
 
+
     /**
      * Inflate your custom view here.
      *

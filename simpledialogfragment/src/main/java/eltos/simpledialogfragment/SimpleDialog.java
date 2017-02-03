@@ -113,6 +113,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         getArguments().putInt(key, value);
         return (This) this;
     }
+    @SuppressWarnings("unchecked cast")
+    protected This setArg(String key, long value){
+        getArguments().putLong(key, value);
+        return (This) this;
+    }
     protected String getArgString(String key){
         Object value = getArguments().get(key);
         if (value instanceof String){
