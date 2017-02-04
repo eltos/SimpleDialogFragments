@@ -27,11 +27,11 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
     public static final int NONE = -1;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
-            0xf44336, 0xe91e63, 0x9c27b0, 0x673ab7,
-            0x3f51b5, 0x2196f3, 0x03a9f4, 0x00bcd4,
-            0x009688, 0x4caf50, 0x8bc34a, 0xcddc39,
-            0xffeb3b, 0xffc107, 0xff9800, 0xff5722,
-            0x795548, 0x9e9e9e, 0x607d8b
+            0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
+            0xff3f51b5, 0xff2196f3, 0xff03a9f4, 0xff00bcd4,
+            0xff009688, 0xff4caf50, 0xff8bc34a, 0xffcddc39,
+            0xffffeb3b, 0xffffc107, 0xffff9800, 0xffff5722,
+            0xff795548, 0xff9e9e9e, 0xff607d8b
     };
 
 
@@ -91,11 +91,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
 
     private class ColorAdapter extends AdvancedAdapter<Integer>{
 
-        @NonNull
-        private int[] mColors;
-
         ColorAdapter(int[] colors){
-            mColors = colors == null ? new int[0] : colors;
             if (colors != null) {
                 ArrayList<Pair<Integer, Long>> cs = new ArrayList<>(colors.length);
                 for (int color : colors) {

@@ -59,11 +59,21 @@ public class ColorWheelView extends View {
     }
 
     public void setColor(int color, boolean callListener){
-        setColor(new C(color), callListener);
+        setColorInternal(new C(color), callListener);
+    }
+
+    public void updateAlpha(int alpha){
+        updateAlpha(alpha, true);
+    }
+
+    public void updateAlpha(int alpha, boolean callListener){
+        C newC = new C(myColor);
+        newC.alpha(alpha);
+        setColorInternal(newC, callListener);
     }
 
     public int getColor(){
-        return mColor.rgb();
+        return myColor.rgba();
     }
 
     public void setOnColorChangeListener(OnColorChangeListener listener){
@@ -72,43 +82,58 @@ public class ColorWheelView extends View {
 
 
 
-    private C mColor = new C();
+    private C myColor = new C(Color.RED);
 
     private class C {
+        private int alpha = 0xFF;
         private float[] hsv = new float[3];
 
-        C(){
-            this(0);
-        }
-        C(int h, float s, float v){
-            hue(h); sat(s); val(v);
-        }
-        C(float[] hsv){
-            this((int) hsv[0], hsv[1], hsv[2]);
-        }
-        C(int r, int g, int b){
-            this(Color.rgb(r, g, b));
-        }
-        C(int rgb){
-            Color.colorToHSV(rgb, hsv);
-        }
-        C(C c){
-            this(c.hsv);
+        C(int a, int h, float s, float v){
+            alpha(a);
+            hue(h);
+            sat(s);
+            val(v);
         }
 
+        C(int rgba){
+            float[] hsv = new float[3];
+            Color.colorToHSV(rgba, hsv);
+            int alpha = Color.alpha(rgba);
+
+            alpha(alpha);
+            hue((int) hsv[0]);
+            sat(hsv[1]);
+            val(hsv[2]);
+        }
+
+        C(C c){
+            this(c.alpha(), c.hue(), c.sat(), c.val());
+        }
+
+        public boolean equalAlpha(C other){
+            return other.alpha == alpha;
+        }
+        public boolean equalHSV(C other){
+            return other.hsv[0] == hsv[0] && other.hsv[1] == hsv[1] && other.hsv[1] == hsv[1];
+        }
+        public boolean equalAlphaHSV(C other){
+            return equalAlpha(other) && equalHSV(other);
+        }
+
+        @Deprecated
         @Override
         public boolean equals(Object o) {
-            return super.equals(o) || o instanceof C && ((C) o).hsv[0] == hsv[0]
-                    && ((C) o).hsv[1] == hsv[1] && ((C) o).hsv[2] == hsv[2];
+            return super.equals(o) || o instanceof C && ((C) o).alpha == alpha
+                    && ((C) o).hsv[0] == hsv[0] && ((C) o).hsv[1] == hsv[1] && ((C) o).hsv[2] == hsv[2];
         }
 
-        int rgb(){
-            return Color.HSVToColor(hsv);
-        }
+        int rgb(){ return Color.HSVToColor(hsv); }
+        int rgba(){ return Color.HSVToColor(alpha, hsv); }
         int r(){ return (rgb() >> 16) & 0xFF; }
         int g(){ return (rgb() >> 8) & 0xFF; }
         int b(){ return rgb() & 0xFF; }
-        float[] hsv(){ return hsv; }
+        int alpha(){ return alpha; }
+        void alpha(int a){ alpha = a & 0xFF; }
         int hue(){
             return (int) hsv[0];
         }
@@ -129,7 +154,8 @@ public class ColorWheelView extends View {
         }
 
         C inverted(){
-            return new C(255-r(), 255-g(), 255-b());
+
+            return new C(Color.argb(alpha, 255-r(), 255-g(), 255-b()));
         }
 
         C contrastColor(){
@@ -139,21 +165,32 @@ public class ColorWheelView extends View {
                 return new C(Color.WHITE);
             }
         }
+
+        public C rotated(int degrees) {
+            return new C(alpha(), hue() + degrees, sat(), val());
+        }
     }
 
-    private void setColor(C color) {
-        setColor(color, true);
-    }
-    private void setColor(C color, boolean callListener){
-        if (!mColor.equals(color)) {
-            mColor = color;
 
-            updateDraw();
+    private void setColorInternal(C color) {
+        setColorInternal(color, true);
+    }
+    private void setColorInternal(C color, boolean callListener){
+        boolean hsvChanged = !myColor.equalHSV(color);
+        boolean changed = !myColor.equalAlphaHSV(color);
+        myColor = color;
+
+        triangle.setColor(myColor);
+        triangle.setRotation(myColor.hue());
+        rainbow.setColor(myColor);
+        colorPaint.setColor(myColor.rgba());
+
+        if (hsvChanged){
             invalidate();
+        }
 
-            if (mListener != null && callListener) {
-                mListener.onColorChange(mColor.rgb());
-            }
+        if (changed && mListener != null && callListener){
+            mListener.onColorChange(getColor());
         }
     }
 
@@ -170,19 +207,17 @@ public class ColorWheelView extends View {
 
         rainbow.setGeometry(center, radius, size);
 
-        triangle.setGeometry(center, radius - size/2 - padding);
+        triangle.setGeometry(center, radius - size/2, padding);
 
 
         circleBox.set(center.x - radius, center.y - radius, center.x + radius, center.y + radius);
 
         colorPaint.setStyle(Paint.Style.FILL);
 
-        updateDraw();
-
     }
 
 
-    private enum Touch {NONE, TRIANGLE, HUE}
+    private enum Touch {NONE, TRIANGLE, SUGGESTION, HUE}
     private Touch touch = Touch.NONE;
 
     @Override
@@ -200,22 +235,40 @@ public class ColorWheelView extends View {
             } else if (triangle.encloses(pointer)) {
                 touch = Touch.TRIANGLE;
                 handled = true;
+
+            } else if (triangle.suggestionTouched(pointer) != null){
+                touch = Touch.SUGGESTION;
+                handled = true;
             }
 
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (touch == Touch.HUE) {
-                setColor(rainbow.colorAt(pointer));
+                C newC = new C(myColor);
+                newC.hue(rainbow.hueAt(pointer));
+                setColorInternal(newC);
                 handled = true;
 
             } else if (touch == Touch.TRIANGLE) {
-                setColor(triangle.colorAt(pointer));
+                setColorInternal(triangle.colorAt(pointer));
+                handled = true;
+
+            } else if (touch == Touch.SUGGESTION){
+                if (triangle.suggestionTouched(pointer) == null){
+                    touch = Touch.NONE;
+                }
                 handled = true;
             }
 
 
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (touch == Touch.SUGGESTION){
+                C c = triangle.suggestionTouched(pointer);
+                if (c != null) { setColorInternal(c); }
+            }
+
             touch = Touch.NONE;
             handled = true;
+
         }
 
         if (handled) {
@@ -249,7 +302,8 @@ public class ColorWheelView extends View {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
 
-        ss.saveColor = mColor.hsv();
+        ss.saveColor = myColor.hsv;
+        ss.saveAlpha = myColor.alpha;
 
         return ss;
     }
@@ -263,11 +317,12 @@ public class ColorWheelView extends View {
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
 
-        mColor = new C(ss.saveColor);
+        myColor = new C(ss.saveAlpha, (int) ss.saveColor[0], ss.saveColor[1], ss.saveColor[2]);
     }
 
     static class SavedState extends BaseSavedState {
         float[] saveColor;
+        int saveAlpha;
 
         SavedState(Parcelable superState) {
             super(superState);
@@ -276,12 +331,14 @@ public class ColorWheelView extends View {
         private SavedState(Parcel in) {
             super(in);
             in.readFloatArray(saveColor);
+            saveAlpha = in.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeFloatArray(saveColor);
+            out.writeInt(saveAlpha);
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR =
@@ -389,18 +446,6 @@ public class ColorWheelView extends View {
 
 
 
-    private void updateDraw(){
-
-        triangle.setColor(mColor);
-        triangle.setRotation(mColor.hue());
-
-        rainbow.setColor(mColor);
-
-        colorPaint.setColor(mColor.rgb());
-
-    }
-
-
 
 
 
@@ -425,13 +470,17 @@ public class ColorWheelView extends View {
     private class Triangle {
         private PointF mCenter = new PointF();
         private float mRadius;
+        private float mPadding;
         private int mRotation;
-        private C mColor = new C();
+        private C mColor = new C(Color.BLACK);
 
         private PointF[] points;
         private Path path;
         private final Paint paint;
         private final Paint dotPaint;
+        class Sug{Paint paint; PointF pos; C color;}
+        private final Sug[] suggestions = new Sug[3];
+        private float suggestionSize;
         private float dotSize;
         private PointF dot = new PointF();
 
@@ -439,7 +488,7 @@ public class ColorWheelView extends View {
             this(new PointF(), 0);
         }
         Triangle(PointF center, float radius){
-            this(center, radius, 0, new C());
+            this(center, radius, 0, new C(Color.BLACK));
         }
         Triangle(PointF center, float radius, int rotation, C color){
             mRotation = rotation;
@@ -455,15 +504,24 @@ public class ColorWheelView extends View {
             dotPaint.setStyle(Paint.Style.STROKE);
             dotPaint.setStrokeWidth(marker);
 
-            setGeometry(center, radius);
+
+            for (int i = 0; i < suggestions.length; i++) {
+                suggestions[i] = new Sug();
+                suggestions[i].paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                suggestions[i].paint.setStyle(Paint.Style.FILL);
+                suggestions[i].pos = new PointF();
+            }
+
+            setGeometry(center, radius, 0);
 
             // fix for bug in hardware accelerated rendering where ComposeShader is unsupported
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        public void setGeometry(PointF center, float radius){
+        public void setGeometry(PointF center, float radius, float padding){
             mCenter = center;
             mRadius = radius;
+            mPadding = padding;
 
             updateGeometry();
             updateShader();
@@ -497,18 +555,26 @@ public class ColorWheelView extends View {
 
         private void updateGeometry(){
             points = new PointF[]{
-                    new PointF(mCenter.x + mRadius * (float) Math.cos(Math.toRadians(mRotation - 90)),
-                            mCenter.y + mRadius * (float) Math.sin(Math.toRadians(mRotation - 90))),
-                    new PointF(mCenter.x + mRadius * (float) Math.cos(Math.toRadians(mRotation + 30)),
-                            mCenter.y + mRadius * (float) Math.sin(Math.toRadians(mRotation + 30))),
-                    new PointF(mCenter.x + mRadius * (float) Math.cos(Math.toRadians(mRotation + 150)),
-                            mCenter.y + mRadius * (float) Math.sin(Math.toRadians(mRotation + 150)))
+                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation - 90)),
+                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation - 90))),
+                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 30)),
+                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 30))),
+                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 150)),
+                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 150)))
             };
+
             path = new Path();
             path.moveTo(points[0].x, points[0].y);
             path.lineTo(points[1].x, points[1].y);
             path.lineTo(points[2].x, points[2].y);
             path.close();
+
+            for (int i = 0; i < suggestions.length; i++) {
+                suggestions[i].pos.set(
+                        mCenter.x + (0.75f*mRadius-mPadding/4)*(float)Math.cos(Math.toRadians(mRotation - 30 + i*120)),
+                        mCenter.y + (0.75f*mRadius-mPadding/4)*(float)Math.sin(Math.toRadians(mRotation - 30 + i*120)));
+            }
+            suggestionSize = mRadius/4 - 0.75f*mPadding;
         }
 
         private void updateShader(){
@@ -534,6 +600,13 @@ public class ColorWheelView extends View {
             dotPaint.setColor(mColor.inverted().rgb());
             dot = new PointF(C.x + (B.x - C.x + (A.x - B.x)*mColor.sat())*mColor.val(),
                     C.y + (B.y - C.y + (A.y - B.y)*mColor.sat())*mColor.val());
+
+            for (int i = 0; i < suggestions.length; i++) {
+                C c = mColor.rotated((i+1)*90);
+                suggestions[i].color = c;
+                suggestions[i].paint.setColor(c.rgb());
+            }
+
         }
 
 
@@ -542,21 +615,15 @@ public class ColorWheelView extends View {
             PointF B = points[1];
             PointF C = points[2];
 
-            PointF pC = new PointF(point.x - C.x, point.y - C.y);
-            PointF cC = new PointF((B.x + A.x)/2 - C.x, (B.y + A.y)/2 - C.y);
-
-            float v = (pC.x*cC.x+pC.y*cC.y)/(cC.x*cC.x+cC.y*cC.y); // value
-
-            PointF pB = new PointF(point.x - B.x, point.y - B.y);
-            PointF cB = new PointF((A.x - B.x)/2 , (A.y - B.y)/2);
-
-            float s = (pB.x*cB.x+pB.y*cB.y)/(cB.x*cB.x+cB.y*cB.y)/2; // saturation
-
-            s = ((point.y-C.y)*(B.x-C.x) - (point.x - C.x)*(B.y-C.y)) /
+            float s = ((point.y-C.y)*(B.x-C.x) - (point.x - C.x)*(B.y-C.y)) /
                     ((point.x-C.x)*(A.y-B.y) - (point.y-C.y)*(A.x-B.x));
-            v = (point.x-C.x) / ((A.x-B.x)*s+B.x-C.x);
+            float v = (point.x-C.x) / ((A.x-B.x)*s+B.x-C.x);
 
-            return new C(mColor.hue(), s, v);
+            C newColor = new C(mColor);
+            newColor.sat(s);
+            newColor.val(v);
+
+            return newColor;
         }
 
 
@@ -572,10 +639,24 @@ public class ColorWheelView extends View {
             return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
         }
 
+        C suggestionTouched(PointF point){
+            for (Sug sug : suggestions) {
+                double d = Math.sqrt(Math.pow(sug.pos.x - point.x, 2)
+                        + Math.pow(sug.pos.y - point.y, 2));
+                if (d <= suggestionSize) {
+                    return sug.color;
+                }
+            }
+            return null;
+        }
+
 
         public void draw(Canvas canvas) {
             canvas.drawPath(path, paint);
             canvas.drawCircle(dot.x, dot.y, dotSize, dotPaint);
+            for (Sug sug : suggestions) {
+                canvas.drawCircle(sug.pos.x, sug.pos.y, suggestionSize, sug.paint);
+            }
         }
     }
 
@@ -585,7 +666,7 @@ public class ColorWheelView extends View {
         private PointF center;
         private float radius;
         private float with;
-        private C mColor = new C();
+        private C mColor = new C(Color.BLACK);
         private final Paint paint;
         private final Paint markerPaint;
         private float[] marker;
@@ -594,10 +675,10 @@ public class ColorWheelView extends View {
             this(new PointF(), 0, 0);
         }
         Rainbow(PointF center, float radius, float with){
-            this(center, radius, with, new C());
+            this(center, radius, with, new C(Color.BLACK));
         }
         Rainbow(PointF center, float radius, float with, C color){
-            this.mColor = color;
+            mColor = color;
 
             float marker = dp(1);
 
@@ -643,12 +724,12 @@ public class ColorWheelView extends View {
         }
 
         private void updateMarker(){
-            markerPaint.setColor(new C(mColor.hue(), 1.0f, 1.0f).inverted().rgb());
+            markerPaint.setColor(new C(0xFF, mColor.hue(), 1.0f, 1.0f).inverted().rgb());
             float sx = (float) Math.cos(Math.toRadians(mColor.hue())),
                     sy = (float) Math.sin(Math.toRadians(mColor.hue()));
             marker = new float[]{
-                    center.x + (radius -with/2)*sx, center.y + (radius -with/2)*sy,
-                    center.x + (radius +with/2)*sx, center.y + (radius +with/2)*sy};
+                    center.x + (radius -with/3)*sx, center.y + (radius -with/3)*sy,
+                    center.x + (radius +with/3)*sx, center.y + (radius +with/3)*sy};
         }
 
 
@@ -665,11 +746,8 @@ public class ColorWheelView extends View {
             return radius - with <= r && r <= radius + with;
         }
 
-        public C colorAt(PointF pointer) {
-            int hue = (int) Math.toDegrees(Math.atan2(pointer.y-center.y, pointer.x-center.x)) + 450;
-            C color = new C(mColor);
-            color.hue(hue);
-            return color;
+        public int hueAt(PointF pointer) {
+            return (int) Math.toDegrees(Math.atan2(pointer.y-center.y, pointer.x-center.x)) + 450;
         }
     }
 

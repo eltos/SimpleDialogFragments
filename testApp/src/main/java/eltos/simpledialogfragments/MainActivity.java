@@ -286,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 SimpleColorWheelDialog.build()
                         .color(mColor)
+                        .alpha(true)
                         .show(MainActivity.this);
 
             }

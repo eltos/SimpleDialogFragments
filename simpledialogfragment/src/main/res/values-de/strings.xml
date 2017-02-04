@@ -2,4 +2,5 @@
 <resources>
     <string name="email_address">E-Mail Adresse</string>
     <string name="invalid_email_address">Ungültige E-Mail Adresse</string>
+    <string name="transparency">Transparenz</string>
 </resources>
