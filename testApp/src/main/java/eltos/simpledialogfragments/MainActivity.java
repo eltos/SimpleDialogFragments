@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
-import eltos.simpledialogfragment.list.SimpleColorDialog;
+import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
+import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.list.SimpleListDialog;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements
     private Button mDatePickerButton;
     private Button mTimePickerButton;
     private Button mDateTimePickerButton;
+    private Button mColorWheelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements
         mDatePickerButton = (Button) findViewById(R.id.datePicker);
         mTimePickerButton = (Button) findViewById(R.id.timePicker);
         mDateTimePickerButton = (Button) findViewById(R.id.dateTimePicker);
+        mColorWheelButton = (Button) findViewById(R.id.colorWheelButton);
 
         mAlertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements
                         .title(R.string.test)
                         .msg(R.string.enter_country)
                         .hint(R.string.country)
+                        .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                         .neut()
                         .pos(R.string.continue_)
                         .suggest(countries)
@@ -273,6 +277,16 @@ public class MainActivity extends AppCompatActivity implements
 
                 SimpleDateDialog.build()
                         .show(MainActivity.this, DATETIME1);
+
+            }
+        });
+        mColorWheelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SimpleColorWheelDialog.build()
+                        .color(mColor)
+                        .show(MainActivity.this);
 
             }
         });

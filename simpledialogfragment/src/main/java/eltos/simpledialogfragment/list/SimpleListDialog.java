@@ -108,6 +108,9 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
             @Override
             protected boolean matches(String string, @NonNull CharSequence constraint) {
                 if (string != null){
+                    if (string.startsWith(constraint.toString())){
+                        return true;
+                    }
                     for (String word : string.split(" ")) {
                         if (word.startsWith(constraint.toString())){
                             return true;

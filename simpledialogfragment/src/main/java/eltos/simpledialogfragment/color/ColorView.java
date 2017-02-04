@@ -1,4 +1,4 @@
-package eltos.simpledialogfragment.list;
+package eltos.simpledialogfragment.color;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

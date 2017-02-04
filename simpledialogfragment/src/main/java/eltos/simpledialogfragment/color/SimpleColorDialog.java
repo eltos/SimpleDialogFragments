@@ -1,4 +1,4 @@
-package eltos.simpledialogfragment.list;
+package eltos.simpledialogfragment.color;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,14 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.list.AdvancedAdapter;
+import eltos.simpledialogfragment.list.CustomListDialog;
 
 
 /**

@@ -2,4 +2,5 @@
 <resources>
     <string name="invalid_email_address">Invalid email address</string>
     <string name="email_address">Email address</string>
+    <string name="hex">HEX:</string>
 </resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <eltos.simpledialogfragment.color.ColorWheelView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/colorWheel" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/colorWheel"
+        android:id="@+id/linearLayout"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_toLeftOf="@+id/linearLayout2"
+        android:layout_toStartOf="@+id/linearLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hex"
+            android:id="@+id/textView2"
+            android:layout_alignTop="@+id/hexEditText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hexEditText"
+            android:hint="RRGGBB"
+            android:typeface="monospace"
+            android:maxLength="6"
+            android:lines="1"
+            android:maxLines="1"
+            android:inputType="textNoSuggestions|textCapWords|text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/colorWheel"
+        android:layout_margin="8dp"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:id="@+id/colorOld"
+            android:background="#ff0000" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/colorNew"
+            android:background="#00ff00" />
+    </LinearLayout>
+
+
+</RelativeLayout>
