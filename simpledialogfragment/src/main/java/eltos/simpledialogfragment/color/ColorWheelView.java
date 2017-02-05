@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ComposeShader;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -15,6 +16,7 @@ import android.graphics.SweepGradient;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,10 +32,11 @@ public class ColorWheelView extends View {
 
     private OnColorChangeListener mListener;
 
-    private Triangle triangle;
+    private TriangleWithSuggestions triangle;
     private Rainbow rainbow;
     private final RectF circleBox = new RectF();
     private final Paint colorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private C myColor = new C(0xFFCF4747);
 
 
     interface OnColorChangeListener {
@@ -50,7 +53,8 @@ public class ColorWheelView extends View {
 
     public ColorWheelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        triangle = new Triangle();
+        triangle = new TriangleWithSuggestions(); // new Triangle();
+
         rainbow = new Rainbow();
     }
 
@@ -82,7 +86,7 @@ public class ColorWheelView extends View {
 
 
 
-    private C myColor = new C(Color.RED);
+
 
     private class C {
         private int alpha = 0xFF;
@@ -114,7 +118,7 @@ public class ColorWheelView extends View {
             return other.alpha == alpha;
         }
         public boolean equalHSV(C other){
-            return other.hsv[0] == hsv[0] && other.hsv[1] == hsv[1] && other.hsv[1] == hsv[1];
+            return other.hsv[0] == hsv[0] && other.hsv[1] == hsv[1] && other.hsv[2] == hsv[2];
         }
         public boolean equalAlphaHSV(C other){
             return equalAlpha(other) && equalHSV(other);
@@ -143,14 +147,17 @@ public class ColorWheelView extends View {
         float val(){
             return hsv[2];
         }
-        void hue(int h){
-            hsv[0] = h % 360;
+        C hue(int h){
+            hsv[0] = mod(h, 360);
+            return this;
         }
-        void sat(float s){
+        C sat(float s){
             hsv[1] = Math.min(1, Math.max(0, s));
+            return this;
         }
-        void val(float v){
+        C val(float v){
             hsv[2] = Math.min(1, Math.max(0, v));
+            return this;
         }
 
         C inverted(){
@@ -182,7 +189,9 @@ public class ColorWheelView extends View {
 
         triangle.setColor(myColor);
         triangle.setRotation(myColor.hue());
+        triangle.invalidate();
         rainbow.setColor(myColor);
+//        rainbow.invalidate();
         colorPaint.setColor(myColor.rgba());
 
         if (hsvChanged){
@@ -193,6 +202,19 @@ public class ColorWheelView extends View {
             mListener.onColorChange(getColor());
         }
     }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        // Try for a width based on our minimum
+        int minW = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+        int w = resolveSizeAndState(minW, widthMeasureSpec, 1);
+
+        setMeasuredDimension(w, w);
+    }
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -206,8 +228,9 @@ public class ColorWheelView extends View {
 
 
         rainbow.setGeometry(center, radius, size);
-
+//        rainbow.invalidate();
         triangle.setGeometry(center, radius - size/2, padding);
+        triangle.invalidate();
 
 
         circleBox.set(center.x - radius, center.y - radius, center.x + radius, center.y + radius);
@@ -285,17 +308,6 @@ public class ColorWheelView extends View {
     }
 
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        // Try for a width based on our minimum
-        int minW = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
-        int w = resolveSizeAndState(minW, widthMeasureSpec, 1);
-
-        setMeasuredDimension(w, w);
-    }
-
 
     @Override
     public Parcelable onSaveInstanceState() {
@@ -353,96 +365,14 @@ public class ColorWheelView extends View {
     }
 
 
-    //
-//    class Tri {
-//        private Bitmap bitmap;
-//        private Paint paint;
-//        private Matrix matrix;
-//
-//        Tri(int size){
-//            bitmap = createColorTriangleBitmap(Color.RED, size);
-//            paint = new Paint();
-//            matrix = new Matrix();
-//            setRotation(0);
-//        }
-//
-//        public void setHue(float hue) {
-//            paint.setColorFilter(createHueFilter(getHue()));
-//        }
-//
-//        public void setRotation(float degrees){
-//            matrix.setRotate(degrees - 120, bitmap.getWidth()/2, bitmap.getHeight()/2);
-//        }
-//
-//        public void draw(Canvas canvas){
-//            canvas.drawBitmap(bitmap, matrix, paint);
-//        }
-//
-//        public ColorFilter createHueFilter(float degrees) {
-//            ColorMatrix cm = new ColorMatrix();
-//
-//            degrees %= 360;
-//            if (degrees != 0) {
-//                float cosVal = (float) Math.cos(Math.toRadians(degrees));
-//                float sinVal = (float) Math.sin(Math.toRadians(degrees));
-//                float lumR = 0.213f;
-//                float lumG = 0.715f;
-//                float lumB = 0.072f;
-//                float[] mat = new float[]
-//                        {
-//                                lumR + cosVal * (1 - lumR) + sinVal * (-lumR), lumG + cosVal * (-lumG) + sinVal * (-lumG), lumB + cosVal * (-lumB) + sinVal * (1 - lumB), 0, 0,
-//                                lumR + cosVal * (-lumR) + sinVal * (0.143f), lumG + cosVal * (1 - lumG) + sinVal * (0.140f), lumB + cosVal * (-lumB) + sinVal * (-0.283f), 0, 0,
-//                                lumR + cosVal * (-lumR) + sinVal * (-(1 - lumR)), lumG + cosVal * (-lumG) + sinVal * (lumG), lumB + cosVal * (1 - lumB) + sinVal * (lumB), 0, 0,
-//                                0f, 0f, 0f, 1f, 0f,
-//                                0f, 0f, 0f, 0f, 1f};
-//                cm.postConcat(new ColorMatrix(mat));
-//            }
-//
-//            return new ColorMatrixColorFilter(cm);
-//        }
-//
-//        private Bitmap createColorTriangleBitmap(int color, int size) {
-//
-//            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-//
-//            float[] hsv = new float[3];
-//            Color.colorToHSV(color, hsv);
-//
-//            for (int x = 0; x < size; x++) {
-//                for (int y = 0; y < size; y++) {
-//                    if (y <= 0.75*size) {
-//                        float v = (float) y / (0.75f * size);
-//                        float dx = 0.433f * v;
-//                        float x0 = (0.5f - dx) * size;
-//                        float x1 = (0.5f + dx) * size;
-//                        if (x0 <= x && x <= x1) {
-//                            float s = ((float) x - x0) / (x1 - x0);
-//                            hsv[1] = s; // saturation 0 .. 1
-//                            hsv[2] = v; // value 0 .. 1
-//
-//                            int c = Color.HSVToColor(hsv);
-//
-//                            bitmap.setPixel(x, y, c);
-//
-//                        }
-//                    }
-//                }
-//            }
-//
-//            return bitmap;
-//
-//        }
-//
-//
-//    }
-
-
     private float dp(int value){
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 value /*dp*/, getResources().getDisplayMetrics());
     }
 
-
+    private float mod(float i, float m){
+        return (((i % m) + m) % m);
+    }
 
 
 
@@ -463,37 +393,253 @@ public class ColorWheelView extends View {
 
 
 
+    private class TriangleWithSuggestions extends Triangle {
+        private Field[] mFields = new Field[9];
+        private Paint strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        private class Field{
+            private Path rawPath = new Path();
+            private Path cachedPath = new Path();
+            private C color = new C(Color.BLACK);
+            private Paint paint;
+            public float startAngle = 0;
+            public float endAngle = 0;
+
+            Field(){
+                paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                paint.setStyle(Paint.Style.FILL);
+            }
+        }
+
+        TriangleWithSuggestions(){
+            super();
+
+            strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            strokePaint.setStyle(Paint.Style.STROKE);
+            strokePaint.setColor(Color.YELLOW);
+
+            for (int i = 0; i < mFields.length; i++) {
+                mFields[i] = new Field();
+            }
+
+        }
 
 
+
+        /**
+         *
+         * @param R radius
+         * @param p padding
+         * @param alpha angle in deg (0..120°)
+         * @param pos true for pos rotation, false otherwise
+         */
+        private PointF calcInnerPoint(float R, float p, float alpha, boolean pos){
+            float a = (float) Math.toRadians(alpha);
+            float tan30 = (float) Math.tan(Math.toRadians(30));
+
+            float x = alpha == 90 ? 0 : (float) (R / (1 + Math.tan(a) / tan30));
+            float y = alpha == 90 ? R*tan30 : (float) (x * Math.tan(a));
+            float xy = (float) Math.sqrt(x*x+y*y);
+
+            float b = (float) (pos ? Math.toRadians(30) + a : Math.toRadians(150) - a);
+
+            float d = (float) (Math.abs((0.5*Math.cos(b)-1)/Math.sin(b))*p);
+            float r = (float) Math.sqrt(Math.pow(xy + d, 2) + Math.pow(p, 2)/4);
+
+            float aId = (float) Math.asin(p/2/r);
+            float aI = pos ? a+aId : a-aId;
+
+            return new PointF(r*(float)Math.cos(aI), r*(float)Math.sin(aI));
+        }
+
+
+
+        private void createFieldGeometry(Field f, float startAngle, float sweepAngle) {
+            startAngle = mod(startAngle, 360);
+            int rot = startAngle < 120 ? 0 : startAngle < 240 ? 1 : 2;
+            startAngle = mod(startAngle, 120);
+
+            float R = mRadius - mPadding;
+            float p = mPadding;
+
+            PointF p_i1 = calcInnerPoint(R, p, startAngle, true);
+            PointF p_i2 = calcInnerPoint(R, p, startAngle + sweepAngle, false);
+
+            float aAd = (float) Math.toDegrees(Math.asin(p/2/R));
+            float alpha_1 = startAngle + aAd;
+            float alpha_2 = startAngle + sweepAngle - aAd;
+//            PointF p_a1 = new PointF(R*(float)Math.cos(Math.toRadians(alpha_1)), R*(float)Math.sin(Math.toRadians(alpha_1)));
+//            PointF p_a2 = new PointF(R*(float)Math.cos(Math.toRadians(alpha_2)), R*(float)Math.sin(Math.toRadians(alpha_2)));
+
+            p_i1.offset(mCenter.x, mCenter.y);
+            p_i2.offset(mCenter.x, mCenter.y);
+//            p_a1.offset(mCenter.x, mCenter.y);
+//            p_a2.offset(mCenter.x, mCenter.y);
+
+            RectF oval = new RectF(mCenter.x - R, mCenter.y - R, mCenter.x + R, mCenter.y + R);
+
+
+            //f.points = new PointF[]{p_i1, p_a1, p_a2, p_i2};
+            f.rawPath = new Path();
+            f.rawPath.moveTo(p_i1.x, p_i1.y);
+//            f.path.lineTo(p_a1.x, p_a1.y);
+//            f.path.lineTo(p_a2.x, p_a2.y);
+            f.rawPath.arcTo(oval, alpha_1, alpha_2-alpha_1);
+            f.rawPath.lineTo(p_i2.x, p_i2.y);
+
+            f.rawPath.close();
+
+
+            Matrix mMatrix = new Matrix();
+            mMatrix.postRotate( -90 + rot*120, mCenter.x, mCenter.y);
+            f.rawPath.transform(mMatrix);
+            f.startAngle = mod(alpha_1 -90 + rot*120, 360);
+            f.endAngle = mod(alpha_2 -90 + rot*120, 360);
+
+        }
+
+
+
+
+        @Override
+        protected void updateGeometryDependant() {
+            super.updateGeometryDependant();
+
+//            for (int i = 0; i < mFields.length; i++) {
+//                int alpha = 30 + 30*i + 30*(i/3);
+//                createFieldGeometry(mFields[i], alpha - 15, 30);
+//            }
+
+            for (int i = 0; i < mFields.length; i++) {
+                float alpha = 7.5f + 35*i + 15*(i/3);
+                createFieldGeometry(mFields[i], alpha, 35);
+            }
+
+//            createFieldGeometry(mFields[0],   7.5f     , 35);
+//            createFieldGeometry(mFields[1],   7.5f + 35, 35);
+//            createFieldGeometry(mFields[2],   7.5f + 70, 35);
+//            createFieldGeometry(mFields[3], 127.5f     , 35);
+//            createFieldGeometry(mFields[4], 127.5f + 35, 35);
+//            createFieldGeometry(mFields[5], 127.5f + 70, 35);
+//            createFieldGeometry(mFields[6], 247.5f     , 35);
+//            createFieldGeometry(mFields[7], 247.5f + 35, 35);
+//            createFieldGeometry(mFields[8], 247.5f + 70, 35);
+
+        }
+
+        @Override
+        protected void updateRotationDependant() {
+            super.updateRotationDependant();
+
+            Matrix rotationMatrix = new Matrix();
+            rotationMatrix.postRotate(mRotation, mCenter.x, mCenter.y);
+
+            for (Field field : mFields) {
+                field.rawPath.transform(rotationMatrix, /* to */ field.cachedPath);
+            }
+        }
+
+        @Override
+        protected void updateColorDependant(boolean hsvChanged, boolean hueChanged) {
+            super.updateColorDependant(hsvChanged, hueChanged);
+
+            mFields[0].color = new C(mColor).sat(0.75f);        // light saturation shades
+            mFields[1].color = new C(mColor).sat(0.50f);
+            mFields[2].color = new C(mColor).sat(0.25f);
+            mFields[3].color = new C(mColor).rotated(120);      // complementary colors
+            mFields[4].color = new C(mColor).rotated(180);
+            mFields[5].color = new C(mColor).rotated(240);
+            mFields[6].color = new C(mColor).val(0.25f);        // dark value shades
+            mFields[7].color = new C(mColor).val(0.50f);
+            mFields[8].color = new C(mColor).val(0.75f);
+
+            if (hsvChanged) {
+                for (Field field : mFields) {
+                    field.paint.setColor(field.color.rgb());
+                }
+            }
+
+//            int[] rot = new int[]{30, 60, 90, 150, 180, 210, 270, 300, 330};
+//
+//            for (int i = 0; i < mFields.length; i++) {
+//                mFields[i].color = mColor.rotated(rot[i]);
+//                mFields[i].paint.setColor(mFields[i].color.rgb());
+//            }
+        }
+
+        @Override
+        public void draw(Canvas canvas) {
+            super.draw(canvas);
+
+            for (Field field : mFields) {
+                canvas.drawPath(field.cachedPath, field.paint);
+            }
+        }
+
+
+        public C suggestionTouched(PointF pointer){
+
+            double r = Math.sqrt(Math.pow(pointer.x - mCenter.x, 2)+Math.pow(pointer.y - mCenter.y, 2));
+            if (r > mRadius - mPadding){
+                return null; // outside
+            }
+
+            if (encloses(pointer)){
+                return null; // inside
+            }
+
+            float phi = mod((float) (Math.toDegrees(
+                    Math.atan2(pointer.y-mCenter.y, pointer.x-mCenter.x)) - mRotation), 360);
+
+            for (Field field : mFields) {
+                if (between(field.startAngle, phi, field.endAngle)){
+                    return field.color;
+                }
+            }
+
+            return null;
+
+        }
+    }
+
+    private boolean between(float lowAngle, float angle, float highAngle){
+        lowAngle = mod(lowAngle, 360);
+        angle = mod(angle, 360);
+        highAngle = mod(highAngle, 360);
+        if (lowAngle < highAngle){
+            return lowAngle <= angle && angle <= highAngle;
+        } else {
+            return lowAngle <= angle || angle <= highAngle;
+        }
+    }
 
 
     private class Triangle {
-        private PointF mCenter = new PointF();
-        private float mRadius;
-        private float mPadding;
-        private int mRotation;
-        private C mColor = new C(Color.BLACK);
+        protected PointF mCenter = new PointF();
+        protected float mRadius = 0;
+        protected float mPadding = 0;
+        protected int mRotation = 0;
+        protected C mColor = new C(Color.BLACK);
 
-        private PointF[] points;
-        private Path path;
+        protected boolean geometryNeedsUpdate = true;
+        protected boolean rotationNeedsUpdate = true;
+        protected boolean colorHueChanged = true;
+        protected boolean colorHsvChanged = true;
+        protected boolean colorNeedsUpdate = true;
+
+        private PointF A = new PointF();
+        private PointF B = new PointF();
+        private PointF C = new PointF();
+        protected Path path = new Path();
         private final Paint paint;
         private final Paint dotPaint;
         class Sug{Paint paint; PointF pos; C color;}
         private final Sug[] suggestions = new Sug[3];
-        private float suggestionSize;
-        private float dotSize;
+        private float suggestionSize = 0;
+        private float dotSize = 0;
         private PointF dot = new PointF();
 
         Triangle(){
-            this(new PointF(), 0);
-        }
-        Triangle(PointF center, float radius){
-            this(center, radius, 0, new C(Color.BLACK));
-        }
-        Triangle(PointF center, float radius, int rotation, C color){
-            mRotation = rotation;
-            mColor = color;
-
             dotSize = dp(4);
             float marker = dp(1);
 
@@ -512,20 +658,17 @@ public class ColorWheelView extends View {
                 suggestions[i].pos = new PointF();
             }
 
-            setGeometry(center, radius, 0);
-
             // fix for bug in hardware accelerated rendering where ComposeShader is unsupported
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
         public void setGeometry(PointF center, float radius, float padding){
+            if (!mCenter.equals(center) || radius != mRadius || padding != mPadding){
+                geometryNeedsUpdate = true;
+            }
             mCenter = center;
             mRadius = radius;
             mPadding = padding;
-
-            updateGeometry();
-            updateShader();
-            updateDot();
         }
 
 
@@ -535,89 +678,104 @@ public class ColorWheelView extends View {
 
         void setRotation(int rotation){
             if (mRotation != rotation) {
-                mRotation = rotation;
-                updateGeometry();
-                updateShader();
-                updateDot();
+                rotationNeedsUpdate = true;
             }
+            mRotation = rotation;
         }
 
         public void setColor(C color) {
-            if (mColor.hue() != color.hue()) {
-                mColor = color;
-                updateShader();
+            if (!mColor.equalAlphaHSV(color)) {
+                colorNeedsUpdate = true;
             }
-
+            colorHsvChanged |= !mColor.equalHSV(color);
+            colorHueChanged |= mColor.hue() != color.hue();
             mColor = color;
-            updateDot();
-
         }
 
-        private void updateGeometry(){
-            points = new PointF[]{
-                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation - 90)),
-                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation - 90))),
-                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 30)),
-                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 30))),
-                    new PointF(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 150)),
-                            mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 150)))
-            };
+        public void forceInvalidate(){
+            geometryNeedsUpdate = true;
+            rotationNeedsUpdate = true;
+            colorHueChanged = true;
+            colorHsvChanged = true;
+            colorNeedsUpdate = true;
+            invalidate();
+        }
+
+        public void invalidate(){
+            if (geometryNeedsUpdate){
+                updateGeometryDependant();
+            }
+            if (geometryNeedsUpdate || rotationNeedsUpdate){
+                updateRotationDependant();
+            }
+            if (geometryNeedsUpdate || rotationNeedsUpdate || colorNeedsUpdate){
+                updateColorDependant(
+                        geometryNeedsUpdate || rotationNeedsUpdate || colorHsvChanged,
+                        geometryNeedsUpdate || rotationNeedsUpdate || colorHueChanged);
+            }
+            geometryNeedsUpdate = false;
+            rotationNeedsUpdate = false;
+            colorHueChanged = false;
+            colorHsvChanged = false;
+            colorNeedsUpdate = false;
+        }
+
+        protected void updateGeometryDependant(){
+
+//            for (int i = 0; i < suggestions.length; i++) {
+//                suggestions[i].pos.set(
+//                        mCenter.x + (0.75f*mRadius-mPadding/4)*(float)Math.cos(Math.toRadians(mRotation - 30 + i*120)),
+//                        mCenter.y + (0.75f*mRadius-mPadding/4)*(float)Math.sin(Math.toRadians(mRotation - 30 + i*120)));
+//            }
+//            suggestionSize = mRadius/4 - 0.75f*mPadding;
+        }
+
+        protected void updateRotationDependant(){
+            A.set(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation - 90)),
+                    mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation - 90)));
+            B.set(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 30)),
+                    mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 30)));
+            C.set(mCenter.x + (mRadius-mPadding) * (float) Math.cos(Math.toRadians(mRotation + 150)),
+                    mCenter.y + (mRadius-mPadding) * (float) Math.sin(Math.toRadians(mRotation + 150)));
 
             path = new Path();
-            path.moveTo(points[0].x, points[0].y);
-            path.lineTo(points[1].x, points[1].y);
-            path.lineTo(points[2].x, points[2].y);
+            path.moveTo(A.x, A.y);
+            path.lineTo(B.x, B.y);
+            path.lineTo(C.x, C.y);
             path.close();
 
-            for (int i = 0; i < suggestions.length; i++) {
-                suggestions[i].pos.set(
-                        mCenter.x + (0.75f*mRadius-mPadding/4)*(float)Math.cos(Math.toRadians(mRotation - 30 + i*120)),
-                        mCenter.y + (0.75f*mRadius-mPadding/4)*(float)Math.sin(Math.toRadians(mRotation - 30 + i*120)));
-            }
-            suggestionSize = mRadius/4 - 0.75f*mPadding;
         }
 
-        private void updateShader(){
-            PointF A = points[0];
-            PointF B = points[1];
-            PointF C = points[2];
-
-            Shader base = new LinearGradient(A.x, A.y, (B.x + C.x)/2, (B.y + C.y)/2,
-                    Color.HSVToColor(new float[]{mColor.hue(), 1, 1}), Color.BLACK, Shader.TileMode.CLAMP);
-            Shader light = new LinearGradient((A.x + C.x)/2, (A.y + C.y)/2, B.x, B.y,
-                    Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP);
-            Shader both = new ComposeShader(base, light, PorterDuff.Mode.ADD);
-
-            paint.setShader(both);
-
-        }
-
-        private void updateDot(){
-            PointF A = points[0];
-            PointF B = points[1];
-            PointF C = points[2];
-
-            dotPaint.setColor(mColor.inverted().rgb());
-            dot = new PointF(C.x + (B.x - C.x + (A.x - B.x)*mColor.sat())*mColor.val(),
-                    C.y + (B.y - C.y + (A.y - B.y)*mColor.sat())*mColor.val());
-
-            for (int i = 0; i < suggestions.length; i++) {
-                C c = mColor.rotated((i+1)*90);
-                suggestions[i].color = c;
-                suggestions[i].paint.setColor(c.rgb());
+        protected void updateColorDependant(boolean hsvChanged, boolean hueChanged){
+            if (hueChanged) {
+                Shader base = new LinearGradient(A.x, A.y, (B.x + C.x) / 2, (B.y + C.y) / 2,
+                        Color.HSVToColor(new float[]{mColor.hue(), 1, 1}), Color.BLACK, Shader.TileMode.CLAMP);
+                Shader light = new LinearGradient((A.x + C.x) / 2, (A.y + C.y) / 2, B.x, B.y,
+                        Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP);
+                Shader both = new ComposeShader(base, light, PorterDuff.Mode.ADD);
+                paint.setShader(both);
             }
-
+            if (hsvChanged) {
+                dotPaint.setColor(mColor.inverted().rgb());
+                dot = new PointF(C.x + (B.x - C.x + (A.x - B.x) * mColor.sat()) * mColor.val(),
+                        C.y + (B.y - C.y + (A.y - B.y) * mColor.sat()) * mColor.val());
+            }
+//            for (int i = 0; i < suggestions.length; i++) {
+//                C c = mColor.rotated((i+1)*90);
+//                suggestions[i].color = c;
+//                suggestions[i].paint.setColor(c.rgb());
+//            }
         }
 
 
         C colorAt(PointF point){
-            PointF A = points[0];
-            PointF B = points[1];
-            PointF C = points[2];
+            PointF p = new PointF(point.x, point.y);
 
-            float s = ((point.y-C.y)*(B.x-C.x) - (point.x - C.x)*(B.y-C.y)) /
-                    ((point.x-C.x)*(A.y-B.y) - (point.y-C.y)*(A.x-B.x));
-            float v = (point.x-C.x) / ((A.x-B.x)*s+B.x-C.x);
+            float s = ((p.y-C.y)*(B.x-C.x) - (p.x-C.x)*(B.y-C.y)) /
+                    ((p.x-C.x)*(A.y-B.y) - (p.y-C.y)*(A.x-B.x));
+            float v = (p.x-C.x) / ((A.x-B.x)*s+B.x-C.x);
+
+            if (v < 0){ s *= -1; }  // correct s for better user experience
 
             C newColor = new C(mColor);
             newColor.sat(s);
@@ -629,67 +787,55 @@ public class ColorWheelView extends View {
 
 
         boolean encloses(PointF point){
-            boolean b1 = sign(point, points[0], points[1]) < 0.0f,
-                    b2 = sign(point, points[1], points[2]) < 0.0f,
-                    b3 = sign(point, points[2], points[0]) < 0.0f;
-
+            boolean b1 = sign(point, A, B) < 0.0f,
+                    b2 = sign(point, B, C) < 0.0f,
+                    b3 = sign(point, C, A) < 0.0f;
             return ((b1 == b2) && (b2 == b3));
         }
         private float sign(PointF p1, PointF p2, PointF p3) {
             return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
         }
 
-        C suggestionTouched(PointF point){
-            for (Sug sug : suggestions) {
-                double d = Math.sqrt(Math.pow(sug.pos.x - point.x, 2)
-                        + Math.pow(sug.pos.y - point.y, 2));
-                if (d <= suggestionSize) {
-                    return sug.color;
-                }
-            }
-            return null;
-        }
+//        C suggestionTouched(PointF point){
+//            for (Sug sug : suggestions) {
+//                double d = Math.sqrt(Math.pow(sug.pos.x - point.x, 2)
+//                        + Math.pow(sug.pos.y - point.y, 2));
+//                if (d <= suggestionSize) {
+//                    return sug.color;
+//                }
+//            }
+//            return null;
+//        }
 
 
         public void draw(Canvas canvas) {
             canvas.drawPath(path, paint);
             canvas.drawCircle(dot.x, dot.y, dotSize, dotPaint);
-            for (Sug sug : suggestions) {
-                canvas.drawCircle(sug.pos.x, sug.pos.y, suggestionSize, sug.paint);
-            }
+//            for (Sug sug : suggestions) {
+//                canvas.drawCircle(sug.pos.x, sug.pos.y, suggestionSize, sug.paint);
+//            }
         }
     }
 
     private class Rainbow {
 
-        private RectF boundingBox;
-        private PointF center;
-        private float radius;
-        private float with;
+        private RectF boundingBox = new RectF();
+        private PointF center = new PointF();
+        private float radius = 0;
+        private float with = 0;
         private C mColor = new C(Color.BLACK);
         private final Paint paint;
         private final Paint markerPaint;
-        private float[] marker;
+        private float[] marker = new float[]{0, 0, 0, 0};
 
         Rainbow(){
-            this(new PointF(), 0, 0);
-        }
-        Rainbow(PointF center, float radius, float with){
-            this(center, radius, with, new C(Color.BLACK));
-        }
-        Rainbow(PointF center, float radius, float with, C color){
-            mColor = color;
-
-            float marker = dp(1);
-
             paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setStyle(Paint.Style.STROKE);
 
             markerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             markerPaint.setStyle(Paint.Style.STROKE);
-            markerPaint.setStrokeWidth(marker);
+            markerPaint.setStrokeWidth(dp(1));
 
-            setGeometry(center, radius, with);
         }
 
         public void setGeometry(PointF center, float radius, float with){
@@ -747,7 +893,8 @@ public class ColorWheelView extends View {
         }
 
         public int hueAt(PointF pointer) {
-            return (int) Math.toDegrees(Math.atan2(pointer.y-center.y, pointer.x-center.x)) + 450;
+            return (int) mod((float) (Math.toDegrees(
+                    Math.atan2(pointer.y-center.y, pointer.x-center.x)) + 90), 360);
         }
     }
 

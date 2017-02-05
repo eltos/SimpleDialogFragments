@@ -37,7 +37,16 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         return new SimpleColorWheelDialog();
     }
 
+    /**
+     * Specifies the initial color of the color wheel
+     * @param color the initial color (argb)
+     */
     public SimpleColorWheelDialog color(int color){ return setArg(COLOR, color); }
+
+    /**
+     * Specifies weather a seek bar for transparency control is displayed
+     * @param enabled weather or not to allow transparency (alpha) adjustment
+     */
     public SimpleColorWheelDialog alpha(boolean enabled){ return setArg(ALPHA, enabled); }
 
 
