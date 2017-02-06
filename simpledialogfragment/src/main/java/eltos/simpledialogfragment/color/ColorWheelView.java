@@ -16,7 +16,6 @@ import android.graphics.SweepGradient;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -203,7 +202,7 @@ public class ColorWheelView extends View {
         }
     }
 
-    enum Keep {WIDTH, HEIGHT};
+    enum Keep {WIDTH, HEIGHT}
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -211,42 +210,32 @@ public class ColorWheelView extends View {
 
         Keep keep = Keep.WIDTH;
 
-        Log.d("CWV", "=== MEASURE ===");
-
-
         int desiredHeight = (int) dp(50);
         if (getLayoutParams().height == ViewGroup.LayoutParams.MATCH_PARENT){
             desiredHeight = MeasureSpec.getSize(heightMeasureSpec); // parent height
             keep = Keep.HEIGHT;
-            Log.d("CWV", "Keep HEIGHT");
         }
 
         int desiredWidth = (int) dp(50);
         if (getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT){
             desiredWidth = MeasureSpec.getSize(widthMeasureSpec); // parent width
             keep = Keep.WIDTH;
-            Log.d("CWV", "Keep WIDTH");
         }
 
-        Log.d("CWV", "desiredWith: "+desiredWidth+", desiredHeight: "+desiredHeight);
         int size = keep == Keep.HEIGHT ? desiredHeight : desiredWidth;
-        Log.d("CWV", "preliminary size: "+size);
 
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         if (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
             int widthLimited = MeasureSpec.getSize(widthMeasureSpec);
             size = Math.min(size, widthLimited);
-            Log.d("CWV", "width LIMITED to "+widthLimited+"! Preliminary size: "+size);
         }
 
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         if (heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
             int heightLimited = MeasureSpec.getSize(heightMeasureSpec);
             size = Math.min(size, heightLimited);
-            Log.d("CWV", "height LIMITED to "+heightLimited+"! Preliminary size: "+size);
         }
 
-        Log.d("CWV", "Final size: "+size);
         setMeasuredDimension(size, size);
 
 
@@ -290,10 +279,12 @@ public class ColorWheelView extends View {
             if (rainbow.encloses(pointer)) {
                 // touch on hue circle
                 touch = Touch.HUE;
+                setColorInternal(new C(myColor).hue(rainbow.hueAt(pointer)));
                 handled = true;
 
             } else if (triangle.encloses(pointer)) {
                 touch = Touch.TRIANGLE;
+                setColorInternal(triangle.colorAt(pointer));
                 handled = true;
 
             } else if (triangle.suggestionTouched(pointer) != null){
@@ -303,9 +294,7 @@ public class ColorWheelView extends View {
 
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (touch == Touch.HUE) {
-                C newC = new C(myColor);
-                newC.hue(rainbow.hueAt(pointer));
-                setColorInternal(newC);
+                setColorInternal(new C(myColor).hue(rainbow.hueAt(pointer)));
                 handled = true;
 
             } else if (touch == Touch.TRIANGLE) {

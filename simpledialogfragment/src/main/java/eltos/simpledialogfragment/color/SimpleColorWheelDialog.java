@@ -5,7 +5,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -68,8 +67,6 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
-
-        // inflate and set your custom view here
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_color_wheel, null);
@@ -91,6 +88,13 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
             }
         });
 
+        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
+        mColorWheelView.setColor(color);
+        mAlphaSlider.setMax(255);
+        mAlphaSlider.setProgress(255 - Color.alpha(color));
+        mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
+
+        mHexInput.addTextChangedListener(hexEditWatcher);
         mColorWheelView.setOnColorChangeListener(new ColorWheelView.OnColorChangeListener() {
             @Override
             public void onColorChange(int color) {
@@ -102,19 +106,13 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         });
 
 
-        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
-        mColorWheelView.setColor(color);
-        mAlphaSlider.setMax(255);
-        mAlphaSlider.setProgress(255 - Color.alpha(color));
-        mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
-        mHexInput.addTextChangedListener(hexEditWatcher);
+
 
         mTransparency.setVisibility(getArguments().getBoolean(ALPHA) ? View.VISIBLE : View.GONE);
 
         mAlphaSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d("XXX", "P: "+progress+" , u="+fromUser);
                 if (fromUser){
                     mColorWheelView.updateAlpha(255 - progress);
                 }

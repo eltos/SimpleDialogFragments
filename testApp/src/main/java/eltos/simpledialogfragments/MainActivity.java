@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TIME = "timePickerTag";
     private static final String DATETIME1 = "datetime1";
     private static final String DATETIME2 = "datetime2";
+    private static final String COLOR_WHEEL_DIALOG = "colorWheelDialogTag";
     private Button mAlertButton;
     private Button mCheckButton;
     private Button mInputButton;
@@ -284,9 +285,9 @@ public class MainActivity extends AppCompatActivity implements
             public void onClick(View v) {
 
                 SimpleColorWheelDialog.build()
-//                        .color(mColor)
-//                        .alpha(true)
-                        .show(MainActivity.this);
+                        .color(mColor)
+                        .alpha(true)
+                        .show(MainActivity.this, COLOR_WHEEL_DIALOG);
 
             }
         });
@@ -336,6 +337,10 @@ public class MainActivity extends AppCompatActivity implements
 
                 case COLOR_DIALOG:
                     mColor = extras.getInt(SimpleColorDialog.COLOR);
+                    return true;
+
+                case COLOR_WHEEL_DIALOG:
+                    mColor = extras.getInt(SimpleColorWheelDialog.COLOR);
                     return true;
 
                 case DATE:
