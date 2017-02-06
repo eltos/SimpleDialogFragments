@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_address">Dirección de correo electrónico</string>
+    <string name="transparency">Transparencia</string>
+    <string name="invalid_email_address">Dirección de correo electrónico no válida</string>
+</resources>

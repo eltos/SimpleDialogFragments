@@ -7,6 +7,5 @@
 
     <dimen name="dialog_color_item_size">50dp</dimen>
 
-    <dimen name="defaultWheelCircleWith">30dp</dimen>
 
 </resources>

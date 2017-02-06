@@ -20,8 +20,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-
-import eltos.simpledialogfragment.R;
+import android.view.ViewGroup;
 
 /**
  *
@@ -29,6 +28,7 @@ import eltos.simpledialogfragment.R;
  */
 public class ColorWheelView extends View {
 
+    public static int DEFAULT_COLOR = 0xFFCF4747;
 
     private OnColorChangeListener mListener;
 
@@ -36,7 +36,7 @@ public class ColorWheelView extends View {
     private Rainbow rainbow;
     private final RectF circleBox = new RectF();
     private final Paint colorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private C myColor = new C(0xFFCF4747);
+    private C myColor = new C(DEFAULT_COLOR);
 
 
     interface OnColorChangeListener {
@@ -203,25 +203,62 @@ public class ColorWheelView extends View {
         }
     }
 
+    enum Keep {WIDTH, HEIGHT};
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        // Try for a width based on our minimum
-        int minW = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
-        int w = resolveSizeAndState(minW, widthMeasureSpec, 1);
+        Keep keep = Keep.WIDTH;
 
-        setMeasuredDimension(w, w);
+        Log.d("CWV", "=== MEASURE ===");
+
+
+        int desiredHeight = (int) dp(50);
+        if (getLayoutParams().height == ViewGroup.LayoutParams.MATCH_PARENT){
+            desiredHeight = MeasureSpec.getSize(heightMeasureSpec); // parent height
+            keep = Keep.HEIGHT;
+            Log.d("CWV", "Keep HEIGHT");
+        }
+
+        int desiredWidth = (int) dp(50);
+        if (getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT){
+            desiredWidth = MeasureSpec.getSize(widthMeasureSpec); // parent width
+            keep = Keep.WIDTH;
+            Log.d("CWV", "Keep WIDTH");
+        }
+
+        Log.d("CWV", "desiredWith: "+desiredWidth+", desiredHeight: "+desiredHeight);
+        int size = keep == Keep.HEIGHT ? desiredHeight : desiredWidth;
+        Log.d("CWV", "preliminary size: "+size);
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        if (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
+            int widthLimited = MeasureSpec.getSize(widthMeasureSpec);
+            size = Math.min(size, widthLimited);
+            Log.d("CWV", "width LIMITED to "+widthLimited+"! Preliminary size: "+size);
+        }
+
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
+            int heightLimited = MeasureSpec.getSize(heightMeasureSpec);
+            size = Math.min(size, heightLimited);
+            Log.d("CWV", "height LIMITED to "+heightLimited+"! Preliminary size: "+size);
+        }
+
+        Log.d("CWV", "Final size: "+size);
+        setMeasuredDimension(size, size);
+
+
     }
 
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 
-        float size = getResources().getDimension(R.dimen.defaultWheelCircleWith);
+        float size = Math.max(dp(5), dp(30)*Math.min(w, h)/900);
 
-        float padding = dp(10);
+        float padding = Math.max(dp(2), dp(10)*Math.min(w, h)/900);
 
         PointF center = new PointF(w/2, h/2);
         float radius = (Math.min(w, h) - padding - size)/2;

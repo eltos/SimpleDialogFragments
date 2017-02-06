@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transparency">Transparens</string>
+    <string name="email_address">E-postadresse</string>
+    <string name="invalid_email_address">Ugyldig e-postadresse</string>
+</resources>

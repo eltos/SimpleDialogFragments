@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transparency">Transparence</string>
+    <string name="email_address">Adresse e-mail</string>
+    <string name="invalid_email_address">Adresse e-mail invalide</string>
+</resources>

@@ -1,28 +1,27 @@
 package eltos.simpledialogfragments;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
-import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
-import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
-import eltos.simpledialogfragment.list.SimpleListDialog;
 import eltos.simpledialogfragment.SimpleTimeDialog;
+import eltos.simpledialogfragment.color.SimpleColorDialog;
+import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
 import eltos.simpledialogfragment.input.SimpleEMailDialog;
 import eltos.simpledialogfragment.input.SimpleInputDialog;
+import eltos.simpledialogfragment.list.SimpleListDialog;
 
 public class MainActivity extends AppCompatActivity implements
         SimpleDialog.OnDialogResultListener,
@@ -285,8 +284,8 @@ public class MainActivity extends AppCompatActivity implements
             public void onClick(View v) {
 
                 SimpleColorWheelDialog.build()
-                        .color(mColor)
-                        .alpha(true)
+//                        .color(mColor)
+//                        .alpha(true)
                         .show(MainActivity.this);
 
             }

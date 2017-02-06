@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -102,12 +101,13 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
             }
         });
 
-        mHexInput.addTextChangedListener(hexEditWatcher);
 
-        int color = getArguments().getInt(COLOR, 0xFFFF0000);
+        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
         mColorWheelView.setColor(color);
         mAlphaSlider.setMax(255);
         mAlphaSlider.setProgress(255 - Color.alpha(color));
+        mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
+        mHexInput.addTextChangedListener(hexEditWatcher);
 
         mTransparency.setVisibility(getArguments().getBoolean(ALPHA) ? View.VISIBLE : View.GONE);
 
