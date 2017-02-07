@@ -22,6 +22,8 @@ import java.util.Map;
 import eltos.simpledialogfragment.R;
 
 /**
+ * A dialog that displays a list.
+ * Choice modes such as SINGLE_CHOICE or MULTI_CHOICE can be activated.
  *
  * Created by eltos on 02.01.2017.
  */
@@ -33,6 +35,12 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         return new SimpleListDialog();
     }
 
+    /**
+     * Populate the list with the labels provided
+     *
+     * @param context a context for resolving the string ids
+     * @param labelsResourceIds a list of android string resource identifiers
+     */
     public SimpleListDialog items(Context context, int[] labelsResourceIds){
         ArrayList<SimpleListItem> list = new ArrayList<>(labelsResourceIds.length);
         for (int id : labelsResourceIds) {
@@ -40,6 +48,12 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         }
         return items(list);
     }
+
+    /**
+     * Populate the list with the labels provided
+     *
+     * @param labels a list of string to be displayed
+     */
     public SimpleListDialog items(String[] labels){
         ArrayList<SimpleListItem> list = new ArrayList<>(labels.length);
         for (String label : labels) {
@@ -47,13 +61,33 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         }
         return items(list);
     }
+
+    /**
+     * Populate the list with the labels provided
+     * The corresponding ids can be used to identify which labels were selected
+     *
+     * @param labels a list of string to be displayed
+     * @param ids a list of ids corresponding to the strings
+     *
+     * @throws IllegalArgumentException if the arrays length don't match
+     */
     public SimpleListDialog items(String[] labels, long[] ids){
+        if (labels.length != ids.length){
+            throw new IllegalArgumentException("Length of ID-array must match label array length!");
+        }
         ArrayList<SimpleListItem> list = new ArrayList<>(labels.length);
         for (int i = 0; i < labels.length && i < ids.length; i++) {
             list.add(new SimpleListItem(labels[i], ids[i]));
         }
         return items(list);
     }
+
+    /**
+     * Populate the list with the Items provided.
+     * See {@link SimpleListItem} for further details
+     *
+     * @param items a list of {@link SimpleListItem}
+     */
     public SimpleListDialog items(ArrayList<SimpleListItem> items){
         getArguments().putParcelableArrayList(DATA_SET, items);
         return this;
@@ -104,20 +138,11 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
             setDataAndIds(dataAndIds);
         }
 
-        AdvancedFilter mFilter = new AdvancedFilter() {
+        AdvancedFilter mFilter = new AdvancedFilter(){
+
             @Override
-            protected boolean matches(String string, @NonNull CharSequence constraint) {
-                if (string != null){
-                    if (string.startsWith(constraint.toString())){
-                        return true;
-                    }
-                    for (String word : string.split(" ")) {
-                        if (word.startsWith(constraint.toString())){
-                            return true;
-                        }
-                    }
-                }
-                return false;
+            protected boolean matches(String object, @NonNull CharSequence constraint) {
+                return matchesWord(object, constraint);
             }
         };
 

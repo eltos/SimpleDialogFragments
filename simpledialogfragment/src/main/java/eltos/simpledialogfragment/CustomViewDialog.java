@@ -3,6 +3,8 @@ package eltos.simpledialogfragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 
 
 /**
+ * The base class for all custom dialogs.
  * Extend this class and implement/overwrite the methods to use your custom view
  * See {@link SimpleCheckDialog} as an example.
  *
@@ -26,7 +29,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * Inflate your custom view here.
      *
      * @param savedInstanceState The last saved instance state of the Fragment,
-     * or null if this is a freshly created Fragment.
+     * or null if this fragment is created for the first time.
      *
      * @return Return a new View to be displayed by the Fragment.
      */
@@ -46,10 +49,10 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
 
     /**
-     * Call this method to en- or disable the positive button,
+     * Call this method to enable or disable the positive button,
      * e.g. if you want to consider for preconditions to be fulfilled
      *
-     * Note: call in {@link #onDialogShown} rather than {@link #onCreateContentView}
+     * Note: call this in {@link #onDialogShown} rather than {@link #onCreateContentView}
      */
     protected void setPositiveButtonEnabled(boolean enabled){
         if (positiveButton != null) {
@@ -61,7 +64,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * Overwrite this method to catch positive button presses,
      * e.g. if you need to verify input by the user
      *
-     * Note: do not call {@link #pressPositiveButton} here !!!
+     * Note: do not call {@link #pressPositiveButton} here!
      *
      * @return false to ignore the press, true to process normally
      */
@@ -79,12 +82,8 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
     }
 
-
-
-
-
     /**
-     * Simulates a positive button press
+     * Simulates a positive button press.
      * You may use this method in combination with
      * ImeOptions such as {@link EditorInfo#IME_ACTION_DONE}
      *
@@ -106,6 +105,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
 
     @Override
+    @CallSuper
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(false);

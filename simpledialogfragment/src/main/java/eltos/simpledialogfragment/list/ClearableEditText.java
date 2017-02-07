@@ -4,6 +4,8 @@ package eltos.simpledialogfragment.list;
  * Modified from
  * https://github.com/droidparts/droidparts/blob/develop/droidparts/src/org/droidparts/widget/ClearableEditText.java
  *
+ * An edit text with a clear button
+ *
  *
  * Copyright 2016 Alex Yanchenko
  *

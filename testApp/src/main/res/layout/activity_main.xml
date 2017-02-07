@@ -4,8 +4,7 @@
     tools:context="eltos.simpledialogfragments.MainActivity"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/scrollView"
-    android:nestedScrollingEnabled="true">
+    android:id="@+id/scrollView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -58,7 +57,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Simple"
+                android:text="Suggestions"
                 android:id="@+id/input"
                 android:layout_row="1"
                 android:layout_column="0" />
@@ -234,8 +233,6 @@
             android:layout_height="wrap_content"
             android:text="@string/popup"
             android:id="@+id/recursive"
-            android:layout_row="3"
-            android:layout_column="0"
             android:layout_alignTop="@+id/alert"
             android:layout_toRightOf="@+id/alert"
             android:layout_toEndOf="@+id/alert" />

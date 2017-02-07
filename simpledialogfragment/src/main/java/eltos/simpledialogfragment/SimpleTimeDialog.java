@@ -1,17 +1,12 @@
 package eltos.simpledialogfragment;
 
-import android.app.TimePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
+ * A time-picker dialog
  *
  * Created by eltos on 02.02.2017.
  */
@@ -28,10 +23,27 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog> impleme
         return new SimpleTimeDialog();
     }
 
-
+    /**
+     * Specify the initially set hour
+     *
+     * @param hour initial hour (0-23)
+     */
     public SimpleTimeDialog hour(int hour){ return setArg(HOUR, hour); }
+
+    /**
+     * Specify the initially set minute
+     *
+     * @param minute initial minute (0-59)
+     */
     public SimpleTimeDialog minute(int minute){ return setArg(MINUTE, minute); }
+
+    /**
+     * Changes the hour display mode between 24 and AM/PM
+     *
+     * @param view24Hour true to use 24 hour mode, false to use AM/PM
+     */
     public SimpleTimeDialog set24HourView(boolean view24Hour){ return setArg(VIEW_24_HOUR, view24Hour); }
+
 
 
 
@@ -66,7 +78,7 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog> impleme
 
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
+        // currently not used
     }
 
     @Override

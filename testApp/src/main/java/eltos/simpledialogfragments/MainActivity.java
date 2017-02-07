@@ -216,14 +216,16 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
-
-                int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
+                String[] data = new String[100];
+                for (int i = 0; i < data.length; i++) {
+                    data[i] = getString(R.string.choice_i, i);
+                }
 
                 SimpleListDialog.build()
                         .title(R.string.select_any)
                         .choiceMode(SimpleListDialog.MULTI_CHOICE)
                         .choicePreset(new int[]{0,2})
-                        .items(getBaseContext(), data)
+                        .items(data)
                         .filterable(true)
                         .show(MainActivity.this, LIST_DIALOG);
 
@@ -237,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements
                         .title(R.string.pick_a_color)
                         .colorPreset(mColor)
 //                        .choiceMode(SimpleColorDialog.SINGLE_CHOICE_DIRECT)
+                        .allowCustom(true)
                         .show(MainActivity.this, COLOR_DIALOG);
 
             }

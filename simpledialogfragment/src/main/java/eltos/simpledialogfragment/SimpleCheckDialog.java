@@ -9,7 +9,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 /**
- * An SimpleDialogFragment with a checkbox
+ * An simple dialog with a checkbox that can be set as required before proceeding
+ *
+ * Result:
+ *      CHECKED     boolean     Weather the checkbox was finally checked
  *
  * Created by eltos on 14.10.2015.
  */
@@ -26,9 +29,33 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
         return new SimpleCheckDialog();
     }
 
+    /**
+     * Sets the initial check state
+     *
+     * @param preset checkbox initial state
+     */
     public SimpleCheckDialog check(boolean preset){ return setArg(CHECKED, preset); }
+
+    /**
+     * Sets the checkbox's label
+     *
+     * @param checkBoxLabel the label as string
+     */
     public SimpleCheckDialog label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
+
+    /**
+     * Sets the checkbox's label
+     *
+     * @param checkBoxLabelResourceId the label as android string resource
+     */
     public SimpleCheckDialog label(@StringRes int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
+
+    /**
+     * Weather the check is required. The positive button will be disabled until the checkbox
+     * got checked
+     *
+     * @param required weather checking the checkbox is required
+     */
     public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
 
     private boolean canGoAhead() {

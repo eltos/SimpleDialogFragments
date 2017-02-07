@@ -8,6 +8,10 @@ import java.util.regex.Pattern;
 import eltos.simpledialogfragment.R;
 
 /**
+ * An extension for the input dialog that will ensure the input is a valid email address
+ *
+ * Results:
+ *      EMAIL    String      The entered email-address
  *
  * Created by expos on 02.01.2017.
  */

@@ -30,4 +30,5 @@
     <string name="not_found">Not found</string>
     <string name="country">Country</string>
     <string name="names">Names</string>
+    <string name="choice_i">Choice %1$s</string>
 </resources>

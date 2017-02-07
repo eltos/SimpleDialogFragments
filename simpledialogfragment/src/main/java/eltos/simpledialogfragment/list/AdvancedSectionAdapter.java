@@ -6,6 +6,7 @@ import android.widget.SectionIndexer;
 import java.util.ArrayList;
 
 /**
+ * An extension of AdvancedAdapter that provides a section indexer
  *
  * Created by eltos on 02.02.2017.
  */

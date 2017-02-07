@@ -15,6 +15,10 @@ import eltos.simpledialogfragment.CustomViewDialog;
 import eltos.simpledialogfragment.R;
 
 /**
+ * A dialog with a color wheel to pick a custom color. Supports transparency
+ *
+ * Result:
+ *      COLOR   int     Selected color (argb)
  *
  * Created by eltos on 04.02.2017.
  */
@@ -37,12 +41,14 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
     /**
      * Specifies the initial color of the color wheel
+     *
      * @param color the initial color (argb)
      */
     public SimpleColorWheelDialog color(int color){ return setArg(COLOR, color); }
 
     /**
      * Specifies weather a seek bar for transparency control is displayed
+     *
      * @param enabled weather or not to allow transparency (alpha) adjustment
      */
     public SimpleColorWheelDialog alpha(boolean enabled){ return setArg(ALPHA, enabled); }
@@ -77,8 +83,16 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mNew = (ImageView) view.findViewById(R.id.colorNew);
         mOld = (ImageView) view.findViewById(R.id.colorOld);
 
-        mOld.setVisibility(getArguments().containsKey(COLOR) ? View.VISIBLE : View.GONE);
+
+        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
         final int oldColor = getArguments().getInt(COLOR);
+
+        mColorWheelView.setColor(color);
+        mNew.setImageDrawable(new ColorDrawable(color));
+        mAlphaSlider.setMax(255);
+        mAlphaSlider.setProgress(255 - Color.alpha(color));
+        mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
+        mOld.setVisibility(getArguments().containsKey(COLOR) ? View.VISIBLE : View.GONE);
         mOld.setImageDrawable(new ColorDrawable(oldColor));
         mOld.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +102,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
             }
         });
 
-        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
-        mColorWheelView.setColor(color);
-        mAlphaSlider.setMax(255);
-        mAlphaSlider.setProgress(255 - Color.alpha(color));
-        mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
+
 
         mHexInput.addTextChangedListener(hexEditWatcher);
         mColorWheelView.setOnColorChangeListener(new ColorWheelView.OnColorChangeListener() {

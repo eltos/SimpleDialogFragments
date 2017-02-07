@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * A widget to pick a hsv based color
  *
  * Created by eltos on 03.02.2017.
  */
@@ -245,9 +246,9 @@ public class ColorWheelView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 
-        float size = Math.max(dp(5), dp(30)*Math.min(w, h)/900);
+        float size = Math.max(dp(5), Math.min(dp(30), dp(30)*Math.min(w, h)/900));
 
-        float padding = Math.max(dp(2), dp(10)*Math.min(w, h)/900);
+        float padding = Math.max(dp(2), Math.min(dp(10), dp(10)*Math.min(w, h)/900));
 
         PointF center = new PointF(w/2, h/2);
         float radius = (Math.min(w, h) - padding - size)/2;

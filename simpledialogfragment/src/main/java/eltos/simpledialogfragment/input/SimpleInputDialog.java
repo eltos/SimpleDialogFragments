@@ -26,7 +26,11 @@ import eltos.simpledialogfragment.R;
 import eltos.simpledialogfragment.SimpleDialog;
 
 /**
- * An SimpleDialogFragment with an input field
+ * An simple dialog with an input field. Supports suggestions, input validations and
+ * max length options.
+ *
+ * Results:
+ *      TEXT    String      The entered text
  *
  * Created by eltos on 14.10.2015.
  */
@@ -42,10 +46,6 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     private static final String MAX_LENGTH = TAG + "max_length";
     private static final String SUGGESTIONS = TAG + "suggestions";
 
-    public interface OnDialogResultListener extends SimpleDialog.OnDialogResultListener {
-        String TEXT = SimpleInputDialog.TEXT;
-    }
-
     private AutoCompleteTextView mInput;
     private TextInputLayout mInputLayout;
 
@@ -53,13 +53,62 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         return new SimpleInputDialog();
     }
 
-    public SimpleInputDialog hint(boolean hint){ return setArg(HINT, hint); }
+    /**
+     * Sets the EditText's hint
+     *
+     * @param hint the hint as string
+     */
+    public SimpleInputDialog hint(String hint){ return setArg(HINT, hint); }
+
+    /**
+     * Sets the EditText's hint
+     *
+     * @param hintResourceId the hint as android string resource
+     */
     public SimpleInputDialog hint(@StringRes int hintResourceId){ return setArg(HINT, hintResourceId); }
+
+    /**
+     * Sets the EditText's initial text
+     *
+     * @param text initial text as string
+     */
     public SimpleInputDialog text(String text){ return setArg(TEXT, text); }
+
+    /**
+     * Sets the EditText's initial text
+     *
+     * @param textResourceId initial text as android string resource
+     */
     public SimpleInputDialog text(@StringRes int textResourceId){ return setArg(TEXT, textResourceId); }
+
+    /**
+     * Sets the input type
+     * Note: Remember to Supply {@link InputType#TYPE_CLASS_TEXT} for Text!
+     *
+     * @param inputType the InputType
+     */
     public SimpleInputDialog inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
+
+    /**
+     * Allow empty input. Default is to disable the positive button until text is entered.
+     *
+     * @param allow weather to allow empty input
+     */
     public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
+
+    /**
+     * Sets a max limit to the EditText.
+     *
+     * @param maxLength the maximum text length
+     */
     public SimpleInputDialog max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }
+
+    /**
+     * Provide an array of suggestions to be shown while the user is typing
+     *
+     * @param context a context to resolve the resource ids
+     * @param stringResourceIds suggestion array as android string resources
+     */
     public SimpleInputDialog suggest(Context context, int[] stringResourceIds){
         String[] strings = new String[stringResourceIds.length];
         for (int i = 0; i < stringResourceIds.length; i++) {
@@ -67,11 +116,53 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         }
         return suggest(strings);
     }
+
+    /**
+     * Provide an array of suggestions to be shown while the user is typing
+     *
+     * @param strings suggestion string array
+     */
     public SimpleInputDialog suggest(String[] strings){
         getArguments().putStringArray(SUGGESTIONS, strings);
         return this;
     }
 
+
+
+
+    public interface InputValidator {
+        /**
+         * Let the hosting fragment or activity implement this interface to control
+         * when a user can proceed or to display an error message on an invalid input.
+         * The method is called every time the user hits the positive button
+         *
+         * @param dialogTag the tag of this fragment
+         * @param input the text entered by the user
+         * @param extras the extras passed with {@link #extra(Bundle)}
+         * @return an error message to display or null if the input is valid
+         */
+        String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
+    }
+
+    protected String onValidateInput(@Nullable String input){
+        Bundle extras = getArguments().getBundle(BUNDLE);
+        if (extras == null) extras = new Bundle();
+        if (getTargetFragment() instanceof InputValidator) {
+            return ((InputValidator) getTargetFragment())
+                    .validate(getTag(), input, extras);
+        }
+        if (getActivity() instanceof InputValidator) {
+            return ((InputValidator) getActivity())
+                    .validate(getTag(), input, extras);
+        }
+        return null;
+    }
+
+
+
+    /**
+     * @return the current text or null
+     */
     @Nullable
     public String getText(){
         return mInput.getText() != null ? mInput.getText().toString() : null;
@@ -81,6 +172,9 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         return getText() == null || getText().trim().isEmpty();
     }
 
+    /**
+     * Helper for opening the soft keyboard
+     */
     public void openKeyboard(){
         InputMethodManager imm = (InputMethodManager) getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -178,35 +272,6 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
             mInputLayout.setErrorEnabled(true);
             return false;
         }
-    }
-
-
-    public interface InputValidator {
-        /**
-         * Let the hosting fragment or activity implement this interface to control
-         * when a user can proceed or to display an error message on an invalid input.
-         * The method is called every time the user hits the positive button
-         *
-         * @param dialogTag the tag of this fragment
-         * @param input the text entered by the user
-         * @param extras the extras passed with {@link #extra(Bundle)}
-         * @return an error message to display or null if the input is valid
-         */
-        String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
-    }
-
-    protected String onValidateInput(@Nullable String input){
-        Bundle extras = getArguments().getBundle(BUNDLE);
-        if (extras == null) extras = new Bundle();
-        if (getTargetFragment() instanceof InputValidator) {
-            return ((InputValidator) getTargetFragment())
-                    .validate(getTag(), input, extras);
-        }
-        if (getActivity() instanceof InputValidator) {
-            return ((InputValidator) getActivity())
-                    .validate(getTag(), input, extras);
-        }
-        return null;
     }
 
 

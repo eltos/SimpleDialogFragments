@@ -7,9 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
@@ -51,15 +49,21 @@ import eltos.simpledialogfragment.R;
 
 class ColorView extends FrameLayout implements Checkable {
 
+
     private @ColorInt int mColor;
     private boolean mChecked = false;
     private int mOutlineWidth = 0;
 
     private ImageView mCheckView;
     private FrameLayout mColorView;
+    private FrameLayout mRippleView;
 
     private final Animation showAnim;
     private final Animation hideAnim;
+    private Style mStyle = Style.CHECK;
+    private Drawable mDarkRippleDrawable;
+    private Drawable mLightRippleDrawable;
+
 
     public ColorView(Context context) {
         this(context, null);
@@ -78,8 +82,19 @@ class ColorView extends FrameLayout implements Checkable {
         LayoutInflater.from(getContext()).inflate(R.layout.color_item, this, true);
         mCheckView = (ImageView) findViewById(R.id.checkmark);
         mColorView = (FrameLayout) findViewById(R.id.color);
+        mRippleView = (FrameLayout) findViewById(R.id.ripple);
 
         update();
+    }
+
+    enum Style {CHECK, PALETTE}
+
+    public void setStyle(Style style){
+        if (mStyle != style){
+            mStyle = style;
+            update();
+        }
+
     }
 
 
@@ -91,8 +106,10 @@ class ColorView extends FrameLayout implements Checkable {
         if ((color & 0xFF000000) == 0 && color != 0){ // if alpha value omitted, set now
             color = color | 0xFF000000;
         }
-        mColor = color;
-        update();
+        if (mColor != color) {
+            mColor = color;
+            update();
+        }
     }
 
     @Override
@@ -107,12 +124,36 @@ class ColorView extends FrameLayout implements Checkable {
 
     @Override
     public void setChecked(boolean checked) {
-        if (!mChecked && checked){ // checked
-            mCheckView.startAnimation(showAnim);
-            mCheckView.setVisibility(VISIBLE);
-        } else if (mChecked && !checked){ // unchecked
-            mCheckView.startAnimation(hideAnim);
-            mCheckView.setVisibility(INVISIBLE);
+        setChecked(checked, true);
+    }
+
+    public void setChecked(boolean checked, boolean animate) {
+        switch (mStyle) {
+            case CHECK:
+                if (animate) {
+                    if (!mChecked && checked) {
+                        mCheckView.startAnimation(showAnim);
+                    } else if (mChecked && !checked) {
+                        mCheckView.startAnimation(hideAnim);
+                    }
+                }
+                mCheckView.setVisibility(checked ? VISIBLE : INVISIBLE);
+                break;
+
+            case PALETTE:
+                if (animate) {
+                    if (!mChecked && checked) {
+                        mColorView.startAnimation(showAnim);
+                    } else if (mChecked && !checked) {
+                        mColorView.startAnimation(hideAnim);
+                    }
+                }
+                mColorView.setVisibility(checked ? VISIBLE : INVISIBLE);
+                mCheckView.setColorFilter(checked ?
+                        (isColorDark(mColor) ? Color.WHITE : Color.BLACK) : mColor);
+                mRippleView.setForeground(checked ? mDarkRippleDrawable : mLightRippleDrawable);
+                break;
+
         }
         mChecked = checked;
     }
@@ -130,17 +171,32 @@ class ColorView extends FrameLayout implements Checkable {
 
     private void update() {
         setForeground(null);
-        mColorView.setForeground(createForegroundDrawable());
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            mColorView.setBackgroundDrawable(createBackgroundDrawable());
+            mColorView.setBackgroundDrawable(createBackgroundColorDrawable());
         } else {
-            mColorView.setBackground(createBackgroundDrawable());
+            mColorView.setBackground(createBackgroundColorDrawable());
         }
-        mCheckView.setColorFilter(isColorDark(mColor) ? Color.WHITE : Color.BLACK);
+
+        switch (mStyle) {
+            case CHECK:
+                mCheckView.setImageResource(R.drawable.ic_check_white);
+                mCheckView.setColorFilter(isColorDark(mColor) ? Color.WHITE : Color.BLACK);
+                mColorView.setVisibility(VISIBLE);
+                mRippleView.setForeground(createRippleDrawable(getDarkRippleColor(mColor)));
+                break;
+
+            case PALETTE:
+                mCheckView.setImageResource(R.drawable.ic_palette_white);
+                mCheckView.setVisibility(VISIBLE);
+                mDarkRippleDrawable = createRippleDrawable(getDarkRippleColor(mColor));
+                mLightRippleDrawable = createRippleDrawable(getLightRippleColor(mColor));
+                break;
+        }
+        setChecked(mChecked, false);
     }
 
 
-    private Drawable createBackgroundDrawable() {
+    private Drawable createBackgroundColorDrawable() {
         GradientDrawable mask = new GradientDrawable();
         mask.setShape(GradientDrawable.OVAL);
         if (mOutlineWidth != 0) {
@@ -150,13 +206,13 @@ class ColorView extends FrameLayout implements Checkable {
         return mask;
     }
 
-    private Drawable createForegroundDrawable() {
+    private Drawable createRippleDrawable(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Use a ripple drawable
             GradientDrawable mask = new GradientDrawable();
             mask.setShape(GradientDrawable.OVAL);
             mask.setColor(Color.BLACK);
-            return new RippleDrawable(ColorStateList.valueOf(getRippleColor(mColor)), null, mask);
+            return new RippleDrawable(ColorStateList.valueOf(color), null, mask);
 
         } else {
             // Use a translucent foreground
@@ -167,7 +223,7 @@ class ColorView extends FrameLayout implements Checkable {
 
             GradientDrawable mask = new GradientDrawable();
             mask.setShape(GradientDrawable.OVAL);
-            mask.setColor(getRippleColor(mColor));
+            mask.setColor(color);
             foreground.addState(new int[]{android.R.attr.state_pressed}, mask);
 
             foreground.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
@@ -195,10 +251,18 @@ class ColorView extends FrameLayout implements Checkable {
         return brightness < 180;
     }
 
-    public static @ColorInt int getRippleColor(@ColorInt int color) {
+    public static @ColorInt int getDarkRippleColor(@ColorInt int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] = hsv[2] * 0.5f;
+        return Color.HSVToColor(hsv);
+    }
+
+    public static @ColorInt int getLightRippleColor(@ColorInt int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[1] = hsv[1] * 0.5f;
+        hsv[2] = 1 - (1-hsv[2]) * 0.5f;
         return Color.HSVToColor(hsv);
     }
 

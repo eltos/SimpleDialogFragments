@@ -3,10 +3,12 @@ package eltos.simpledialogfragment.list;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
+import android.support.v4.widget.TextViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Checkable;
+import android.widget.CheckedTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
 
@@ -15,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Created by Philipp on 04.12.2016.
+ * Created by eltos on 04.12.2016.
  *
  * This adapter keeps track of checked items even if they are currently not visible
  * due to filtering.
@@ -36,6 +38,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     public static final int CHOICE_MODE_SINGLE = 1;
     public static final int CHOICE_MODE_MULTIPLE = 2;
     private int mChoiceMode = CHOICE_MODE_MULTIPLE;
+    private boolean mNoAnimations = false;
 
     class Item {
         T object;
@@ -48,7 +51,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
             this(object);
             this.checked = checked;
         }
-        Item(T object, long id){
+        Item(T object, Long id){
             this(object);
             this.id = id;
         }
@@ -64,34 +67,84 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     private CharSequence mFilterConstraint = null;
 
 
+    public interface ItemIdentifier<Item> {
+        @Nullable
+        Long getIdForItem(Item item);
+    }
+
+
+    /**
+     * Set this adapters data
+     *
+     * @param list a list of objects to be maintained by this adapter
+     */
     public void setData(T[] list){
         setData(new ArrayList<>(Arrays.asList(list)));
     }
+
+    /**
+     * Set this adapters data
+     *
+     * @param list an array-list of objects to be maintained by this adapter
+     */
     public void setData(ArrayList<? extends T> list){
         mItems.clear();
         for (T t : list) {
             mItems.add(new Item(t));
         }
         mFilteredItems = new ArrayList<>(mItems);
-        if (getFilter() != null) getFilter().filter(mFilterConstraint);
+        filterItems();
+    }
+
+    /**
+     * Set this adapters data and ids
+     *
+     * @param list a list of objects to be maintained by this adapter
+     * @param identifier an Identifier returning a unique id for every item
+     */
+    public void setData(T[] list, ItemIdentifier<T> identifier){
+        setData(new ArrayList<>(Arrays.asList(list)), identifier);
+    }
+
+    /**
+     * Set this adapters data and ids
+     *
+     * @param list an array-list of objects to be maintained by this adapter
+     * @param identifier an Identifier returning a unique id for every item
+     */
+    public void setData(ArrayList<? extends T> list, ItemIdentifier<T> identifier){
+        mItems.clear();
+        for (T t : list) {
+            mItems.add(new Item(t, identifier.getIdForItem(t)));
+        }
+        mFilteredItems = new ArrayList<>(mItems);
+        filterItems();
     }
 
     public void setDataAndIds(T[] list, long[] ids){
+        mItems.clear();
         ArrayList<Pair<T, Long>> pairs = new ArrayList<>(list.length);
         for (int i = 0; i < list.length && i < ids.length; i++) {
-            pairs.add(new Pair<>(list[i], ids[i]));
+            mItems.add(new Item(list[i], ids[i]));
         }
-        setDataAndIds(pairs);
+        mFilteredItems = new ArrayList<>(mItems);
+        filterItems();
     }
+
     public void setDataAndIds(ArrayList<Pair<T, Long>> list){
         mItems.clear();
         for (Pair<T, Long> pair : list) {
             mItems.add(new Item(pair.first, pair.second));
         }
         mFilteredItems = new ArrayList<>(mItems);
-        if (getFilter() != null) getFilter().filter(mFilterConstraint);
+        filterItems();
     }
 
+    /**
+     * Get the data maintained by this adapter
+     *
+     * @return an array-list of the data
+     */
     public ArrayList<T> getData(){
         ArrayList<T> list = new ArrayList<>(mItems.size());
         for (Item item : mItems) {
@@ -101,6 +154,11 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     }
 
 
+    /**
+     * Overwrite this method to return your AdvancedFilter here
+     *
+     * @return an instance of AdvancedFilter for filtering data
+     */
     @Nullable
     @Override
     public AdvancedFilter getFilter(){
@@ -129,6 +187,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
                 if (single && item.checked) { single = false; continue; }
                 item.checked = false;
             }
+            filterItems();
         }
     }
 
@@ -173,10 +232,31 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
             }
         }
     }
-    
+
+    public void setItemChecked(long id, boolean checked) {
+        if (mChoiceMode != CHOICE_MODE_NONE) {
+            if (checked && mChoiceMode == CHOICE_MODE_SINGLE){
+                setAllItemsChecked(false);
+            }
+            for (Item item : mItems) {
+                if (item.getId() == id){
+                    item.checked = checked;
+                    break;
+                }
+            }
+        }
+    }
+
     public void setItemsCheckedFromIds(ArrayList<Long> checkedItemIds){
         for (Item item : mItems) {
             item.checked = checkedItemIds.contains(item.getId());
+        }
+    }
+
+    public void setItemsCheckedFromIds(long[] checkedItemIds){
+        setAllItemsChecked(false);
+        for (long id : checkedItemIds) {
+            setItemChecked(id, true);
         }
     }
     
@@ -218,15 +298,42 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     }
 
 
+    private void filterItems(){
+        if (getFilter() != null){
+            getFilter().filter(mFilterConstraint);
+        }
+    }
 
 
 //    public interface OnFilteredCallback{
 //        void onFiltered(int count);
 //    }
 
+    /**
+     * An advanced filter where only the {@link AdvancedFilter#matches} method needs
+     * to be overwritten
+     *
+     */
     public abstract class AdvancedFilter extends Filter {
 
         protected abstract boolean matches(T object, @NonNull CharSequence constraint);
+
+        /**
+         * Simple string matcher that checks against words
+         */
+        protected boolean matchesWord(String string, @NonNull CharSequence constraint) {
+            if (string != null){
+                if (string.startsWith(constraint.toString())){
+                    return true;
+                }
+                for (String word : string.split(" ")) {
+                    if (word.startsWith(constraint.toString())){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         @Override @Nullable
         protected FilterResults performFiltering(@Nullable CharSequence constraint) {
@@ -255,13 +362,19 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
                 mFilteredItems.addAll(mItems);
             }
             notifyDataSetChanged();
+            mNoAnimations = true;
 //            if (mOnFilteredCallback != null) {mOnFilteredCallback.onFiltered(getCount()); }
         }
     }
 
-    /** use {@link Filter#filter(CharSequence, Filter.FilterListener)} instead **/
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        mNoAnimations = false;
+    }
 
-//    public void setOnFilteredCallback(@Nullable OnFilteredCallback callback){
+
+    //    public void setOnFilteredCallback(@Nullable OnFilteredCallback callback){
 //        mOnFilteredCallback = callback;
 //    }
 
@@ -274,6 +387,9 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
         // apply checked state
         if (convertView instanceof Checkable){
             ((Checkable) convertView).setChecked(isItemChecked(position));
+            if (mNoAnimations){ // suppresses the check animation when filtering
+                convertView.jumpDrawablesToCurrentState();
+            }
         }
 
         return convertView;

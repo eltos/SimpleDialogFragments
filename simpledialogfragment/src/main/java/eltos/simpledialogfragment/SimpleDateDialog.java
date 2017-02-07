@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * A date-picker dialog.
  *
  * Created by eltos on 02.02.2017.
  */
@@ -27,14 +28,56 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
         return new SimpleDateDialog();
     }
 
-
+    /**
+     * Specify the initially set date
+     *
+     * @param date initial date
+     */
     public SimpleDateDialog date(Date date){ return date(date.getTime()); }
+
+    /**
+     * Specify the initially set date as milliseconds
+     *
+     * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     */
     public SimpleDateDialog date(long millis){ return setArg(DATE, millis); }
+
+    /**
+     * Sets the first date selectable
+     *
+     * @param date minimal date
+     */
     public SimpleDateDialog minDate(Date date){ return minDate(date.getTime()); }
+
+    /**
+     * Sets the first date selectable as milliseconds
+     *
+     * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     */
     public SimpleDateDialog minDate(long millis){ return setArg(MIN_DATE, millis); }
+
+    /**
+     * Sets the last date selectable
+     *
+     * @param date maximal date
+     */
     public SimpleDateDialog maxDate(Date date){ return maxDate(date.getTime()); }
+
+    /**
+     * Sets the last date selectable as milliseconds
+     *
+     * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     */
     public SimpleDateDialog maxDate(long millis){ return setArg(MAX_DATE, millis); }
-    public SimpleDateDialog firstDayOfWeek(Date date){ return setArg(FIRST_DAY_OF_WEEK, date.getTime()); }
+
+    /**
+     * Set the first day of the week to display
+     *
+     * @param day one of {@link Calendar#MONDAY}, {@link Calendar#TUESDAY},
+     *            {@link Calendar#WEDNESDAY}, {@link Calendar#THURSDAY}, {@link Calendar#FRIDAY},
+     *            {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY},
+     */
+    public SimpleDateDialog firstDayOfWeek(int day){ return setArg(FIRST_DAY_OF_WEEK, day); }
 
 
 
@@ -70,7 +113,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
 
     @Override
     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
+        // currently not used
     }
 
     private long getCurrentMillis(){

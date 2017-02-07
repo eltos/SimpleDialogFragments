@@ -5,26 +5,33 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.list.AdvancedAdapter;
 import eltos.simpledialogfragment.list.CustomListDialog;
 
 
 /**
+ * A dialog that let's the user select a color
+ *
+ * Result:
+ *      COLOR   int     Selected color (rgb)
  *
  * Created by eltos on 17.04.2016.
  */
-public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
+public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> implements SimpleColorWheelDialog.OnDialogResultListener {
 
 
     public static final String COLOR = "simpleColorDialog.color";
     public static final int NONE = -1;
+    private static final int PICKER = -2;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
             0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
@@ -36,27 +43,60 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
 
 
     private static final String COLORS = "simpleColorDialog.colors";
+    private static final String CUSTOM = "simpleColorDialog.custom";
+    private static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
 
+    private int mCustomColor = 0xff000000;
 
-    public static SimpleColorDialog build(){
-        return new SimpleColorDialog()
-                .grid().gridColumnWidth(R.dimen.dialog_color_item_size)
-                .choiceMode(SINGLE_CHOICE)
-                .choiceMin(1)
-                .colors(DEFAULT_COLORS);
+    public SimpleColorDialog(){
+        grid();
+        gridColumnWidth(R.dimen.dialog_color_item_size);
+        choiceMode(SINGLE_CHOICE);
+        choiceMin(1);
+        colors(DEFAULT_COLORS);
     }
 
+    public static SimpleColorDialog build(){
+        return new SimpleColorDialog();
+    }
+
+    /**
+     * Sets the colors to choose from
+     *
+     * @param colors array of rgb-colors
+     */
     public SimpleColorDialog colors(@ColorInt int[] colors){
         getArguments().putIntArray(COLORS, colors);
         return this;
     }
 
+    /**
+     * Sets the initially selected color
+     *
+     * @param color the selected color
+     */
     public SimpleColorDialog colorPreset(@ColorInt int color){
         getArguments().putInt(COLOR, color);
         return this;
     }
 
+    /**
+     * Set this to true to show a field with a color picker option
+     *
+     * @param allow allow custom picked color if true
+     */
+    public SimpleColorDialog allowCustom(boolean allow){
+        return setArg(CUSTOM, allow);
+    }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null){
+            mCustomColor = savedInstanceState.getInt(CUSTOM, mCustomColor);
+        }
+    }
 
     @Override
     protected AdvancedAdapter onCreateAdapter() {
@@ -72,33 +112,71 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
                     break;
                 }
             }
+            mCustomColor = preset;
         }
 
         /** Selector provided by {@link ColorView} **/
         getListView().setSelector(new ColorDrawable(Color.TRANSPARENT));
 
-        return new ColorAdapter(colors);
+        return new ColorAdapter(colors, getArguments().getBoolean(CUSTOM));
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(CUSTOM, mCustomColor);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (id == PICKER){
+            SimpleColorWheelDialog.build()
+                    .alpha(false)
+                    .color(mCustomColor)
+                    .show(this, PICKER_DIALOG_TAG);
+        }
+    }
+
+    @Override
+    public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+        if (PICKER_DIALOG_TAG.equals(dialogTag) && which == BUTTON_POSITIVE){
+            mCustomColor = extras.getInt(SimpleColorWheelDialog.COLOR);
+            notifyDataSetChanged();
+        }
+        return true;
+    }
 
     @Override
     protected Bundle onResult(int which) {
         Bundle b = super.onResult(which);
-        b.putInt(COLOR, (int) b.getLong(SELECTED_SINGLE_ID));
+        int color = (int) b.getLong(SELECTED_SINGLE_ID);
+        if (color == PICKER){
+            b.putInt(COLOR, mCustomColor);
+        } else {
+            b.putInt(COLOR, color);
+        }
         return b;
     }
 
 
     private class ColorAdapter extends AdvancedAdapter<Integer>{
 
-        ColorAdapter(int[] colors){
-            if (colors != null) {
-                ArrayList<Pair<Integer, Long>> cs = new ArrayList<>(colors.length);
-                for (int color : colors) {
-                    cs.add(new Pair<>(color, (long) color));
-                }
-                setDataAndIds(cs);
+        ColorAdapter(int[] colors, boolean addCustomField){
+            if (colors == null) colors = new int[0];
+
+            Integer[] cs = new Integer[colors.length + (addCustomField ? 1 : 0)];
+            for (int i = 0; i < colors.length; i++) {
+                cs[i] = colors[i];
             }
+            if (addCustomField){
+                cs[cs.length-1] = PICKER;
+            }
+            setData(cs, new ItemIdentifier<Integer>(){
+                @Nullable
+                public Long getIdForItem(Integer color) {
+                    return Long.valueOf(color);
+                }
+            });
         }
 
         @Override
@@ -111,58 +189,18 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> {
                 item = new ColorView(getContext());
             }
 
-            item.setColor(getItem(position));
+            int color = getItem(position);
+
+            if ( color == PICKER){
+                item.setColor(mCustomColor);
+                item.setStyle(ColorView.Style.PALETTE);
+            } else {
+                item.setColor(getItem(position));
+                item.setStyle(ColorView.Style.CHECK);
+            }
 
             return super.getView(position, item, parent);
         }
     }
-
-//    private class ColorAdapter extends BaseAdapter{
-//
-//        @NonNull
-//        private int[] mColors;
-//
-//        ColorAdapter(int[] colors){
-//            mColors = colors == null ? new int[0] : colors;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mColors.length;
-//        }
-//
-//        @Override
-//        public Integer getItem(int position) {
-//            if (position >= 0 && position < mColors.length){
-//                return mColors[position];
-//            }
-//            return NONE;
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return getItem(position);
-//        }
-//
-//        @Override
-//        public boolean hasStableIds() {
-//            return true;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            ColorView item;
-//
-//            if (convertView instanceof ColorView){
-//                item = (ColorView) convertView;
-//            } else {
-//                item = new ColorView(getContext());
-//            }
-//
-//            item.setColor(getItem(position));
-//
-//            return item;
-//        }
-//    }
 
 }
