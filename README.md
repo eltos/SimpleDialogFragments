@@ -3,9 +3,13 @@
 [ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/versions/android-3.0.html)
 [ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
 
-A collection of easy to use and extendable DialogFragment's for Android
+<img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/wiki/simplecolorwheeldialog.png"/>
 
-<img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/blob/master/wiki/simplecolorwheeldialog.png"/>
+SimpleDialogFragments Library is a collection of easy to use and extendable DialogFragment's for Android.
+It is fully compatible with rotation changes and creatable with a minimum of code.
+
+A new approach of result handling ensures data integrity over rotation changes, that many other library lack.
+
 
 [Version history and JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)
 
@@ -22,8 +26,8 @@ A collection of easy to use and extendable DialogFragment's for Android
  * Date and time pickers
 * Customizable and extendable dialogs
 * Material design
-* Easy resut handling even on rotation change
-* Persistant on rotation
+* **Easy resut handling even after rotation changes**
+* **Persistant on rotation**
 
 
 ## Usage
