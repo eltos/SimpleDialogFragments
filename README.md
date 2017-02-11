@@ -7,10 +7,10 @@ This is a snapshot of version 1.0, released on 11 Februrary 2017.
 
 A more recent version might be available in the [release brance](https://github.com/eltos/SimpleDialogFragments/branches/all).
 
-**``build.gradle``:**
+
 ```groovy
 dependencies {
-    compile 'com.github.eltos:simpledialogfragment:0.2'
+    compile 'com.github.eltos:simpledialogfragment:1.0'
 }
 ```
 
