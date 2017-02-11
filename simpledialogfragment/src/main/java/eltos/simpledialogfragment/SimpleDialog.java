@@ -2,6 +2,7 @@ package eltos.simpledialogfragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
@@ -33,6 +35,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     private static final String ICON_RESOURCE = "simpleDialog.iconResource";
     private static final String CANCELABLE = "simpleDialog.cancelable";
     private static final String THEME = "simpleDialog.theme";
+    private static final String HTML = "simpleDialog.html";
 
     protected static final String BUNDLE = "simpleDialog.bundle";
 
@@ -155,6 +158,20 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param messageResourceId the message as android string resource
      */
     public This msg(@StringRes int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
+
+    /**
+     * Sets this dialogs message as html styled string
+     *
+     * @param message title as html-string
+     */
+    public This msgHtml(String message){ setArg(HTML, true); return setArg(MESSAGE, message); }
+
+    /**
+     * Sets this dialogs message as html styled string
+     *
+     * @param messageResourceId the message as html-styled android string resource
+     */
+    public This msgHtml(@StringRes int messageResourceId){ setArg(HTML, true); return setArg(MESSAGE, messageResourceId); }
 
     /**
      * Sets this dialogs positive button text
@@ -318,14 +335,26 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         if (getArguments().containsKey(THEME)){
-            dialog = new AlertDialog.Builder(getActivity(), getArguments().getInt(THEME)).create();
+            dialog = new AlertDialog.Builder(getContext(), getArguments().getInt(THEME)).create();
         } else {
             // default theme or 'alertDialogTheme'
-            dialog = new AlertDialog.Builder(getActivity()).create();
+            dialog = new AlertDialog.Builder(getContext()).create();
         }
 
         dialog.setTitle(getArgString(TITLE));
-        dialog.setMessage(getArgString(MESSAGE));
+        String msg = getArgString(MESSAGE);
+        if (msg != null) {
+            if (getArguments().getBoolean(HTML)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    dialog.setMessage(Html.fromHtml(msg, 0));
+                } else {
+                    //noinspection deprecation
+                    dialog.setMessage(Html.fromHtml(msg));
+                }
+            } else {
+                dialog.setMessage(msg);
+            }
+        }
         String positiveButtonText = getArgString(POSITIVE_BUTTON_TEXT);
         if (positiveButtonText != null) {
             dialog.setButton(DialogInterface.BUTTON_POSITIVE,

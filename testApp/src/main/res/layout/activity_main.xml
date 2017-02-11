@@ -21,7 +21,8 @@
             android:text="@string/alert_dialog"
             android:id="@+id/alert"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:onClick="onAlertClick" />
 
         <Button
             android:layout_width="wrap_content"
@@ -30,7 +31,8 @@
             android:id="@+id/check"
             android:layout_below="@+id/alert"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:onClick="onCheckClick" />
 
         <GridLayout
             android:layout_width="match_parent"
@@ -48,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Input Dialogs"
+                android:text="@string/input_dialogs"
                 android:id="@+id/textView2"
                 android:layout_row="0"
                 android:layout_column="0"
@@ -57,26 +59,29 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Suggestions"
+                android:text="@string/suggestions_button"
                 android:id="@+id/input"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onSuggestionClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone"
+                android:text="@string/phone_button"
                 android:id="@+id/phone"
                 android:layout_row="2"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onNumerClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email_button"
                 android:id="@+id/mail"
                 android:layout_row="1"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:onClick="onEmailClick" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -84,7 +89,8 @@
                 android:text="@string/password"
                 android:id="@+id/passwd"
                 android:layout_row="1"
-                android:layout_column="2" />
+                android:layout_column="2"
+                android:onClick="onPasswordClick" />
 
         </GridLayout>
 
@@ -104,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="List Dialogs"
+                android:text="@string/list_dialogs"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnSpan="2" />
@@ -112,34 +118,38 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="direct choice"
+                android:text="@string/direct_choice_button"
                 android:id="@+id/list3"
                 android:layout_row="1"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:onClick="onDirectClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="single choice"
+                android:text="@string/single_choice_button"
                 android:id="@+id/list1"
                 android:layout_row="2"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onSingleClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="multi choice"
+                android:text="@string/multi_choice_button"
                 android:id="@+id/list2"
                 android:layout_row="2"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:onClick="onMultiClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Simple"
+                android:text="@string/simple_button"
                 android:id="@+id/list0"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onSimpleClick" />
 
         </GridLayout>
 
@@ -158,16 +168,17 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time Picker"
+                android:text="@string/time_picker_button"
                 android:id="@+id/timePicker"
                 android:layout_row="1"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:onClick="onTimeClick" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Date and Time Dialogs"
+                android:text="@string/date_and_time_dialogs"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnSpan="2" />
@@ -175,18 +186,20 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Picker"
+                android:text="@string/date_picker_button"
                 android:id="@+id/datePicker"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onDateClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DATETIME"
+                android:text="@string/datetime_button"
                 android:id="@+id/dateTimePicker"
                 android:layout_row="1"
-                android:layout_column="2" />
+                android:layout_column="2"
+                android:onClick="onDateTimeClick" />
         </GridLayout>
 
         <GridLayout
@@ -204,24 +217,26 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Color"
+                android:text="@string/color_button"
                 android:id="@+id/color"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:onClick="onColorClick" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Color wheel"
+                android:text="@string/color_wheel_button"
                 android:id="@+id/colorWheelButton"
                 android:layout_row="1"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:onClick="onColorWheelClick" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Color Dialogs"
+                android:text="@string/color_dialogs"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnSpan="2" />
@@ -235,7 +250,18 @@
             android:id="@+id/recursive"
             android:layout_alignTop="@+id/alert"
             android:layout_toRightOf="@+id/alert"
-            android:layout_toEndOf="@+id/alert" />
+            android:layout_toEndOf="@+id/alert"
+            android:onClick="onRecourseClick" />
+
+        <Button
+            android:text="@string/overflow_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recursive"
+            android:layout_toRightOf="@+id/check"
+            android:layout_toEndOf="@+id/check"
+            android:id="@+id/button"
+            android:onClick="onOverflowClick" />
 
     </RelativeLayout>
 
