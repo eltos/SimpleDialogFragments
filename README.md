@@ -7,14 +7,22 @@ A collection of easy to use and extendable DialogFragment's for Android
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/blob/master/wiki/simpleemaildialog.png"/>
 
+[Version history and JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)
+
+[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)
+
+
 ### Features
 
-* Simple creating of common dialogs
-* Customizable attributes
-* Custom view dialogs by creating subclasses
+* Common dialogs like
+ * Alert dialogs with optional checkbox
+ * Input dialogs with suggestions and validations
+ * Filterable single- / multi-choice dialogs
+ * Color pickers
+ * Date and time pickers
+* Customizable and extendable dialogs
 * Material design
-* Easy resut handling
-* Input dialogs with validation
+* Easy resut handling even on rotation change
 * Persistant on rotation
 
 
@@ -23,14 +31,11 @@ A collection of easy to use and extendable DialogFragment's for Android
 In your ``build.gradle`` file:
 ```groovy
 dependencies {
-    compile 'com.github.eltos:simpledialogfragment:0.2'
+    compile 'com.github.eltos:simpledialogfragment:1.0'
 }
 ```
 
-
 ### Examples
-*See [Showcase](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase) for screenshots.*
-*See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
 
 **Alert dialog**
 ```java
