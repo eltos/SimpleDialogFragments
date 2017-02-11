@@ -85,7 +85,11 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
 
         int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
-        final int oldColor = getArguments().getInt(COLOR);
+        int oldColor = getArguments().getInt(COLOR);
+        if (!getArguments().getBoolean(ALPHA)){
+            color = color | 0xFF000000;
+            oldColor = oldColor | 0xFF000000;
+        }
 
         mColorWheelView.setColor(color);
         mNew.setImageDrawable(new ColorDrawable(color));
@@ -94,11 +98,12 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
         mOld.setVisibility(getArguments().containsKey(COLOR) ? View.VISIBLE : View.GONE);
         mOld.setImageDrawable(new ColorDrawable(oldColor));
+        final int finalOldColor = oldColor;
         mOld.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mColorWheelView.setColor(oldColor);
-                mAlphaSlider.setProgress(255 - Color.alpha(oldColor));
+                mColorWheelView.setColor(finalOldColor);
+                mAlphaSlider.setProgress(255 - Color.alpha(finalOldColor));
             }
         });
 

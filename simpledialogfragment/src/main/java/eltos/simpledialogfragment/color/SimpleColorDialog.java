@@ -112,7 +112,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                     break;
                 }
             }
-            mCustomColor = preset;
+            if (preset != NONE) {
+                mCustomColor = preset;
+            }
         }
 
         /** Selector provided by {@link ColorView} **/
