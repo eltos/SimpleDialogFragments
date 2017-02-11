@@ -4,12 +4,13 @@ engines:
     config:
       languages:
       - java
-  eslint:
+  checkstyle:
     enabled: true
+    channel: "beta"
   fixme:
     enabled: true
 ratings:
   paths:
   - "**.java"
   - "**.xml"
-exclude_paths: ["docs/**"]
+exclude_paths: ["docs/**", "**.png"]
