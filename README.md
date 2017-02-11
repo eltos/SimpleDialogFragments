@@ -1,86 +1,23 @@
-# SimpleDialogFragments
+# SimpleDialogFragments 1.0
 
 [ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/versions/android-3.0.html)
-[ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg?version=1.0) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/1.0)
 
-A collection of easy to use and extendable DialogFragment's for Android
+This is a snapshot of version 1.0, released on 11 Februrary 2017.
 
-<img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/blob/master/wiki/simpleemaildialog.png"/>
+A more recent version might be available in the [release brance](https://github.com/eltos/SimpleDialogFragments/branches/all).
 
-### Features
-
-* Simple creating of common dialogs
-* Customizable attributes
-* Custom view dialogs by creating subclasses
-* Material design
-* Easy resut handling
-* Input dialogs with validation
-* Persistant on rotation
-
-
-## Usage
-
-In your ``build.gradle`` file:
+**``build.gradle``:**
 ```groovy
 dependencies {
     compile 'com.github.eltos:simpledialogfragment:0.2'
 }
 ```
 
+## JavaDoc
 
-### Examples
-*See [Showcase](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase) for screenshots.*
-*See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for detailed api*  
+API documentation is to be found here: [simpledialogfragment 1.0 API](https://eltos.github.io/SimpleDialogFragments/v1.0/javadoc)
 
-**Alert dialog**
-```java
-SimpleDialog.build()
-            .title(R.string.hello)
-            .msg(R.string.hello_world)
-            .show(MainActivity.this);
-```
-**Choice dialog**
-```java
-int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
-
-SimpleListDialog.build()
-            .title(R.string.select_one)
-            .choiceMode(ListView.CHOICE_MODE_SINGLE_DIRECT)
-            .items(getBaseContext(), data)
-            .show(MainActivity.this, LIST_DIALOG);
-```
-**Input dialog**
-```java
-SimpleInputDialog.build()
-            .title(R.string.login)
-            .hint(R.string.password)
-            .pos()
-            .neut()
-            .max(25)
-            .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
-            .show(LoginFragment.this, PASSWORD_DIALOG);
-```
-
-**Receive Results** by implementing `SimpleDialog.OnDialogResultListener`
-```java
-@Override
-public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-    if (which == BUTTON_POSITIVE && PASSWORD_DIALOG.equals(dialogTag)){
-        String pw = extras.getString(SimpleInputDialogFragment.TEXT);
-        // ...
-        return true;
-    }
-	if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)){
-        ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
-		// ...
-        return true;
-    }
-    return false;
-}
-
-```
-
-Be sure to also check the demo project.
 
 ## Licence
 
