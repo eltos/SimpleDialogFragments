@@ -3,7 +3,7 @@
 [ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/versions/android-3.0.html)
 [ ![Download](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
 
-A collection of easy to use and extendable DialogFragment's for Android
+A collection of easy to use and extendable DialogFragment's for Android that are fully compatible with rotation changes!
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/wiki/simplecolorwheeldialog.png"/>
 
@@ -22,8 +22,8 @@ A collection of easy to use and extendable DialogFragment's for Android
  * Date and time pickers
 * Customizable and extendable dialogs
 * Material design
-* Easy resut handling even on rotation change
-* Persistant on rotation
+* **Easy resut handling even after rotation changes**
+* **Persistant on rotation**
 
 
 ## Usage
