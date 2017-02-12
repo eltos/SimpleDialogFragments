@@ -1,13 +1,10 @@
-package eltos.simpledialogfragment.list;
-
 /**
+ * Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ * Copyright 2016 Alex Yanchenko
+ * 
  * Modified from
  * https://github.com/droidparts/droidparts/blob/develop/droidparts/src/org/droidparts/widget/ClearableEditText.java
- *
- * An edit text with a clear button
- *
- *
- * Copyright 2016 Alex Yanchenko
+ * 
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +18,9 @@ package eltos.simpledialogfragment.list;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package eltos.simpledialogfragment.list;
+
+
 
 
 import android.content.Context;
@@ -39,7 +39,10 @@ import android.widget.EditText;
 
 import eltos.simpledialogfragment.R;
 
-
+/**
+ * An edit text with a clear button
+ * 
+ */
 public class ClearableEditText extends EditText implements OnTouchListener, OnFocusChangeListener {
 
 
