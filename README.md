@@ -72,6 +72,8 @@ SimpleInputDialog.build()
             .show(LoginFragment.this, PASSWORD_DIALOG);
 ```
 
+See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for more examples.
+
 ###Receive Results
 Let the hosting Activity or Fragment implement the `SimpleDialog.OnDialogResultListener`
 ```java
