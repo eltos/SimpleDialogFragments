@@ -1,5 +1,7 @@
 package eltos.simpledialogfragments;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,14 +10,23 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EnumMap;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
+import eltos.simpledialogfragment.SimpleImageDialog;
 import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
@@ -243,6 +254,53 @@ public class MainActivity extends AppCompatActivity implements
                 .neg(R.string.long_no)
                 .neut(R.string.long_cancel)
                 .show(MainActivity.this);
+
+    }
+
+    private int counter = 0;
+
+    public void onImageClick(View view){
+
+        SimpleImageDialog.build()
+                .image(new int[]{
+                        R.drawable.wide_image_sample,
+                        R.drawable.tall_image_sample,
+                        R.drawable.image_sample}[counter++%3])
+//                .scaleType(SimpleImageDialog.Scale.SCROLL_HORIZONTAL)
+                .show(MainActivity.this);
+
+    }
+
+    public void onQrClick(View view){
+
+        String content = "https://github.com/eltos/SimpleDialogFragments";
+
+        try {
+
+            int size = 1024;
+            EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF8");
+            BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints);
+
+            int[] pixels = new int[size * size];
+            for (int y = 0; y < size; y++) {
+                int offset = y * size;
+                for (int x = 0; x < size; x++) {
+                    pixels[offset + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
+                }
+            }
+            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
+            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
+
+            SimpleImageDialog.build()
+                    .image(bitmap)
+                    .show(MainActivity.this);
+
+        } catch (WriterException e) {
+            Toast.makeText(getBaseContext(), R.string.error, Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

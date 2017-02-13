@@ -8,12 +8,27 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Optional custom theme for dialogs -->
-        <item name="alertDialogTheme">@style/SimpleDialogStyle</item>
+        <item name="alertDialogTheme">@style/MyDialogTheme</item>
+        <!--<item name="imageDialogTheme">@style/MyImageDialogTheme</item>-->
     </style>
 
 
-    <style name="SimpleDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/colorAccent</item>
+    <!--  Theme.AppCompat.Light.Dialog.Alert -->
+    <style name="MyDialogTheme" parent="SimpleDialogTheme">
+        <!-- customizations -->
+    </style>
+
+
+    <!-- When customizing the theme for a SimpleImageDialog you must either
+            inherit from "ImageDialogTheme" or specify the two attributes as shown below -->
+    <style name="MyImageDialogTheme" parent="MyDialogTheme">
+        <item name="android:windowMinWidthMinor">@null</item>   <!-- these are required if parent -->
+        <item name="android:windowMinWidthMajor">@null</item>   <!-- is not ImageDialogTheme -->
+        <!-- customizations -->
+    </style>
+
+    <style name="MyImageDialogTheme2" parent="ImageDialogTheme">
+        <!-- customizations -->
     </style>
 
 </resources>

@@ -263,6 +263,26 @@
             android:id="@+id/button"
             android:onClick="onOverflowClick" />
 
+        <Button
+            android:text="@string/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/recursive"
+            android:layout_toEndOf="@+id/recursive"
+            android:id="@+id/button2"
+            android:onClick="onImageClick" />
+
+        <Button
+            android:text="@string/qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_toRightOf="@+id/button"
+            android:layout_toEndOf="@+id/button"
+            android:id="@+id/button3"
+            android:onClick="onQrClick" />
+
     </RelativeLayout>
 
 </ScrollView>

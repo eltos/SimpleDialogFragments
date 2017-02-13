@@ -5,5 +5,12 @@
         <item name="android:textColor">#FFD50000</item>
     </style>
 
+    <style name="SimpleDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert"/>
+
+    <style name="ImageDialogTheme" parent="SimpleDialogTheme">
+        <!-- these are required so that the dialog wraps the images dimensions -->
+        <item name="android:windowMinWidthMinor">@null</item>
+        <item name="android:windowMinWidthMajor">@null</item>
+    </style>
 
 </resources>

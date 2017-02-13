@@ -7,4 +7,7 @@
         </attr>
         <attr name="clearDrawable" format="reference"/>
     </declare-styleable>
+
+    <attr name="imageDialogTheme" format="reference"/>
+    
 </resources>

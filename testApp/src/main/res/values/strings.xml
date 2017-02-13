@@ -220,4 +220,7 @@
     <string name="color_wheel_button">Color wheel</string>
     <string name="color_dialogs">Color Dialogs</string>
     <string name="overflow_button">Overflow</string>
+    <string name="image">Image</string>
+    <string name="qr">QR</string>
+    <string name="error">Error</string>
 </resources>
