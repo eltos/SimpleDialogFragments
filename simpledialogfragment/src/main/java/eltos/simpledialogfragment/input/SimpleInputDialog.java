@@ -199,9 +199,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-        View view = inflater.inflate(R.layout.dialog_input, null);
+        View view = inflate(R.layout.dialog_input);
         mInput = (AutoCompleteTextView) view.findViewById(R.id.editText);
         mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
 

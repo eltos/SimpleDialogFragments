@@ -80,9 +80,8 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
-        LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_check_box, null);
+        View view = inflate(R.layout.dialog_check_box);
         mCheckBox = (CheckBox) view.findViewById(R.id.checkBox);
 
         mCheckBox.setText(getArgString(CHECKBOX_LABEL));

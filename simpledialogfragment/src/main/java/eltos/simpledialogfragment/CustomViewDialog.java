@@ -20,8 +20,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -109,6 +111,16 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
             getDialog().dismiss();
             callResultListener(DialogInterface.BUTTON_POSITIVE, null);
         }
+    }
+
+    /**
+     * Method to inflate your custom View in {@link #onCreateContentView}
+     *
+     * @param resource The resource to be inflated
+     * @return The inflated view
+     */
+    protected View inflate(@LayoutRes int resource) {
+        return getActivity().getLayoutInflater().inflate(resource, null);
     }
 
 

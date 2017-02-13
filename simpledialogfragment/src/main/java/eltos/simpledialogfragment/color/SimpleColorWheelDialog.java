@@ -88,9 +88,8 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.dialog_color_wheel, null);
+        View view = inflate(R.layout.dialog_color_wheel);
         mColorWheelView = (ColorWheelView) view.findViewById(R.id.colorWheel);
         mTransparency = view.findViewById(R.id.transparencyBox);
         mAlphaSlider = (SeekBar) view.findViewById(R.id.alpha);

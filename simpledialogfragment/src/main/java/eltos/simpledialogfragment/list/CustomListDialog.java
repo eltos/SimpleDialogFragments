@@ -97,7 +97,6 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the list choice mode
      * @param mode one of {@link #NO_CHOICE}, {@link #SINGLE_CHOICE}, {@link #SINGLE_CHOICE_DIRECT}
      *             or {@link #MULTI_CHOICE}
-     * @return
      */
     public This choiceMode(int mode){
         if (!pmFlag && mode == SINGLE_CHOICE_DIRECT){
@@ -302,12 +301,11 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
-        LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View view;
         TextView mEmptyView;
         if (getArguments().containsKey(GRID)){
-            view = inflater.inflate(R.layout.dialog_grid, null);
+            view = inflate(R.layout.dialog_grid);
             mListView = (GridView) view.findViewById(R.id.gridView);
             if (getArguments().containsKey(GRID_W)){
                 ((GridView) mListView).setColumnWidth(getResources().getDimensionPixelSize(
@@ -315,7 +313,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             }
             ((GridView) mListView).setNumColumns(getArguments().getInt(GRID_N, GridView.AUTO_FIT));
         } else {
-            view = inflater.inflate(R.layout.dialog_list, null);
+            view = inflate(R.layout.dialog_list);
             mListView = (ListView) view.findViewById(R.id.listView);
         }
 
