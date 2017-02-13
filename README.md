@@ -94,13 +94,16 @@ public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle ex
 
 Make sure to check the demo application.
 
-## Licence
+## License
 
-Copyright 2017 Philipp Niedermayer (github.com/eltos)
+Copyright 2017 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
 
 Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)  
 
 
-You may only use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software in compliance with the License.  
-The above copyright notice shall be included in all copies or substantial portions of the Software.  
-For more information visit http://www.apache.org/licenses/LICENSE-2.0
+You may only use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software in compliance with the License. For more information visit http://www.apache.org/licenses/LICENSE-2.0  
+The above copyright notice shall be included in all copies or substantial portions of the Software no only in source code but also in a license listing accessible by the user.  
+
+ 
+ 
+I would appreciate if you could send me an email when you release an application that uses this library. Thanks!
