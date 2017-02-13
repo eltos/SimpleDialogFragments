@@ -5,8 +5,11 @@ engines:
       languages:
       - java
   checkstyle:
-    enabled: true
+    enabled: false
     channel: "beta"
+    checks:
+      com.puppycrawl.tools.checkstyle.checks.javadoc:
+        enabled: false
   fixme:
     enabled: true
 ratings:
