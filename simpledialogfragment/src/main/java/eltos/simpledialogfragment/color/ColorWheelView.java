@@ -32,6 +32,7 @@ import android.graphics.SweepGradient;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -263,9 +264,9 @@ public class ColorWheelView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 
-        float size = Math.max(dp(5), Math.min(dp(30), dp(30)*Math.min(w, h)/900));
+        float size = Math.max(dp(20), Math.min(dp(35), dp(30)*Math.min(w, h)/1000));
 
-        float padding = Math.max(dp(2), Math.min(dp(10), dp(10)*Math.min(w, h)/900));
+        float padding = Math.max(dp(5), Math.min(dp(10), dp(7)*Math.min(w, h)/1000));
 
         PointF center = new PointF(w/2, h/2);
         float radius = (Math.min(w, h) - padding - size)/2;
