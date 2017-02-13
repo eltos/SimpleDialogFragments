@@ -1,23 +1,25 @@
-/**
- * Copyright 2017 Philipp Niedermayer (github.com/eltos)
- * Copyright 2016 Alex Yanchenko
- * 
- * Modified from
- * https://github.com/droidparts/droidparts/blob/develop/droidparts/src/org/droidparts/widget/ClearableEditText.java
- * 
+/*
+ *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2016 Alex Yanchenko
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *  Modified from
+ *  https://github.com/droidparts/droidparts/blob/develop/droidparts/src/org/droidparts/widget/ClearableEditText.java
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
+
+
 package eltos.simpledialogfragment.list;
 
 
@@ -85,6 +87,7 @@ public class ClearableEditText extends EditText implements OnTouchListener, OnFo
         this.loc = loc;
     }
 
+    @SuppressWarnings("deprecation")
     public void setClearDrawable(@DrawableRes int resId){
         xD = getResources().getDrawable(resId);
     }
@@ -140,10 +143,7 @@ public class ClearableEditText extends EditText implements OnTouchListener, OnFo
                 return true;
             }
         }
-        if (l != null) {
-            return l.onTouch(v, event);
-        }
-        return false;
+        return l != null && l.onTouch(v, event);
     }
 
     @Override
@@ -176,6 +176,7 @@ public class ClearableEditText extends EditText implements OnTouchListener, OnFo
         }
 
         if (xD == null){
+            //noinspection deprecation
             xD = getResources().getDrawable(R.drawable.ic_clear_search);
         }
         if (xD != null) {
