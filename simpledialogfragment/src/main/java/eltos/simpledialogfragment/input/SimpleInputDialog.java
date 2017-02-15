@@ -99,7 +99,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
     /**
      * Sets the input type
-     * Note: Remember to Supply {@link InputType#TYPE_CLASS_TEXT} for Text!
+     * The default is {@link InputType#TYPE_CLASS_TEXT}.
      *
      * @param inputType the InputType
      */
