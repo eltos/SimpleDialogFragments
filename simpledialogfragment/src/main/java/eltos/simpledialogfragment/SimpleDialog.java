@@ -7,7 +7,8 @@
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
- *  Unless required by applicable law or agreed to in writing, software *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
@@ -17,7 +18,8 @@ package eltos.simpledialogfragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Build;import android.os.Bundle;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -27,7 +29,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
 /**
@@ -61,9 +64,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
         /**
          * Let the hosting fragment or activity implement this interface
-         * to receive results from the dialog.
-         * Note that the listener will only get called for dialogs, that
-         * were assigned a TAG when shown.
+         * to receive results from the dialog
          *
          * @param dialogTag the tag passed to {@link #show}
          * @param which result type, one of {@link #BUTTON_POSITIVE}, {@link #BUTTON_NEGATIVE},
