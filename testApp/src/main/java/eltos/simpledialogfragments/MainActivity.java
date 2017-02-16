@@ -166,12 +166,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onDirectClick(View view){
 
 
-        int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
-
         SimpleListDialog.build()
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
-                .items(getBaseContext(), data)
+                .items(getBaseContext(), R.array.choices)
                 .show(MainActivity.this, LIST_DIALOG);
 
     }
@@ -375,8 +373,12 @@ public class MainActivity extends AppCompatActivity implements
                             Toast.makeText(getBaseContext(), getResources().getQuantityString(
                                     R.plurals.selected, pos.size(), pos.size()) + "\n" + a, Toast.LENGTH_SHORT).show();
                         } else {
+                            String posstr = "";
+                            for (int p : pos) {
+                                posstr += p+" ";
+                            }
                             Toast.makeText(getBaseContext(), getResources().getQuantityString(
-                                    R.plurals.selected, pos.size(), pos.size()), Toast.LENGTH_SHORT).show();
+                                    R.plurals.selected, pos.size(), pos.size())+"\npos: "+posstr, Toast.LENGTH_SHORT).show();
                         }
                     }
                     return true;

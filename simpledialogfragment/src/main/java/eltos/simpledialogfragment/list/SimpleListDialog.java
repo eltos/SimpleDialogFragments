@@ -17,25 +17,17 @@
 package eltos.simpledialogfragment.list;
 
 import android.content.Context;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import eltos.simpledialogfragment.R;
 
 /**
  * A dialog that displays a list.
@@ -57,12 +49,22 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * @param context a context for resolving the string ids
      * @param labelsResourceIds a list of android string resource identifiers
      */
-    public SimpleListDialog items(Context context, int[] labelsResourceIds){
+    public SimpleListDialog items(Context context, @StringRes int[] labelsResourceIds){
         ArrayList<SimpleListItem> list = new ArrayList<>(labelsResourceIds.length);
         for (int id : labelsResourceIds) {
             list.add(new SimpleListItem(context.getString(id), id));
         }
         return items(list);
+    }
+
+    /**
+     * Populate the list using a string array resource id
+     *
+     * @param context a context for resolving the resource id
+     * @param labelArrayResourceIds an android string array resource identifier
+     */
+    public SimpleListDialog items(Context context, @ArrayRes int labelArrayResourceIds){
+        return items(context.getResources().getStringArray(labelArrayResourceIds));
     }
 
     /**

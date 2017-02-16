@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="choices" >
+        <item>Excellent choice</item>
+        <item>Even better choice</item>
+        <item>Best choice</item>
+        <item>Ultimate choice</item>
+    </string-array>
+</resources>
