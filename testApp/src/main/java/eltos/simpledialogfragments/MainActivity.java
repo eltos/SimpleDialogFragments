@@ -17,8 +17,13 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
@@ -48,8 +53,11 @@ public class MainActivity extends AppCompatActivity implements
     private static final String DATETIME1 = "datetime1";
     private static final String DATETIME2 = "datetime2";
     private static final String COLOR_WHEEL_DIALOG = "colorWheelDialogTag";
+    private static final String PHONE_DIALOG = "phoneDialogTag";
+    private static final String PW_DIALOG = "pwDialogTag";
 
     private int mColor = SimpleColorDialog.NONE;
+    private byte[] oldHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements
                 .neut()
                 .max(25)
                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                .show(MainActivity.this);
+                .show(MainActivity.this, PW_DIALOG);
 
     }
 
@@ -116,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleInputDialog.build()
                 .msg(R.string.enter_number)
                 .inputType(InputType.TYPE_CLASS_PHONE)
-                .show(MainActivity.this);
+                .show(MainActivity.this, PHONE_DIALOG);
 
     }
 
@@ -316,13 +324,41 @@ public class MainActivity extends AppCompatActivity implements
                 case INPUT_DIALOG:
                     String name = extras.getString(SimpleInputDialog.TEXT);
                     // ...
+                    Toast.makeText(getBaseContext(), name, Toast.LENGTH_SHORT).show();
                     return true;
 
                 case MAIL_DIALOG:
                     int id = extras.getInt("ID");
                     String mail = extras.getString(SimpleEMailDialog.EMAIL);
                     // ...
+                    Toast.makeText(getBaseContext(), mail, Toast.LENGTH_SHORT).show();
                     return true;
+
+                case PHONE_DIALOG:
+                    String number = extras.getString(SimpleInputDialog.TEXT);
+                    // ...
+                    Toast.makeText(getBaseContext(), number, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case PW_DIALOG:
+                    String pw = extras.getString(SimpleInputDialog.TEXT);
+                    if (pw != null) {
+                        try {
+                            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                            byte[] hash = digest.digest(pw.getBytes("UTF-8"));
+                            // ...
+                            if (Arrays.equals(hash, oldHash)){
+                                Toast.makeText(getBaseContext(), R.string.pw_correct, Toast.LENGTH_SHORT).show();
+                            } else {
+                                oldHash = hash;
+                                Toast.makeText(getBaseContext(), R.string.new_pw_set, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
 
                 case LIST_DIALOG:
                     ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);

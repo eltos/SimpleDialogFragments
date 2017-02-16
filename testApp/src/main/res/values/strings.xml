@@ -223,4 +223,6 @@
     <string name="image">Image</string>
     <string name="qr">QR</string>
     <string name="error">Error</string>
+    <string name="pw_correct">Password correct</string>
+    <string name="new_pw_set">New password set</string>
 </resources>
