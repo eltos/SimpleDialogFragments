@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/filter"
-        android:hint="@string/abc_search_hint"
+        android:hint="@android:string/search_hint"
         android:inputType="textCapSentences|text"
         android:lines="1"
         android:maxLines="1"
-        android:singleLine="true"
         />
 
     <RelativeLayout
@@ -24,14 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/filter">
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:requiresFadingEdge="vertical" />
 
         <TextView
             android:layout_width="wrap_content"
