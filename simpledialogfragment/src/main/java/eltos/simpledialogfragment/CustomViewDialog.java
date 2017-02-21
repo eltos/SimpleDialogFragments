@@ -18,16 +18,19 @@ package eltos.simpledialogfragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
+import android.text.Html;
+import android.view.InflateException;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -121,7 +124,27 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @return The inflated view
      */
     protected View inflate(@LayoutRes int resource) {
-        return getActivity().getLayoutInflater().inflate(resource, null);
+        return inflate(resource, null, false);
+    }
+
+    /**
+     * Method to inflate your custom View in {@link #onCreateContentView}. Throws
+     * {@link InflateException} if there is an error.
+     *
+     * @param resource ID for an XML layout resource to load
+     * @param root Optional view to be the parent of the generated hierarchy (if
+     *        <em>attachToRoot</em> is true), or else simply an object that
+     *        provides a set of LayoutParams values for root of the returned
+     *        hierarchy (if <em>attachToRoot</em> is false.)
+     * @param attachToRoot Whether the inflated hierarchy should be attached to
+     *        the root parameter? If false, root is only used to create the
+     *        correct subclass of LayoutParams for the root view in the XML.
+     * @return The root View of the inflated hierarchy. If root was supplied and
+     *         attachToRoot is true, this is root; otherwise it is the root of
+     *         the inflated XML file.
+     */
+    protected View inflate(@LayoutRes int resource, ViewGroup root, boolean attachToRoot) {
+        return getActivity().getLayoutInflater().inflate(resource, root, attachToRoot);
     }
 
 
@@ -144,8 +167,41 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
+
         View content = onCreateContentView(savedInstanceState);
-        dialog.setView(content);
+
+        // Intermediate view with custom message TextView
+        View intermediate = inflate(R.layout.dialog_custom_view);
+        TextView textView = (TextView) intermediate.findViewById(R.id.customMessage);
+        View topSpacer = intermediate.findViewById(R.id.textSpacerNoTitle);
+        ViewGroup container = (ViewGroup) intermediate.findViewById(R.id.customView);
+        container.addView(content);
+
+        dialog.setView(intermediate);
+
+
+        String msg = getArgString(MESSAGE);
+        if (msg != null) {
+            CharSequence message;
+            if (getArguments().getBoolean(HTML)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    message = Html.fromHtml(msg, 0);
+                } else {
+                    //noinspection deprecation
+                    message = Html.fromHtml(msg);
+                }
+            } else {
+                message = msg;
+            }
+            textView.setText(message);
+
+        } else {
+            textView.setVisibility(View.GONE);
+        }
+        dialog.setMessage(null);
+
+        topSpacer.setVisibility(getArgString(TITLE) == null && msg != null ? View.VISIBLE : View.GONE);
+
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
