@@ -16,9 +16,11 @@
 
 package eltos.simpledialogfragment.color;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,6 +59,11 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             0xff795548, 0xff9e9e9e, 0xff607d8b
     };
 
+    public static final @ArrayRes int MATERIAL_COLOR_PALLET = R.array.material_pallet;
+    public static final @ArrayRes int MATERIAL_COLOR_PALLET_LIGHT = R.array.material_pallet_light;
+    public static final @ArrayRes int MATERIAL_COLOR_PALLET_DARK = R.array.material_pallet_dark;
+    public static final @ArrayRes int BEIGE_COLOR_PALLET = R.array.beige_pallet;
+
 
     private static final String COLORS = "simpleColorDialog.colors";
     private static final String CUSTOM = "simpleColorDialog.custom";
@@ -78,12 +85,25 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Sets the colors to choose from
+     * Default is the {@link #DEFAULT_COLORS} set
      *
      * @param colors array of rgb-colors
      */
     public SimpleColorDialog colors(@ColorInt int[] colors){
         getArguments().putIntArray(COLORS, colors);
         return this;
+    }
+
+    /**
+     * Sets the color pallet to choose from
+     * May be one of {@link #MATERIAL_COLOR_PALLET}, {@link #MATERIAL_COLOR_PALLET_DARK},
+     * {@link #MATERIAL_COLOR_PALLET_LIGHT}, {@link #BEIGE_COLOR_PALLET} or a custom pallet
+     *
+     * @param context a context to resolve the resource
+     * @param colorArrayRes color array resource id
+     */
+    public SimpleColorDialog colors(Context context, @ArrayRes int colorArrayRes){
+        return colors(context.getResources().getIntArray(colorArrayRes));
     }
 
     /**

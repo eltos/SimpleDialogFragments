@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Pallets to be used with SimpleColorDialog -->
+
+    <array name="material_pallet">
+        <item>#fff44336</item>
+        <item>#ffe91e63</item>
+        <item>#ff9c27b0</item>
+        <item>#ff673ab7</item>
+        <item>#ff3f51b5</item>
+        <item>#ff2196f3</item>
+        <item>#ff03a9f4</item>
+        <item>#ff00bcd4</item>
+        <item>#ff009688</item>
+        <item>#ff4caf50</item>
+        <item>#ff8bc34a</item>
+        <item>#ffcddc39</item>
+        <item>#ffffeb3b</item>
+        <item>#ffffc107</item>
+        <item>#ffff9800</item>
+        <item>#ffff5722</item>
+        <item>#ff795548</item>
+        <item>#ff9e9e9e</item>
+        <item>#ff607d8b</item>
+    </array>
+
+    <array name="material_pallet_light">
+        <item>#FFEF9A9A</item>
+        <item>#FFF48FB1</item>
+        <item>#FFCE93D8</item>
+        <item>#FFB39DDB</item>
+        <item>#FF9FA8DA</item>
+        <item>#FF90CAF9</item>
+        <item>#FF81D4FA</item>
+        <item>#FF80DEEA</item>
+        <item>#FF80CBC4</item>
+        <item>#FFA5D6A7</item>
+        <item>#FFC5E1A5</item>
+        <item>#FFE6EE9C</item>
+        <item>#FFFFF59D</item>
+        <item>#FFFFE082</item>
+        <item>#FFFFCC80</item>
+        <item>#FFFFAB91</item>
+        <item>#FFBCAAA4</item>
+        <item>#FFEEEEEE</item>
+        <item>#FFB0BEC5</item>
+    </array>
+
+    <array name="material_pallet_dark">
+        <item>#FFB71C1C</item>
+        <item>#FF880E4F</item>
+        <item>#FF4A148C</item>
+        <item>#FF311B92</item>
+        <item>#FF1A237E</item>
+        <item>#FF0D47A1</item>
+        <item>#FF01579B</item>
+        <item>#FF006064</item>
+        <item>#FF004D40</item>
+        <item>#FF1B5E20</item>
+        <item>#FF33691E</item>
+        <item>#FF827717</item>
+        <item>#FFF57F17</item>
+        <item>#FFFF6F00</item>
+        <item>#FFE65100</item>
+        <item>#FFBF360C</item>
+        <item>#FF3E2723</item>
+        <item>#FF212121</item>
+        <item>#FF263238</item>
+    </array>
+
+    <array name="beige_pallet">
+        <item>#ffb06660</item>
+        <item>#ffd9a88f</item>
+        <item>#ffeac3b8</item>
+        <item>#ffab9c73</item>
+        <item>#ffd2be96</item>
+        <item>#ffe3dcc0</item>
+        <item>#ff5e7703</item>
+        <item>#ff9baf8e</item>
+        <item>#ffc1cc89</item>
+        <item>#ffb4a851</item>
+        <item>#ffdfd27c</item>
+        <item>#ffe7e3b5</item>
+        <item>#ff6a7d8e</item>
+        <item>#ffaebbc7</item>
+        <item>#ffc1d2d6</item>
+        <item>#ff846d74</item>
+        <item>#ffb7a6ad</item>
+        <item>#ffd3c9ce</item>
+    </array>
+
+
+
+
+</resources>
