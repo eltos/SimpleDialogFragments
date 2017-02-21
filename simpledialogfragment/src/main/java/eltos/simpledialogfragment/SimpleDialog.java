@@ -43,15 +43,15 @@ import android.text.Html;
 @SuppressWarnings("unused")
 public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragment {
 
-    private static final String TITLE = "simpleDialog.title";
-    private static final String MESSAGE = "simpleDialog.message";
-    private static final String POSITIVE_BUTTON_TEXT = "simpleDialog.positiveButtonText";
-    private static final String NEGATIVE_BUTTON_TEXT = "simpleDialog.negativeButtonText";
-    private static final String NEUTRAL_BUTTON_TEXT = "simpleDialog.neutralButtonText";
-    private static final String ICON_RESOURCE = "simpleDialog.iconResource";
-    private static final String CANCELABLE = "simpleDialog.cancelable";
-    private static final String THEME = "simpleDialog.theme";
-    private static final String HTML = "simpleDialog.html";
+    static final String TITLE = "simpleDialog.title";
+    static final String MESSAGE = "simpleDialog.message";
+    static final String POSITIVE_BUTTON_TEXT = "simpleDialog.positiveButtonText";
+    static final String NEGATIVE_BUTTON_TEXT = "simpleDialog.negativeButtonText";
+    static final String NEUTRAL_BUTTON_TEXT = "simpleDialog.neutralButtonText";
+    static final String ICON_RESOURCE = "simpleDialog.iconResource";
+    static final String CANCELABLE = "simpleDialog.cancelable";
+    static final String THEME = "simpleDialog.theme";
+    static final String HTML = "simpleDialog.html";
 
     protected static final String BUNDLE = "simpleDialog.bundle";
 
