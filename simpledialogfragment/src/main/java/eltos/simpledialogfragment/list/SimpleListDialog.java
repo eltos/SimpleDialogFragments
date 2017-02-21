@@ -17,6 +17,7 @@
 package eltos.simpledialogfragment.list;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -37,7 +38,20 @@ import java.util.ArrayList;
  */
 public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
-    private final static String DATA_SET = "simpleListDialog.data_set";
+    private static final String TAG = "simpleListDialog";
+
+    private final static String DATA_SET = TAG + "data_set";
+
+    /**
+     * Key for an <b>ArrayList&lt;String&gt;</b> returned by {@link #onResult}
+     */
+    public static final String SELECTED_LABELS = TAG + "selectedLabels";
+
+    /**
+     * Key for a <b>String</b> returned by {@link #onResult} in single choice mode
+     */
+    public static final String SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
+
 
     public static SimpleListDialog build(){
         return new SimpleListDialog();
@@ -112,6 +126,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     }
 
 
+    ArrayList<SimpleListItem> mData;
 
     @Override
     protected SimpleListAdapter onCreateAdapter() {
@@ -131,14 +146,41 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
                 break;
         }
 
-        ArrayList<SimpleListItem> data = getArguments().getParcelableArrayList(DATA_SET);
-        if (data == null) data = new ArrayList<>(0);
+
+        mData = getArguments().getParcelableArrayList(DATA_SET);
+        if (mData == null) mData = new ArrayList<>(0);
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        return new SimpleListAdapter(inflater, layout, data);
+        return new SimpleListAdapter(inflater, layout, mData);
 
     }
+
+
+    @Override
+    protected Bundle onResult(int which) {
+        Bundle result = super.onResult(which);
+        if (result != null) {
+
+            ArrayList<Integer> positions = result.getIntegerArrayList(SELECTED_POSITIONS);
+            if (positions != null) {
+                ArrayList<String> labels = new ArrayList<>(positions.size());
+                for (Integer pos : positions) {
+                    labels.add(mData.get(pos).getString());
+                }
+                result.putStringArrayList(SELECTED_LABELS, labels);
+            }
+
+            if (result.containsKey(SELECTED_SINGLE_POSITION)) {
+                result.putString(SELECTED_SINGLE_LABEL, mData.get(
+                        result.getInt(SELECTED_SINGLE_POSITION)).getString());
+            }
+
+        }
+        return result;
+    }
+
+
 
     class SimpleListAdapter extends AdvancedAdapter<String> {
 

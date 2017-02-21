@@ -31,7 +31,7 @@ public class SimpleListItem implements Parcelable {
 
     @Override
     public String toString() {
-        return string;
+        return getString();
     }
 
     protected SimpleListItem(String string){
