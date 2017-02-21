@@ -65,9 +65,24 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     public static final int SINGLE_CHOICE_DIRECT = 11;
     public static final int MULTI_CHOICE = 2;
 
+    /**
+     * Key for a <b>long[]</b> returned by {@link #onResult}
+     */
     public static final String SELECTED_IDS = TAG + "selectedIds";
+
+    /**
+     * Key for an <b>ArrayList&lt;Integer&gt;</b> returned by {@link #onResult}
+     */
     public static final String SELECTED_POSITIONS = TAG + "selectedPos";
+
+    /**
+     * Key for a <b>long</b> returned by {@link #onResult} in single choice mode
+     */
     public static final String SELECTED_SINGLE_ID = TAG + "selectedSingleId";
+
+    /**
+     * Key for an <b>int</b> returned by {@link #onResult} in single choice mode
+     */
     public static final String SELECTED_SINGLE_POSITION = TAG + "selectedSinglePos";
 
     protected static final String CHOICE_MODE = TAG + "choiceMode";
@@ -295,13 +310,12 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
     private AbsListView mListView;
-    private AdvancedAdapter mAdapter;
+    private AdvancedAdapter<?> mAdapter;
     private EditText mFilterEditText;
 
 
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
-        // inflate and set your custom view here
 
         View view;
         TextView mEmptyView;
