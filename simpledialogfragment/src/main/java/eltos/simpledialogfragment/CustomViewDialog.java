@@ -26,6 +26,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -118,7 +119,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     /**
-     * Method to inflate your custom View in {@link #onCreateContentView}
+     * Method to inflate your custom View from {@link #onCreateContentView}
      *
      * @param resource The resource to be inflated
      * @return The inflated view
@@ -128,7 +129,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     /**
-     * Method to inflate your custom View in {@link #onCreateContentView}. Throws
+     * Method to inflate your custom View from {@link #onCreateContentView}. Throws
      * {@link InflateException} if there is an error.
      *
      * @param resource ID for an XML layout resource to load
@@ -144,7 +145,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      *         the inflated XML file.
      */
     protected View inflate(@LayoutRes int resource, ViewGroup root, boolean attachToRoot) {
-        return getActivity().getLayoutInflater().inflate(resource, root, attachToRoot);
+        return layoutInflater.inflate(resource, root, attachToRoot);
     }
 
 
@@ -153,6 +154,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
 
     private Button positiveButton;
+    private LayoutInflater layoutInflater;
 
 
     @Override
@@ -167,6 +169,8 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
+
+        layoutInflater = dialog.getLayoutInflater();
 
         View content = onCreateContentView(savedInstanceState);
 

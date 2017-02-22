@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/filter"
-        android:hint="@android:string/search_hint"
+        android:hint="@string/abc_search_hint"
         android:inputType="textCapSentences|text"
         android:lines="1"
         android:maxLines="1"

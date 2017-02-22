@@ -17,6 +17,7 @@
 package eltos.simpledialogfragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.Html;
 
 /**
@@ -343,8 +345,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
 
-
-
+    private Context context;
+    @Override
+    public Context getContext() {
+        return context != null ? context : super.getContext();
+    }
 
     @NonNull
     @Override
@@ -352,10 +357,13 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
         if (getArguments().containsKey(THEME)){
             dialog = new AlertDialog.Builder(getContext(), getArguments().getInt(THEME)).create();
+            setStyle(STYLE_NORMAL, getArguments().getInt(THEME));
         } else {
             // default theme or 'alertDialogTheme'
             dialog = new AlertDialog.Builder(getContext()).create();
         }
+
+        context = dialog.getContext();
 
         dialog.setTitle(getArgString(TITLE));
         String msg = getArgString(MESSAGE);

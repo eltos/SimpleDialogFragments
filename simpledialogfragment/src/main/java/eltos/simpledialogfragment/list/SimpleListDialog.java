@@ -23,7 +23,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -36,6 +35,7 @@ import java.util.ArrayList;
  *
  * Created by eltos on 02.01.2017.
  */
+@SuppressWarnings("unused")
 public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
     private static final String TAG = "simpleListDialog";
@@ -150,9 +150,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         mData = getArguments().getParcelableArrayList(DATA_SET);
         if (mData == null) mData = new ArrayList<>(0);
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        return new SimpleListAdapter(inflater, layout, mData);
+        return new SimpleListAdapter(layout, mData);
 
     }
 
@@ -184,12 +182,9 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
     class SimpleListAdapter extends AdvancedAdapter<String> {
 
-        private LayoutInflater mInflater;
         private int mLayout;
 
-        SimpleListAdapter(LayoutInflater layoutInflater, @LayoutRes int layout,
-                          ArrayList<SimpleListItem> data){
-            mInflater = layoutInflater;
+        SimpleListAdapter(@LayoutRes int layout, ArrayList<SimpleListItem> data){
             mLayout = layout;
             ArrayList<Pair<String, Long>> dataAndIds = new ArrayList<>(data.size());
             for (SimpleListItem simpleListItem : data) {
@@ -217,7 +212,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
             TextView textView;
 
             if (convertView == null){
-                convertView = mInflater.inflate(mLayout, parent, false);
+                convertView = inflate(mLayout, parent, false);
                 textView = (TextView) convertView.findViewById(android.R.id.text1);
                 convertView.setTag(textView);
             } else {

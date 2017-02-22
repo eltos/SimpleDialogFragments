@@ -169,6 +169,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (id == PICKER){
             SimpleColorWheelDialog.build()
+                    .theme(getTheme())
                     .alpha(false)
                     .color(mCustomColor)
                     .show(this, PICKER_DIALOG_TAG);
