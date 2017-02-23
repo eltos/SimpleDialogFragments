@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+##############################################################################
+##
+##  Publish helper script for linux
+##
+##  this script will quide through the following workflow, copy javadoc
+##  and handle possible fail of javadoc generation
+##
+##
+##  Publishing workflow
+##
+##  - Add this to local.properties:
+##      bintray.user=eltos
+##      bintray.apikey=...
+## 
+##  - Update version code in build.gradle!
+## 
+##  - Run
+##      $ ./gradlew clean build install
+##      This may fail during javadoc generation. However, the javadoc will most likely have been
+##      generated in simpledialogfragment/build/docs/javadoc/
+##
+##  - Run
+##      $ ./gradlew install -xjavadoc
+##      $ ./gradlew bintrayUpload
+##
+##############################################################################
+
+
+# Check for config in local.properties
+######################################
+if ! grep -q "^bintray.user=" "local.properties" ||
+	! grep -q "^bintray.apikey=" "local.properties"; then
+	echo -e "\e[31mERROR: These need to be defined in local.properties:\e[0m"
+	echo "  bintray.user=eltos"
+	echo "  bintray.apikey=***"
+	exit 1
+fi
+
+
+# Check for updated version codes
+#################################
+VN=$(grep "versionName" "simpledialogfragment/build.gradle" | awk '{print $2}' | tr -d '"' | tr -d "'")
+VC=$(grep "versionCode" "simpledialogfragment/build.gradle" | awk '{print $2}')
+LVN=$(grep "libraryVersion" "simpledialogfragment/build.gradle" | awk '{print $3}' | tr -d '"' | tr -d "'")
+
+read -r -p $'Are the version codes (\e[33m'"$LVN"$'\e[0m, \e[33m'"$VN"$'\e[0m, \e[33m'"$VC"$'\e[0m) up to date? [Y/n] ' OK
+if [[ $OK =~ ^[Nn].*$ ]]; then
+	echo -e "\e[31mThen please update them!\e[0m"
+	exit 1
+fi
+
+
+# Build
+#######
+echo "Clean, build and install..."
+./gradlew clean build install
+BUILD=$?
+
+# Copy javadoc
+##############
+if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
+	echo -e "\e[32mJavadoc created\e[0m"
+	TO="docs/v$LVN/javadoc"
+	COPY=0
+	if [ -d $TO ] && ! [ -z "$(ls -A $TO)" ]; then
+		# path exists but is not empty
+	   	read -r -p $'\e[33mJavadoc dir '"$TO"$' not empty. Overwrite? [Y/n]\e[0m ' OK
+		if [[ $OK =~ ^[Nn].*$ ]]; then
+			COPY=0
+		else
+			rm -rf "$TO"
+		fi
+	fi
+	if [ COPY ]; then
+		mkdir -p $TO
+		cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
+		echo -e "\e[32mJavadoc copied to $TO\e[0m"
+	fi
+else
+	echo -e "\e[31mJavadoc not created\e[0m"
+fi
+
+
+# Build
+#######
+if [ $BUILD -ne 0 ]; then
+	# first build failed, try again without javadoc
+	echo "Install again without javadoc..."
+	./gradlew install -xjavadoc
+	BUILD=$?
+fi
+
+# Deploy
+########
+if [ $BUILD -eq 0 ]; then
+	read -r -p $'\e[32mBuild "'"$LVN"$'" successful. Upload to bintray? [Y/n]\e[0m ' OK
+	if ! [[ $OK =~ ^[Nn].*$ ]]; then
+		echo "Upload to bintray"
+		./gradlew bintrayUpload
+		echo -e "\e[32mSUCCESS :)\e[0m"
+		xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
+	fi
+else
+	echo -e "\e[31mBUILD FAILED\e[0m"
+	exit 1
+fi
+
+exit 0
+
+
