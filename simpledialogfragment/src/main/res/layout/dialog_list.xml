@@ -14,6 +14,7 @@
         android:id="@+id/filter"
         android:hint="@string/abc_search_hint"
         android:inputType="textCapSentences|text"
+        android:imeOptions="flagNoExtractUi"
         android:lines="1"
         android:maxLines="1"
         />
