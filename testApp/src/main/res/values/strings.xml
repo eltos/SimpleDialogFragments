@@ -31,11 +31,11 @@
     <string name="country">Country</string>
     <string name="names">Names</string>
     <string name="choice_i">Choice %1$s</string>
-    <string name="long_title">Please agree to the terms and conditions listed below</string>
+    <string name="terms_title">Please agree to the terms and conditions listed below</string>
     <string name="long_ok">Continue and start the awesome</string>
     <string name="long_no">No, I cannot agree on this</string>
     <string name="long_cancel">No, stop, wait, cancel this!</string>
-    <string name="long_message"><Data>
+    <string name="terms_and_conditions_html_styled"><Data>
         <![CDATA[
 
         <b>Terms and conditions of a imaginary service provider</b><br/>
@@ -202,7 +202,7 @@
 
         For information about how to contact us, please visit our contact page.
         ]]></Data></string>
-    <string name="read_and_accept">I have\'t read the terms and conditions but do agree anyways</string>
+    <string name="terms_accept">I have\'t read the terms and conditions but do agree anyways</string>
     <string name="input_dialogs">Input Dialogs</string>
     <string name="suggestions_button">Suggestions</string>
     <string name="phone_button">Phone</string>
@@ -225,4 +225,33 @@
     <string name="error">Error</string>
     <string name="pw_correct">Password correct</string>
     <string name="new_pw_set">New password set</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="form">Form</string>
+    <string name="search_name">Search for a name</string>
+    <string name="message">Message</string>
+    <string name="exit">Exit</string>
+    <string name="select_up_to_5">Select up to 5 items</string>
+    <string name="product_flavour_chosen">Flavour \"%1$s\" chosen for product \"%2$s\"</string>
+    <string name="decline">Decline</string>
+    <string name="keep_starred">Keep starred</string>
+    <string name="deleted_but_starred_kept">Deleted (starred kept)</string>
+    <string name="deleted">Deleted</string>
+    <string name="receive_newsletter">Subscribe to newsletter</string>
+    <string name="register">Register</string>
+    <string name="please_fill_in_form">Please fill in the form</string>
+    <string name="terms_declined_exited">Terms declined. App closed.</string>
+    <string name="save">Save</string>
+    <string name="discard">Discard</string>
+    <string name="ask_changes_discard">Save or discard the changes made?</string>
+    <string name="ask_exit">Unsaved changes</string>
+    <string name="custom_dialog_theme">Custom dialog theme</string>
+    <string name="custom_theme_info">Dialog themes can be customized for all dialog or on a per dialog basis.</string>
+    <string name="saved">Saved</string>
+    <string name="discarded">Discarded</string>
+    <string name="canceled">Canceled</string>
+    <string name="gender">Gender</string>
+    <string name="select___">Select…</string>
+
+
 </resources>

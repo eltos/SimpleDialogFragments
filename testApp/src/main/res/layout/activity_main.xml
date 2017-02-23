@@ -2,287 +2,462 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="eltos.simpledialogfragments.MainActivity"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/scrollView">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/alert_dialog"
-            android:id="@+id/alert"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:onClick="onAlertClick" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_dialog"
-            android:id="@+id/check"
-            android:layout_below="@+id/alert"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:onClick="onCheckClick" />
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:alignmentMode="alignMargins"
-            android:orientation="vertical"
-            android:id="@+id/gridLayout"
-            android:layout_below="@+id/check">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:columnCount="4">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:text="Alerts"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/input_dialogs"
-                android:id="@+id/textView2"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_columnSpan="3" />
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/suggestions_button"
-                android:id="@+id/input"
                 android:layout_row="1"
                 android:layout_column="0"
-                android:onClick="onSuggestionClick" />
+                android:layout_columnWeight="1"
+                android:text="Info"
+                android:onClick="showInfo" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/phone_button"
-                android:id="@+id/phone"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:onClick="onNumerClick" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email_button"
-                android:id="@+id/mail"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:onClick="onEmailClick" />
+                android:layout_columnWeight="1"
+                android:text="HTML"
+                android:onClick="showHtml" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/password"
-                android:id="@+id/passwd"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:onClick="onPasswordClick" />
+                android:layout_columnWeight="1"
+                android:text="Image"
+                android:onClick="showImage" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="HTML"
+                android:id="@+id/button"
+                android:onClick="showHtml" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:onClick="showQr"
+                android:text="QR code" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="Yes | No"
+                android:onClick="showYesNo" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:text="Themed"
+                android:onClick="showThemed" />
 
         </GridLayout>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:alignmentMode="alignMargins"
-            android:orientation="vertical"
-            android:layout_below="@+id/gridLayout"
-            android:id="@+id/gridLayout2">
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:text="Lists and Choices"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/list_dialogs"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_columnSpan="2" />
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/direct_choice_button"
-                android:id="@+id/list3"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:text="Direct"
+                android:onClick="showDirectChoice" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:onClick="onDirectClick" />
+                android:layout_columnWeight="1"
+                android:text="Single"
+                android:onClick="showSingleChoice" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/single_choice_button"
-                android:id="@+id/list1"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:onClick="onSingleClick" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/multi_choice_button"
-                android:id="@+id/list2"
-                android:layout_row="2"
-                android:layout_column="1"
-                android:onClick="onMultiClick" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/simple_button"
-                android:id="@+id/list0"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:onClick="onSimpleClick" />
-
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:alignmentMode="alignMargins"
-            android:orientation="vertical"
-            android:layout_below="@+id/gridLayout2"
-            android:id="@+id/gridLayout3" >
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/time_picker_button"
-                android:id="@+id/timePicker"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:onClick="onTimeClick" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/date_and_time_dialogs"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="2" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_picker_button"
-                android:id="@+id/datePicker"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:onClick="onDateClick" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/datetime_button"
-                android:id="@+id/dateTimePicker"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:onClick="onDateTimeClick" />
+                android:layout_columnWeight="1"
+                android:text="Multi"
+                android:onClick="showMultiChoice" />
+
         </GridLayout>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:alignmentMode="alignMargins"
-            android:orientation="vertical"
-            android:id="@+id/gridLayout4"
-            android:layout_below="@+id/gridLayout3">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/color_button"
-                android:id="@+id/color"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:onClick="onColorClick" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/color_wheel_button"
-                android:id="@+id/colorWheelButton"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:onClick="onColorWheelClick" />
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:text="Colors"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/color_dialogs"
                 android:layout_row="0"
                 android:layout_column="0"
-                android:layout_columnSpan="2" />
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:text="Picker"
+                android:onClick="showColorPicker" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="HSV Wheel"
+                android:onClick="showHsvWheel" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:visibility="invisible" />
 
         </GridLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/popup"
-            android:id="@+id/recursive"
-            android:layout_alignTop="@+id/alert"
-            android:layout_toRightOf="@+id/alert"
-            android:layout_toEndOf="@+id/alert"
-            android:onClick="onRecourseClick" />
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
-        <Button
-            android:text="@string/overflow_button"
-            android:layout_width="wrap_content"
+            <TextView
+                android:text="Inputs and Forms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:text="Checkbox"
+                android:onClick="showCheckBox" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="Email"
+                android:onClick="showEmailInput" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:text="Login"
+                android:onClick="showLogin" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:text="Number"
+                android:onClick="showNumberInput" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="Form"
+                android:onClick="showForm" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:visibility="invisible" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/recursive"
-            android:layout_toRightOf="@+id/check"
-            android:layout_toEndOf="@+id/check"
-            android:id="@+id/button"
-            android:onClick="onOverflowClick" />
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
 
-        <Button
-            android:text="@string/image"
-            android:layout_width="wrap_content"
+            <TextView
+                android:text="Date and Time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:onClick="showDate"
+                android:text="Date" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:text="Time"
+                android:onClick="showTime" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:text="Datetime"
+                android:onClick="showDatetime" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/recursive"
-            android:layout_toEndOf="@+id/recursive"
-            android:id="@+id/button2"
-            android:onClick="onImageClick" />
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
 
-        <Button
-            android:text="@string/qr"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="2"
+                android:layout_columnWeight="1" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
-            android:layout_toRightOf="@+id/button"
-            android:layout_toEndOf="@+id/button"
-            android:id="@+id/button3"
-            android:onClick="onQrClick" />
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:visibility="gone">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:layout_columnWeight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="2"
+                android:layout_columnWeight="1" />
+
+        </GridLayout>
+
+    </LinearLayout>
 
 </ScrollView>

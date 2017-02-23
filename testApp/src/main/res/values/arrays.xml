@@ -6,4 +6,39 @@
         <item>Best choice</item>
         <item>Ultimate choice</item>
     </string-array>
+
+    <string-array name="activites" >
+        <item>Archaeology and Anthropology</item>
+        <item>Architecture</item>
+        <item>Art</item>
+        <item>Beaches</item>
+        <item>Bed and Breakfasts</item>
+        <item>Biking</item>
+        <item>Birds</item>
+        <item>Business</item>
+        <item>Cruises</item>
+        <item>Eco-Tourism</item>
+        <item>Family</item>
+        <item>Fishing</item>
+        <item>Food and Wine</item>
+        <item>Gardens</item>
+        <item>Golf</item>
+        <item>Hiking</item>
+        <item>History</item>
+        <item>Kayaking and Canoeing</item>
+        <item>Music</item>
+        <item>National Parks</item>
+        <item>Road Trips</item>
+        <item>Shopping</item>
+        <item>Skiing</item>
+        <item>Snorkeling and Diving</item>
+        <item>Surfing</item>
+        <item>Wildlife</item>
+    </string-array>
+
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
 </resources>

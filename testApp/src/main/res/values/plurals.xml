@@ -2,8 +2,13 @@
 <resources>
 
     <plurals name="selected">
-        <item quantity="one">%1$s selected</item>
-        <item quantity="other">%1$s selected</item>
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+
+    <plurals name="delete_messages">
+        <item quantity="one">Delete one message?</item>
+        <item quantity="other">Delete %1$d messages?</item>
     </plurals>
 
 </resources>

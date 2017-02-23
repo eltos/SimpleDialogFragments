@@ -1,12 +1,25 @@
 package eltos.simpledialogfragments;
 
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,25 +30,22 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
 
-import eltos.simpledialogfragment.SimpleCheckDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleImageDialog;
 import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
-import eltos.simpledialogfragment.input.SimpleEMailDialog;
+import eltos.simpledialogfragment.form.Check;
+import eltos.simpledialogfragment.form.Input;
+import eltos.simpledialogfragment.form.SimpleFormDialog;
+import eltos.simpledialogfragment.form.Spinner;
 import eltos.simpledialogfragment.input.SimpleInputDialog;
 import eltos.simpledialogfragment.list.SimpleListDialog;
 
@@ -43,21 +53,41 @@ public class MainActivity extends AppCompatActivity implements
         SimpleDialog.OnDialogResultListener,
         SimpleInputDialog.InputValidator {
 
-    private static final String CHECK_DIALOG = "checkDialogTag";
-    private static final String INPUT_DIALOG = "inputDialogTag";
-    private static final String MAIL_DIALOG = "mailDialogTag";
-    private static final String LIST_DIALOG = "listDialogTag";
-    private static final String COLOR_DIALOG = "colorDialogTag";
-    private static final String DATE = "datePickerTag";
-    private static final String TIME = "timePickerTag";
-    private static final String DATETIME1 = "datetime1";
-    private static final String DATETIME2 = "datetime2";
-    private static final String COLOR_WHEEL_DIALOG = "colorWheelDialogTag";
-    private static final String PHONE_DIALOG = "phoneDialogTag";
-    private static final String PW_DIALOG = "pwDialogTag";
+    private static final int REQUEST_ACCOUNTS_PERMISSION = 123;
 
-    private int mColor = SimpleColorDialog.NONE;
-    private byte[] oldHash;
+    private static final String TERMS_DIALOG = "dialogTagTerms";
+    private static final String CHOICE_DIALOG = "dialogTagChoice";
+    private static final String PRODUCT_DIALOG = "dialogTagProduct";
+    private static final String NUMBER_DIALOG = "dialogTagNumber";
+    private static final String LOGIN_DIALOG = "dialogTagLogin";
+    private static final String EMAIL_DIALOG = "dialogTagEmail";
+    private static final String REGISTRATION_DIALOG = "dialogTagRegistration";
+    private static final String CHECK_DIALOG = "dialogTagCheck";
+    private static final String INPUT_DIALOG = "dialogTagInput";
+    private static final String COLOR_DIALOG = "dialogTagColor";
+    private static final String COLOR_WHEEL_DIALOG = "dialogTagColorWheel";
+    private static final String DATE_DIALOG = "dialogTagDate";
+    private static final String TIME_DIALOG = "dialogTagTime";
+    private static final String DATETIME_DIALOG_DATE = "dialogTagDateTimeDate";
+    private static final String DATETIME_DIALOG_TIME = "dialogTagDateTimeTime";
+    private static final String YES_NO_DIALOG = "dialogTagYesNo";
+
+    private static final String PRODUCT_ID = "productId";
+    private static final String PHONE_NUMBER = "phoneNumber";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String KEEP_STARRED = "keepStarred";
+    private static final String COUNTRY = "country";
+    private static final String NEWSLETTER = "newsletter";
+    private static final String FIRST_NAME = "firstName";
+    private static final String SURNAME = "surname";
+    private static final String EMAIL = "email";
+    private static final String GENDER = "gender";
+
+
+    private int color = SimpleColorDialog.NONE;
+    private int counter = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,229 +96,60 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    public void onCheckClick(View view) {
 
+    // ==   A l e r t s   ==
 
-        SimpleCheckDialog.build()
-                .title(R.string.check)
-                .msg(R.string.please_check)
-                .label(R.string.accept)
-                .checkRequired(true)
-                .cancelable(false)
-                .show(MainActivity.this, CHECK_DIALOG);
-
-    }
-
-    public void onSuggestionClick(View view){
-
-        String[] countries = getResources().getStringArray(R.array.countries_locale);
-
-        SimpleInputDialog.build()
-                .title(R.string.test)
-                .msg(R.string.enter_country)
-                .hint(R.string.country)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-                .neut()
-                .pos(R.string.continue_)
-                .suggest(countries)
-                .show(MainActivity.this, INPUT_DIALOG);
-
-    }
-
-    public void onPasswordClick(View view){
-
-        SimpleInputDialog.build()
-                .title(R.string.password)
-                .hint(R.string.password)
-                .neut()
-                .max(25)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
-                .show(MainActivity.this, PW_DIALOG);
-
-    }
-
-    public void onEmailClick(View view){
-
-        Bundle extra = new Bundle();
-        extra.putInt("ID", 123);
-
-        SimpleEMailDialog.build()
-                .msg(R.string.enter_email)
-                .extra(extra)
-                .show(MainActivity.this, MAIL_DIALOG);
-
-    }
-
-    public void onNumerClick(View view){
-
-        SimpleInputDialog.build()
-                .msg(R.string.enter_number)
-                .inputType(InputType.TYPE_CLASS_PHONE)
-                .show(MainActivity.this, PHONE_DIALOG);
-
-    }
-
-    public void onSimpleClick(View view){
-
-
-        String[] data = new String[]{"Amelia", "Ava", "Charlie", "Ella", "Emily", "George",
-                "Harry", "Isabella", "Isla", "Jack", "Jacob", "Jessica", "Mia", "Noah",
-                "Oliver", "Olivia", "Oscar", "Poppy", "Thomas", "William"};
-
-        SimpleListDialog.build()
-                .title(R.string.names)
-                .items(data)
-                .divider(true)
-                .filterable(true)
-                .emptyText(R.string.not_found)
-                .show(MainActivity.this, LIST_DIALOG);
-
-    }
-
-    public void onSingleClick(View view){
-
-
-        int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
-
-        Bundle extras = new Bundle();
-        extras.putIntArray("labels", data);
-
-        SimpleListDialog.build()
-                .title(R.string.select_one)
-                .choiceMode(SimpleListDialog.SINGLE_CHOICE) // _DIRECT
-                .choiceMin(1)
-                .items(getBaseContext(), data)
-                .extra(extras)
-                .show(MainActivity.this, LIST_DIALOG);
-
-    }
-
-    public void onDirectClick(View view){
-
-
-        SimpleListDialog.build()
-                .title(R.string.select_one)
-                .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
-                .items(getBaseContext(), R.array.choices)
-                .show(MainActivity.this, LIST_DIALOG);
-
-    }
-
-    public void onMultiClick(View view){
-
-        String[] data = new String[100];
-        for (int i = 0; i < data.length; i++) {
-            data[i] = getString(R.string.choice_i, i+"");
-        }
-
-        SimpleListDialog.build()
-                .title(R.string.select_any)
-                .choiceMode(SimpleListDialog.MULTI_CHOICE)
-                .choicePreset(new int[]{0,2})
-                .items(data)
-                .filterable(true)
-                .show(MainActivity.this, LIST_DIALOG);
-
-    }
-
-    public void onColorClick(View view){
-
-        SimpleColorDialog.build()
-                .title(R.string.pick_a_color)
-                .colorPreset(mColor)
-//                .choiceMode(SimpleColorDialog.SINGLE_CHOICE_DIRECT)
-                .allowCustom(true)
-                .show(MainActivity.this, COLOR_DIALOG);
-
-    }
-
-    public void onRecourseClick(View view){
-
-        RecursiveDialog.build()
-                .show(MainActivity.this);
-
-    }
-
-    public void onDateClick(View view){
-
-        SimpleDateDialog.build()
-                .minDate(new Date())    // only future days
-                .show(MainActivity.this, DATE);
-
-    }
-
-    public void onTimeClick(View view){
-
-        SimpleTimeDialog.build()
-                .neut()
-                .hour(12).minute(0)
-                .show(MainActivity.this, TIME);
-
-    }
-
-    public void onDateTimeClick(View view){
-
-        SimpleDateDialog.build()
-                .show(MainActivity.this, DATETIME1);
-
-    }
-
-    public void onColorWheelClick(View view){
-
-        SimpleColorWheelDialog.build()
-                .color(mColor)
-                .alpha(true)
-                .show(MainActivity.this, COLOR_WHEEL_DIALOG);
-
-    }
-
-    public void onAlertClick(View view){
+    public void showInfo(View view){
 
         SimpleDialog.build()
-                .title(R.string.hello)
+                .title(R.string.message)
                 .msg(R.string.hello_world)
-                .show(MainActivity.this);
+                .show(this);
 
     }
 
-    public void onOverflowClick(View view){
+
+    public void showHtml(View view){
 
         SimpleDialog.build()
-                .title(R.string.long_title)
-                .msgHtml(R.string.long_message)
-                .pos(R.string.long_ok)
-                .neg(R.string.long_no)
-                .neut(R.string.long_cancel)
-                .show(MainActivity.this);
+                .title(R.string.terms_title)
+                .msgHtml(R.string.terms_and_conditions_html_styled)
+                .cancelable(false)
+                .pos(R.string.accept)
+                .neg(R.string.decline)
+                .show(this, TERMS_DIALOG);
+
+        /** Results: {@link #onResult} **/
 
     }
 
-    private int counter = 0;
 
-    public void onImageClick(View view){
+    public void showImage(View view){
 
         SimpleImageDialog.build()
                 .image(new int[]{
                         R.drawable.wide_image_sample,
                         R.drawable.tall_image_sample,
-                        R.drawable.image_sample}[counter++%3])
-//                .scaleType(SimpleImageDialog.Scale.SCROLL_HORIZONTAL)
-                .show(MainActivity.this);
+                        R.drawable.image_sample}[counter++ % 3])
+                .show(this);
 
     }
 
-    public void onQrClick(View view){
 
-        String content = "https://github.com/eltos/SimpleDialogFragments";
+    public void showQr(View view){
 
+        Bitmap qr = null;
+
+        // Generate
         try {
+
+            String content = "https://github.com/eltos/SimpleDialogFragments";
 
             int size = 1024;
             EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF8");
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints);
-
             int[] pixels = new int[size * size];
             for (int y = 0; y < size; y++) {
                 int offset = y * size;
@@ -296,130 +157,510 @@ public class MainActivity extends AppCompatActivity implements
                     pixels[offset + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
                 }
             }
-            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
-            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
-
-            SimpleImageDialog.build()
-                    .image(bitmap)
-                    .show(MainActivity.this);
+            qr = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
+            qr.setPixels(pixels, 0, size, 0, 0, size, size);
 
         } catch (WriterException e) {
             Toast.makeText(getBaseContext(), R.string.error, Toast.LENGTH_SHORT).show();
         }
 
+        // show
+        SimpleImageDialog.build()
+                .image(qr)
+                .show(MainActivity.this);
 
     }
 
 
+    public void showYesNo(View view){
+
+        SimpleDialog.build()
+                .title(R.string.ask_exit)
+                .msg(R.string.ask_changes_discard)
+                .pos(R.string.save)
+                .neg(R.string.discard)
+                .neut()
+                .show(this, YES_NO_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showThemed(View view){
+
+        SimpleFormDialog.build()
+                .title(R.string.custom_dialog_theme)
+                .msg(R.string.custom_theme_info)
+                .fields(
+                        Input.email(null),
+                        Check.box(null).label(R.string.receive_newsletter).required()
+                )
+                .theme(R.style.MyFancyDialogTheme)
+                .show(this);
+
+    }
+
+
+
+    // ==   L i s t s   a n d   C h o i c e s   ==
+
+    public void showDirectChoice(View view){
+
+        SimpleListDialog.build()
+                .title(R.string.select_one)
+                .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
+                .items(getBaseContext(), R.array.choices)
+                .show(this, CHOICE_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showSingleChoice(View view){
+
+        Bundle extras = new Bundle();
+        extras.putString(PRODUCT_ID, "X23E5HZL6X2");
+
+        SimpleListDialog.build()
+                .title(R.string.select_one)
+                .choiceMode(SimpleListDialog.SINGLE_CHOICE)
+                .choiceMin(1)
+                .items(
+                        new String[]{"Flavour A", "Flavour B", "Flavour C"},
+                        new   long[]{    1348223,     7845325,     6875212})    // ids
+                .extra(extras)
+                .show(this, PRODUCT_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showMultiChoice(View view){
+
+        SimpleListDialog.build()
+                .title(R.string.select_up_to_5)
+                .choiceMode(SimpleListDialog.MULTI_CHOICE)
+                .choiceMax(5)
+                .items(getBaseContext(), R.array.activites)
+                .filterable(true)
+                .show(this, CHOICE_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+
+    // ==   C o l o r s   ==
+
+    public void showColorPicker(View view){
+
+        @ArrayRes int pallet = new int[]{
+                SimpleColorDialog.MATERIAL_COLOR_PALLET, // default if no pallet explicitly set
+                SimpleColorDialog.MATERIAL_COLOR_PALLET_DARK,
+                SimpleColorDialog.MATERIAL_COLOR_PALLET_LIGHT,
+                SimpleColorDialog.BEIGE_COLOR_PALLET
+        }[counter++ % 4];
+
+        SimpleColorDialog.build()
+                .title(R.string.pick_a_color)
+                .colors(this, pallet)
+                .colorPreset(color)
+                .allowCustom(true)
+                .show(this, COLOR_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showHsvWheel(View view){
+
+        SimpleColorWheelDialog.build()
+                .color(color)
+                .alpha(true)
+                .show(this, COLOR_WHEEL_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+
+    // ==   I n p u t s   a n d   F o r m s   ==
+
+    public void showCheckBox(View view){
+
+        SimpleFormDialog.build()
+                .title(getResources().getQuantityString(R.plurals.delete_messages, 17, 17))
+                .fields(Check.box(KEEP_STARRED)
+                        .label(R.string.keep_starred)
+                        .check(true))
+                .show(this, CHECK_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showEmailInput(View view){
+
+        // email suggestion from registered accounts
+        ArrayList<String> emails = new ArrayList<>(0);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && view != null) {
+                requestPermissions(new String[]{Manifest.permission.GET_ACCOUNTS}, REQUEST_ACCOUNTS_PERMISSION);
+                return;
+            }
+        } else {
+            Account[] accounts = AccountManager.get(this).getAccounts();
+            for (Account account : accounts) {
+                if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
+                    emails.add(account.name);
+                }
+            }
+        }
+
+        SimpleFormDialog.build()
+                .fields(Input.email(EMAIL)
+                        .required()
+                        .suggest(emails)
+                        .text(emails.size() > 0 ? emails.get(0) : null)
+                )
+                .show(this, EMAIL_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showLogin(View view){
+
+        SimpleFormDialog.buildLogin(USERNAME, PASSWORD)
+                .show(this, LOGIN_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showNumberInput(View view){
+
+        SimpleFormDialog.buildNumberInput(PHONE_NUMBER)
+                .show(this, NUMBER_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showForm(View view){
+
+        SimpleFormDialog.build()
+                .title(R.string.register)
+                .msg(R.string.please_fill_in_form)
+                .fields(
+                        Input.name(FIRST_NAME).hint(R.string.first_name),
+                        Input.name(SURNAME).hint(R.string.surname).required(),
+                        Spinner.plain(GENDER)
+                                .label(R.string.gender).items(R.array.genders)
+                                .placeholder(R.string.select___).required(),
+                        Input.plain(COUNTRY).hint(R.string.country)
+                                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                                .suggest(R.array.countries_locale).forceSuggestion(),
+                        Input.email(EMAIL).required(),
+                        Check.box(NEWSLETTER).label(R.string.receive_newsletter).check(true),
+                        Input.password(PASSWORD).max(20).required().validatePatternStrongPassword(),
+                        Check.box(null).label(R.string.terms_accept).required()
+                )
+                .show(this, REGISTRATION_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    // ==   D a t e   a n d   T i m e   ==
+
+    public void showDate(View view){
+
+        SimpleDateDialog.build()
+                .minDate(new Date())    // only future days
+                .show(this, DATE_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showTime(View view){
+
+        SimpleTimeDialog.build()
+                .neut()
+                .hour(12).minute(0)
+        .show(this, TIME_DIALOG);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+    public void showDatetime(View view){
+
+        SimpleDateDialog.build()
+                .show(MainActivity.this, DATETIME_DIALOG_DATE);
+
+        /** Results: {@link #onResult} **/
+
+    }
+
+
+
+
+
+
+    private void newColor(int color){
+        this.color = color;
+
+        // Sets action bar colors
+        if (getSupportActionBar() == null) return;
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF000000 | color));
+
+        boolean dark = Color.red(color) * 0.299 + Color.green(color) * 0.587 + Color.blue(color) * 0.114 < 180;
+        SpannableString s = new SpannableString(getSupportActionBar().getTitle());
+        s.setSpan(new ForegroundColorSpan(dark ? Color.WHITE : Color.BLACK), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(s);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            float[] hsv = new float[3];
+            Color.colorToHSV(color, hsv);
+            hsv[2] *= 0.75;
+            getWindow().setStatusBarColor(Color.HSVToColor(hsv));
+        }
+    }
+
+    // ==   R E S U L T S   ==
+
+
+    /**
+     * Let the hosting fragment or activity implement this interface
+     * to receive results from the dialog
+     *
+     * @param dialogTag the tag passed to {@link SimpleDialog#show}
+     * @param which result type, one of {@link #BUTTON_POSITIVE}, {@link #BUTTON_NEGATIVE},
+     *              {@link #BUTTON_NEUTRAL} or {@link #CANCELED}
+     * @param extras the extras passed to {@link SimpleDialog#extra(Bundle)}
+     * @return true if the result was handled, false otherwise
+     */
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+
+        if (TERMS_DIALOG.equals(dialogTag)){ /** {@link #showHtml} **/
+            if (which == BUTTON_POSITIVE){ // terms accepted
+                Toast.makeText(this, R.string.accepted, Toast.LENGTH_SHORT).show();
+
+            } else { // terms declined, exit
+                Toast.makeText(this, R.string.terms_declined_exited, Toast.LENGTH_SHORT).show();
+                System.exit(0);
+
+            }
+            return true;
+        }
+
+        if (YES_NO_DIALOG.equals(dialogTag)) { /** {@link #showYesNo} **/
+            switch (which) {
+                case BUTTON_POSITIVE:
+                    Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
+                    return true;
+                case BUTTON_NEGATIVE:
+                    Toast.makeText(this, R.string.discarded, Toast.LENGTH_SHORT).show();
+                    return true;
+                case BUTTON_NEUTRAL:
+                case CANCELED:
+                    Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+        }
+
         if (which == BUTTON_POSITIVE) {
             switch (dialogTag) {
-                case CHECK_DIALOG:
-                    Toast.makeText(getBaseContext(), R.string.accepted, Toast.LENGTH_SHORT).show();
+
+                case CHOICE_DIALOG: /** {@link #showDirectChoice}, {@link #showMultiChoice} **/
+                    ArrayList<String> labels = extras.getStringArrayList(SimpleListDialog.SELECTED_LABELS);
+                    Toast.makeText(this, android.text.TextUtils.join(", ", labels), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case INPUT_DIALOG:
-                    String name = extras.getString(SimpleInputDialog.TEXT);
+                case PRODUCT_DIALOG: /** {@link #showSingleChoice} **/
+                    String savedProductId = extras.getString(PRODUCT_ID);
+                    long flavourId = extras.getLong(SimpleListDialog.SELECTED_SINGLE_ID);
+                    Toast.makeText(this, getString(R.string.product_flavour_chosen, flavourId + "", savedProductId), Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case COLOR_DIALOG: /** {@link #showColorPicker(View)} **/
+                    newColor(extras.getInt(SimpleColorDialog.COLOR));
+                    return true;
+
+                case COLOR_WHEEL_DIALOG: /** {@link #showHsvWheel(View)} **/
+                    newColor(extras.getInt(SimpleColorWheelDialog.COLOR));
+                    return true;
+
+                case CHECK_DIALOG: /** {@link #showCheckBox(View)} **/
+                    boolean keep = extras.getBoolean(KEEP_STARRED);
+                    Toast.makeText(this, keep ? R.string.deleted_but_starred_kept : R.string.deleted, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case EMAIL_DIALOG: /** {@link #showEmailInput(View)} **/
+                    String mail = extras.getString(EMAIL);
+                    Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case LOGIN_DIALOG: /** {@link #showLogin(View)} **/
+                    String username = extras.getString(USERNAME),
+                            pass = extras.getString(PASSWORD);
+                    Toast.makeText(this, username + ", " + pass, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case NUMBER_DIALOG: /** {@link #showNumberInput(View)} **/
+                    String number = extras.getString(PHONE_NUMBER);
+                    Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case REGISTRATION_DIALOG: /** {@link #showForm(View)} **/
+                    int gender = extras.getInt(GENDER);
+                    boolean newsletter = extras.getBoolean(NEWSLETTER);
+                    String firstName = extras.getString(FIRST_NAME),
+                            name = extras.getString(SURNAME),
+                            genderString = gender < 0 ? null : getResources().getStringArray(R.array.genders)[gender],
+                            country = extras.getString(COUNTRY),
+                            email = extras.getString(EMAIL),
+                            password = extras.getString(PASSWORD);
+
+                    Toast.makeText(this, firstName+" "+name+" ("+genderString+"), "+country+"\n"+
+                            email+"(Newsletter: "+newsletter+"), "+password, Toast.LENGTH_SHORT).show();
                     // ...
-                    Toast.makeText(getBaseContext(), name, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case MAIL_DIALOG:
-                    int id = extras.getInt("ID");
-                    String mail = extras.getString(SimpleEMailDialog.EMAIL);
-                    // ...
-                    Toast.makeText(getBaseContext(), mail, Toast.LENGTH_SHORT).show();
-                    return true;
-
-                case PHONE_DIALOG:
-                    String number = extras.getString(SimpleInputDialog.TEXT);
-                    // ...
-                    Toast.makeText(getBaseContext(), number, Toast.LENGTH_SHORT).show();
-                    return true;
-
-                case PW_DIALOG:
-                    String pw = extras.getString(SimpleInputDialog.TEXT);
-                    if (pw != null) {
-                        try {
-                            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                            byte[] hash = digest.digest(pw.getBytes("UTF-8"));
-                            // ...
-                            if (Arrays.equals(hash, oldHash)){
-                                Toast.makeText(getBaseContext(), R.string.pw_correct, Toast.LENGTH_SHORT).show();
-                            } else {
-                                oldHash = hash;
-                                Toast.makeText(getBaseContext(), R.string.new_pw_set, Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-                case LIST_DIALOG:
-                    ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
-                    int[] label = extras.getIntArray("labels");
-                    if (pos != null) {
-                        if (label != null) {
-                            String a = "";
-                            for (int i : pos) {
-                                if (!a.isEmpty()) {
-                                    a += ", ";
-                                }
-                                a += getString(label[i]);
-                            }
-                            Toast.makeText(getBaseContext(), getResources().getQuantityString(
-                                    R.plurals.selected, pos.size(), pos.size()) + "\n" + a, Toast.LENGTH_SHORT).show();
-                        } else {
-                            String posstr = "";
-                            for (int p : pos) {
-                                posstr += p+" ";
-                            }
-                            Toast.makeText(getBaseContext(), getResources().getQuantityString(
-                                    R.plurals.selected, pos.size(), pos.size())+"\npos: "+posstr, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    return true;
-
-                case COLOR_DIALOG:
-                    mColor = extras.getInt(SimpleColorDialog.COLOR);
-                    return true;
-
-                case COLOR_WHEEL_DIALOG:
-                    mColor = extras.getInt(SimpleColorWheelDialog.COLOR);
-                    return true;
-
-                case DATE:
+                case DATE_DIALOG: /** {@link #showDate(View)} **/
                     Date date = new Date(extras.getLong(SimpleDateDialog.DATE));
                     Toast.makeText(getBaseContext(), SimpleDateFormat.getDateInstance().format(date), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case TIME:
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
-                    cal.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));
-                    Toast.makeText(getBaseContext(), SimpleDateFormat.getTimeInstance().format(cal.getTime()), Toast.LENGTH_SHORT).show();
+                case TIME_DIALOG: /** {@link #showTime(View)} **/
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
+                    calendar.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));
+                    Toast.makeText(getBaseContext(), SimpleDateFormat.getTimeInstance().format(calendar.getTime()), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case DATETIME1:
+                case DATETIME_DIALOG_DATE: /** {@link #showDatetime(View)} **/
                     SimpleTimeDialog.build()
                             .extra(extras) // store the result again, so that is is available later
-                            .show(MainActivity.this, DATETIME2);
+                            .show(this, DATETIME_DIALOG_TIME);
                     return true;
 
-                case DATETIME2:
-                    Calendar cal2 = Calendar.getInstance();
-                    cal2.setTimeInMillis(extras.getLong(SimpleDateDialog.DATE));
-                    cal2.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
-                    cal2.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));
-                    Toast.makeText(getBaseContext(), SimpleDateFormat.getDateTimeInstance().format(cal2.getTime()), Toast.LENGTH_SHORT).show();
+                case DATETIME_DIALOG_TIME:
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(extras.getLong(SimpleDateDialog.DATE));
+                    cal.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
+                    cal.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));
+                    Toast.makeText(getBaseContext(), SimpleDateFormat.getDateTimeInstance().format(cal.getTime()), Toast.LENGTH_SHORT).show();
                     return true;
+
+
+
             }
         }
         return false;
     }
+
+
+
+
+//
+//    public void onRecourseClick(View view) {
+//
+//        RecursiveDialog.build()
+//                .show(MainActivity.this);
+//
+//
+//        SimpleDialog.build()
+//                .title("TITLE")
+//                .msg("MSG")
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .title("TITLE")
+//                .msg("MSG")
+//                .show(this);
+//
+//        SimpleDialog.build()
+//                .title("TITLE")
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .title("TITLE")
+//                .show(this);
+//
+//        SimpleDialog.build()
+//                .msg("MSG")
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .msg("MSG")
+//                .show(this);
+//
+//        SimpleDialog.build()
+//                .title("TITLE")
+//                .msg("MSG")
+//                .pos(null)
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .title("TITLE")
+//                .msg("MSG")
+//                .pos(null)
+//                .show(this);
+//
+//        SimpleDialog.build()
+//                .title("TITLE")
+//                .pos(null)
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .title("TITLE")
+//                .pos(null)
+//                .show(this);
+//
+//        SimpleDialog.build()
+//                .msg("MSG")
+//                .pos(null)
+//                .show(this);
+//        SimpleFormDialog.build()
+//                .msg("MSG")
+//                .pos(null)
+//                .show(this);
+//
+//    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_ACCOUNTS_PERMISSION){
+            // Another android bug requires this delay
+            // See https://code.google.com/p/android/issues/detail?id=190966
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showEmailInput(null);
+                }
+            }, 10);
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 
     @Override
     public String validate(String dialogTag, String input, @Nullable Bundle extras) {
