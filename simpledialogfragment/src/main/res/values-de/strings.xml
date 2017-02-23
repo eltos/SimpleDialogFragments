@@ -3,4 +3,12 @@
     <string name="email_address">E-Mail Adresse</string>
     <string name="invalid_email_address">Ungültige E-Mail Adresse</string>
     <string name="transparency">Transparenz</string>
+    <string name="password">Passwort</string>
+    <string name="required">Erforderlich</string>
+    <string name="input_not_a_given_option">Eingabe nicht gelistet</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="login">Anmelden</string>
+    <string name="user">Benutzer</string>
+    <string name="strong_pw_requirements">Muss eine Zahl, einen Groß- und Kleinbuchstaben und ein Sonderzeichen enthalten</string>
 </resources>

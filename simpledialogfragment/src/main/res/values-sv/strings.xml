@@ -3,4 +3,6 @@
     <string name="transparency">Transparens</string>
     <string name="email_address">E-postadress</string>
     <string name="invalid_email_address">Ogiltig e-postadress</string>
+    <string name="password">Lösenord</string>
+    <string name="required">Nödvändig</string>
 </resources>

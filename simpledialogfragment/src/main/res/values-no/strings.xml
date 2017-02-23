@@ -3,4 +3,6 @@
     <string name="transparency">Transparens</string>
     <string name="email_address">E-postadresse</string>
     <string name="invalid_email_address">Ugyldig e-postadresse</string>
+    <string name="password">Passord</string>
+    <string name="required">Nødvendig</string>
 </resources>

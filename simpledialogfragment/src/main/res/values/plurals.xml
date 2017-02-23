@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <plurals name="at_least_x_chars">
+        <item quantity="one">Min 1 char</item>
+        <item quantity="other">Min %1$d chars</item>
+    </plurals>
+    
+</resources>

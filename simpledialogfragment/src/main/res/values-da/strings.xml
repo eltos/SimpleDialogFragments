@@ -3,4 +3,6 @@
     <string name="invalid_email_address">Invalid email address</string>
     <string name="transparency">Gennemsigtighed</string>
     <string name="email_address">Email adresse</string>
+    <string name="password">Adgangskode</string>
+    <string name="required">Påkrævet</string>
 </resources>

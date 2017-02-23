@@ -4,4 +4,15 @@
     <string name="email_address">Email address</string>
     <string name="hex" translatable="false">HEX:</string>
     <string name="transparency">Transparency</string>
+    <string name="required">Required</string>
+    <string name="password">Password</string>
+    <string name="input_not_a_given_option">Input not a given option</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="login">Login</string>
+    <string name="user">User</string>
+    <string name="strong_pw_requirements">Must contain a number, a lower- and uppercase letter and a special character</string>
+    <string name="letters_only_error">May only contain letters (A-Z)</string>
+    <string name="alphanumeric_only_error">May only contain alphanumerical chars</string>
+    <string name="rrggbb">RRGGBB</string>
 </resources>

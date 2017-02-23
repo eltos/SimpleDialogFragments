@@ -3,4 +3,6 @@
     <string name="transparency">Trasparenza</string>
     <string name="email_address">Indirizzo email</string>
     <string name="invalid_email_address">Indirizzo email non valido</string>
+    <string name="required">Necessario</string>
+    <string name="password">Password</string>
 </resources>
