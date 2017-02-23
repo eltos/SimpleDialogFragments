@@ -20,7 +20,6 @@ import android.content.Context;
 import android.os.Parcel;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.InputType;
@@ -42,7 +41,7 @@ import eltos.simpledialogfragment.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class Input extends FormElement<Input> {
+public class Input extends FormElement<Input, InputViewHolder> {
 
     private static final int NO_ID = -1;
 
@@ -125,7 +124,7 @@ public class Input extends FormElement<Input> {
     /**
      * Factory method for a phone input field.
      * InputType and hint are preset.
-     * This field also automatically formates the phone number while the user is typing.
+     * This field also automatically format the phone number while the user is typing.
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
@@ -271,7 +270,7 @@ public class Input extends FormElement<Input> {
      * Provide an array of suggestions to be shown while the user is typing
      * This enables the auto-complete behaviour.
      *
-     * @param strings arraylist of strings to suggest
+     * @param strings An ArrayList of strings to suggest
      */
     public Input suggest(ArrayList<String> strings){
         if (strings != null && strings.size() > 0) {
@@ -362,7 +361,12 @@ public class Input extends FormElement<Input> {
 
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
+    @Override
+    public InputViewHolder getViewHolder() {
+        return new InputViewHolder(this);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 

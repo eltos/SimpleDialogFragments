@@ -32,7 +32,7 @@ import android.support.annotation.StringRes;
  * Created by eltos on 21.02.17.
  */
 
-public class Check extends FormElement<Check> {
+public class Check extends FormElement<Check, CheckViewHolder> {
 
     private static final int NO_ID = -1;
 
@@ -108,7 +108,12 @@ public class Check extends FormElement<Check> {
 
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
+    @Override
+    public CheckViewHolder getViewHolder() {
+        return new CheckViewHolder(this);
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 

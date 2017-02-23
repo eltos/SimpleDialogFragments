@@ -29,17 +29,23 @@ import android.os.Parcelable;
  */
 
 @SuppressWarnings("WeakerAccess")
-public abstract class FormElement<T extends FormElement> implements Parcelable {
+public abstract class FormElement<T extends FormElement, V extends FormElementViewHolder> implements Parcelable {
 
     String resultKey;
-    boolean required = false;
+    public boolean required = false;
 
 
-    FormElement(String resultKey){
+    protected FormElement(String resultKey){
         this.resultKey = resultKey;
     }
 
 
+    /**
+     * Return your custom implementation of {@link FormElementViewHolder} here
+     *
+     * @return The view holder that can represent this form element
+     */
+    public abstract V getViewHolder();
 
 
     /**
@@ -66,11 +72,12 @@ public abstract class FormElement<T extends FormElement> implements Parcelable {
     }
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
 
 
     // Parcel implementation
 
-    FormElement(Parcel in) {
+    protected FormElement(Parcel in) {
         resultKey = in.readString();
         required = in.readByte() != 0;
     }

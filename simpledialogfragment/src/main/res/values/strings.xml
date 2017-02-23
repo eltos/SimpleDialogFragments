@@ -14,5 +14,5 @@
     <string name="strong_pw_requirements">Must contain a number, a lower- and uppercase letter and a special character</string>
     <string name="letters_only_error">May only contain letters (A-Z)</string>
     <string name="alphanumeric_only_error">May only contain alphanumerical chars</string>
-    <string name="rrggbb">RRGGBB</string>
+    <string name="rrggbb" translatable="false">RRGGBB</string>
 </resources>
