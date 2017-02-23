@@ -36,7 +36,7 @@ import eltos.simpledialogfragment.R;
  */
 
 @SuppressWarnings("WeakerAccess")
-public class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
+class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     public static final int NONE = -1;
 
