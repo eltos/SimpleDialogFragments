@@ -5,4 +5,10 @@
     <string name="invalid_email_address">Adresse e-mail invalide</string>
     <string name="password">Mot de passe</string>
     <string name="required">Champs obligatoires</string>
+    <string name="name">Nom</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="login">Login</string>
+    <string name="user">Usager</string>
+    <string name="letters_only_error">Ne peut contenir que des lettres (A-Z)</string>
+    <string name="alphanumeric_only_error">Ne peut contenir que des lettres alphanumériques</string>
 </resources>

@@ -5,4 +5,8 @@
     <string name="invalid_email_address">Ugyldig e-postadresse</string>
     <string name="password">Passord</string>
     <string name="required">Nødvendig</string>
+    <string name="login">Logg Inn</string>
+    <string name="name">Navn</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="user">Bruker</string>
 </resources>

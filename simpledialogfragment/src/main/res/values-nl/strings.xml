@@ -5,4 +5,8 @@
     <string name="invalid_email_address">Ongeldig e-mail adres</string>
     <string name="required">Verplicht</string>
     <string name="password">Paswoord</string>
+    <string name="user">Gebruiker</string>
+    <string name="login">Login</string>
+    <string name="phone_number">Telefoonnummer</string>
+    <string name="name">Naam</string>
 </resources>

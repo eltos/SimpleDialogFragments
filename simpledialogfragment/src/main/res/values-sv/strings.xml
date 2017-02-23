@@ -5,4 +5,8 @@
     <string name="invalid_email_address">Ogiltig e-postadress</string>
     <string name="password">Lösenord</string>
     <string name="required">Nödvändig</string>
+    <string name="login">Logga in</string>
+    <string name="name">Namn</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="user">Användare</string>
 </resources>

@@ -5,4 +5,8 @@
     <string name="invalid_email_address">Niepoprawny adres email</string>
     <string name="required">Wymagany</string>
     <string name="password">Hasło</string>
+    <string name="login">Zaloguj Się</string>
+    <string name="name">Nazwa</string>
+    <string name="phone_number">Numer telefonu</string>
+    <string name="user">Użytkownik</string>
 </resources>
