@@ -108,9 +108,13 @@ if [ $BUILD -eq 0 ]; then
 	read -r -p $'\e[32mBuild "'"$LVN"$'" successful. Upload to bintray? [Y/n]\e[0m ' OK
 	if ! [[ $OK =~ ^[Nn].*$ ]]; then
 		echo "Upload to bintray"
-		./gradlew bintrayUpload
-		echo -e "\e[32mSUCCESS :)\e[0m"
-		xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
+		./gradlew bintrayUpload -xjavadoc
+		if [ $? -eq 0 ]; then
+			echo -e "\e[32mSUCCESS :)\e[0m"
+			xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
+		else
+			echo -e "\e[31mUpload failed :(\e[0m"
+		fi
 	fi
 else
 	echo -e "\e[31mBUILD FAILED\e[0m"
