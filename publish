@@ -110,6 +110,10 @@ if [ $BUILD -eq 0 ]; then
 		echo "Upload to bintray"
 		./gradlew bintrayUpload -xjavadoc
 		if [ $? -eq 0 ]; then
+
+			# Update README.md
+			sed -i 's/:simpledialogfragment:[0-9.]*/:simpledialogfragment:'"$LVN"'/' README.md
+
 			echo -e "\e[32mSUCCESS :)\e[0m"
 			xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
 		else
