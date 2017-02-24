@@ -76,6 +76,16 @@ if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 	if [ COPY ]; then
 		mkdir -p $TO
 		cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
+
+		# Update README
+		if ! grep -q "v$LVN/javadoc" "docs/README.md"; then
+			DATE=`date +%d.%m.%Y`
+			echo "| **$LVN** | $DATE | [API $LVN](v$LVN/javadoc) |" >> docs/README.md
+		fi	
+
+		# Update latest version API link
+		sed -i 's/v[0-9.]*\/javadoc/v'"$LVN"'\/javadoc/g' docs/latest_javadoc.html 
+	
 		echo -e "\e[32mJavadoc copied to $TO\e[0m"
 	fi
 else
