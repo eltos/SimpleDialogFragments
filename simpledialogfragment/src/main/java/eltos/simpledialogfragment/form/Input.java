@@ -383,7 +383,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
             "^[a-zA-Z]*$";
 
     private static final String ALPHANUMERIC_PATTERN =
-            "^[a-zA-Z]*$";
+            "^[a-zA-Z0-9]*$";
 
     String validatePattern(Context context, @Nullable String input){
         if (pattern != null && input != null){
