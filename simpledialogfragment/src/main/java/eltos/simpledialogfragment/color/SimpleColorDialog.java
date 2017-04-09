@@ -69,7 +69,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     private static final String CUSTOM = "simpleColorDialog.custom";
     private static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
 
-    private int mCustomColor = 0xff000000;
+    private int mCustomColor = NONE;
 
     public SimpleColorDialog(){
         grid();
