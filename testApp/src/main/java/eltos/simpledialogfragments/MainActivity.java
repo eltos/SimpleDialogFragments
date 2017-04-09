@@ -3,6 +3,7 @@ package eltos.simpledialogfragments;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -93,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.flat_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), FlatFragmentActivity.class));
+            }
+        });
 
     }
 

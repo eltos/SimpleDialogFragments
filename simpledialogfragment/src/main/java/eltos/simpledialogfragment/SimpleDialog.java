@@ -84,7 +84,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         }
     };
 
-    boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, Bundle extras) {
         if (extras == null) extras = new Bundle();
         if (getArguments().getBundle(BUNDLE) != null) {
             extras.putAll(getArguments().getBundle(BUNDLE));

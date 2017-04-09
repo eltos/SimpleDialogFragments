@@ -149,6 +149,19 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
 
+    /**
+     * Method to extract the underlying content view.
+     *
+     * @param savedInstanceState The saved instance state
+     * @return the extracted view
+     */
+    public View extractContentView(Bundle savedInstanceState){
+        final AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
+        layoutInflater = dialog.getLayoutInflater();
+        return onCreateContentView(savedInstanceState);
+    }
+
+
     //////////////////////////////////////////////////////////////////////////////////////////
     // Internal
 
@@ -226,7 +239,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     @Override
-    boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, Bundle extras) {
         Bundle results = onResult(which);
         if (extras == null) extras = new Bundle();
         if (results != null) extras.putAll(results);
