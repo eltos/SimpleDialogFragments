@@ -48,7 +48,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
 
     public static final String COLOR = "simpleColorDialog.color";
-    public static final int NONE = 0;
+    public static final int NONE = ColorView.NONE;
     private static final int PICKER = -2;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
@@ -172,11 +172,13 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (id == PICKER){
-            SimpleColorWheelDialog.build()
+            SimpleColorWheelDialog dialog = SimpleColorWheelDialog.build()
                     .theme(getTheme())
-                    .alpha(false)
-                    .color(mCustomColor)
-                    .show(this, PICKER_DIALOG_TAG);
+                    .alpha(false);
+            if (mCustomColor != NONE){
+                dialog.color(mCustomColor);
+            }
+            dialog.show(this, PICKER_DIALOG_TAG);
         }
     }
 

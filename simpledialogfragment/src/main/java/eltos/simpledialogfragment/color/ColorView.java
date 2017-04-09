@@ -65,6 +65,7 @@ import eltos.simpledialogfragment.R;
 
 class ColorView extends FrameLayout implements Checkable {
 
+    public static final int NONE = 0;
 
     private @ColorInt int mColor;
     private boolean mChecked = false;
@@ -165,8 +166,12 @@ class ColorView extends FrameLayout implements Checkable {
                     }
                 }
                 mColorView.setVisibility(checked ? VISIBLE : INVISIBLE);
-                mCheckView.setColorFilter(checked ?
-                        (isColorDark(mColor) ? Color.WHITE : Color.BLACK) : mColor);
+                if (mColor != NONE) {
+                    mCheckView.setColorFilter(checked ?
+                            (isColorDark(mColor) ? Color.WHITE : Color.BLACK) : mColor);
+                } else {
+                    mCheckView.setColorFilter(null);
+                }
                 mRippleView.setForeground(checked ? mDarkRippleDrawable : mLightRippleDrawable);
                 break;
 
@@ -203,7 +208,8 @@ class ColorView extends FrameLayout implements Checkable {
                 break;
 
             case PALETTE:
-                mCheckView.setImageResource(R.drawable.ic_palette_white);
+                mCheckView.setImageResource(mColor != NONE ? R.drawable.ic_palette_white :
+                        R.drawable.ic_palette_color);
                 mCheckView.setVisibility(VISIBLE);
                 mDarkRippleDrawable = createRippleDrawable(getDarkRippleColor(mColor));
                 mLightRippleDrawable = createRippleDrawable(getLightRippleColor(mColor));
