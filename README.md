@@ -101,9 +101,15 @@ public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle ex
         // ...
         return true;
     }
-	if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)){
+    if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)){
         ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
-		// ...
+        // ...
+        return true;
+    }
+    if (which == BUTTON_POSITIVE && REGISTRATION_DIALOG.equals(dialogTag)){
+        String username = extras.getString(USERNAME);
+        String password = extras.getString(PASSWORD);
+        // ...
         return true;
     }
     // ...
