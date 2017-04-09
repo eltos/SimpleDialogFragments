@@ -131,6 +131,8 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
         if (savedInstanceState != null){
             mCustomColor = savedInstanceState.getInt(CUSTOM, mCustomColor);
+        } else {
+            mCustomColor = getArguments().getInt(COLOR, mCustomColor); // preset
         }
     }
 
@@ -147,9 +149,6 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                     choicePreset(i);
                     break;
                 }
-            }
-            if (preset != NONE) {
-                mCustomColor = preset;
             }
         }
 
