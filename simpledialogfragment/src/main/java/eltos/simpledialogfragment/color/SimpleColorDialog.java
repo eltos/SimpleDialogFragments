@@ -48,7 +48,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
 
     public static final String COLOR = "simpleColorDialog.color";
-    public static final int NONE = -1;
+    public static final int NONE = 0;
     private static final int PICKER = -2;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
@@ -141,9 +141,14 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
         int[] colors = getArguments().getIntArray(COLORS);
         if (colors == null) colors = new int[0];
+        boolean custom = getArguments().getBoolean(CUSTOM);
 
+        // preset
         if (getArguments().containsKey(COLOR)){
             int preset = getArguments().getInt(COLOR, NONE);
+            if (custom && preset == mCustomColor){
+                choicePreset(colors.length);
+            }
             for (int i = 0; i < colors.length; i++) {
                 if (colors[i] == preset){
                     choicePreset(i);
@@ -155,7 +160,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         /** Selector provided by {@link ColorView} **/
         getListView().setSelector(new ColorDrawable(Color.TRANSPARENT));
 
-        return new ColorAdapter(colors, getArguments().getBoolean(CUSTOM));
+        return new ColorAdapter(colors, custom);
     }
 
     @Override
