@@ -458,12 +458,17 @@
 
         </GridLayout>
 
-        <Button
-            android:text="Usage as flat fragment"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/flat_button"
-            android:layout_marginTop="16dp" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Various"/>
+
+        <Button
+            android:text="Using dialogs as 'normal' fragments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/flat_button"/>
 
     </LinearLayout>
 
