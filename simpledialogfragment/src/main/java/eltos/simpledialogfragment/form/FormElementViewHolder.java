@@ -53,11 +53,14 @@ public abstract class FormElementViewHolder<E extends FormElement> {
     protected abstract @LayoutRes int getContentViewLayout();
 
     /**
-     * Implement this method to setup your view for the first time or after a {@link #saveState}
+     * Implement this method to setup your view for the first time or after a
+     * {@link FormElementViewHolder#saveState}
      *
-     * @param view The view that was inflated using the layout from {@link #getContentViewLayout()}
+     * @param view The view that was inflated using the layout from
+     *             {@link FormElementViewHolder#getContentViewLayout()}
      * @param context The context of this view
-     * @param savedInstanceState A bundle containing everything that was saved in {@link #saveState(Bundle)}
+     * @param savedInstanceState A bundle containing everything that was saved in
+     *                           {@link FormElementViewHolder#saveState(Bundle)}
      * @param actions A callback for convenient methods. See {@link SimpleFormDialog.DialogActions}
      * @param isLastElement Weather this is the last form element
      * @param isOnlyElement Weather this is the only form element

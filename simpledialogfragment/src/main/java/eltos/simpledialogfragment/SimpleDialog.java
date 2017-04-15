@@ -68,10 +68,10 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
          * Let the hosting fragment or activity implement this interface
          * to receive results from the dialog
          *
-         * @param dialogTag the tag passed to {@link #show}
+         * @param dialogTag the tag passed to {@link SimpleDialog#show}
          * @param which result type, one of {@link #BUTTON_POSITIVE}, {@link #BUTTON_NEGATIVE},
          *              {@link #BUTTON_NEUTRAL} or {@link #CANCELED}
-         * @param extras the extras passed to {@link #extra(Bundle)}
+         * @param extras the extras passed to {@link SimpleDialog#extra(Bundle)}
          * @return true if the result was handled, false otherwise
          */
         boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras);
@@ -405,8 +405,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
 
     /**
-     * Deprecated,
-     * use {@link #show(AppCompatActivity)} or {@link #show(Fragment)} instead
+     * Deprecated, use {@link SimpleDialog#show(AppCompatActivity)} or
+     * {@link SimpleDialog#show(Fragment)} instead
      */
     @Deprecated
     @Override
@@ -417,8 +417,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     /**
-     * Deprecated,
-     * use {@link #show(AppCompatActivity, String)} or {@link #show(Fragment, String)} instead
+     * Deprecated, use {@link SimpleDialog#show(AppCompatActivity, String)} or
+     * {@link SimpleDialog#show(Fragment, String)} instead
      */
     @Deprecated
     @Override

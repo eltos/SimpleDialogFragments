@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements
                 .neg(R.string.decline)
                 .show(this, TERMS_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements
                 .neut()
                 .show(this, YES_NO_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements
                 .items(getBaseContext(), R.array.choices)
                 .show(this, CHOICE_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements
                 .extra(extras)
                 .show(this, PRODUCT_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements
                 .filterable(true)
                 .show(this, CHOICE_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements
                 .allowCustom(true)
                 .show(this, COLOR_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements
                 .alpha(true)
                 .show(this, COLOR_WHEEL_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements
                         .check(true))
                 .show(this, CHECK_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements
                 )
                 .show(this, EMAIL_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -350,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleFormDialog.buildLogin(USERNAME, PASSWORD)
                 .show(this, LOGIN_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleFormDialog.buildNumberInput(PHONE_NUMBER)
                 .show(this, NUMBER_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -386,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements
                 )
                 .show(this, REGISTRATION_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements
                 .minDate(new Date())    // only future days
                 .show(this, DATE_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements
                 .hour(12).minute(0)
         .show(this, TIME_DIALOG);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleDateDialog.build()
                 .show(MainActivity.this, DATETIME_DIALOG_DATE);
 
-        /** Results: {@link #onResult} **/
+        /** Results: {@link MainActivity#onResult} **/
 
     }
 
@@ -467,7 +467,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
 
-        if (TERMS_DIALOG.equals(dialogTag)){ /** {@link #showHtml} **/
+        if (TERMS_DIALOG.equals(dialogTag)){ /** {@link MainActivity#showHtml} **/
             if (which == BUTTON_POSITIVE){ // terms accepted
                 Toast.makeText(this, R.string.accepted, Toast.LENGTH_SHORT).show();
 
@@ -479,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements
             return true;
         }
 
-        if (YES_NO_DIALOG.equals(dialogTag)) { /** {@link #showYesNo} **/
+        if (YES_NO_DIALOG.equals(dialogTag)) { /** {@link MainActivity#showYesNo} **/
             switch (which) {
                 case BUTTON_POSITIVE:
                     Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
@@ -497,47 +497,47 @@ public class MainActivity extends AppCompatActivity implements
         if (which == BUTTON_POSITIVE) {
             switch (dialogTag) {
 
-                case CHOICE_DIALOG: /** {@link #showDirectChoice}, {@link #showMultiChoice} **/
+                case CHOICE_DIALOG: /** {@link MainActivity#showDirectChoice}, {@link MainActivity#showMultiChoice} **/
                     ArrayList<String> labels = extras.getStringArrayList(SimpleListDialog.SELECTED_LABELS);
                     Toast.makeText(this, android.text.TextUtils.join(", ", labels), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case PRODUCT_DIALOG: /** {@link #showSingleChoice} **/
+                case PRODUCT_DIALOG: /** {@link MainActivity#showSingleChoice} **/
                     String savedProductId = extras.getString(PRODUCT_ID);
                     long flavourId = extras.getLong(SimpleListDialog.SELECTED_SINGLE_ID);
                     Toast.makeText(this, getString(R.string.product_flavour_chosen, flavourId + "", savedProductId), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case COLOR_DIALOG: /** {@link #showColorPicker(View)} **/
+                case COLOR_DIALOG: /** {@link MainActivity#showColorPicker(View)} **/
                     newColor(extras.getInt(SimpleColorDialog.COLOR));
                     return true;
 
-                case COLOR_WHEEL_DIALOG: /** {@link #showHsvWheel(View)} **/
+                case COLOR_WHEEL_DIALOG: /** {@link MainActivity#showHsvWheel(View)} **/
                     newColor(extras.getInt(SimpleColorWheelDialog.COLOR));
                     return true;
 
-                case CHECK_DIALOG: /** {@link #showCheckBox(View)} **/
+                case CHECK_DIALOG: /** {@link MainActivity#showCheckBox(View)} **/
                     boolean keep = extras.getBoolean(KEEP_STARRED);
                     Toast.makeText(this, keep ? R.string.deleted_but_starred_kept : R.string.deleted, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case EMAIL_DIALOG: /** {@link #showEmailInput(View)} **/
+                case EMAIL_DIALOG: /** {@link MainActivity#showEmailInput(View)} **/
                     String mail = extras.getString(EMAIL);
                     Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case LOGIN_DIALOG: /** {@link #showLogin(View)} **/
+                case LOGIN_DIALOG: /** {@link MainActivity#showLogin(View)} **/
                     String username = extras.getString(USERNAME),
                             pass = extras.getString(PASSWORD);
                     Toast.makeText(this, username + ", " + pass, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case NUMBER_DIALOG: /** {@link #showNumberInput(View)} **/
+                case NUMBER_DIALOG: /** {@link MainActivity#showNumberInput(View)} **/
                     String number = extras.getString(PHONE_NUMBER);
                     Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case REGISTRATION_DIALOG: /** {@link #showForm(View)} **/
+                case REGISTRATION_DIALOG: /** {@link MainActivity#showForm(View)} **/
                     int gender = extras.getInt(GENDER);
                     boolean newsletter = extras.getBoolean(NEWSLETTER);
                     String firstName = extras.getString(FIRST_NAME),
@@ -552,19 +552,19 @@ public class MainActivity extends AppCompatActivity implements
                     // ...
                     return true;
 
-                case DATE_DIALOG: /** {@link #showDate(View)} **/
+                case DATE_DIALOG: /** {@link MainActivity#showDate(View)} **/
                     Date date = new Date(extras.getLong(SimpleDateDialog.DATE));
                     Toast.makeText(getBaseContext(), SimpleDateFormat.getDateInstance().format(date), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case TIME_DIALOG: /** {@link #showTime(View)} **/
+                case TIME_DIALOG: /** {@link MainActivity#showTime(View)} **/
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
                     calendar.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));
                     Toast.makeText(getBaseContext(), SimpleDateFormat.getTimeInstance().format(calendar.getTime()), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case DATETIME_DIALOG_DATE: /** {@link #showDatetime(View)} **/
+                case DATETIME_DIALOG_DATE: /** {@link MainActivity#showDatetime(View)} **/
                     SimpleTimeDialog.build()
                             .extra(extras) // store the result again, so that is is available later
                             .show(this, DATETIME_DIALOG_TIME);

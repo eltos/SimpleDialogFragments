@@ -194,7 +194,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Displays a button to toggle the password visibility.
      * Note that this will only work if the input type is a password.
-     * See {@link #showPasswordToggle(boolean)}
+     * See {@link Input#showPasswordToggle(boolean)}
      */
     public Input showPasswordToggle(){
         return showPasswordToggle(true);
@@ -280,7 +280,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     /**
-     * Shortcut for {@link #forceSuggestion(boolean)}
+     * Shortcut for {@link Input#forceSuggestion(boolean)}
      */
     public Input forceSuggestion(){
         return forceSuggestion(true);
@@ -288,8 +288,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Specify weather this input may contain only one of the suggestions provided.
-     * If enabled, the EditText will show an error message if something else was entered.
-     * This will only take affect if suggestions were set by any of the {@link #suggest} methods
+     * If enabled, the EditText will show an error message if something else was entered. This
+     * will only take affect if suggestions were set by any of the {@link Input#suggest} methods
      * </p>
      * If the suggestion array is small, consider using a spinner instead.
      *
@@ -315,7 +315,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Validate input using the supplied regular expression pattern and display an error
-     * message if the pattern does not match. See {@link #validatePattern(String, String)}
+     * message if the pattern does not match. See {@link Input#validatePattern(String, String)}
      *
      * @param pattern a regular expression used to validate input
      * @param errorMsgId the error message to display as string resource
@@ -327,7 +327,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     /**
-     * Validate input as email address. Shortcut for {@link #validatePattern(String, int)}.
+     * Validate input as email address. Shortcut for {@link Input#validatePattern(String, int)}.
      */
     public Input validatePatternEmail(){
         return validatePattern(EMAIL_PATTERN, R.string.invalid_email_address);
@@ -336,7 +336,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Validate input as password. The password must consists of at least 8 chars and contains
      * at least one number, one special character, one upper and one lower case letter
-     * Shortcut for {@link #validatePattern(String, int)}.
+     * Shortcut for {@link Input#validatePattern(String, int)}.
      */
     public Input validatePatternStrongPassword(){
         if (minLength < 8) min(8);
@@ -345,7 +345,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Validate input so that only upper- and lowercase letters are contained.
-     * Shortcut for {@link #validatePattern(String, int)}.
+     * Shortcut for {@link Input#validatePattern(String, int)}.
      */
     public Input validatePatternLetters(){
         return validatePattern(LETTERS_PATTERN, R.string.letters_only_error);
@@ -353,7 +353,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Validate input to consist of alpha-numeric characters only.
-     * Shortcut for {@link #validatePattern(String, int)}.
+     * Shortcut for {@link Input#validatePattern(String, int)}.
      */
     public Input validatePatternAlphanumeric(){
         return validatePattern(ALPHANUMERIC_PATTERN, R.string.alphanumeric_only_error);

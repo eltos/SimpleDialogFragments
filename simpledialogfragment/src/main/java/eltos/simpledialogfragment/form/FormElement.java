@@ -22,7 +22,7 @@ import android.os.Parcelable;
 /**
  * Base-class for form elements to be used with {@link SimpleFormDialog}
  * </p>
- * Each form element holds a {@link #resultKey} that is used to receive element
+ * Each form element holds a {@link FormElement#resultKey} that is used to receive element
  * specific results in {@link SimpleFormDialog#onResult}
  *
  * Created by eltos on 20.02.17.
@@ -50,7 +50,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
 
     /**
      * Mark this Field as required.
-     * See {@link #required(boolean)}
+     * See {@link FormElement#required(boolean)}
      */
     public T required(){
         return required(true);

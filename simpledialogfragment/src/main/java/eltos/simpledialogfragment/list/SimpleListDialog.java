@@ -43,12 +43,12 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     private final static String DATA_SET = TAG + "data_set";
 
     /**
-     * Key for an <b>ArrayList&lt;String&gt;</b> returned by {@link #onResult}
+     * Key for an <b>ArrayList&lt;String&gt;</b> returned by {@link SimpleListDialog#onResult}
      */
     public static final String SELECTED_LABELS = TAG + "selectedLabels";
 
     /**
-     * Key for a <b>String</b> returned by {@link #onResult} in single choice mode
+     * Key for a <b>String</b> returned by {@link SimpleListDialog#onResult} in single choice mode
      */
     public static final String SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
 

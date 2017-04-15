@@ -168,7 +168,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
          * @param fieldKey the key of the field as supplied when the corresponding
          *                 {@link Input} was created (see {@link Input#plain(String)} etc)
          * @param input the text entered by the user
-         * @param extras the extras passed with {@link #extra(Bundle)}
+         * @param extras the extras passed with {@link SimpleFormDialog#extra(Bundle)}
          *
          * @return the error message to display or null if the input is valid
          */

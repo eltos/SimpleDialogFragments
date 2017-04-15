@@ -66,22 +66,22 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     public static final int MULTI_CHOICE = 2;
 
     /**
-     * Key for a <b>long[]</b> returned by {@link #onResult}
+     * Key for a <b>long[]</b> returned by {@link CustomListDialog#onResult}
      */
     public static final String SELECTED_IDS = TAG + "selectedIds";
 
     /**
-     * Key for an <b>ArrayList&lt;Integer&gt;</b> returned by {@link #onResult}
+     * Key for an <b>ArrayList&lt;Integer&gt;</b> returned by {@link CustomListDialog#onResult}
      */
     public static final String SELECTED_POSITIONS = TAG + "selectedPos";
 
     /**
-     * Key for a <b>long</b> returned by {@link #onResult} in single choice mode
+     * Key for a <b>long</b> returned by {@link CustomListDialog#onResult} in single choice mode
      */
     public static final String SELECTED_SINGLE_ID = TAG + "selectedSingleId";
 
     /**
-     * Key for an <b>int</b> returned by {@link #onResult} in single choice mode
+     * Key for an <b>int</b> returned by {@link CustomListDialog#onResult} in single choice mode
      */
     public static final String SELECTED_SINGLE_POSITION = TAG + "selectedSinglePos";
 
@@ -111,8 +111,8 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
     /**
      * Sets the list choice mode
-     * @param mode one of {@link #NO_CHOICE}, {@link #SINGLE_CHOICE}, {@link #SINGLE_CHOICE_DIRECT}
-     *             or {@link #MULTI_CHOICE}
+     * @param mode one of {@link CustomListDialog#NO_CHOICE}, {@link CustomListDialog#SINGLE_CHOICE},
+     * {@link CustomListDialog#SINGLE_CHOICE_DIRECT} or {@link CustomListDialog#MULTI_CHOICE}
      */
     public This choiceMode(int mode){
         if (!pmFlag && mode == SINGLE_CHOICE_DIRECT){

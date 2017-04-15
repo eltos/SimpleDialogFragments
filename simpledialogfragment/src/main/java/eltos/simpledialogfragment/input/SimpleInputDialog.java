@@ -154,7 +154,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
          *
          * @param dialogTag the tag of this fragment
          * @param input the text entered by the user
-         * @param extras the extras passed with {@link #extra(Bundle)}
+         * @param extras the extras passed with {@link SimpleInputDialog#extra(Bundle)}
          * @return an error message to display or null if the input is valid
          */
         String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);

@@ -74,7 +74,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * Call this method to enable or disable the positive button,
      * e.g. if you want to consider for preconditions to be fulfilled
      *
-     * Note: call this in {@link #onDialogShown} rather than {@link #onCreateContentView}
+     * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
      */
     protected void setPositiveButtonEnabled(boolean enabled){
         if (positiveButton != null) {
@@ -86,7 +86,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * Overwrite this method to catch positive button presses,
      * e.g. if you need to verify input by the user
      *
-     * Note: do not call {@link #pressPositiveButton} here!
+     * Note: do not call {@link CustomViewDialog#pressPositiveButton} here!
      *
      * @return false to ignore the press, true to process normally
      */
@@ -109,7 +109,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * You may use this method in combination with
      * ImeOptions such as {@link EditorInfo#IME_ACTION_DONE}
      *
-     * Note: do not call this method from {@link #acceptsPositiveButtonPress} !!!
+     * Note: do not call this method from {@link CustomViewDialog#acceptsPositiveButtonPress} !!!
      */
     protected void pressPositiveButton(){
         if (acceptsPositiveButtonPress()) {
@@ -119,7 +119,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     /**
-     * Method to inflate your custom View from {@link #onCreateContentView}
+     * Method to inflate your custom View from {@link CustomViewDialog#onCreateContentView}
      *
      * @param resource The resource to be inflated
      * @return The inflated view
@@ -129,7 +129,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     /**
-     * Method to inflate your custom View from {@link #onCreateContentView}. Throws
+     * Method to inflate your custom View from {@link CustomViewDialog#onCreateContentView}. Throws
      * {@link InflateException} if there is an error.
      *
      * @param resource ID for an XML layout resource to load

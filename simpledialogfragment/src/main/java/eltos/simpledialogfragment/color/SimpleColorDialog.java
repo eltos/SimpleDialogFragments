@@ -85,7 +85,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Sets the colors to choose from
-     * Default is the {@link #DEFAULT_COLORS} set
+     * Default is the {@link SimpleColorDialog#DEFAULT_COLORS} set
      *
      * @param colors array of rgb-colors
      */
@@ -96,8 +96,10 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Sets the color pallet to choose from
-     * May be one of {@link #MATERIAL_COLOR_PALLET}, {@link #MATERIAL_COLOR_PALLET_DARK},
-     * {@link #MATERIAL_COLOR_PALLET_LIGHT}, {@link #BEIGE_COLOR_PALLET} or a custom pallet
+     * May be one of {@link SimpleColorDialog#MATERIAL_COLOR_PALLET},
+     * {@link SimpleColorDialog#MATERIAL_COLOR_PALLET_DARK},
+     * {@link SimpleColorDialog#MATERIAL_COLOR_PALLET_LIGHT},
+     * {@link SimpleColorDialog#BEIGE_COLOR_PALLET} or a custom pallet
      *
      * @param context a context to resolve the resource
      * @param colorArrayRes color array resource id

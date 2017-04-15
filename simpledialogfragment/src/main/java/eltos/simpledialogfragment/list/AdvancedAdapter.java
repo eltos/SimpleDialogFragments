@@ -39,12 +39,12 @@ import java.util.Collection;
  * due to filtering.
  *
  * When extending this class, note the following:
- * - Set the underlying data set via {@link #setData} or {@link #setDataAndIds}
- * - Overwrite {@link #getView}. You can either return with the super-call, that will
+ * - Set the underlying data set via {@link AdvancedAdapter#setData} or {@link AdvancedAdapter#setDataAndIds}
+ * - Overwrite {@link AdvancedAdapter#getView}. You can either return with the super-call, that will
  *   automatically care for the checked state if the View is an instance of Checkable
- *   or set checked state yourself by using {@link #isItemChecked}
+ *   or set checked state yourself by using {@link AdvancedAdapter#isItemChecked}
  *
- * In your activity refer to the {@link #isItemChecked} and other functions to get
+ * In your activity refer to the {@link AdvancedAdapter#isItemChecked} and other functions to get
  * checked items rather than using the functions of the ListView!
  *
  */
@@ -182,13 +182,13 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     }
 
     /**
-     * Defines the choice behavior for the List. By default, Lists do not have any choice behavior
-     * ({@link #CHOICE_MODE_NONE}). By setting the choiceMode to {@link #CHOICE_MODE_SINGLE}, the
-     * List allows up to one item to  be in a chosen state. By setting the choiceMode to
-     * {@link #CHOICE_MODE_MULTIPLE}, the list allows any number of items to be chosen.
+     * Defines the choice behavior for the list. By default, lists do not have any choice behavior
+     * ({@link AdvancedAdapter#CHOICE_MODE_NONE}). By setting the choiceMode to
+     * {@link AdvancedAdapter#CHOICE_MODE_SINGLE}, the list allows up to one item to be checked
+     * Using {@link AdvancedAdapter#CHOICE_MODE_MULTIPLE}, any number of items may be checked.
      *
-     * @param choiceMode One of {@link #CHOICE_MODE_NONE}, {@link #CHOICE_MODE_SINGLE}, or
-     * {@link #CHOICE_MODE_MULTIPLE}
+     * @param choiceMode One of {@link AdvancedAdapter#CHOICE_MODE_NONE},
+     * {@link AdvancedAdapter#CHOICE_MODE_SINGLE} or {@link AdvancedAdapter#CHOICE_MODE_MULTIPLE}
      */
     public void setChoiceMode(int choiceMode){
         mChoiceMode = choiceMode;
