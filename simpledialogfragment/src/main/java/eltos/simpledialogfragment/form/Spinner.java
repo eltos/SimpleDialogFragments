@@ -163,7 +163,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Nullable
-    String getText(Context context){
+    protected String getText(Context context){
         if (text != null) {
             return text;
         } else if (textResourceId != NO_ID){
@@ -173,7 +173,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
     }
 
     @Nullable
-    String getPlaceholderText(Context context){
+    protected String getPlaceholderText(Context context){
         if (placeholder != null) {
             return placeholder;
         } else if (placeholderResourceId != NO_ID){
@@ -183,7 +183,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
     }
 
     @Nullable
-    String[] getItems(Context context){
+    protected String[] getItems(Context context){
         if (items != null){
             return items;
         } else if (itemStringResArray != null){

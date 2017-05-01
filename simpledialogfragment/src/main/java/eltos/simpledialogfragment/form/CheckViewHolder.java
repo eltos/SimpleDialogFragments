@@ -40,7 +40,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
     protected static final String SAVED_CHECK_STATE = "checked";
     private CheckBox checkBox;
 
-    CheckViewHolder(Check field) {
+    public CheckViewHolder(Check field) {
         super(field);
     }
 

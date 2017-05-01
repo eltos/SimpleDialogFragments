@@ -118,7 +118,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Nullable
-    String getText(Context context){
+    protected String getText(Context context){
         if (text != null) {
             return text;
         } else if (textResourceId != NO_ID){
@@ -127,7 +127,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
         return null;
     }
 
-    boolean getInitialState(Context context){
+    protected boolean getInitialState(Context context){
         if (preset != null) {
             return preset;
         } else if (presetId != NO_ID){

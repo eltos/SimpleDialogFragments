@@ -385,7 +385,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     private static final String ALPHANUMERIC_PATTERN =
             "^[a-zA-Z0-9]*$";
 
-    String validatePattern(Context context, @Nullable String input){
+    protected String validatePattern(Context context, @Nullable String input){
         if (pattern != null && input != null){
             if (compiledPattern == null){
                 compiledPattern = Pattern.compile(pattern);
@@ -398,7 +398,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     @Nullable
-    String getPatternError(Context context){
+    protected String getPatternError(Context context){
         if (patternError != null) {
             return patternError;
         } else if (patternErrorId != NO_ID){
@@ -408,7 +408,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     @Nullable
-    String getHint(Context context){
+    protected String getHint(Context context){
         if (hint != null) {
             return hint;
         } else if (hintResourceId != NO_ID){
@@ -418,7 +418,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     @Nullable
-    String getText(Context context){
+    protected String getText(Context context){
         if (text != null) {
             return text;
         } else if (textResourceId != NO_ID){
@@ -428,7 +428,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     @Nullable
-    String[] getSuggestions(Context context){
+    protected String[] getSuggestions(Context context){
         if (suggestions != null){
             return suggestions;
         } else if (suggestionStringResArray != null){

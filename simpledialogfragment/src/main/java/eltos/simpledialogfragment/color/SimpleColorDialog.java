@@ -206,9 +206,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     }
 
 
-    private class ColorAdapter extends AdvancedAdapter<Integer>{
+    protected class ColorAdapter extends AdvancedAdapter<Integer>{
 
-        ColorAdapter(int[] colors, boolean addCustomField){
+        public ColorAdapter(int[] colors, boolean addCustomField){
             if (colors == null) colors = new int[0];
 
             Integer[] cs = new Integer[colors.length + (addCustomField ? 1 : 0)];

@@ -261,7 +261,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         return view;
     }
 
-    private boolean posEnabled(){
+    protected boolean posEnabled(){
         return (!isInputEmpty() || getArguments().getBoolean(ALLOW_EMPTY)) && (getText() == null
                 || getText().length() <= getArguments().getInt(MAX_LENGTH, getText().length()));
     }

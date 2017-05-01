@@ -31,7 +31,7 @@ import android.os.Parcelable;
 @SuppressWarnings("WeakerAccess")
 public abstract class FormElement<T extends FormElement, V extends FormElementViewHolder> implements Parcelable {
 
-    String resultKey;
+    protected String resultKey;
     public boolean required = false;
 
 

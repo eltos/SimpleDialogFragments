@@ -314,7 +314,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     }
 
 
-    private void filterItems(){
+    protected void filterItems(){
         if (getFilter() != null){
             getFilter().filter(mFilterConstraint);
         }

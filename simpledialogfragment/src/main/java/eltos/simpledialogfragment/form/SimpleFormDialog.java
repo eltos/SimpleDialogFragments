@@ -185,7 +185,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-    private String onValidateInput(String fieldKey, @Nullable String input){
+    protected String onValidateInput(String fieldKey, @Nullable String input){
         Bundle extras = getArguments().getBundle(BUNDLE);
         if (extras == null) extras = new Bundle();
         if (getTargetFragment() instanceof InputValidator) {
@@ -235,12 +235,12 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     }
 
 
-    private boolean posButtonEnabled() {
+    protected boolean posButtonEnabled() {
         return mViews.size() != 1 || mViews.get(0).posButtonEnabled(getContext());
     }
 
 
-    private void requestFocus(int viewIndex){
+    protected void requestFocus(int viewIndex){
         if (viewIndex < mViews.size() && viewIndex >= 0) {
             mViews.get(viewIndex).focus(mFocusActions);
         }

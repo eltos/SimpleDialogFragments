@@ -194,7 +194,7 @@ public class ClearableEditText extends EditText implements OnTouchListener, OnFo
     }
 
 
-    private boolean isClearIconVisible() {
+    protected boolean isClearIconVisible() {
         if (loc == Location.LEFT){
             return getCompoundDrawables()[0] != null;
         } else if (loc == Location.RIGHT){
