@@ -49,7 +49,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     public static final String COLOR = "simpleColorDialog.color";
     public static final int NONE = ColorView.NONE;
-    private static final int PICKER = -2;
+    protected static final int PICKER = -2;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
             0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
@@ -65,9 +65,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final @ArrayRes int BEIGE_COLOR_PALLET = R.array.beige_pallet;
 
 
-    private static final String COLORS = "simpleColorDialog.colors";
-    private static final String CUSTOM = "simpleColorDialog.custom";
-    private static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
+    protected static final String COLORS = "simpleColorDialog.colors";
+    protected static final String CUSTOM = "simpleColorDialog.custom";
+    protected static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
 
     private int mCustomColor = NONE;
 

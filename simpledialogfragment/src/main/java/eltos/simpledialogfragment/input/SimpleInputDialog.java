@@ -56,11 +56,11 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
     public static final String TEXT = TAG + "text";
 
-    private static final String HINT = TAG + "hint";
-    private static final String INPUT_TYPE = TAG + "input_type";
-    private static final String ALLOW_EMPTY = TAG + "allow_empty";
-    private static final String MAX_LENGTH = TAG + "max_length";
-    private static final String SUGGESTIONS = TAG + "suggestions";
+    protected static final String HINT = TAG + "hint";
+    protected static final String INPUT_TYPE = TAG + "input_type";
+    protected static final String ALLOW_EMPTY = TAG + "allow_empty";
+    protected static final String MAX_LENGTH = TAG + "max_length";
+    protected static final String SUGGESTIONS = TAG + "suggestions";
 
     private AutoCompleteTextView mInput;
     private TextInputLayout mInputLayout;

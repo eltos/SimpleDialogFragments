@@ -37,7 +37,7 @@ import eltos.simpledialogfragment.R;
 
 class CheckViewHolder extends FormElementViewHolder<Check> {
 
-    private static final String SAVED_CHECK_STATE = "checked";
+    protected static final String SAVED_CHECK_STATE = "checked";
     private CheckBox checkBox;
 
     CheckViewHolder(Check field) {

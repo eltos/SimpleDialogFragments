@@ -37,10 +37,10 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
 
 
     private static final String TAG = SimpleImageDialog.class.getSimpleName();
-    private static final String DRAWABLE_RESOURCE = TAG + "drawableRes";
-    private static final String BITMAP = TAG + "bitmap";
-    private static final String IMAGE_URI = TAG + "uri";
-    private static final String SCALE_TYPE = TAG + "scale";
+    protected static final String DRAWABLE_RESOURCE = TAG + "drawableRes";
+    protected static final String BITMAP = TAG + "bitmap";
+    protected static final String IMAGE_URI = TAG + "uri";
+    protected static final String SCALE_TYPE = TAG + "scale";
     private boolean customTheme = false;
 
     public SimpleImageDialog(){

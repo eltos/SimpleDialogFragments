@@ -40,7 +40,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
     private static final String TAG = "simpleListDialog";
 
-    private final static String DATA_SET = TAG + "data_set";
+    protected final static String DATA_SET = TAG + "data_set";
 
     /**
      * Key for an <b>ArrayList&lt;String&gt;</b> returned by {@link SimpleListDialog#onResult}

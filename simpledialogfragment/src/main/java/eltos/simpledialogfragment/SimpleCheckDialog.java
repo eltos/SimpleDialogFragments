@@ -36,8 +36,8 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
     public static final String CHECKED = "simpleCheckDialog.checked";
 
-    private static final String CHECKBOX_LABEL = "simpleCheckDialog.check_label";
-    private static final String CHECKBOX_REQUIRED = "simpleCheckDialog.check_required";
+    protected static final String CHECKBOX_LABEL = "simpleCheckDialog.check_label";
+    protected static final String CHECKBOX_REQUIRED = "simpleCheckDialog.check_required";
 
     private CheckBox mCheckBox;
 

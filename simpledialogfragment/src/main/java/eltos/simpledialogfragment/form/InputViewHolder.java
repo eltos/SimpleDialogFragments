@@ -45,7 +45,7 @@ import eltos.simpledialogfragment.R;
 @SuppressWarnings("WeakerAccess")
 class InputViewHolder extends FormElementViewHolder<Input> {
 
-    private static final String SAVED_TEXT = "savedText";
+    protected static final String SAVED_TEXT = "savedText";
     private AutoCompleteTextView input;
     private TextInputLayout inputLayout;
 

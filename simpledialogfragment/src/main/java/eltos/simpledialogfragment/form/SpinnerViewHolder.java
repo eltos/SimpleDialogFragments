@@ -40,7 +40,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     public static final int NONE = -1;
 
-    private static final String SAVED_POSITION = "pos";
+    protected static final String SAVED_POSITION = "pos";
     private android.widget.Spinner spinner;
     private TextView label;
     private CustomSpinnerAdapter adapter;

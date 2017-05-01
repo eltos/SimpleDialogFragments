@@ -45,8 +45,8 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
     private static final String TAG = "SimpleFormDialog";
 
-    private static final String INPUT_FIELDS = TAG + "inputFields";
-    private static final String SAVE_TAG = "form.";
+    protected static final String INPUT_FIELDS = TAG + "inputFields";
+    protected static final String SAVE_TAG = "form.";
 
     private FocusActions mFocusActions = new FocusActions();
     ArrayList<FormElementViewHolder<?>> mViews = new ArrayList<>(0);

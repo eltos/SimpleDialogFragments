@@ -42,7 +42,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
     public static final String COLOR = "SimpleColorWheelDialog.color";
 
-    private static final String ALPHA = "SimpleColorWheelDialog.alpha";
+    protected static final String ALPHA = "SimpleColorWheelDialog.alpha";
 
     private ColorWheelView mColorWheelView;
     private EditText mHexInput;
