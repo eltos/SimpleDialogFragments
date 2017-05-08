@@ -76,7 +76,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      *
      * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
      */
-    protected void setPositiveButtonEnabled(boolean enabled){
+    protected final void setPositiveButtonEnabled(boolean enabled){
         if (positiveButton != null) {
             positiveButton.setEnabled(enabled);
         }
@@ -111,7 +111,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      *
      * Note: do not call this method from {@link CustomViewDialog#acceptsPositiveButtonPress} !!!
      */
-    protected void pressPositiveButton(){
+    protected final void pressPositiveButton(){
         if (acceptsPositiveButtonPress()) {
             getDialog().dismiss();
             callResultListener(DialogInterface.BUTTON_POSITIVE, null);
@@ -124,7 +124,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @param resource The resource to be inflated
      * @return The inflated view
      */
-    protected View inflate(@LayoutRes int resource) {
+    protected final View inflate(@LayoutRes int resource) {
         return inflate(resource, null, false);
     }
 
@@ -144,7 +144,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      *         attachToRoot is true, this is root; otherwise it is the root of
      *         the inflated XML file.
      */
-    protected View inflate(@LayoutRes int resource, ViewGroup root, boolean attachToRoot) {
+    protected final View inflate(@LayoutRes int resource, ViewGroup root, boolean attachToRoot) {
         return layoutInflater.inflate(resource, root, attachToRoot);
     }
 
@@ -155,7 +155,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @param savedInstanceState The saved instance state
      * @return the extracted view
      */
-    public View extractContentView(Bundle savedInstanceState){
+    public final View extractContentView(Bundle savedInstanceState){
         final AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
         layoutInflater = dialog.getLayoutInflater();
         return onCreateContentView(savedInstanceState);
@@ -239,6 +239,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     @Override
+    @CallSuper
     protected boolean callResultListener(int which, Bundle extras) {
         Bundle results = onResult(which);
         if (extras == null) extras = new Bundle();

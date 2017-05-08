@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
@@ -84,6 +85,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         }
     };
 
+    @CallSuper
     protected boolean callResultListener(int which, Bundle extras) {
         if (extras == null) extras = new Bundle();
         if (getArguments().getBundle(BUNDLE) != null) {
@@ -120,26 +122,27 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     @SuppressWarnings("unchecked cast")
-    protected This setArg(String key, boolean value){
+    protected final This setArg(String key, boolean value){
         getArguments().putBoolean(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
-    protected This setArg(String key, String value){
+    protected final This setArg(String key, String value){
         getArguments().putString(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
-    protected This setArg(String key, int value){
+    protected final This setArg(String key, int value){
         getArguments().putInt(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
-    protected This setArg(String key, long value){
+    protected final This setArg(String key, long value){
         getArguments().putLong(key, value);
         return (This) this;
     }
-    protected String getArgString(String key){
+    @Nullable
+    protected final String getArgString(String key){
         Object value = getArguments().get(key);
         if (value instanceof String){
             return (String) value;
@@ -431,6 +434,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     @Override
+    @CallSuper
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
         callResultListener(OnDialogResultListener.CANCELED, null);
@@ -439,6 +443,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     // This is to work around what is apparently a bug. If you don't have it
     // here the dialog will be dismissed on rotation, so tell it not to dismiss.
     @Override
+    @CallSuper
     public void onDestroyView() {
         if (dialog != null && getRetainInstance()) {
             dialog.setDismissMessage(null);
