@@ -315,7 +315,6 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     protected View onCreateContentView(Bundle savedInstanceState) {
 
         View view;
-        TextView mEmptyView;
         if (getArguments().containsKey(GRID)){
             view = inflate(R.layout.simpledialogfragment_grid);
             mListView = (GridView) view.findViewById(R.id.gridView);
@@ -330,13 +329,13 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         }
 
         mFilterEditText = (EditText) view.findViewById(R.id.filter);
-        mEmptyView = (TextView) view.findViewById(R.id.emptyView);
+        TextView emptyView = (TextView) view.findViewById(R.id.emptyView);
 
-        mEmptyView.setText(getArgString(EMPTY_TEXT));
+        emptyView.setText(getArgString(EMPTY_TEXT));
 
         mAdapter = onCreateAdapter();
         mListView.setAdapter(mAdapter);
-        mListView.setEmptyView(mEmptyView);
+        mListView.setEmptyView(emptyView);
 
         switch (getArguments().getInt(CHOICE_MODE, ListView.CHOICE_MODE_NONE)) {
             case SINGLE_CHOICE:
