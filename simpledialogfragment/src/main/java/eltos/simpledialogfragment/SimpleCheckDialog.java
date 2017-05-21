@@ -18,8 +18,6 @@ package eltos.simpledialogfragment;
 
 import android.os.Bundle;
 import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -82,7 +80,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
 
-        View view = inflate(R.layout.dialog_check_box);
+        View view = inflate(R.layout.simpledialogfragment_check_box);
         mCheckBox = (CheckBox) view.findViewById(R.id.checkBox);
 
         mCheckBox.setText(getArgString(CHECKBOX_LABEL));

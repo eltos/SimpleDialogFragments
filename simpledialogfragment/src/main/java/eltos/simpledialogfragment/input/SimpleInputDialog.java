@@ -22,24 +22,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import eltos.simpledialogfragment.CustomViewDialog;
 import eltos.simpledialogfragment.R;
-import eltos.simpledialogfragment.SimpleDialog;
 
 /**
  * An simple dialog with an input field. Supports suggestions, input validations and
@@ -200,7 +196,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
-        View view = inflate(R.layout.dialog_input);
+        View view = inflate(R.layout.simpledialogfragment_input);
         mInput = (AutoCompleteTextView) view.findViewById(R.id.editText);
         mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
 

@@ -18,18 +18,15 @@ package eltos.simpledialogfragment.list;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.annotation.DimenRes;
 import android.support.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Filterable;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -320,7 +317,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         View view;
         TextView mEmptyView;
         if (getArguments().containsKey(GRID)){
-            view = inflate(R.layout.dialog_grid);
+            view = inflate(R.layout.simpledialogfragment_grid);
             mListView = (GridView) view.findViewById(R.id.gridView);
             if (getArguments().containsKey(GRID_W)){
                 ((GridView) mListView).setColumnWidth(getResources().getDimensionPixelSize(
@@ -328,7 +325,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             }
             ((GridView) mListView).setNumColumns(getArguments().getInt(GRID_N, GridView.AUTO_FIT));
         } else {
-            view = inflate(R.layout.dialog_list);
+            view = inflate(R.layout.simpledialogfragment_list);
             mListView = (ListView) view.findViewById(R.id.listView);
         }
 

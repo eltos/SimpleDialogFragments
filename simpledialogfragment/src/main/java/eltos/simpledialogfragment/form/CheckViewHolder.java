@@ -46,7 +46,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
     @Override
     protected int getContentViewLayout() {
-        return R.layout.dialog_form_item_check;
+        return R.layout.simpledialogfragment_form_item_check;
     }
 
     @Override

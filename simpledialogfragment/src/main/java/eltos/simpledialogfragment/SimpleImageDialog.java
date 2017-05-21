@@ -147,13 +147,13 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
         int scale = getArguments().getInt(SCALE_TYPE, Scale.FIT.nativeInt);
 
         if (scale == Scale.FIT.nativeInt){
-            view = inflate(R.layout.dialog_image);
+            view = inflate(R.layout.simpledialogfragment_image);
 
         } else if (scale == Scale.SCROLL_VERTICAL.nativeInt){
-            view = inflate(R.layout.dialog_image_vert_scroll);
+            view = inflate(R.layout.simpledialogfragment_image_vert_scroll);
 
         } else if (scale == Scale.SCROLL_HORIZONTAL.nativeInt) {
-            view = inflate(R.layout.dialog_image_hor_scroll);
+            view = inflate(R.layout.simpledialogfragment_image_hor_scroll);
 
         } else {
             return null;

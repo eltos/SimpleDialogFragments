@@ -315,7 +315,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate custom view
-        View view = inflate(R.layout.dialog_form);
+        View view = inflate(R.layout.simpledialogfragment_form);
         mFormContainer = (ViewGroup) view.findViewById(R.id.container);
 
         ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);

@@ -51,7 +51,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     @Override
     protected int getContentViewLayout() {
-        return R.layout.dialog_form_item_spinner;
+        return R.layout.simpledialogfragment_form_item_spinner;
     }
 
     @Override

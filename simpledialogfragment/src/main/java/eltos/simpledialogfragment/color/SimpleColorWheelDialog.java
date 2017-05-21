@@ -21,7 +21,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -90,7 +89,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
 
-        View view = inflate(R.layout.dialog_color_wheel);
+        View view = inflate(R.layout.simpledialogfragment_color_wheel);
         mColorWheelView = (ColorWheelView) view.findViewById(R.id.colorWheel);
         mTransparency = view.findViewById(R.id.transparencyBox);
         mAlphaSlider = (SeekBar) view.findViewById(R.id.alpha);

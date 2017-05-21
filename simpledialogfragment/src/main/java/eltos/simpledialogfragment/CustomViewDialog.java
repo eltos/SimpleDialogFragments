@@ -188,7 +188,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         View content = onCreateContentView(savedInstanceState);
 
         // Intermediate view with custom message TextView
-        View intermediate = inflate(R.layout.dialog_custom_view);
+        View intermediate = inflate(R.layout.simpledialogfragment_custom_view);
         TextView textView = (TextView) intermediate.findViewById(R.id.customMessage);
         View topSpacer = intermediate.findViewById(R.id.textSpacerNoTitle);
         ViewGroup container = (ViewGroup) intermediate.findViewById(R.id.customView);

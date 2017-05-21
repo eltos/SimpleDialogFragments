@@ -96,7 +96,7 @@ class ColorView extends FrameLayout implements Checkable {
         showAnim = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_show);
         hideAnim = AnimationUtils.loadAnimation(getContext(), R.anim.zoom_out);
 
-        LayoutInflater.from(getContext()).inflate(R.layout.color_item, this, true);
+        LayoutInflater.from(getContext()).inflate(R.layout.simpledialogfragment_color_item, this, true);
         mCheckView = (ImageView) findViewById(R.id.checkmark);
         mColorView = (FrameLayout) findViewById(R.id.color);
         mRippleView = (FrameLayout) findViewById(R.id.ripple);

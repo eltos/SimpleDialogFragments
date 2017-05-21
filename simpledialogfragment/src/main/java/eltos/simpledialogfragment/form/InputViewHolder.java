@@ -55,7 +55,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
 
     @Override
     protected int getContentViewLayout() {
-        return R.layout.dialog_form_item_input;
+        return R.layout.simpledialogfragment_form_item_input;
     }
 
     @Override
