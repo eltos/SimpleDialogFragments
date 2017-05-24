@@ -2,7 +2,7 @@
 <resources>
 
     <style name="OverflowText">
-        <item name="android:textColor">@color/error_color</item>
+        <item name="android:textColor">@color/simpledialogfragment_error_color</item>
     </style>
 
     <style name="SimpleDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert"/>

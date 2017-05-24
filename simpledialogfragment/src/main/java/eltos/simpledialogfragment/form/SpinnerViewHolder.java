@@ -137,7 +137,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
         } else {
             //noinspection deprecation
-            label.setTextColor(context.getResources().getColor(eltos.simpledialogfragment.R.color.error_color));
+            label.setTextColor(context.getResources().getColor(R.color.simpledialogfragment_error_color));
         }
 //        checkBox.setError(valid ? null : context.getString(R.string.required));
         return valid;

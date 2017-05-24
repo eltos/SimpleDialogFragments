@@ -131,7 +131,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
         } else {
             //noinspection deprecation
-            checkBox.setTextColor(context.getResources().getColor(R.color.error_color));
+            checkBox.setTextColor(context.getResources().getColor(R.color.simpledialogfragment_error_color));
         }
 //        checkBox.setError(valid ? null : context.getString(R.string.required));
         return valid;
