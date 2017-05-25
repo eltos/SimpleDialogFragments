@@ -63,7 +63,7 @@ BUILD=$?
 if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 	echo -e "\e[32mJavadoc created\e[0m"
 	TO="docs/v$LVN/javadoc"
-	COPY=0
+	COPY=1
 	if [ -d $TO ] && ! [ -z "$(ls -A $TO)" ]; then
 		# path exists but is not empty
 	   	read -r -p $'\e[33mJavadoc dir '"$TO"$' not empty. Overwrite? [Y/n]\e[0m ' OK
@@ -73,7 +73,7 @@ if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 			rm -rf "$TO"
 		fi
 	fi
-	if [ COPY ]; then
+	if [ $COPY -ne 0 ]; then
 		mkdir -p $TO
 		cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
 
@@ -95,11 +95,13 @@ fi
 
 # Build
 #######
+XJAVADOC=0
 if [ $BUILD -ne 0 ]; then
 	# first build failed, try again without javadoc
 	echo "Install again without javadoc..."
 	./gradlew install -xjavadoc
 	BUILD=$?
+	XJAVADOC=1
 fi
 
 # Deploy
@@ -108,7 +110,11 @@ if [ $BUILD -eq 0 ]; then
 	read -r -p $'\e[32mBuild "'"$LVN"$'" successful. Upload to bintray? [Y/n]\e[0m ' OK
 	if ! [[ $OK =~ ^[Nn].*$ ]]; then
 		echo "Upload to bintray"
-		./gradlew bintrayUpload -xjavadoc
+		if [ $XJAVADOC -ne 0 ]; then
+			./gradlew bintrayUpload -xjavadoc
+		else
+			./gradlew bintrayUpload
+		fi
 		if [ $? -eq 0 ]; then
 
 			# Update README.md
