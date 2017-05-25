@@ -15,9 +15,9 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
-[Version history and JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)
-
-[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)
+[Version history and JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)  
+[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)  
+[Demo APK](https://github.com/eltos/SimpleDialogFragments/raw/master/simpledialogfragments%20testApp%20v2.1.apk)  
 
 
 ### Features
