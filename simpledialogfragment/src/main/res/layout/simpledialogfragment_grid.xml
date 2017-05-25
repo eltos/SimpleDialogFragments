@@ -15,8 +15,7 @@
         android:hint="@string/abc_search_hint"
         android:inputType="textCapSentences|text"
         android:lines="1"
-        android:maxLines="1"
-        android:singleLine="true" />
+        android:maxLines="1" />
 
     <RelativeLayout
         android:layout_width="match_parent"

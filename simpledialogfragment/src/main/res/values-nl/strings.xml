@@ -9,4 +9,8 @@
     <string name="login">Login</string>
     <string name="phone_number">Telefoonnummer</string>
     <string name="name">Naam</string>
+    <string name="alphanumeric_only_error">Moet alleen alfanumerieke tekens bevatten</string>
+    <string name="input_not_a_given_option">Input niet een bepaalde optie</string>
+    <string name="letters_only_error">Moet alleen letters A-Z bevatten</string>
+    <string name="strong_pw_requirements">Moet een nummer, een hoofdletter en een hoofdletter en een speciaal teken bevatten</string>
 </resources>

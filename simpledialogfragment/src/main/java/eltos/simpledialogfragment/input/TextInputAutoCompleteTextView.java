@@ -35,7 +35,7 @@ import android.view.inputmethod.InputConnection;
  * Created by eltos on 16.02.17 as suggested here: http://stackoverflow.com/a/41864063
  *
  */
-class TextInputAutoCompleteTextView extends AppCompatAutoCompleteTextView {
+public class TextInputAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
     public TextInputAutoCompleteTextView(Context context) {
         super(context);
