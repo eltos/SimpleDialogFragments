@@ -2,7 +2,6 @@
 <resources>
     <string name="invalid_email_address">メールアドレスが無効</string>
     <string name="email_address">メールアドレス</string>
-    <string name="hex" translatable="false">HEX:</string>
     <string name="transparency">透明性</string>
     <string name="required">必須</string>
     <string name="password">パスワード</string>
@@ -14,5 +13,4 @@
     <string name="strong_pw_requirements">パスワードは、数字、小文字と大文字や特殊文字が含まれている必要があり</string>
     <string name="letters_only_error">アルファベットのみ</string>
     <string name="alphanumeric_only_error">英数字のみ</string>
-    <string name="rrggbb" translatable="false">RRGGBB</string>
 </resources>
