@@ -389,11 +389,11 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     public abstract class AdvancedFilter extends Filter {
         private @Nullable CharSequence mConstraint;
         private @Nullable Pattern mPattern;
-        private boolean mIgnoreCase = false;
+        private boolean mIgnoreCase = true;
         private boolean mMatchWordBeginning = true;
 
         AdvancedFilter(){
-            this(false, true);
+            this(true, true);
         }
 
         /**
