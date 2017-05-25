@@ -59,9 +59,9 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
     /**
      * Overwrite this method to provide additional results from your custom view
-     * to be passed to the {@link OnDialogResultListener#onResult}
+     * to be passed to the {@link SimpleDialog.OnDialogResultListener#onResult}
      *
-     * @param which see {@link OnDialogResultListener}
+     * @param which see {@link SimpleDialog.OnDialogResultListener}
      * @return the bundle to merge with the results or null
      */
     protected Bundle onResult(int which){

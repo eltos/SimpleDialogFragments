@@ -21,7 +21,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
-import eltos.simpledialogfragment.SimpleDialog;
+import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 
 /**
  * The Base class for all ViewHolders
@@ -79,7 +79,7 @@ public abstract class FormElementViewHolder<E extends FormElement> {
 
     /**
      * Method to publish results from this view in
-     * {@link SimpleDialog.OnDialogResultListener#onResult}
+     * {@link OnDialogResultListener#onResult}
      *
      * @param results The bundle to save the results to
      * @param key The key that has to be used when storing results in the bundle

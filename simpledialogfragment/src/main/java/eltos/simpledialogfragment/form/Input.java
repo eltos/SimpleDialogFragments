@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 
 /**
  * An input form element to be used with {@link SimpleFormDialog}
@@ -72,7 +73,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Factory method for a plain input field.
      *
      * @param key the key that can be used to receive the entered text from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Input plain(String key){
         return new Input(key);
@@ -83,7 +84,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * InputType and hint are preset.
      *
      * @param key the key that can be used to receive the entered text from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Input name(String key){
         return new Input(key)
@@ -97,7 +98,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Shows a button to toggle the passwords visibility
      *
      * @param key the key that can be used to receive the entered text from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Input password(String key){
         return new Input(key)
@@ -112,7 +113,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This field also validates, that an email matching the default pattern was entered.
      *
      * @param key the key that can be used to receive the entered text from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Input email(String key){
         return new Input(key)
@@ -127,7 +128,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This field also automatically format the phone number while the user is typing.
      *
      * @param key the key that can be used to receive the entered text from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Input phone(String key){
         return new Input(key)

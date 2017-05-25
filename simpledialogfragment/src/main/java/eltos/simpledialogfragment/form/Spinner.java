@@ -22,6 +22,8 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
+import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
+
 
 /**
  * A spinner form element to be used with {@link SimpleFormDialog}
@@ -57,7 +59,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Factory method for a plain spinner.
      *
      * @param key the key that can be used to receive the chosen item index from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Spinner plain(String key){
         return new Spinner(key);

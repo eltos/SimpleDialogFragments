@@ -61,8 +61,8 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     /**
      * Convenient method to build a form dialog with a single email input
      *
-     * @param emailFieldKey the key that can be used to receive the entered text from the bundle
-     *                      in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     * @param emailFieldKey the key that can be used to receive the entered text from the bundle in
+     *                      {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      */
     public static SimpleFormDialog buildEmailInput(String emailFieldKey){
         return SimpleFormDialog.build()
@@ -75,7 +75,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
      * Convenient method to build a form dialog with a single password input
      *
      * @param passwordFieldKey the key that can be used to receive the entered text from the bundle
-     *                         in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      */
     public static SimpleFormDialog buildPasswordInput(String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -88,7 +88,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
      * Convenient method to build a form dialog with a single number input
      *
      * @param numberFieldKey the key that can be used to receive the entered text from the bundle
-     *                       in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                       in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      */
     public static SimpleFormDialog buildNumberInput(String numberFieldKey){
         return SimpleFormDialog.build()
@@ -102,9 +102,9 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
      * a password input for login with email address and password
      *
      * @param emailFieldKey the key that can be used to receive the entered email from the bundle
-     *                      in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                      in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      * @param passwordFieldKey the key that can be used to receive the entered password from the
-     *                         bundle in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                         bundle in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      */
     public static SimpleFormDialog buildLoginEmail(String emailFieldKey, String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -121,9 +121,9 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
      * a password input for login with username and password
      *
      * @param userFieldKey the key that can be used to receive the entered username from the bundle
-     *                     in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                     in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      * @param passwordFieldKey the key that can be used to receive the entered password from the
-     *                         bundle in {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *                         bundle in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      */
     public static SimpleFormDialog buildLogin(String userFieldKey, String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -250,7 +250,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
 
     /**
-     * A Callback Class with useful methods used by {@link FormElementViewHolder#focus(FocusActions)}
+     * A Callback Class with useful methods used by {@link FormElementViewHolder#focus}
      */
     public class FocusActions {
         /**

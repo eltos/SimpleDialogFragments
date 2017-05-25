@@ -22,6 +22,8 @@ import android.support.annotation.BoolRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
+import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
+
 /**
  * An checkbox form element to be used with {@link SimpleFormDialog}
  * </p>
@@ -49,7 +51,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
      * Factory method for a check field.
      *
      * @param key the key that can be used to receive the final state from the bundle in
-     *            {@link SimpleFormDialog.OnDialogResultListener#onResult}
+     *            {@link OnDialogResultListener#onResult}
      */
     public static Check box(String key){
         return new Check(key);
