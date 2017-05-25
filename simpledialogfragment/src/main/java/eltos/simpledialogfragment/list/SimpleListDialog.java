@@ -51,6 +51,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * Key for a <b>String</b> returned by {@link SimpleListDialog#onResult} in single choice mode
      */
     public static final String SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
+    public static final String HIGHLIGHT = TAG + "highlight";
 
 
     public static SimpleListDialog build(){
@@ -125,6 +126,17 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         return this;
     }
 
+    /**
+     * If set to true, show an input field at the to of the list and allow the user
+     * to filter the list
+     *
+     * @param enabled weather to allow filtering or not
+     * @param highlight weather to highlight the text filtered
+     */
+    public SimpleListDialog filterable(boolean enabled, boolean highlight) {
+        setArg(HIGHLIGHT, highlight);
+        return super.filterable(enabled);
+    }
 
     ArrayList<SimpleListItem> mData;
 
@@ -193,11 +205,11 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
             setDataAndIds(dataAndIds);
         }
 
-        AdvancedFilter mFilter = new AdvancedFilter(){
+        AdvancedFilter mFilter = new AdvancedFilter(true, true){
 
             @Override
             protected boolean matches(String object, @NonNull CharSequence constraint) {
-                return matchesWord(object, constraint);
+                return matches(object);
             }
         };
 
@@ -219,9 +231,11 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
                 textView = (TextView) convertView.getTag();
             }
 
-            textView.setText(getItem(position));
-
-
+            if (getArguments().getBoolean(HIGHLIGHT)) {
+                textView.setText(highlight(getItem(position), getContext()));
+            } else {
+                textView.setText(getItem(position));
+            }
 
             return super.getView(position, convertView, parent);
         }

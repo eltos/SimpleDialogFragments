@@ -16,21 +16,27 @@
 
 package eltos.simpledialogfragment.list;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
-import android.support.v4.widget.TextViewCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Checkable;
-import android.widget.CheckedTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by eltos on 04.12.2016.
@@ -55,6 +61,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
     public static final int CHOICE_MODE_MULTIPLE = 2;
     private int mChoiceMode = CHOICE_MODE_MULTIPLE;
     private boolean mNoAnimations = false;
+    private @ColorInt Integer mDefaultHighlightColor = null;
 
     class Item {
         T object;
@@ -326,34 +333,122 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
 //    }
 
     /**
+     * Highlights everything that matched the current filter (if any) in text
+     *
+     * @param text the text to highlight
+     * @param context a context to get the default highlight color from
+     * @return a spannable string
+     */
+    protected Spannable highlight(String text, Context context) {
+        if (mDefaultHighlightColor == null){
+            TypedArray array = context.obtainStyledAttributes(new int[]{
+                    android.R.attr.textColorHighlight});
+            mDefaultHighlightColor = array.getColor(0, 0x6633B5E5);
+            array.recycle();
+        }
+        return highlight(text, mDefaultHighlightColor);
+    }
+
+    /**
+     * Highlights everything that matched the current filter (if any) in text
+     *
+     * @param text the text to highlight
+     * @param color the highlight color
+     * @return a spannable string
+     */
+    protected Spannable highlight(String text, int color) {
+        if (text == null) return null;
+
+        Spannable highlighted = new SpannableStringBuilder(text);
+        AdvancedFilter filter = getFilter();
+
+        if (filter == null || filter.mPattern == null){
+            return highlighted;
+        }
+
+        Matcher matcher = filter.mPattern.matcher(text);
+
+        while (matcher.find()){
+            highlighted.setSpan(new BackgroundColorSpan(color), matcher.start(),
+                    matcher.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+        }
+
+        return highlighted;
+    }
+
+
+
+
+
+    /**
      * An advanced filter where only the {@link AdvancedFilter#matches} method needs
      * to be overwritten
      *
      */
     public abstract class AdvancedFilter extends Filter {
+        private @Nullable CharSequence mConstraint;
+        private @Nullable Pattern mPattern;
+        private boolean mIgnoreCase = false;
+        private boolean mMatchWordBeginning = true;
+
+        AdvancedFilter(){
+            this(false, true);
+        }
+
+        /**
+         * The flags specified here are used in the default {@link AdvancedFilter#matches} and
+         * {@link AdvancedAdapter#highlight} methods.
+         *
+         * @param ignoreCase weather default matching is not case-sensitive
+         * @param matchWordBeginning weather default matching is performed only at the beginning of words
+         */
+        AdvancedFilter(boolean ignoreCase, boolean matchWordBeginning){
+            mIgnoreCase = ignoreCase;
+            mMatchWordBeginning = matchWordBeginning;
+        }
+
+        protected boolean isIgnoreCase() {
+            return mIgnoreCase;
+        }
+
+        protected boolean isMatchWordBeginning() {
+            return mMatchWordBeginning;
+        }
 
         protected abstract boolean matches(T object, @NonNull CharSequence constraint);
 
+        @Deprecated
         /**
-         * Simple string matcher that checks against words
+         * Use {@link AdvancedFilter#matches(String)} instead
          */
         protected boolean matchesWord(String string, @NonNull CharSequence constraint) {
-            if (string != null){
-                if (string.startsWith(constraint.toString())){
-                    return true;
-                }
-                for (String word : string.split(" ")) {
-                    if (word.startsWith(constraint.toString())){
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return string != null && Pattern.compile((mMatchWordBeginning ? "\\b" : "") +
+                    "(" + constraint + ")", mIgnoreCase ? Pattern.CASE_INSENSITIVE : 0)
+                    .matcher(string).find();
         }
+
+        /**
+         * Simple string matcher that uses the current constraint and flags as specified
+         * upon creation.
+         *
+         * @param string the string to search in
+         * @return true if at least one match is found
+         */
+        protected boolean matches(String string) {
+            return string != null && mPattern != null && mPattern.matcher(string).find();
+        }
+
 
         @Override @Nullable
         protected FilterResults performFiltering(@Nullable CharSequence constraint) {
-            if (constraint == null) return null;
+            mConstraint = constraint;
+            if (constraint == null || constraint.length() == 0) {
+                mPattern = null;
+                return null;
+            }
+            mPattern = Pattern.compile((mMatchWordBeginning ? "\\b" : "") +
+                    "(" + mConstraint + ")", mIgnoreCase ? Pattern.CASE_INSENSITIVE : 0);
 
             ArrayList<Item> filteredResults = new ArrayList<>();
             for (Item item : mItems) {
