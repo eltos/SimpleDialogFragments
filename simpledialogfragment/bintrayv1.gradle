@@ -15,6 +15,16 @@ if (project.hasProperty("android")) { // Android libraries
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
+    afterEvaluate {
+        // adding this to the classpath fixes "cannot find annotations symbols" errors
+        javadoc.classpath += files(android.libraryVariants.collect { variant ->
+            variant.javaCompile.classpath
+        })
+        // adding this to the classpath fixes "package R not found" errors
+        javadoc.classpath += files(android.libraryVariants.collect { variant ->
+            variant.javaCompile.outputs.files
+        })
+    }
 } else { // Java libraries
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
