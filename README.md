@@ -10,7 +10,7 @@
 SimpleDialogFragments Library is a collection of easy to use and extendable DialogFragment's for Android.
 It is fully compatible with rotation changes and can be implemented with only a few lines of code.
 
-A new approach of result handling ensures data integrity over rotation changes, that many other library lack.
+A new approach of result handling ensures data integrity over rotation changes, that many other libraries lack.
 
 
 
