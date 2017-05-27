@@ -29,11 +29,19 @@ dependencies {
 
 ext {
     bintrayRepo = 'simpledialogfragments'
-    bintrayName = 'SimpleDialogFragment'
+    bintrayName = 'SimpleDialogFragment-api9'
 
     publishedGroupId = 'com.github.eltos'
     libraryName = 'SimpleDialogFragment'
-    artifact = 'simpledialogfragment'
+    artifact = 'simpledialogfragment-api9'
+
+    // NOTE:
+    // "bintrayUpload" will probably fail as the artifact is not properly adopted.
+    // You'll have to manually upload these files to bintray:
+    // build/libs/simpledialogfragment-x.x-sources.jar      --> simpledialogfragment-2.1-sources.jar
+    // build/libs/simpledialogfragment-x.x-javadoc.jar      --> simpledialogfragment-2.1-javadoc.jar
+    // build/outputs/aar/simpledialogfragment-release.aar   --> simpledialogfragment-2.1.aar
+    // build/poms/pom-default.xml                           --> simpledialogfragment-2.1.pom
 
     libraryDescription = 'A collection of easy to use and extendable DialogFragment\'s for Android'
 
