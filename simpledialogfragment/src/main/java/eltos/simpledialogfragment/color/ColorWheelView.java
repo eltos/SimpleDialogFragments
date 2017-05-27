@@ -16,6 +16,7 @@
 
 package eltos.simpledialogfragment.color;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -693,7 +695,9 @@ public class ColorWheelView extends View {
 
 
             // fix for bug in hardware accelerated rendering where ComposeShader is unsupported
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
         }
 
         void setGeometry(PointF center, float radius, float padding){
@@ -762,6 +766,7 @@ public class ColorWheelView extends View {
 
         }
 
+        @SuppressLint("NewApi") // PorterDuff.Mode.ADD was added in API 1
         protected void updateColorDependant(boolean hsvChanged, boolean hueChanged){
             if (hueChanged) {
                 Shader base = new LinearGradient(A.x, A.y, (B.x + C.x) / 2, (B.y + C.y) / 2,

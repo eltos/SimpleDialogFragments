@@ -16,6 +16,7 @@
 
 package eltos.simpledialogfragment.list;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.DimenRes;
@@ -311,6 +312,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     private EditText mFilterEditText;
 
 
+    @SuppressLint("NewApi") // ListView.setAdapter added in API 1
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
 
