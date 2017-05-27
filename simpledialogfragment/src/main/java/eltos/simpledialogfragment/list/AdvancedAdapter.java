@@ -18,10 +18,12 @@ package eltos.simpledialogfragment.list;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
@@ -146,7 +148,6 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
 
     public void setDataAndIds(T[] list, long[] ids){
         mItems.clear();
-        ArrayList<Pair<T, Long>> pairs = new ArrayList<>(list.length);
         for (int i = 0; i < list.length && i < ids.length; i++) {
             mItems.add(new Item(list[i], ids[i]));
         }
@@ -499,7 +500,11 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
         if (convertView instanceof Checkable){
             ((Checkable) convertView).setChecked(isItemChecked(position));
             if (mNoAnimations){ // suppresses the check animation when filtering
-                convertView.jumpDrawablesToCurrentState();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    convertView.jumpDrawablesToCurrentState();
+                } else {
+                    ViewCompat.jumpDrawablesToCurrentState(convertView);
+                }
             }
         }
 

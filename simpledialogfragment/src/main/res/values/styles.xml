@@ -9,8 +9,8 @@
 
     <style name="ImageDialogTheme" parent="SimpleDialogTheme">
         <!-- these are required so that the dialog wraps the images dimensions -->
-        <item name="android:windowMinWidthMinor">@null</item>
-        <item name="android:windowMinWidthMajor">@null</item>
+        <item name="windowMinWidthMinor">@null</item>
+        <item name="windowMinWidthMajor">@null</item>
     </style>
 
 </resources>

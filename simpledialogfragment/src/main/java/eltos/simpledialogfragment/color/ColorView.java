@@ -241,8 +241,10 @@ class ColorView extends FrameLayout implements Checkable {
             // Use a translucent foreground
             StateListDrawable foreground = new StateListDrawable();
             foreground.setAlpha(80);
-            foreground.setEnterFadeDuration(250);
-            foreground.setExitFadeDuration(250);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                foreground.setEnterFadeDuration(250);
+                foreground.setExitFadeDuration(250);
+            }
 
             GradientDrawable mask = new GradientDrawable();
             mask.setShape(GradientDrawable.OVAL);
