@@ -60,6 +60,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final @ArrayRes int MATERIAL_COLOR_PALLET_LIGHT = R.array.material_pallet_light;
     public static final @ArrayRes int MATERIAL_COLOR_PALLET_DARK = R.array.material_pallet_dark;
     public static final @ArrayRes int BEIGE_COLOR_PALLET = R.array.beige_pallet;
+    public static final @ArrayRes int COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
 
 
     protected static final String COLORS = "simpleColorDialog.colors";

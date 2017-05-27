@@ -82,14 +82,35 @@
         <item>#ffb4a851</item>
         <item>#ffdfd27c</item>
         <item>#ffe7e3b5</item>
+        <item>#ff405980</item>
         <item>#ff6a7d8e</item>
         <item>#ffaebbc7</item>
         <item>#ffc1d2d6</item>
         <item>#ff846d74</item>
         <item>#ffb7a6ad</item>
         <item>#ffd3c9ce</item>
+        <item>#ffd9b8a2</item>
+        <item>#ffbf8686</item>
+        <item>#ffb33050</item>
     </array>
 
+    <array name="colorful_pallet">
+        <item>#ffc0ff8c</item>
+        <item>#fffff78c</item>
+        <item>#ffffd08c</item>
+        <item>#ff8ceaff</item>
+        <item>#ffff8c9d</item>
+        <item>#ffc12552</item>
+        <item>#ffff6600</item>
+        <item>#fff5c700</item>
+        <item>#ff6a961f</item>
+        <item>#ffb36435</item>
+        <item>#ffd9508a</item>
+        <item>#fffe9507</item>
+        <item>#fffef778</item>
+        <item>#ff6aa786</item>
+        <item>#ff35c2d1</item>
+    </array>
 
 
 
