@@ -28,10 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import java.util.Objects;
-
 import eltos.simpledialogfragment.R;
-import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.list.AdvancedAdapter;
 import eltos.simpledialogfragment.list.CustomListDialog;
 
@@ -63,6 +60,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final @ArrayRes int MATERIAL_COLOR_PALLET_LIGHT = R.array.material_pallet_light;
     public static final @ArrayRes int MATERIAL_COLOR_PALLET_DARK = R.array.material_pallet_dark;
     public static final @ArrayRes int BEIGE_COLOR_PALLET = R.array.beige_pallet;
+    public static final @ArrayRes int COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
 
 
     protected static final String COLORS = "simpleColorDialog.colors";
@@ -133,8 +131,6 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
         if (savedInstanceState != null){
             mCustomColor = savedInstanceState.getInt(CUSTOM, mCustomColor);
-        } else {
-            mCustomColor = getArguments().getInt(COLOR, mCustomColor); // preset
         }
     }
 
@@ -147,15 +143,15 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
         // preset
         if (getArguments().containsKey(COLOR)){
-            int preset = getArguments().getInt(COLOR, NONE);
-            if (custom && preset == mCustomColor){
-                choicePreset(colors.length);
-            }
-            for (int i = 0; i < colors.length; i++) {
-                if (colors[i] == preset){
-                    choicePreset(i);
-                    break;
+            @ColorInt int preset = getArguments().getInt(COLOR, NONE);
+            int index = indexOf(colors, preset);
+            if (index < 0){ // custom preset
+                mCustomColor = preset;
+                if (custom){
+                    choicePreset(colors.length);
                 }
+            } else {
+                choicePreset(index);
             }
         }
 
@@ -163,6 +159,15 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         getListView().setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         return new ColorAdapter(colors, custom);
+    }
+
+    private int indexOf(int[] array, int item){
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == item){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
