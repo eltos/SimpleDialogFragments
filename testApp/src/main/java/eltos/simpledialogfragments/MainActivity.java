@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ArrayRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String GENDER = "gender";
 
 
-    private int color = SimpleColorDialog.NONE;
+    private @ColorInt int color = 0xff9c27b0;
     private int counter = 0;
 
 
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(new Intent(getBaseContext(), FlatFragmentActivity.class));
             }
         });
+
+        newColor(color);
 
     }
 
