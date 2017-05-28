@@ -273,8 +273,9 @@ public class MainActivity extends AppCompatActivity implements
                 SimpleColorDialog.MATERIAL_COLOR_PALLET, // default if no pallet explicitly set
                 SimpleColorDialog.MATERIAL_COLOR_PALLET_DARK,
                 SimpleColorDialog.MATERIAL_COLOR_PALLET_LIGHT,
-                SimpleColorDialog.BEIGE_COLOR_PALLET
-        }[counter++ % 4];
+                SimpleColorDialog.BEIGE_COLOR_PALLET,
+                SimpleColorDialog.COLORFUL_COLOR_PALLET
+        }[counter++ % 5];
 
         SimpleColorDialog.build()
                 .title(R.string.pick_a_color)
