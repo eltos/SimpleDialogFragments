@@ -37,11 +37,11 @@ ext {
 
     // NOTE:
     // "bintrayUpload" will probably fail as the artifact is not properly adopted.
-    // You'll have to manually upload these files to bintray:
-    // build/libs/simpledialogfragment-x.x-sources.jar      --> simpledialogfragment-2.1-sources.jar
-    // build/libs/simpledialogfragment-x.x-javadoc.jar      --> simpledialogfragment-2.1-javadoc.jar
-    // build/outputs/aar/simpledialogfragment-release.aar   --> simpledialogfragment-2.1.aar
-    // build/poms/pom-default.xml                           --> simpledialogfragment-2.1.pom
+    // You'll have to manually upload these files to bintray (where x.x is the version):
+    // build/libs/simpledialogfragment-x.x-sources.jar      --> simpledialogfragment-api9-x.x-sources.jar
+    // build/libs/simpledialogfragment-x.x-javadoc.jar      --> simpledialogfragment-api9-x.x-javadoc.jar
+    // build/outputs/aar/simpledialogfragment-release.aar   --> simpledialogfragment-api9-x.x.aar
+    // build/poms/pom-default.xml                           --> simpledialogfragment-api9-x.x.pom
 
     libraryDescription = 'A collection of easy to use and extendable DialogFragment\'s for Android'
 
