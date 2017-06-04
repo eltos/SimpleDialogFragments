@@ -67,7 +67,8 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     protected static final String CUSTOM = "simpleColorDialog.custom";
     protected static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
 
-    private int mCustomColor = NONE;
+    private @ColorInt int mCustomColor = NONE;
+    private @ColorInt int mSelectedColor = NONE;
 
     public SimpleColorDialog(){
         grid();
@@ -152,6 +153,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                 }
             } else {
                 choicePreset(index);
+                mSelectedColor = preset;
             }
         }
 
@@ -184,8 +186,14 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                     .alpha(false);
             if (mCustomColor != NONE){
                 dialog.color(mCustomColor);
+            } else if (mSelectedColor != NONE){
+                dialog.color(mSelectedColor);
+                mCustomColor = mSelectedColor;
             }
             dialog.show(this, PICKER_DIALOG_TAG);
+            mSelectedColor = NONE;
+        } else {
+            mSelectedColor = (int) id;
         }
     }
 
