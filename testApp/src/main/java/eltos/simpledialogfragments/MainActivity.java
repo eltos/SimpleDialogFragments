@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SURNAME = "surname";
     private static final String EMAIL = "email";
     private static final String GENDER = "gender";
+    private static final String QR_CONTENT = "qrContent";
 
 
     private int color = SimpleColorDialog.NONE;
@@ -143,38 +144,55 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    public static class QrBuilder implements SimpleImageDialog.BitmapCreator {
 
+        public QrBuilder(){}
+
+        /**
+         * Create and return your Image here.
+         * NOTE: make sure, your class is public and has a public default constructor!
+         *
+         * @param tag    The dialog-fragments tag
+         * @param extras The extras supplied to {@link SimpleImageDialog#extra(Bundle)}
+         * @return the image to be shown
+         */
+        @Override
+        public Bitmap create(@Nullable String tag, @NonNull Bundle extras) {
+            String content = extras.getString(QR_CONTENT);
+            if (content == null) return null;
+
+            // Generate
+            try {
+                EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+                hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
+                hints.put(EncodeHintType.CHARACTER_SET, "UTF8");
+                BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE,
+                        1024, 1024, hints);
+                int width = bitMatrix.getWidth(), height = bitMatrix.getHeight();
+                int[] pixels = new int[width * height];
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        pixels[y*width + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
+                    }
+                }
+                Bitmap qr = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+                qr.setPixels(pixels, 0, width, 0, 0, width, height);
+                return qr;
+
+            } catch (WriterException ignored) {}
+
+            return null;
+        }
+    }
     public void showQr(View view){
 
-        Bitmap qr = null;
-
-        // Generate
-        try {
-
-            String content = "https://github.com/eltos/SimpleDialogFragments";
-
-            int size = 1024;
-            EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
-            hints.put(EncodeHintType.CHARACTER_SET, "UTF8");
-            BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints);
-            int[] pixels = new int[size * size];
-            for (int y = 0; y < size; y++) {
-                int offset = y * size;
-                for (int x = 0; x < size; x++) {
-                    pixels[offset + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
-                }
-            }
-            qr = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
-            qr.setPixels(pixels, 0, size, 0, 0, size, size);
-
-        } catch (WriterException e) {
-            Toast.makeText(getBaseContext(), R.string.error, Toast.LENGTH_SHORT).show();
-        }
+        Bundle extra = new Bundle();
+        extra.putString(QR_CONTENT, "https://github.com/eltos/SimpleDialogFragments");
 
         // show
         SimpleImageDialog.build()
-                .image(qr)
+                .image(QrBuilder.class)
+                .extra(extra)
                 .show(MainActivity.this);
 
     }

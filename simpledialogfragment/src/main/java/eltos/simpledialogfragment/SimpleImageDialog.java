@@ -18,14 +18,23 @@ package eltos.simpledialogfragment;
 
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
+import java.lang.ref.WeakReference;
 
 /**
  * A dialog that displays an image
@@ -41,7 +50,24 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
     protected static final String BITMAP = TAG + "bitmap";
     protected static final String IMAGE_URI = TAG + "uri";
     protected static final String SCALE_TYPE = TAG + "scale";
+    private static final String CREATOR_CLASS = TAG + "creatorClass";
     private boolean customTheme = false;
+
+    private interface Creator<T> {
+        /**
+         * Create and return your image here.
+         * NOTE: make sure your class is public and has a public default constructor!
+         *       Also, nested classes should be static.
+         *
+         * @param tag The dialog-fragments tag
+         * @param extras The extras supplied to {@link SimpleImageDialog#extra(Bundle)}
+         * @return the image to be shown
+         */
+        T create(@Nullable String tag, @NonNull Bundle extras);
+    }
+    public interface BitmapCreator extends Creator<Bitmap>{}
+    public interface DrawableCreator extends Creator<Drawable>{}
+    public interface IconCreator extends Creator<Icon>{}
 
     public SimpleImageDialog(){
         pos(null); // no default button
@@ -65,10 +91,29 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
     /**
      * Sets the bitmap to be displayed
      *
+     * Deprecated: To avoid {@link android.os.TransactionTooLargeException}, use any of the
+     * following (save the bitmap to the app's private storage if needed)
+     * – {@link SimpleImageDialog#image(int)}
+     * – {@link SimpleImageDialog#image(Uri)}
+     * – {@link SimpleImageDialog#image(Class)}
+     *
      * @param image the bitmap to display
      */
+    @Deprecated
     public SimpleImageDialog image(Bitmap image){
         getArguments().putParcelable(BITMAP, image);
+        return this;
+    }
+
+    /**
+     * Sets a Creator that can be used to create the image.
+     *
+     * @param builderClass A class implementing one of {@link SimpleImageDialog.BitmapCreator},
+     *                     {@link SimpleImageDialog.DrawableCreator} or
+     *                     {@link SimpleImageDialog.IconCreator}
+     */
+    public SimpleImageDialog image(Class<? extends Creator> builderClass){
+        getArguments().putSerializable(CREATOR_CLASS, builderClass);
         return this;
     }
 
@@ -161,17 +206,75 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
 
 
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        ProgressBar loading = (ProgressBar) view.findViewById(R.id.progressBar);
+
         if (getArguments().containsKey(IMAGE_URI)) {
             imageView.setImageURI((Uri) getArguments().getParcelable(IMAGE_URI));
-        }
-        if (getArguments().containsKey(DRAWABLE_RESOURCE)) {
+        } else if (getArguments().containsKey(DRAWABLE_RESOURCE)) {
             imageView.setImageResource(getArguments().getInt(DRAWABLE_RESOURCE));
-        }
-        if (getArguments().containsKey(BITMAP)) {
+        } else if (getArguments().containsKey(CREATOR_CLASS)) {
+            new ImageCreator(imageView, loading).execute(getArguments());
+        } else if (getArguments().containsKey(BITMAP)) {
             imageView.setImageBitmap((Bitmap) getArguments().getParcelable(BITMAP));
         }
 
         return view;
+    }
+
+    private class ImageCreator extends AsyncTask<Bundle, Void, Object> {
+        WeakReference<ImageView> mView;
+        WeakReference<View> mLoading;
+
+        ImageCreator(ImageView view, View loading){
+            mView = new WeakReference<>(view);
+            mLoading = new WeakReference<>(loading);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mView.get().setVisibility(View.GONE);
+            mLoading.get().setVisibility(View.VISIBLE);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Bundle... args) {
+            if (args.length == 0 || args[0] == null) return null;
+
+            @SuppressWarnings("unchecked")
+            Class<Creator> c = (Class<Creator>) args[0].getSerializable(CREATOR_CLASS);
+            if (c != null) {
+                try {
+                    Bundle extras = args[0].getBundle(BUNDLE);
+                    if (extras == null) extras = new Bundle();
+
+                    Creator builder = c.getConstructor().newInstance();
+                    return builder.create(getTag(), extras);
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Error: Instantiation of "+c.getName()+" failed. " +
+                            "Make sure the class is public and has a public default constructor. " +
+                            "Also, nested classes should be static", e);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object image) {
+            if (image != null) {
+                if (image instanceof Bitmap){
+                    mView.get().setImageBitmap((Bitmap) image);
+                } else if (image instanceof Drawable){
+                    mView.get().setImageDrawable((Drawable) image);
+                } else if (image instanceof Icon && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    mView.get().setImageIcon((Icon) image);
+                }
+            }
+            mView.get().setVisibility(View.VISIBLE);
+            mLoading.get().setVisibility(View.GONE);
+            super.onPostExecute(image);
+        }
     }
 
 }
