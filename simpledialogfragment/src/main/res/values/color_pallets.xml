@@ -95,21 +95,22 @@
     </array>
 
     <array name="colorful_pallet">
-        <item>#ffc0ff8c</item>
-        <item>#fffff78c</item>
-        <item>#ffffd08c</item>
-        <item>#ff8ceaff</item>
         <item>#ffff8c9d</item>
+        <item>#ffffd08c</item>
+        <item>#fffff78c</item>
+        <item>#ffc0ff8c</item>
+        <item>#ff8ceaff</item>
+        <item>#ffff00a0</item>
+        <item>#fffe9507</item>
+        <item>#fffbff00</item>
+        <item>#ff00ff61</item>
+        <item>#ff00a0ff</item>
         <item>#ffc12552</item>
-        <item>#ffff6600</item>
+        <item>#ffff6000</item>
         <item>#fff5c700</item>
         <item>#ff6a961f</item>
+        <item>#ff1d7fb9</item>
         <item>#ffb36435</item>
-        <item>#ffd9508a</item>
-        <item>#fffe9507</item>
-        <item>#fffef778</item>
-        <item>#ff6aa786</item>
-        <item>#ff35c2d1</item>
     </array>
 
 
