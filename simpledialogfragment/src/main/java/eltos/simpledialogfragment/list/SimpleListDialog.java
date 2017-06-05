@@ -61,7 +61,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     /**
      * Populate the list with the labels provided
      *
-     * @param context a context for resolving the string ids
+     * @param context a context for resolving the string ids (cannot use getContext() here)
      * @param labelsResourceIds a list of android string resource identifiers
      */
     public SimpleListDialog items(Context context, @StringRes int[] labelsResourceIds){
@@ -75,7 +75,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     /**
      * Populate the list using a string array resource id
      *
-     * @param context a context for resolving the resource id
+     * @param context a context for resolving the resource id (cannot use getContext() here)
      * @param labelArrayResourceIds an android string array resource identifier
      */
     public SimpleListDialog items(Context context, @ArrayRes int labelArrayResourceIds){
