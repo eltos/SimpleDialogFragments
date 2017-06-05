@@ -392,7 +392,7 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
         private boolean mIgnoreCase = true;
         private boolean mMatchWordBeginning = true;
 
-        AdvancedFilter(){
+        public AdvancedFilter(){
             this(true, true);
         }
 
