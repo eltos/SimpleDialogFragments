@@ -32,7 +32,6 @@ import android.graphics.SweepGradient;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -75,6 +74,7 @@ public class ColorWheelView extends View {
         rainbow = new Rainbow();
     }
 
+
     public void setColor(int color){
         setColor(color, true);
     }
@@ -109,7 +109,7 @@ public class ColorWheelView extends View {
         private int alpha = 0xFF;
         private float[] hsv = new float[3];
 
-        C(int a, int h, float s, float v){
+        C(int a, float h, float s, float v){
             alpha(a);
             hue(h);
             sat(s);
@@ -122,7 +122,7 @@ public class ColorWheelView extends View {
             int alpha = Color.alpha(rgba);
 
             alpha(alpha);
-            hue((int) hsv[0]);
+            hue(hsv[0]);
             sat(hsv[1]);
             val(hsv[2]);
         }
@@ -155,8 +155,8 @@ public class ColorWheelView extends View {
         int b(){ return rgb() & 0xFF; }
         int alpha(){ return alpha; }
         void alpha(int a){ alpha = a & 0xFF; }
-        int hue(){
-            return (int) hsv[0];
+        float hue(){
+            return hsv[0];
         }
         float sat(){
             return hsv[1];
@@ -164,7 +164,7 @@ public class ColorWheelView extends View {
         float val(){
             return hsv[2];
         }
-        C hue(int h){
+        C hue(float h){
             hsv[0] = mod(h, 360);
             return this;
         }
@@ -178,7 +178,6 @@ public class ColorWheelView extends View {
         }
 
         C inverted(){
-
             return new C(Color.argb(alpha, 255-r(), 255-g(), 255-b()));
         }
 
@@ -191,7 +190,7 @@ public class ColorWheelView extends View {
             }
         }
 
-        C rotated(int degrees) {
+        C rotated(float degrees) {
             return new C(alpha(), hue() + degrees, sat(), val());
         }
     }
@@ -476,7 +475,7 @@ public class ColorWheelView extends View {
          * @param R radius
          * @param p padding
          * @param alpha angle in deg (0..120°)
-         * @param pos true for pos rotation, false otherwise
+         * @param pos true for positive rotation, false otherwise
          */
         private PointF calcInnerPoint(float R, float p, float alpha, boolean pos){
             float a = (float) Math.toRadians(alpha);
@@ -550,25 +549,10 @@ public class ColorWheelView extends View {
         protected void updateGeometryDependant() {
             super.updateGeometryDependant();
 
-//            for (int i = 0; i < mFields.length; i++) {
-//                int alpha = 30 + 30*i + 30*(i/3);
-//                createFieldGeometry(mFields[i], alpha - 15, 30);
-//            }
-
             for (int i = 0; i < mFields.length; i++) {
                 float alpha = 7.5f + 35*i + 15*(i/3);
                 createFieldGeometry(mFields[i], alpha, 35);
             }
-
-//            createFieldGeometry(mFields[0],   7.5f     , 35);
-//            createFieldGeometry(mFields[1],   7.5f + 35, 35);
-//            createFieldGeometry(mFields[2],   7.5f + 70, 35);
-//            createFieldGeometry(mFields[3], 127.5f     , 35);
-//            createFieldGeometry(mFields[4], 127.5f + 35, 35);
-//            createFieldGeometry(mFields[5], 127.5f + 70, 35);
-//            createFieldGeometry(mFields[6], 247.5f     , 35);
-//            createFieldGeometry(mFields[7], 247.5f + 35, 35);
-//            createFieldGeometry(mFields[8], 247.5f + 70, 35);
 
         }
 
@@ -663,7 +647,7 @@ public class ColorWheelView extends View {
         PointF mCenter = new PointF();
         float mRadius = 0;
         float mPadding = 0;
-        int mRotation = 0;
+        float mRotation = 0;
         C mColor = new C(Color.BLACK);
 
         boolean geometryNeedsUpdate = true;
@@ -708,7 +692,7 @@ public class ColorWheelView extends View {
 
 
 
-        void setRotation(int rotation){
+        void setRotation(float rotation){
             if (mRotation != rotation) {
                 rotationNeedsUpdate = true;
             }
@@ -891,8 +875,8 @@ public class ColorWheelView extends View {
             return radius - with <= r && r <= radius + with;
         }
 
-        int hueAt(PointF pointer) {
-            return (int) mod((float) (Math.toDegrees(
+        float hueAt(PointF pointer) {
+            return mod((float) (Math.toDegrees(
                     Math.atan2(pointer.y-center.y, pointer.x-center.x)) + 90), 360);
         }
     }
