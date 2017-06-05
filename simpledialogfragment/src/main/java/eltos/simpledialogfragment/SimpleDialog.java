@@ -29,10 +29,10 @@ import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
 /**
@@ -313,7 +313,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      *
      * @param activity the hosting activity
      */
-    public void show(AppCompatActivity activity){
+    public void show(FragmentActivity activity){
         show(activity, null);
     }
 
@@ -324,7 +324,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param activity the hosting activity
      * @param tag the dialogs tag
      */
-    public void show(AppCompatActivity activity, String tag){
+    public void show(FragmentActivity activity, String tag){
         try {
             super.show(activity.getSupportFragmentManager(), tag);
         } catch (IllegalStateException ignored){}
@@ -407,7 +407,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
 
     /**
-     * Deprecated, use {@link SimpleDialog#show(AppCompatActivity)} or
+     * Deprecated, use {@link SimpleDialog#show(FragmentActivity)} or
      * {@link SimpleDialog#show(Fragment)} instead
      */
     @Deprecated
@@ -419,7 +419,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     /**
-     * Deprecated, use {@link SimpleDialog#show(AppCompatActivity, String)} or
+     * Deprecated, use {@link SimpleDialog#show(FragmentActivity, String)} or
      * {@link SimpleDialog#show(Fragment, String)} instead
      */
     @Deprecated
