@@ -286,6 +286,10 @@ public class MainActivity extends AppCompatActivity implements
 
 
     public void showHsvWheel(View view){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            Toast.makeText(this, "Not supported on Gingebread", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         SimpleColorWheelDialog.build()
                 .color(color)
