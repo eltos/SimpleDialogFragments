@@ -312,7 +312,6 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     private EditText mFilterEditText;
 
 
-    @SuppressLint("NewApi") // ListView.setAdapter added in API 1
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
 
@@ -336,7 +335,12 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         emptyView.setText(getArgString(EMPTY_TEXT));
 
         mAdapter = onCreateAdapter();
-        mListView.setAdapter(mAdapter);
+        if (mListView instanceof ListView){
+            // for pre api11
+            ((ListView) mListView).setAdapter(mAdapter);
+        } else {
+            mListView.setAdapter(mAdapter);
+        }
         mListView.setEmptyView(emptyView);
 
         switch (getArguments().getInt(CHOICE_MODE, ListView.CHOICE_MODE_NONE)) {
