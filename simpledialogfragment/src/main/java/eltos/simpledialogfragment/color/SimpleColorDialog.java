@@ -119,7 +119,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Set this to true to show a field with a color picker option
-     * Option is ignored on Gingebread
+     * Option is ignored on Gingerbread
      *
      * @param allow allow custom picked color if true
      */

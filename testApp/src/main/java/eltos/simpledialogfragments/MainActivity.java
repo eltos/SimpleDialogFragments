@@ -1,10 +1,6 @@
 package eltos.simpledialogfragments;
 
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,13 +10,11 @@ import android.os.Handler;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -61,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String PRODUCT_DIALOG = "dialogTagProduct";
     private static final String NUMBER_DIALOG = "dialogTagNumber";
     private static final String LOGIN_DIALOG = "dialogTagLogin";
-    private static final String EMAIL_DIALOG = "dialogTagEmail";
+    private static final String TEXT_DIALOG = "dialogTagEmail";
     private static final String REGISTRATION_DIALOG = "dialogTagRegistration";
     private static final String CHECK_DIALOG = "dialogTagCheck";
     private static final String INPUT_DIALOG = "dialogTagInput";
@@ -318,31 +312,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    public void showEmailInput(View view){
+    public void showTextInput(View view){
 
-        // email suggestion from registered accounts
-        ArrayList<String> emails = new ArrayList<>(0);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && view != null) {
-                requestPermissions(new String[]{Manifest.permission.GET_ACCOUNTS}, REQUEST_ACCOUNTS_PERMISSION);
-                return;
-            }
-        } else {
-            Account[] accounts = AccountManager.get(this).getAccounts();
-            for (Account account : accounts) {
-                if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
-                    emails.add(account.name);
-                }
-            }
-        }
-
-        SimpleFormDialog.build()
-                .fields(Input.email(EMAIL)
-                        .required()
-                        .suggest(emails)
-                        .text(emails.size() > 0 ? emails.get(0) : null)
-                )
-                .show(this, EMAIL_DIALOG);
+        SimpleInputDialog.build()
+                .hint(R.string.name)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .allowEmpty(false)
+                .show(this, TEXT_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -525,8 +501,8 @@ public class MainActivity extends AppCompatActivity implements
                     Toast.makeText(this, keep ? R.string.deleted_but_starred_kept : R.string.deleted, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case EMAIL_DIALOG: /** {@link MainActivity#showEmailInput(View)} **/
-                    String mail = extras.getString(EMAIL);
+                case TEXT_DIALOG: /** {@link MainActivity#showTextInput(View)} **/
+                    String mail = extras.getString(SimpleInputDialog.TEXT);
                     Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
                     return true;
 
@@ -664,7 +640,7 @@ public class MainActivity extends AppCompatActivity implements
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showEmailInput(null);
+                    showTextInput(null);
                 }
             }, 10);
 
