@@ -19,6 +19,7 @@ package eltos.simpledialogfragment.color;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorInt;
@@ -118,11 +119,12 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Set this to true to show a field with a color picker option
+     * Option is ignored on Gingebread
      *
      * @param allow allow custom picked color if true
      */
     public SimpleColorDialog allowCustom(boolean allow){
-        return setArg(CUSTOM, allow);
+        return setArg(CUSTOM, allow && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
     }
 
     @Override
