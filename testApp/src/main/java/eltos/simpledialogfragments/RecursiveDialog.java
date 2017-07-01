@@ -1,19 +1,24 @@
 package eltos.simpledialogfragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import eltos.simpledialogfragment.CustomViewDialog;
+import eltos.simpledialogfragment.SimpleDialog;
 
 /**
  *
  * Created by eltos on 02.02.2017.
  */
-public class RecursiveDialog extends CustomViewDialog<RecursiveDialog> {
+public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
+        implements SimpleDialog.OnDialogResultListener {
 
 
     private static final String I = "recursiveDialog.i";
+    private static final String RECURSIVE_DIALOG = "recursiveDialog";
 
     public static RecursiveDialog build(){
         return new RecursiveDialog();
@@ -39,12 +44,24 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog> {
 
                 RecursiveDialog.build()
                         .i(getArguments().getInt(I, 1)+1)
-                        .show(RecursiveDialog.this);
+                        .neg()
+                        .show(RecursiveDialog.this, RECURSIVE_DIALOG);
 
 
             }
         });
 
         return b;
+    }
+
+
+    @Override
+    public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+        if (RECURSIVE_DIALOG.equals(dialogTag)){
+            Toast.makeText(getContext(), "# "+getArguments().getInt(I, 1)+": "+
+                    (which == BUTTON_POSITIVE ? "+":"-"), Toast.LENGTH_SHORT).show();
+            // do not return true here, so that the result is passed through to the activity
+        }
+        return false;
     }
 }

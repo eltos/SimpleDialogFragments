@@ -202,8 +202,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         if (PICKER_DIALOG_TAG.equals(dialogTag) && which == BUTTON_POSITIVE){
             mCustomColor = extras.getInt(SimpleColorWheelDialog.COLOR);
             notifyDataSetChanged();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

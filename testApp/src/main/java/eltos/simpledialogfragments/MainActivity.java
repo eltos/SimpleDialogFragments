@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String EMAIL = "email";
     private static final String GENDER = "gender";
     private static final String QR_CONTENT = "qrContent";
+    private static final String RECURSIVE_DIALOG = "recursive";
 
 
     private @ColorInt int color = 0xff9c27b0;
@@ -448,6 +449,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    // ==   V a r i o u s   ==
+
+    public void showRecursiveDialog(View view){
+
+        RecursiveDialog.build()
+                .show(this, RECURSIVE_DIALOG);
+
+        /** Results: {@link MainActivity#onResult} **/
+
+    }
+
+
 
 
 
@@ -514,6 +527,12 @@ public class MainActivity extends AppCompatActivity implements
                     Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
                     return true;
             }
+        }
+
+        if (RECURSIVE_DIALOG.equals(dialogTag)){
+            Toast.makeText(getBaseContext(), "Activity: "+ (which == BUTTON_POSITIVE ? "+":"-"),
+                    Toast.LENGTH_SHORT).show();
+            return true;
         }
 
         if (which == BUTTON_POSITIVE) {

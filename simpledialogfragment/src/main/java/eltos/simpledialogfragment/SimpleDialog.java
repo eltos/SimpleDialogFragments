@@ -92,9 +92,13 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         }
         boolean handled = false;
         if (getTag() != null) {
-            if (getTargetFragment() instanceof OnDialogResultListener) {
-                handled = ((OnDialogResultListener) getTargetFragment())
-                        .onResult(getTag(), which, extras);
+            Fragment resultFragment = getTargetFragment();
+            while (!handled && resultFragment != null){
+                if (resultFragment instanceof OnDialogResultListener){
+                    handled = ((OnDialogResultListener) getTargetFragment())
+                            .onResult(getTag(), which, extras);
+                }
+                resultFragment = resultFragment.getParentFragment();
             }
             if (!handled && getActivity() instanceof OnDialogResultListener) {
                 handled = ((OnDialogResultListener) getActivity())
