@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "eltos.simpledialogfragments.test"
-        minSdkVersion 14
+        minSdkVersion 9
         targetSdkVersion 25
         versionCode 21
         versionName "2.1"
@@ -22,7 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
     compile 'com.google.zxing:core:3.2.0'
     compile project(path: ':simpledialogfragment')
 }
