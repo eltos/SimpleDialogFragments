@@ -338,6 +338,9 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         if (mListView instanceof ListView){
             // for pre api11
             ((ListView) mListView).setAdapter(mAdapter);
+        } else if (mListView instanceof GridView) {
+            // for pre api11
+            ((GridView) mListView).setAdapter(mAdapter);
         } else {
             mListView.setAdapter(mAdapter);
         }
