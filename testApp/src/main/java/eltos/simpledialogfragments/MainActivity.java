@@ -319,6 +319,16 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    public void showMultiColorPicker(View view){
+
+        SimpleColorDialog.build()
+                .title(R.string.pick_some_colors)
+                .choiceMode(SimpleColorDialog.MULTI_CHOICE)
+                .show(this, COLOR_DIALOG);
+
+        /** Results: {@link MainActivity#onResult} **/
+    }
+
 
 
     // ==   I n p u t s   a n d   F o r m s   ==
@@ -551,6 +561,19 @@ public class MainActivity extends AppCompatActivity implements
 
                 case COLOR_DIALOG: /** {@link MainActivity#showColorPicker(View)} **/
                     newColor(extras.getInt(SimpleColorDialog.COLOR));
+                    int[] colors = extras.getIntArray(SimpleColorDialog.COLORS);
+                    if (colors != null) {
+                        final Handler handler = new Handler();
+                        for (int i = 0; i < colors.length; i++) {
+                            @ColorInt final int color = colors[i];
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    newColor(color);
+                                }
+                            }, 1000*i);
+                        }
+                    }
                     return true;
 
                 case COLOR_WHEEL_DIALOG: /** {@link MainActivity#showHsvWheel(View)} **/

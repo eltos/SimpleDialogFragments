@@ -46,6 +46,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     private static final String TAG = "SimpleColorDialog";
 
     public static final String COLOR = TAG + "color";
+    public static final String COLORS = TAG + "colors";
     public static final int NONE = ColorView.NONE;
     protected static final int PICKER = -2;
 
@@ -64,7 +65,6 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final @ArrayRes int COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
 
 
-    protected static final String COLORS = TAG + "colors";
     protected static final String CUSTOM = TAG + "custom";
     protected static final String PICKER_DIALOG_TAG = TAG + "picker";
     private static final String SELECTED = TAG + "selected";
@@ -230,6 +230,19 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             b.putInt(COLOR, mCustomColor);
         } else {
             b.putInt(COLOR, color);
+        }
+
+        long[] ids = b.getLongArray(SELECTED_IDS);
+        if (ids != null) {
+            int[] colors = new int[ids.length];
+            for (int i = 0; i < ids.length; i++) {
+                if (ids[i] == PICKER) {
+                    colors[i] = mCustomColor;
+                } else {
+                    colors[i] = (int) ids[i];
+                }
+            }
+            b.putIntArray(COLORS, colors);
         }
         return b;
     }

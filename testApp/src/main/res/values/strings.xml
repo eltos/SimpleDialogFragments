@@ -25,6 +25,7 @@
     <string name="select_any">Select any</string>
     <string name="numers">Numbers</string>
     <string name="pick_a_color">Pick a color</string>
+    <string name="pick_some_colors">Pick multiple colors</string>
     <string name="popup">Popup</string>
     <string name="disable">Disable</string>
     <string name="not_found">Not found</string>
