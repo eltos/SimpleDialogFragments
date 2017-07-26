@@ -43,8 +43,9 @@ import eltos.simpledialogfragment.list.CustomListDialog;
  */
 public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> implements SimpleColorWheelDialog.OnDialogResultListener {
 
+    private static final String TAG = "SimpleColorDialog";
 
-    public static final String COLOR = "simpleColorDialog.color";
+    public static final String COLOR = TAG + "color";
     public static final int NONE = ColorView.NONE;
     protected static final int PICKER = -2;
 
@@ -63,9 +64,10 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final @ArrayRes int COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
 
 
-    protected static final String COLORS = "simpleColorDialog.colors";
-    protected static final String CUSTOM = "simpleColorDialog.custom";
-    protected static final String PICKER_DIALOG_TAG = "simpleColorDialog.picker";
+    protected static final String COLORS = TAG + "colors";
+    protected static final String CUSTOM = TAG + "custom";
+    protected static final String PICKER_DIALOG_TAG = TAG + "picker";
+    private static final String SELECTED = TAG + "selected";
 
     private @ColorInt int mCustomColor = NONE;
     private @ColorInt int mSelectedColor = NONE;
@@ -132,6 +134,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
         if (savedInstanceState != null){
             mCustomColor = savedInstanceState.getInt(CUSTOM, mCustomColor);
+            mSelectedColor = savedInstanceState.getInt(SELECTED, mCustomColor);
         }
     }
 
@@ -147,7 +150,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             @ColorInt int preset = getArguments().getInt(COLOR, NONE);
             int index = indexOf(colors, preset);
             if (index < 0){ // custom preset
-                mCustomColor = preset;
+                mSelectedColor = mCustomColor = preset;
                 if (custom){
                     choicePreset(colors.length);
                 }
@@ -175,7 +178,16 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(CUSTOM, mCustomColor);
+        outState.putInt(SELECTED, mSelectedColor);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected boolean acceptsPositiveButtonPress() {
+        if (getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+            return mSelectedColor != NONE;
+        }
+        return true;
     }
 
     @Override
@@ -200,8 +212,11 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
         if (PICKER_DIALOG_TAG.equals(dialogTag) && which == BUTTON_POSITIVE){
-            mCustomColor = extras.getInt(SimpleColorWheelDialog.COLOR);
+            mSelectedColor = mCustomColor = extras.getInt(SimpleColorWheelDialog.COLOR);
             notifyDataSetChanged();
+            if (getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+                pressPositiveButton();
+            }
             return true;
         }
         return false;
