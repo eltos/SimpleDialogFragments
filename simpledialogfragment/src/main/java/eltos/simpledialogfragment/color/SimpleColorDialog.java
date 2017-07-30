@@ -146,7 +146,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         boolean custom = getArguments().getBoolean(CUSTOM);
 
         // preset
-        if (getArguments().containsKey(COLOR)){
+        if (mSelectedColor == NONE && getArguments().containsKey(COLOR)){
             @ColorInt int preset = getArguments().getInt(COLOR, NONE);
             int index = indexOf(colors, preset);
             if (index < 0){ // custom preset
