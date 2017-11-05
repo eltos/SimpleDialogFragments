@@ -310,14 +310,23 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
     }
 
-
+    protected void setContainer(ViewGroup viewGroup) {
+        mFormContainer =  viewGroup;
+    }
 
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate custom view
         View view = inflate(R.layout.simpledialogfragment_form);
-        mFormContainer = (ViewGroup) view.findViewById(R.id.container);
+        ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
+        setContainer(container);
 
+        setFields(savedInstanceState);
+
+        return view;
+    }
+
+    protected void setFields(Bundle savedInstanceState) {
         ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
 
         if (fields != null) {
@@ -343,11 +352,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             }
 
         }
-
-        return view;
     }
-
-
 
 
     @Override
