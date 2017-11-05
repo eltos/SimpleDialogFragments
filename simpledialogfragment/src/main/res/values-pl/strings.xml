@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_address">Adres email</string>
+    <string name="invalid_email_address">Niepoprawny email</string>
+    <string name="transparency">Przezroczystość</string>
+    <string name="password">Hasło</string>
+    <string name="required">Wymagane</string>
+    <string name="input_not_a_given_option">Nieprawidłowa wartość</string>
+    <string name="name">Nazwa</string>
+    <string name="phone_number">Numer telefonu</string>
+    <string name="login">Login</string>
+    <string name="user">Użytkownik</string>
+    <string name="strong_pw_requirements">Musi zawierać cyfrę, małą i wielką literę oraz znak specjalny</string>
+    <string name="letters_only_error">Może zawierać jedynie litery (A-Z)</string>
+    <string name="alphanumeric_only_error">Może zawierać tylko znaki alfanumeryczne</string>
+</resources>
