@@ -46,6 +46,10 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         extends SimpleDialog<This> {
 
 
+    public static CustomViewDialog build(){
+        throw new java.lang.InstantiationError("Unintended abuse of the builder method. " +
+                "Have you created your own build() method in your custom dialog?");
+    }
 
     /**
      * Inflate your custom view here.
