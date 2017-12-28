@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:orientation="vertical"
@@ -63,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:id="@+id/linearLayout"
+                android:id="@+id/hexLayout"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/linearLayout2"
                 android:layout_toStartOf="@+id/linearLayout2">
@@ -89,7 +90,8 @@
                     android:imeOptions="flagNoExtractUi"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:minEms="6" />
 
             </LinearLayout>
 
@@ -100,8 +102,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/linearLayout2"
-                android:layout_alignTop="@+id/linearLayout"
-                android:layout_alignBottom="@+id/linearLayout"
+                android:layout_alignTop="@+id/hexLayout"
+                android:layout_alignBottom="@+id/hexLayout"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp">
 

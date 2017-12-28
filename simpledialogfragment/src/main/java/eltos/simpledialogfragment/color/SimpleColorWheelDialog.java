@@ -39,9 +39,12 @@ import eltos.simpledialogfragment.R;
  */
 public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDialog> {
 
-    public static final String COLOR = "SimpleColorWheelDialog.color";
+    private static final String TAG = "SimpleColorWheelDialog";
 
-    protected static final String ALPHA = "SimpleColorWheelDialog.alpha";
+    public static final String COLOR = TAG + "color";
+
+    protected static final String ALPHA = TAG + "alpha";
+    private static final String HIDE_HEX = TAG + "noHex";
 
     private ColorWheelView mColorWheelView;
     private EditText mHexInput;
@@ -59,14 +62,27 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
      *
      * @param color the initial color (argb)
      */
-    public SimpleColorWheelDialog color(int color){ return setArg(COLOR, color); }
+    public SimpleColorWheelDialog color(int color){
+        return setArg(COLOR, color);
+    }
 
     /**
      * Specifies weather a seek bar for transparency control is displayed
      *
      * @param enabled weather or not to allow transparency (alpha) adjustment
      */
-    public SimpleColorWheelDialog alpha(boolean enabled){ return setArg(ALPHA, enabled); }
+    public SimpleColorWheelDialog alpha(boolean enabled){
+        return setArg(ALPHA, enabled);
+    }
+
+    /**
+     * Method to hide the input field for color hex code
+     *
+     * @param enabled weather or not to hide the input field
+     */
+    public SimpleColorWheelDialog hideHexInput(boolean enabled){
+        return setArg(HIDE_HEX, enabled);
+    }
 
 
     private final TextWatcher hexEditWatcher = new TextWatcher() {
@@ -96,6 +112,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mHexInput = (EditText) view.findViewById(R.id.hexEditText);
         mNew = (ImageView) view.findViewById(R.id.colorNew);
         mOld = (ImageView) view.findViewById(R.id.colorOld);
+        View hexLayout = view.findViewById(R.id.hexLayout);
 
 
         int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
@@ -110,6 +127,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mAlphaSlider.setMax(255);
         mAlphaSlider.setProgress(255 - Color.alpha(color));
         mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
+        hexLayout.setVisibility(getArguments().getBoolean(HIDE_HEX) ? View.GONE : View.VISIBLE);
         mOld.setVisibility(getArguments().containsKey(COLOR) ? View.VISIBLE : View.GONE);
         mOld.setImageDrawable(new ColorDrawable(oldColor));
         final int finalOldColor = oldColor;

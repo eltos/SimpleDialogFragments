@@ -3,7 +3,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <eltos.simpledialogfragment.color.ColorWheelView
         android:layout_width="match_parent"
@@ -59,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:id="@+id/linearLayout"
+                android:id="@+id/hexLayout"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true">
 
@@ -84,7 +86,8 @@
                     android:imeOptions="flagNoExtractUi"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:minEms="6" />
 
             </LinearLayout>
 
