@@ -4,6 +4,9 @@ engines:
     config:
       languages:
       - java
+    checks:
+      Similar code:
+        enabled: false
   checkstyle:
     enabled: false
     channel: "beta"
@@ -31,4 +34,4 @@ ratings:
   paths:
   - "**.java"
   - "**.xml"
-exclude_paths: ["docs/**", "**.png"]
+exclude_paths: ["docs/**", "**.png", "testApp/**"]
