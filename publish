@@ -44,8 +44,13 @@ fi
 VN=$(grep "versionName" "simpledialogfragment/build.gradle" | awk '{print $2}' | tr -d '"' | tr -d "'")
 VC=$(grep "versionCode" "simpledialogfragment/build.gradle" | awk '{print $2}')
 LVN=$(grep "libraryVersion" "simpledialogfragment/build.gradle" | awk '{print $3}' | tr -d '"' | tr -d "'")
+AVN=$(grep "versionName" "testApp/build.gradle" | awk '{print $2}' | tr -d '"' | tr -d "'")
+AVC=$(grep "versionCode" "testApp/build.gradle" | awk '{print $2}')
 
-read -r -p $'Are the version codes (\e[33m'"$LVN"$'\e[0m, \e[33m'"$VN"$'\e[0m, \e[33m'"$VC"$'\e[0m) up to date? [Y/n] ' OK
+echo -e "Library version: \e[33m$LVN\e[0m"
+echo -e "Project version: \e[33m$VN\e[0m (\e[33m$VC\e[0m)"
+echo -e "TestApp version: \e[33m$AVN\e[0m (\e[33m$AVC\e[0m)"
+read -r -p $'Are the version codes up to date? [Y/n] ' OK
 if [[ $OK =~ ^[Nn].*$ ]]; then
 	echo -e "\e[31mThen please update them!\e[0m"
 	exit 1
