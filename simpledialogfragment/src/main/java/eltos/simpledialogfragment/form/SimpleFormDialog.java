@@ -310,23 +310,39 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
     }
 
-    protected void setContainer(ViewGroup viewGroup) {
-        mFormContainer =  viewGroup;
-    }
 
+    /**
+     * Method for view creation. Inflates the layout and calls
+     * {@link SimpleFormDialog#populateContainer(ViewGroup, Bundle)}
+     * to populate the container with the fields specified
+     *
+     * @param savedInstanceState The last saved instance state of the Fragment,
+     * or null if this fragment is created for the first time.
+     *
+     * @return inflated view
+     */
     @Override
     public View onCreateContentView(Bundle savedInstanceState) {
+
         // inflate custom view
         View view = inflate(R.layout.simpledialogfragment_form);
         ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
-        setContainer(container);
 
-        setFields(savedInstanceState);
+        populateContainer(container, savedInstanceState);
 
         return view;
     }
 
-    protected void setFields(Bundle savedInstanceState) {
+    /**
+     * Creates FormElements and adds them to the container
+     *
+     * @param container the container to hold the FormElements
+     * @param savedInstanceState saved state
+     */
+    protected void populateContainer(@NonNull ViewGroup container,
+                                     @Nullable Bundle savedInstanceState) {
+        mFormContainer = container;
+
         ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
 
         if (fields != null) {
