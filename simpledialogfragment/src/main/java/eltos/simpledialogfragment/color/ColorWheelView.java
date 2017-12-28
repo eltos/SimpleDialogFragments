@@ -220,42 +220,33 @@ public class ColorWheelView extends View {
         }
     }
 
-    enum Keep {WIDTH, HEIGHT}
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        Keep keep = Keep.WIDTH;
+        int size = (int) dp(50);
 
-        int desiredHeight = (int) dp(50);
         if (getLayoutParams().height == ViewGroup.LayoutParams.MATCH_PARENT){
-            desiredHeight = MeasureSpec.getSize(heightMeasureSpec); // parent height
-            keep = Keep.HEIGHT;
+            // keep parent height
+            size = MeasureSpec.getSize(heightMeasureSpec);
         }
-
-        int desiredWidth = (int) dp(50);
         if (getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT){
-            desiredWidth = MeasureSpec.getSize(widthMeasureSpec); // parent width
-            keep = Keep.WIDTH;
+            // keep parent with
+            size = MeasureSpec.getSize(widthMeasureSpec);
         }
 
-        int size = keep == Keep.HEIGHT ? desiredHeight : desiredWidth;
-
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        if (widthMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.AT_MOST) {
-            int widthLimited = MeasureSpec.getSize(widthMeasureSpec);
-            size = Math.min(size, widthLimited);
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY ||
+                MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.AT_MOST) {
+            // limit to specified height
+            size = Math.min(size, MeasureSpec.getSize(heightMeasureSpec));
         }
-
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        if (heightMode == MeasureSpec.EXACTLY || heightMode == MeasureSpec.AT_MOST) {
-            int heightLimited = MeasureSpec.getSize(heightMeasureSpec);
-            size = Math.min(size, heightLimited);
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY ||
+                MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.AT_MOST) {
+            // limit to specified width
+            size = Math.min(size, MeasureSpec.getSize(widthMeasureSpec));
         }
 
         setMeasuredDimension(size, size);
-
 
     }
 
@@ -758,7 +749,8 @@ public class ColorWheelView extends View {
             }
             if (hsvChanged) {
                 dotPaint.setColor(mColor.inverted().rgb());
-                dot = new PointF(C.x + (B.x - C.x + (A.x - B.x) * mColor.sat()) * mColor.val(),
+                dot = new PointF(
+                        C.x + (B.x - C.x + (A.x - B.x) * mColor.sat()) * mColor.val(),
                         C.y + (B.y - C.y + (A.y - B.y) * mColor.sat()) * mColor.val());
             }
         }
@@ -767,8 +759,8 @@ public class ColorWheelView extends View {
         C colorAt(PointF point){
             PointF p = new PointF(point.x, point.y);
 
-            float s = ((p.y-C.y)*(B.x-C.x) - (p.x-C.x)*(B.y-C.y)) /
-                    ((p.x-C.x)*(A.y-B.y) - (p.y-C.y)*(A.x-B.x));
+            float s = ((p.y-C.y)*(B.x-C.x) - (p.x-C.x)*(B.y-C.y))
+                    / ((p.y-C.y)*(B.x-A.x) - (p.x-C.x)*(B.y-A.y));
             float v = (p.x-C.x) / ((A.x-B.x)*s+B.x-C.x);
 
             if (v < 0){ s *= -1; }  // correct s for better user experience

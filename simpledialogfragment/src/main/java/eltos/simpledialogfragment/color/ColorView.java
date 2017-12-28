@@ -53,6 +53,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Checkable;
@@ -147,25 +148,11 @@ class ColorView extends FrameLayout implements Checkable {
     public void setChecked(boolean checked, boolean animate) {
         switch (mStyle) {
             case CHECK:
-                if (animate) {
-                    if (!mChecked && checked) {
-                        mCheckView.startAnimation(showAnim);
-                    } else if (mChecked && !checked) {
-                        mCheckView.startAnimation(hideAnim);
-                    }
-                }
-                mCheckView.setVisibility(checked ? VISIBLE : INVISIBLE);
+                showHide(mCheckView, mChecked, checked, animate);
                 break;
 
             case PALETTE:
-                if (animate) {
-                    if (!mChecked && checked) {
-                        mColorView.startAnimation(showAnim);
-                    } else if (mChecked && !checked) {
-                        mColorView.startAnimation(hideAnim);
-                    }
-                }
-                mColorView.setVisibility(checked ? VISIBLE : INVISIBLE);
+                showHide(mColorView, mChecked, checked, animate);
                 if (mColor != NONE) {
                     mCheckView.setColorFilter(checked ?
                             (isColorDark(mColor) ? Color.WHITE : Color.BLACK) : mColor);
@@ -177,6 +164,17 @@ class ColorView extends FrameLayout implements Checkable {
 
         }
         mChecked = checked;
+    }
+
+    private void showHide(View view, boolean oldState, boolean newState, boolean withAnimation){
+        if (withAnimation) {
+            if (!oldState && newState) {
+                view.startAnimation(showAnim);
+            } else if (oldState && !newState) {
+                view.startAnimation(hideAnim);
+            }
+        }
+        view.setVisibility(newState ? VISIBLE : INVISIBLE);
     }
 
     /**
