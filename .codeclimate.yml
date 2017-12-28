@@ -34,4 +34,4 @@ ratings:
   paths:
   - "**.java"
   - "**.xml"
-exclude_paths: ["docs/**", "**.png"]
+exclude_paths: ["docs/**", "**.png", "testApp/**"]
