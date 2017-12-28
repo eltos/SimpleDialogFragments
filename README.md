@@ -5,7 +5,7 @@
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/wiki/simplecolorwheeldialog.png"/>
-  
+
 SimpleDialogFragments Library is a collection of easy to use and extendable DialogFragment's for Android.
 It is fully compatible with rotation changes and can be implemented with only a few lines of code.
 
