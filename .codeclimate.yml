@@ -4,6 +4,9 @@ engines:
     config:
       languages:
       - java
+    checks:
+      Similar code:
+        enabled: false
   checkstyle:
     enabled: false
     channel: "beta"
