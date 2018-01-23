@@ -55,7 +55,7 @@ public class ColorWheelView extends View {
     private C myColor = new C(DEFAULT_COLOR);
 
 
-    interface OnColorChangeListener {
+    public interface OnColorChangeListener {
         void onColorChange(int color);
     }
 
