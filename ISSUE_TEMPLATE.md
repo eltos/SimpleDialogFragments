@@ -1,7 +1,9 @@
-*Hi!  
-Feel free to share your ideas, suggest enhancements and report bugs.  
+*Feel free to share your ideas, suggest enhancements and report bugs.  
 To report a bug, please use the template below.  
 If there are questions, please read the Wiki before creating an issue.*
+
+
+-- Description goes here --
 
 
 
@@ -14,10 +16,11 @@ If there are questions, please read the Wiki before creating an issue.*
 
     
 ## Test Environment
-.       | Version
- ------ | -------
-Library | 
-Android | 
+Property | Value
+ ------- | ------- 
+Library version | 
+Android version | 
+... | 
 
 ## Stack Trace
 ```
