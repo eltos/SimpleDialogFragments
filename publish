@@ -4,8 +4,8 @@
 ##
 ##  Publish helper script for linux
 ##
-##  this script will quide through the following workflow, copy javadoc
-##  and handle possible fail of javadoc generation
+##  this script will guide through the following workflow, copy javadoc
+##  and handle a possible fail of javadoc generation
 ##
 ##
 ##  Publishing workflow
@@ -126,6 +126,7 @@ if [ $BUILD -eq 0 ]; then
 			sed -i 's/:simpledialogfragment:[0-9.]*/:simpledialogfragment:'"$LVN"'/' README.md
 
 			echo -e "\e[32mSUCCESS :)\e[0m"
+			echo "You still need to publish the files uploaded."
 			xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
 		else
 			echo -e "\e[31mUpload failed :(\e[0m"
