@@ -121,7 +121,7 @@ Make sure to check the demo application.
 
 ## License
 
-Copyright 2017 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
+Copyright 2018 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
 
 Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)  
 
@@ -131,4 +131,4 @@ The above copyright notice alongside a copy of the Apache License shall be inclu
 
  
  
-I would appreciate if you could send me an email when you release an application that uses this library. Thanks!
+I would appreciate being notified when you release an application that uses this library. Thanks!
