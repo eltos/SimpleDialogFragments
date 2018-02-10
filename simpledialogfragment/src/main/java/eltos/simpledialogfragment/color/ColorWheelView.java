@@ -17,6 +17,7 @@
 package eltos.simpledialogfragment.color;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ComposeShader;
@@ -35,7 +36,8 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+
+import eltos.simpledialogfragment.R;
 
 /**
  * A widget to pick a hsv based color
@@ -47,6 +49,8 @@ public class ColorWheelView extends View {
     public static int DEFAULT_COLOR = 0xFFCF4747;
 
     private OnColorChangeListener mListener;
+
+    private Boolean layout_keep_width = null;
 
     private TriangleWithSuggestions triangle;
     private Rainbow rainbow;
@@ -69,6 +73,20 @@ public class ColorWheelView extends View {
 
     public ColorWheelView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.ColorWheelView, 0, 0);
+        try {
+            Integer i = a.getInteger(R.styleable.ColorWheelView_layout_keep, 0);
+            if (i == 0){
+                layout_keep_width = true;
+            } else if (i == 1){
+                layout_keep_width = false;
+            }
+        } finally {
+            a.recycle();
+        }
+
         triangle = new TriangleWithSuggestions(); // new Triangle();
 
         rainbow = new Rainbow();
@@ -224,15 +242,15 @@ public class ColorWheelView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int size = (int) dp(50);
-
-        if (getLayoutParams().height == ViewGroup.LayoutParams.MATCH_PARENT){
-            // keep parent height
-            size = MeasureSpec.getSize(heightMeasureSpec);
-        }
-        if (getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT){
+        int size;
+        if (layout_keep_width == null){
+            size = (int) dp(50);
+        } else if (layout_keep_width) {
             // keep parent with
             size = MeasureSpec.getSize(widthMeasureSpec);
+        } else {
+            // keep parent height
+            size = MeasureSpec.getSize(heightMeasureSpec);
         }
 
         if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY ||
@@ -254,7 +272,7 @@ public class ColorWheelView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 
-        float size = Math.max(dp(20), Math.min(dp(35), dp(30)*Math.min(w, h)/1000));
+        float size = Math.max(dp(10), Math.min(dp(35), dp(30)*Math.min(w, h)/1000));
 
         float padding = Math.max(dp(5), Math.min(dp(10), dp(7)*Math.min(w, h)/1000));
 

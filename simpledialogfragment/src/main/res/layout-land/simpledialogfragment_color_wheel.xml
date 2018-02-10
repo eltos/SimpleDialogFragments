@@ -1,127 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright 2018 Philipp Niedermayer (github.com/eltos)
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <eltos.simpledialogfragment.color.ColorWheelView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/colorWheel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/colors"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_keep="width" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/transparencyBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/colors"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/alphaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/transparency"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/alpha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:max="255"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alphaLabel" />
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:id="@+id/hexLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="top"
-        android:layout_toRightOf="@+id/colorWheel"
-        android:layout_toEndOf="@+id/colorWheel">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/colors"
+        app:layout_constraintTop_toBottomOf="@+id/transparencyBox">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/hexLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/transparencyBox">
+            android:layout_gravity="start|left|center_vertical"
+            android:text="@string/hex"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/transparency"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp" />
-
-            <SeekBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/alpha"
-                android:max="255"
-                android:indeterminate="false"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:id="@+id/hexLayout"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hex"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/hexEditText"
-                    android:hint="@string/rrggbb"
-                    android:typeface="monospace"
-                    android:maxLength="6"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:inputType="textNoSuggestions|textCapWords|text|textCapCharacters"
-                    android:imeOptions="flagNoExtractUi"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="center"
-                    android:minEms="6" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/linearLayout2"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_alignParentBottom="true">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/colorOld"
-                    android:background="@drawable/tiles"
-                    android:layout_gravity="center_vertical|end" />
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/colorNew"
-                    android:background="@drawable/tiles"
-                    android:src="#F00"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
+        <EditText
+            android:id="@+id/hexEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|start"
+            android:hint="@string/rrggbb"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textNoSuggestions|textCapWords|text|textCapCharacters"
+            android:lines="1"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:minEms="6"
+            android:typeface="monospace" />
 
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/colors"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/hexLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/hexLayout"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:minWidth="150dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hexLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/colorOld"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|end"
+            android:layout_weight="1"
+            android:background="@drawable/tiles" />
+
+        <ImageView
+            android:id="@+id/colorNew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/tiles"
+            android:src="#F00" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
