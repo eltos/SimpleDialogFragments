@@ -8,6 +8,13 @@
         <attr name="clearDrawable" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="ColorWheelView">
+        <attr name="layout_keep" format="enum">
+            <enum name="width" value="0"/>
+            <enum name="height" value="1"/>
+        </attr>
+    </declare-styleable>
+
     <attr name="imageDialogTheme" format="reference"/>
     
 </resources>
