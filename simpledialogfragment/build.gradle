@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 221
-        versionName "2.2.1"
+        versionCode 222
+        versionName "2.2.2"
     }
     buildTypes {
         release {
@@ -23,6 +23,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 // maven, bintray
@@ -42,7 +43,7 @@ ext {
     gitUrl = 'https://github.com/eltos/SimpleDialogFragments.git'
     githubRepository= 'eltos/SimpleDialogFragments'
 
-    libraryVersion = '2.2.1'
+    libraryVersion = '2.2.2'
 
     developerId = 'eltos'
     developerName = 'Philipp Niedermayer'
