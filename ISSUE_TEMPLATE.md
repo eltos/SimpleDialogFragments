@@ -1,16 +1,16 @@
 *Feel free to share your ideas, suggest enhancements and report bugs.  
 To report a bug, please use the template below.  
-If there are questions, please read the Wiki before creating an issue.*
+If there are questions, please read the Wiki before creating an issue.
+And one more thing: Don't be a fool. Remove or replace the italic comments before submitting.*
 
 
--- Description goes here --
+* Description goes here *
 
 
 
 ## Steps to reproduce
 1. 
 2. 
-3. 
 
 ## Expected and actual behaviour
 
@@ -18,9 +18,9 @@ If there are questions, please read the Wiki before creating an issue.*
 ## Test Environment
 Property | Value
  ------- | ------- 
-Library version | 
-Android version | 
-... | 
+Library version | *0.0.0*
+Android version | *API 00*
+*...* |
 
 ## Stack Trace
 ```
