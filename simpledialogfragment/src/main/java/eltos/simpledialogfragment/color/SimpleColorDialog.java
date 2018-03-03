@@ -24,6 +24,7 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,6 +49,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public static final String COLOR = TAG + "color";
     public static final String COLORS = TAG + "colors";
     public static final int NONE = ColorView.NONE;
+    public static final int AUTO = ColorView.AUTO;
     protected static final int PICKER = -2;
 
     protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
@@ -68,6 +70,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     protected static final String CUSTOM = TAG + "custom";
     protected static final String PICKER_DIALOG_TAG = TAG + "picker";
     private static final String SELECTED = TAG + "selected";
+    private static final String OUTLINE = TAG + "outline";
 
     private @ColorInt int mCustomColor = NONE;
     private @ColorInt int mSelectedColor = NONE;
@@ -127,6 +130,20 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     public SimpleColorDialog allowCustom(boolean allow){
         return setArg(CUSTOM, allow);
     }
+
+    /**
+     * Add a colored outline to the color fields.
+     * {@link SimpleColorDialog#NONE} disables the outline (default)
+     * {@link SimpleColorDialog#AUTO} uses a black or white outline depending on the brightness
+     *
+     * @param color color int or {@link SimpleColorDialog#NONE} or {@link SimpleColorDialog#AUTO}
+     */
+    public SimpleColorDialog showOutline(@ColorInt int color){
+        return setArg(OUTLINE, color);
+    }
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -286,6 +303,14 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             } else {
                 item.setColor(getItem(position));
                 item.setStyle(ColorView.Style.CHECK);
+            }
+
+            @ColorInt int outline = getArguments().getInt(OUTLINE, ColorView.NONE);
+            if (outline != NONE){
+                float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        2 /*dp*/, getResources().getDisplayMetrics());
+                item.setOutlineWidth((int) width);
+                item.setOutlineColor(outline);
             }
 
             return super.getView(position, item, parent);

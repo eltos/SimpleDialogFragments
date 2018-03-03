@@ -66,11 +66,13 @@ import eltos.simpledialogfragment.R;
 
 class ColorView extends FrameLayout implements Checkable {
 
-    public static final int NONE = 0;
+    public static final int NONE = 0x00000000;
+    public static final int AUTO = 0x00FFFFFF;
 
     private @ColorInt int mColor;
     private boolean mChecked = false;
     private int mOutlineWidth = 0;
+    private @ColorInt int mOutlineColor = AUTO;
 
     private ImageView mCheckView;
     private FrameLayout mColorView;
@@ -187,6 +189,17 @@ class ColorView extends FrameLayout implements Checkable {
         update();
     }
 
+    /**
+     * Change the outline color. Specifying {@link ColorView#AUTO} will choose black or white
+     * depending on the brightness
+     *
+     * @param color as integer or {@link ColorView#AUTO}
+     */
+    public void setOutlineColor(@ColorInt int color){
+        mOutlineColor = color;
+        update();
+    }
+
 
     private void update() {
         setForeground(null);
@@ -221,7 +234,11 @@ class ColorView extends FrameLayout implements Checkable {
         GradientDrawable mask = new GradientDrawable();
         mask.setShape(GradientDrawable.OVAL);
         if (mOutlineWidth != 0) {
-            mask.setStroke(mOutlineWidth, isColorDark(mColor) ? Color.WHITE : Color.BLACK);
+            int color = mOutlineColor;
+            if (color == AUTO){
+                color = isColorDark(mColor) ? Color.WHITE : Color.BLACK;
+            }
+            mask.setStroke(mOutlineWidth, color);
         }
         mask.setColor(mColor);
         return mask;

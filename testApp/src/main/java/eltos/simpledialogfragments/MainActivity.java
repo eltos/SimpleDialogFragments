@@ -296,11 +296,16 @@ public class MainActivity extends AppCompatActivity implements
                 SimpleColorDialog.COLORFUL_COLOR_PALLET
         }[counter++ % 5];
 
+        int outline = pallet == SimpleColorDialog.MATERIAL_COLOR_PALLET_LIGHT ? Color.BLACK :
+                pallet == SimpleColorDialog.BEIGE_COLOR_PALLET ? SimpleColorDialog.AUTO :
+                        SimpleColorDialog.NONE;
+
         SimpleColorDialog.build()
                 .title(R.string.pick_a_color)
                 .colors(this, pallet)
                 .colorPreset(color)
                 .allowCustom(true)
+                .showOutline(outline)
                 .show(this, COLOR_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
