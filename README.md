@@ -119,6 +119,10 @@ public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle ex
 
 Make sure to check the demo application.
 
+## Extensions
+Known extensions and projects using this library:
+- [File/Folder picker](https://github.com/isabsent/FilePicker) (see [#30](https://github.com/eltos/SimpleDialogFragments/issues/30))
+
 ## License
 
 Copyright 2018 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
