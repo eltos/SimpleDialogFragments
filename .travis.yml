@@ -8,3 +8,10 @@ android:
 branches:
   only:
     - master
+
+notifications:
+  email: false
+  
+before_install:
+- export ANDROID_HOME=/usr/local/android-sdk
+- echo "sdk.dir=$ANDROID_HOME" > local.properties
