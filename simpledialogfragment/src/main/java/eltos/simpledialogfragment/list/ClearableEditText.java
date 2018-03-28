@@ -30,6 +30,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -45,7 +46,7 @@ import eltos.simpledialogfragment.R;
  * An edit text with a clear button
  * 
  */
-public class ClearableEditText extends EditText implements OnTouchListener, OnFocusChangeListener {
+public class ClearableEditText extends AppCompatEditText implements OnTouchListener, OnFocusChangeListener {
 
 
 
