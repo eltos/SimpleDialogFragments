@@ -15,4 +15,5 @@
     <string name="letters_only_error">May only contain letters (A-Z)</string>
     <string name="alphanumeric_only_error">May only contain alphanumerical chars</string>
     <string name="rrggbb" translatable="false">RRGGBB</string>
+    <string name="pin">Pin code</string>
 </resources>

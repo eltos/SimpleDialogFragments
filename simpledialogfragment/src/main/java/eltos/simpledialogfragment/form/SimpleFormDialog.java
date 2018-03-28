@@ -85,6 +85,33 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     }
 
     /**
+     * Convenient method to build a form dialog with a single pin code input
+     *
+     * @param pinFieldKey the key that can be used to receive the entered text from the bundle
+     *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     */
+    public static SimpleFormDialog buildPinCodeInput(String pinFieldKey){
+        return SimpleFormDialog.build()
+                .fields(
+                        Input.pin(pinFieldKey).required()
+                );
+    }
+
+    /**
+     * Convenient method to build a form dialog with a single pin code input
+     *
+     * @param pinFieldKey the key that can be used to receive the entered text from the bundle
+     *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @param digits the length of the pin code
+     */
+    public static SimpleFormDialog buildPinCodeInput(String pinFieldKey, int digits){
+        return SimpleFormDialog.build()
+                .fields(
+                        Input.pin(pinFieldKey).required().min(digits).max(digits)
+                );
+    }
+
+    /**
      * Convenient method to build a form dialog with a single number input
      *
      * @param numberFieldKey the key that can be used to receive the entered text from the bundle

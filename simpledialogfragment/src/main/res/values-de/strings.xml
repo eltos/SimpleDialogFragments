@@ -13,4 +13,5 @@
     <string name="strong_pw_requirements">Muss eine Zahl, einen Groß- und Kleinbuchstaben und ein Sonderzeichen enthalten</string>
     <string name="letters_only_error">Nur Buchstaben (A-Z) erlaubt</string>
     <string name="alphanumeric_only_error">Nur alphanumerische Zeichen erlaubt</string>
+    <string name="pin">PIN-Code</string>
 </resources>

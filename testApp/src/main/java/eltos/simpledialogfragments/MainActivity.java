@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String CHOICE_DIALOG = "dialogTagChoice";
     private static final String PRODUCT_DIALOG = "dialogTagProduct";
     private static final String NUMBER_DIALOG = "dialogTagNumber";
+    private static final String PIN_DIALOG = "dialogTagPin";
     private static final String LOGIN_DIALOG = "dialogTagLogin";
     private static final String EMAIL_DIALOG = "dialogTagEmail";
     private static final String REGISTRATION_DIALOG = "dialogTagRegistration";
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String PHONE_NUMBER = "phoneNumber";
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
+    private static final String PIN = "pin";
     private static final String KEEP_STARRED = "keepStarred";
     private static final String COUNTRY = "country";
     private static final String NEWSLETTER = "newsletter";
@@ -403,6 +405,16 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    public void showPinInput(View view){
+
+        SimpleFormDialog.buildPinCodeInput(PIN, 4)
+                .show(this, PIN_DIALOG);
+
+        /** Results: {@link MainActivity#onResult} **/
+
+    }
+
+
     public void showForm(View view){
 
         SimpleFormDialog.build()
@@ -604,6 +616,11 @@ public class MainActivity extends AppCompatActivity implements
                 case NUMBER_DIALOG: /** {@link MainActivity#showNumberInput(View)} **/
                     String number = extras.getString(PHONE_NUMBER);
                     Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case PIN_DIALOG: /** {@link MainActivity#showPinInput(View)} **/
+                    String pin = extras.getString(PIN);
+                    Toast.makeText(this, pin, Toast.LENGTH_SHORT).show();
                     return true;
 
                 case REGISTRATION_DIALOG: /** {@link MainActivity#showForm(View)} **/

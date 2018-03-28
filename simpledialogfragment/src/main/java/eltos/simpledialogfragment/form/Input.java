@@ -108,6 +108,19 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     /**
+     * Factory method for a pin input field.
+     * InputType and hint are preset.
+     *
+     * @param key the key that can be used to receive the entered text from the bundle in
+     *            {@link OnDialogResultListener#onResult}
+     */
+    public static Input pin(String key){
+        return new Input(key)
+                .inputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD)
+                .hint(R.string.pin);
+    }
+
+    /**
      * Factory method for an email input field.
      * InputType and hint are preset.
      * This field also validates, that an email matching the default pattern was entered.
