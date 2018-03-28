@@ -4,7 +4,6 @@ android:
   components:
     - android-25
     - build-tools-27.0.3
-    - extra-android-m2repository
     
 branches:
   only:
@@ -14,5 +13,8 @@ notifications:
   email: false
   
 before_install:
-- export ANDROID_HOME=/usr/local/android-sdk
-- echo "sdk.dir=$ANDROID_HOME" > local.properties
+  - export ANDROID_HOME=/usr/local/android-sdk
+  - echo "sdk.dir=$ANDROID_HOME" > local.properties
+
+install:
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
