@@ -205,7 +205,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
     @Override
     protected void onDialogShown() {
         // resize dialog when keyboard is shown to prevent fields from hiding behind the keyboard
-        if (getDialog().getWindow() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
 
