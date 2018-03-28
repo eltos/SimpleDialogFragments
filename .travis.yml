@@ -6,8 +6,7 @@ android:
     - build-tools-27.0.3
     
 before_install:
-  - export ANDROID_HOME=/usr/local/android-sdk
-  - echo "sdk.dir=$ANDROID_HOME" > local.properties
+  - touch local.properties
 
 install:
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
