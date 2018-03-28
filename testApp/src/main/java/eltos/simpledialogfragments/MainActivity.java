@@ -49,6 +49,7 @@ import eltos.simpledialogfragment.form.Input;
 import eltos.simpledialogfragment.form.SimpleFormDialog;
 import eltos.simpledialogfragment.form.Spinner;
 import eltos.simpledialogfragment.input.SimpleInputDialog;
+import eltos.simpledialogfragment.input.SimplePinDialog;
 import eltos.simpledialogfragment.list.SimpleListDialog;
 
 public class MainActivity extends AppCompatActivity implements
@@ -407,7 +408,11 @@ public class MainActivity extends AppCompatActivity implements
 
     public void showPinInput(View view){
 
-        SimpleFormDialog.buildPinCodeInput(PIN, 4)
+//        SimpleFormDialog.buildPinCodeInput(PIN, 4)
+//                .show(this, PIN_DIALOG);
+        SimplePinDialog.build()
+                .pin("0000")
+                //.length(6)
                 .show(this, PIN_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
@@ -619,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements
                     return true;
 
                 case PIN_DIALOG: /** {@link MainActivity#showPinInput(View)} **/
-                    String pin = extras.getString(PIN);
+                    String pin = extras.getString(SimplePinDialog.PIN);
                     Toast.makeText(this, pin, Toast.LENGTH_SHORT).show();
                     return true;
 

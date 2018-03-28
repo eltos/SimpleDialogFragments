@@ -16,4 +16,5 @@
     <string name="alphanumeric_only_error">May only contain alphanumerical chars</string>
     <string name="rrggbb" translatable="false">RRGGBB</string>
     <string name="pin">Pin code</string>
+    <string name="wrong_pin">Wrong pin</string>
 </resources>

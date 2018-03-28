@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="8dp"
+        app:counterOverflowTextAppearance="@style/OverflowText">
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/pinEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="8dp"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:textIsSelectable="false"
+            app:pinCharacterMask="*" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</RelativeLayout>
