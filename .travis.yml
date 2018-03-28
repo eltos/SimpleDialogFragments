@@ -1,1 +1,10 @@
 language: android
+
+android:
+  components:
+    - android-25
+    - build-tools-27.0.3
+    
+branches:
+  only:
+    - master
