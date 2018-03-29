@@ -23,13 +23,13 @@ A new approach of result handling ensures data integrity over rotation changes, 
 ### Features
 
 * Common dialogs like
- * Alert dialogs with optional checkbox
- * Input dialogs with suggestions and validations
- * Filterable single- / multi-choice dialogs
- * Color pickers
- * Form dialogs
- * Date and time pickers
- * Pin code dialog
+  * Alert dialogs with optional checkbox
+  * Input dialogs with suggestions and validations
+  * Filterable single- / multi-choice dialogs
+  * Color pickers
+  * Form dialogs
+  * Date and time pickers
+  * Pin code dialog
 * Customizable and extendable dialogs
 * Material design
 * **Easy resut handling even after rotation changes**
