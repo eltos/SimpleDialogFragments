@@ -186,7 +186,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             }
         }
 
-        /** Selector provided by {@link ColorView} **/
+        // Selector provided by ColorView
         getListView().setSelector(new ColorDrawable(Color.TRANSPARENT));
 
         return new ColorAdapter(colors, custom);

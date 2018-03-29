@@ -222,7 +222,9 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
         } else if (getArguments().containsKey(DRAWABLE_RESOURCE)) {
             imageView.setImageResource(getArguments().getInt(DRAWABLE_RESOURCE));
         } else if (getArguments().containsKey(CREATOR_CLASS)) {
-            new ImageCreator(imageView, loading).execute(getArguments());
+            Bundle args = getArguments();
+            args.putString(TAG, getTag());
+            new ImageCreator(imageView, loading).execute(args);
         } else if (getArguments().containsKey(BITMAP)) {
             imageView.setImageBitmap((Bitmap) getArguments().getParcelable(BITMAP));
         }
@@ -230,7 +232,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
         return view;
     }
 
-    private class ImageCreator extends AsyncTask<Bundle, Void, Object> {
+    private static class ImageCreator extends AsyncTask<Bundle, Void, Object> {
         WeakReference<ImageView> mView;
         WeakReference<View> mLoading;
 
@@ -256,9 +258,10 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
                 try {
                     Bundle extras = args[0].getBundle(BUNDLE);
                     if (extras == null) extras = new Bundle();
+                    String tag = args[0].getString(TAG);
 
                     Creator builder = c.getConstructor().newInstance();
-                    return builder.create(getTag(), extras);
+                    return builder.create(tag, extras);
 
                 } catch (Exception e) {
                     Log.e(TAG, "Error: Instantiation of "+c.getName()+" failed. " +

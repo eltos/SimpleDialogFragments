@@ -418,10 +418,10 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
 
         protected abstract boolean matches(T object, @NonNull CharSequence constraint);
 
-        @Deprecated
         /**
          * Use {@link AdvancedFilter#matches(String)} instead
          */
+        @Deprecated
         protected boolean matchesWord(String string, @NonNull CharSequence constraint) {
             return string != null && Pattern.compile((mMatchWordBeginning ? "\\b" : "") +
                     "(" + constraint + ")", mIgnoreCase ? Pattern.CASE_INSENSITIVE : 0)

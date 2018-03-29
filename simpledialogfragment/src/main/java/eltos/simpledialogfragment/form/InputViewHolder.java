@@ -214,7 +214,9 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             public void run() {
                 InputMethodManager imm = (InputMethodManager) input.getContext()
                         .getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                if (imm != null) {
+                    imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                }
             }
         });
 //        actions.openKeyboard(input);

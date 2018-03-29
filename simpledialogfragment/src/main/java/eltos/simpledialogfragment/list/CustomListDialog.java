@@ -437,7 +437,9 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             // show keyboard
             InputMethodManager imm = (InputMethodManager) getActivity()
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(mFilterEditText, InputMethodManager.SHOW_IMPLICIT);
+            if (imm != null) {
+                imm.showSoftInput(mFilterEditText, InputMethodManager.SHOW_IMPLICIT);
+            }
         }
     }
 

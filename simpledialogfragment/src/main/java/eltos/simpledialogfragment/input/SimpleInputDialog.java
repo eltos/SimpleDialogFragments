@@ -198,7 +198,9 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     public void openKeyboard(){
         InputMethodManager imm = (InputMethodManager) getActivity()
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(mInput, InputMethodManager.SHOW_IMPLICIT);
+        if (imm != null) {
+            imm.showSoftInput(mInput, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 
     @Override

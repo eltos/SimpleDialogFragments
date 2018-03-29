@@ -284,7 +284,9 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getContext()
                         .getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }
         }
 
