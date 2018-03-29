@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -55,12 +55,13 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         extends CustomViewDialog<This>
         implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    private static final String TAG = "CustomListDialog";
+    protected static final String TAG = "CustomListDialog";
 
-    public static final int NO_CHOICE = 0;
-    public static final int SINGLE_CHOICE = 1;
-    public static final int SINGLE_CHOICE_DIRECT = 11;
-    public static final int MULTI_CHOICE = 2;
+    public static final int
+            NO_CHOICE = 0,
+            SINGLE_CHOICE = 1,
+            SINGLE_CHOICE_DIRECT = 11,
+            MULTI_CHOICE = 2;
 
     /**
      * Key for a <b>long[]</b> returned by {@link CustomListDialog#onResult}

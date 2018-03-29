@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,23 +39,16 @@ import eltos.simpledialogfragment.R;
  */
 public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDialog> {
 
-    private static final String TAG = "SimpleColorWheelDialog";
+    public static final String TAG = "SimpleColorWheelDialog.";
 
-    public static final String COLOR = TAG + "color";
+    public static final String
+            COLOR = TAG + "color";
 
-    protected static final String ALPHA = TAG + "alpha";
-    private static final String HIDE_HEX = TAG + "noHex";
-
-    private ColorWheelView mColorWheelView;
-    private EditText mHexInput;
-    private ImageView mNew;
-    private ImageView mOld;
-    private SeekBar mAlphaSlider;
-    private View mTransparency;
 
     public static SimpleColorWheelDialog build(){
         return new SimpleColorWheelDialog();
     }
+
 
     /**
      * Specifies the initial color of the color wheel
@@ -83,6 +76,19 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
     public SimpleColorWheelDialog hideHexInput(boolean enabled){
         return setArg(HIDE_HEX, enabled);
     }
+
+
+
+    protected static final String ALPHA = TAG + "alpha";
+    private static final String HIDE_HEX = TAG + "noHex";
+
+    private ColorWheelView mColorWheelView;
+    private EditText mHexInput;
+    private ImageView mNew;
+    private ImageView mOld;
+    private SeekBar mAlphaSlider;
+    private View mTransparency;
+
 
 
     private final TextWatcher hexEditWatcher = new TextWatcher() {

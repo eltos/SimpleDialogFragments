@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,7 +33,16 @@ import eltos.simpledialogfragment.R;
  */
 public class SimpleEMailDialog extends SimpleInputDialog {
 
-    public static final String EMAIL = TEXT;
+    public static final String TAG = "SimpleEMailDialog.";
+
+    public static final String
+            EMAIL = TEXT;
+
+
+    public static SimpleEMailDialog build() {
+        return new SimpleEMailDialog();
+    }
+
 
     protected static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -41,12 +50,9 @@ public class SimpleEMailDialog extends SimpleInputDialog {
 
     Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
-    public static SimpleEMailDialog build(){
-        SimpleEMailDialog dialog = new SimpleEMailDialog();
-        dialog.inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-                .hint(R.string.email_address);
-
-        return dialog;
+    public SimpleEMailDialog(){
+        inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        hint(R.string.email_address);
     }
 
     @Override

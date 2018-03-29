@@ -1,3 +1,19 @@
+/*
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package eltos.simpledialogfragments;
 
 import android.Manifest;
@@ -58,38 +74,34 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int REQUEST_ACCOUNTS_PERMISSION = 123;
 
-    private static final String TERMS_DIALOG = "dialogTagTerms";
-    private static final String CHOICE_DIALOG = "dialogTagChoice";
-    private static final String PRODUCT_DIALOG = "dialogTagProduct";
-    private static final String NUMBER_DIALOG = "dialogTagNumber";
-    private static final String PIN_DIALOG = "dialogTagPin";
-    private static final String LOGIN_DIALOG = "dialogTagLogin";
-    private static final String EMAIL_DIALOG = "dialogTagEmail";
-    private static final String REGISTRATION_DIALOG = "dialogTagRegistration";
-    private static final String CHECK_DIALOG = "dialogTagCheck";
-    private static final String INPUT_DIALOG = "dialogTagInput";
-    private static final String COLOR_DIALOG = "dialogTagColor";
-    private static final String COLOR_WHEEL_DIALOG = "dialogTagColorWheel";
-    private static final String DATE_DIALOG = "dialogTagDate";
-    private static final String TIME_DIALOG = "dialogTagTime";
-    private static final String DATETIME_DIALOG_DATE = "dialogTagDateTimeDate";
-    private static final String DATETIME_DIALOG_TIME = "dialogTagDateTimeTime";
-    private static final String YES_NO_DIALOG = "dialogTagYesNo";
+    private static final String TERMS_DIALOG = "dialogTagTerms",
+            CHOICE_DIALOG = "dialogTagChoice",
+            PRODUCT_DIALOG = "dialogTagProduct",
+            NUMBER_DIALOG = "dialogTagNumber",
+            LOGIN_DIALOG = "dialogTagLogin",
+            EMAIL_DIALOG = "dialogTagEmail",
+            REGISTRATION_DIALOG = "dialogTagRegistration",
+            CHECK_DIALOG = "dialogTagCheck",
+            INPUT_DIALOG = "dialogTagInput",
+            COLOR_DIALOG = "dialogTagColor",
+            DATETIME_DIALOG_DATE = "dialogTagDateTimeDate",
+            DATETIME_DIALOG_TIME = "dialogTagDateTimeTime",
+            YES_NO_DIALOG = "dialogTagYesNo";
 
-    private static final String PRODUCT_ID = "productId";
-    private static final String PHONE_NUMBER = "phoneNumber";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-    private static final String PIN = "pin";
-    private static final String KEEP_STARRED = "keepStarred";
-    private static final String COUNTRY = "country";
-    private static final String NEWSLETTER = "newsletter";
-    private static final String FIRST_NAME = "firstName";
-    private static final String SURNAME = "surname";
-    private static final String EMAIL = "email";
-    private static final String GENDER = "gender";
-    private static final String QR_CONTENT = "qrContent";
-    private static final String RECURSIVE_DIALOG = "recursive";
+    private static final String PRODUCT_ID = "productId",
+            PHONE_NUMBER = "phoneNumber",
+            USERNAME = "username",
+            PASSWORD = "password",
+            PIN = "pin",
+            KEEP_STARRED = "keepStarred",
+            COUNTRY = "country",
+            NEWSLETTER = "newsletter",
+            FIRST_NAME = "firstName",
+            SURNAME = "surname",
+            EMAIL = "email",
+            GENDER = "gender",
+            QR_CONTENT = "qrContent",
+            RECURSIVE_DIALOG = "recursive";
 
 
     private @ColorInt int color = 0xff9c27b0;
@@ -321,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleColorWheelDialog.build()
                 .color(color)
                 .alpha(true)
-                .show(this, COLOR_WHEEL_DIALOG);
+                .show(this);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -409,11 +421,11 @@ public class MainActivity extends AppCompatActivity implements
     public void showPinInput(View view){
 
 //        SimpleFormDialog.buildPinCodeInput(PIN, 4)
-//                .show(this, PIN_DIALOG);
+//                .show(this, SimplePinDialog.TAG);
         SimplePinDialog.build()
                 .pin("0000")
                 //.length(6)
-                .show(this, PIN_DIALOG);
+                .show(this);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -452,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements
 
         SimpleDateDialog.build()
                 .minDate(new Date())    // only future days
-                .show(this, DATE_DIALOG);
+                .show(this);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -464,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleTimeDialog.build()
                 .neut()
                 .hour(12).minute(0)
-        .show(this, TIME_DIALOG);
+        .show(this);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -598,7 +610,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
                     return true;
 
-                case COLOR_WHEEL_DIALOG: /** {@link MainActivity#showHsvWheel(View)} **/
+                case SimpleColorWheelDialog.TAG: /** {@link MainActivity#showHsvWheel(View)} **/
                     newColor(extras.getInt(SimpleColorWheelDialog.COLOR));
                     return true;
 
@@ -623,7 +635,7 @@ public class MainActivity extends AppCompatActivity implements
                     Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
                     return true;
 
-                case PIN_DIALOG: /** {@link MainActivity#showPinInput(View)} **/
+                case SimplePinDialog.TAG: /** {@link MainActivity#showPinInput(View)} **/
                     String pin = extras.getString(SimplePinDialog.PIN);
                     Toast.makeText(this, pin, Toast.LENGTH_SHORT).show();
                     return true;
@@ -643,12 +655,12 @@ public class MainActivity extends AppCompatActivity implements
                     // ...
                     return true;
 
-                case DATE_DIALOG: /** {@link MainActivity#showDate(View)} **/
+                case SimpleDateDialog.TAG: /** {@link MainActivity#showDate(View)} **/
                     Date date = new Date(extras.getLong(SimpleDateDialog.DATE));
                     Toast.makeText(getBaseContext(), SimpleDateFormat.getDateInstance().format(date), Toast.LENGTH_SHORT).show();
                     return true;
 
-                case TIME_DIALOG: /** {@link MainActivity#showTime(View)} **/
+                case SimpleTimeDialog.TAG: /** {@link MainActivity#showTime(View)} **/
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, extras.getInt(SimpleTimeDialog.HOUR));
                     calendar.set(Calendar.MINUTE, extras.getInt(SimpleTimeDialog.MINUTE));

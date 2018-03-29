@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -48,22 +48,16 @@ import eltos.simpledialogfragment.R;
  */
 public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
-    private static final String TAG = "simpleInputDialog";
+    public static final String TAG = "SimpleInputDialog.";
 
-    public static final String TEXT = TAG + "text";
+    public static final String
+            TEXT = TAG + "text";
 
-    protected static final String HINT = TAG + "hint";
-    protected static final String INPUT_TYPE = TAG + "input_type";
-    protected static final String ALLOW_EMPTY = TAG + "allow_empty";
-    protected static final String MAX_LENGTH = TAG + "max_length";
-    protected static final String SUGGESTIONS = TAG + "suggestions";
-
-    private AutoCompleteTextView mInput;
-    private TextInputLayout mInputLayout;
 
     public static SimpleInputDialog build(){
         return new SimpleInputDialog();
     }
+
 
     /**
      * Sets the EditText's hint
@@ -155,6 +149,20 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
          */
         String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
     }
+
+
+
+
+    protected static final String
+            HINT = TAG + "hint",
+            INPUT_TYPE = TAG + "input_type",
+            ALLOW_EMPTY = TAG + "allow_empty",
+            MAX_LENGTH = TAG + "max_length",
+            SUGGESTIONS = TAG + "suggestions";
+
+    private AutoCompleteTextView mInput;
+    private TextInputLayout mInputLayout;
+
 
     protected String onValidateInput(@Nullable String input){
         Bundle extras = getArguments().getBundle(BUNDLE);

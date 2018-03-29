@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,18 +26,20 @@ import android.widget.TimePicker;
  *
  * Created by eltos on 02.02.2017.
  */
-public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog> implements TimePicker.OnTimeChangedListener {
+public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>
+        implements TimePicker.OnTimeChangedListener {
 
-    private static final String TAG = "simpleDateDialog";
+    public static final String TAG = "SimpleTimeDialog.";
 
-    public static final String HOUR = TAG + "hour";
-    public static final String MINUTE = TAG + "minute";
-    public static final String VIEW_24_HOUR = TAG + "24HourView";
-    private TimePicker picker;
+    public static final String
+            HOUR = TAG + "HOUR",
+            MINUTE = TAG + "MINUTE";
+
 
     public static SimpleTimeDialog build(){
         return new SimpleTimeDialog();
     }
+
 
     /**
      * Specify the initially set hour
@@ -61,6 +63,11 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog> impleme
     public SimpleTimeDialog set24HourView(boolean view24Hour){ return setArg(VIEW_24_HOUR, view24Hour); }
 
 
+
+    protected static final String
+            VIEW_24_HOUR = TAG + "VIEW_24_HOUR";
+
+    private TimePicker picker;
 
 
     @SuppressWarnings("deprecation")

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,14 +43,7 @@ import eltos.simpledialogfragment.R;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
-    private static final String TAG = "SimpleFormDialog";
-
-    protected static final String INPUT_FIELDS = TAG + "inputFields";
-    protected static final String SAVE_TAG = "form.";
-
-    private FocusActions mFocusActions = new FocusActions();
-    ArrayList<FormElementViewHolder<?>> mViews = new ArrayList<>(0);
-    ViewGroup mFormContainer;
+    public static final String TAG = "SimpleFormDialog.";
 
 
     public static SimpleFormDialog build(){
@@ -164,11 +157,6 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
 
 
-
-
-
-
-
     /**
      * Convenient method to populate the form with form elements
      *
@@ -210,6 +198,14 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
+
+    protected static final String INPUT_FIELDS = TAG + "inputFields";
+    protected static final String SAVE_TAG = "form.";
+
+    private FocusActions mFocusActions = new FocusActions();
+    ArrayList<FormElementViewHolder<?>> mViews = new ArrayList<>(0);
+    ViewGroup mFormContainer;
+
 
 
     protected String onValidateInput(String fieldKey, @Nullable String input){

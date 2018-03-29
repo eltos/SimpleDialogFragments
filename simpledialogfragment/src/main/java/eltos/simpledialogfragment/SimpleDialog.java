@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -45,18 +45,26 @@ import android.text.Html;
 @SuppressWarnings("unused")
 public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragment {
 
-    protected static final String TITLE = "simpleDialog.title";
-    protected static final String MESSAGE = "simpleDialog.message";
-    protected static final String POSITIVE_BUTTON_TEXT = "simpleDialog.positiveButtonText";
-    protected static final String NEGATIVE_BUTTON_TEXT = "simpleDialog.negativeButtonText";
-    protected static final String NEUTRAL_BUTTON_TEXT = "simpleDialog.neutralButtonText";
-    protected static final String ICON_RESOURCE = "simpleDialog.iconResource";
-    protected static final String CANCELABLE = "simpleDialog.cancelable";
-    protected static final String THEME = "simpleDialog.theme";
-    protected static final String HTML = "simpleDialog.html";
+    public static final String TAG = "SimpleDialog.";
 
-    protected static final String BUNDLE = "simpleDialog.bundle";
 
+    public static SimpleDialog build(){
+        return new SimpleDialog();
+    }
+
+
+
+
+    protected static final String TITLE = TAG + "title",
+            MESSAGE = TAG + "message",
+            POSITIVE_BUTTON_TEXT = TAG + "positiveButtonText",
+            NEGATIVE_BUTTON_TEXT = TAG + "negativeButtonText",
+            NEUTRAL_BUTTON_TEXT = TAG + "neutralButtonText",
+            ICON_RESOURCE = TAG + "iconResource",
+            CANCELABLE = TAG + "cancelable",
+            THEME = TAG + "theme",
+            HTML = TAG + "html",
+            BUNDLE = TAG + "bundle";
 
     public interface OnDialogResultListener {
         int CANCELED = 0;
@@ -118,10 +126,6 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         setArguments(args);
         // positive button default
         pos(android.R.string.ok);
-    }
-
-    public static SimpleDialog build(){
-        return new SimpleDialog();
     }
 
     @SuppressWarnings("unchecked cast")
@@ -212,12 +216,6 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public This pos(@StringRes int positiveButtonResourceId){ return setArg(POSITIVE_BUTTON_TEXT, positiveButtonResourceId); }
 
     /**
-     * Set this dialogs positive button text to {@link android.R.string#ok}
-     * This is done by default
-     */
-//    public This pos(){ return pos(android.R.string.ok); }
-
-    /**
      * Sets this dialogs negative button text
      *
      * @param negativeButton the text as string
@@ -295,7 +293,12 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param fragment the hosting fragment
      */
     public void show(Fragment fragment){
-        show(fragment, null);
+        // Default tag is given by static field TAG
+        String tag = null;
+        try {
+            tag = (String) this.getClass().getField("TAG").get(null);
+        } catch (Exception ignored) { }
+        show(fragment, tag);
     }
 
     /**
@@ -318,7 +321,12 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param activity the hosting activity
      */
     public void show(FragmentActivity activity){
-        show(activity, null);
+        // Default tag is given by static field TAG
+        String tag = null;
+        try {
+            tag = (String) this.getClass().getField("TAG").get(null);
+        } catch (Exception ignored) { }
+        show(activity, tag);
     }
 
     /**

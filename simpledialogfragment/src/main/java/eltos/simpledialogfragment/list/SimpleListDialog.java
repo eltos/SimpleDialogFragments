@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,33 +30,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * A dialog that displays a list.
- * Choice modes such as SINGLE_CHOICE or MULTI_CHOICE can be activated.
+ * A dialog that displays a filterable list in single- or multi-choice mode.
  *
  * Created by eltos on 02.01.2017.
  */
 @SuppressWarnings("unused")
 public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
-    private static final String TAG = "simpleListDialog";
+    public static final String TAG = "SimpleListDialog.";
 
-    protected final static String DATA_SET = TAG + "data_set";
-
-    /**
-     * Key for an <b>ArrayList&lt;String&gt;</b> returned by {@link SimpleListDialog#onResult}
-     */
-    public static final String SELECTED_LABELS = TAG + "selectedLabels";
-
-    /**
-     * Key for a <b>String</b> returned by {@link SimpleListDialog#onResult} in single choice mode
-     */
-    public static final String SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
-    public static final String HIGHLIGHT = TAG + "highlight";
+    public static final String
+            SELECTED_LABELS = TAG + "selectedLabels",
+            SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
 
 
     public static SimpleListDialog build(){
         return new SimpleListDialog();
     }
+
 
     /**
      * Populate the list with the labels provided
@@ -137,6 +128,13 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         setArg(HIGHLIGHT, highlight);
         return super.filterable(enabled);
     }
+
+
+
+
+    protected final static String
+            DATA_SET = TAG + "data_set",
+            HIGHLIGHT = TAG + "highlight";
 
     ArrayList<SimpleListItem> mData;
 

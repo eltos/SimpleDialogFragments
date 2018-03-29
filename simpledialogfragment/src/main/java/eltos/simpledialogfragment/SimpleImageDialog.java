@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -41,17 +41,16 @@ import java.lang.ref.WeakReference;
  *
  * Created by eltos on 13.02.17.
  */
-
 public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
 
 
-    private static final String TAG = SimpleImageDialog.class.getSimpleName();
-    protected static final String DRAWABLE_RESOURCE = TAG + "drawableRes";
-    protected static final String BITMAP = TAG + "bitmap";
-    protected static final String IMAGE_URI = TAG + "uri";
-    protected static final String SCALE_TYPE = TAG + "scale";
-    private static final String CREATOR_CLASS = TAG + "creatorClass";
-    private boolean customTheme = false;
+    public static final String TAG = "SimpleImageDialog.";
+
+
+    public static SimpleImageDialog build(){
+        return new SimpleImageDialog();
+    }
+
 
     private interface Creator<T> {
         /**
@@ -68,15 +67,6 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
     public interface BitmapCreator extends Creator<Bitmap>{}
     public interface DrawableCreator extends Creator<Drawable>{}
     public interface IconCreator extends Creator<Icon>{}
-
-    public SimpleImageDialog(){
-        pos(null); // no default button
-    }
-
-
-    public static SimpleImageDialog build(){
-        return new SimpleImageDialog();
-    }
 
 
     /**
@@ -158,6 +148,25 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
     public SimpleImageDialog scaleType(Scale scale){
         return setArg(SCALE_TYPE, scale.nativeInt);
     }
+
+
+
+    protected static final String
+            DRAWABLE_RESOURCE = TAG + "drawableRes",
+            BITMAP = TAG + "bitmap",
+            IMAGE_URI = TAG + "uri",
+            SCALE_TYPE = TAG + "scale";
+    private static final String CREATOR_CLASS = TAG + "creatorClass";
+
+    private boolean customTheme = false;
+
+
+
+    public SimpleImageDialog(){
+        pos(null); // no default button
+    }
+
+
 
 
     @Override

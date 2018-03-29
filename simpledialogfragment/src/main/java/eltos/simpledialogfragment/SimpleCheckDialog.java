@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,23 +25,20 @@ import android.widget.CompoundButton;
 /**
  * An simple dialog with a checkbox that can be set as required before proceeding
  *
- * Result:
- *      CHECKED     boolean     Weather the checkbox was finally checked
- *
  * Created by eltos on 14.10.2015.
  */
 public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
-    public static final String CHECKED = "simpleCheckDialog.checked";
+    public static final String TAG = "SimpleCheckDialog.";
 
-    protected static final String CHECKBOX_LABEL = "simpleCheckDialog.check_label";
-    protected static final String CHECKBOX_REQUIRED = "simpleCheckDialog.check_required";
+    public static final String
+            CHECKED = TAG + "CHECKED";
 
-    private CheckBox mCheckBox;
 
     public static SimpleCheckDialog build(){
         return new SimpleCheckDialog();
     }
+
 
     /**
      * Sets the initial check state
@@ -71,6 +68,16 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * @param required weather checking the checkbox is required
      */
     public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
+
+
+
+
+
+    protected static final String CHECKBOX_LABEL = "simpleCheckDialog.check_label";
+    protected static final String CHECKBOX_REQUIRED = "simpleCheckDialog.check_required";
+
+    private CheckBox mCheckBox;
+
 
     private boolean canGoAhead() {
         return mCheckBox.isChecked() || !getArguments().getBoolean(CHECKBOX_REQUIRED);

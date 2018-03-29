@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,24 +25,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * A date-picker dialog.
+ * A date-picker dialog
  *
  * Created by eltos on 02.02.2017.
  */
 public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
         implements DatePicker.OnDateChangedListener {
 
-    private static final String TAG = "simpleDateDialog";
+    public static final String TAG = "SimpleDateDialog.";
 
-    public static final String DATE = TAG + "date";
-    public static final String MIN_DATE = TAG + "minDate";
-    public static final String MAX_DATE = TAG + "maxDate";
-    public static final String FIRST_DAY_OF_WEEK = TAG + "firstDayOfWeek";
-    private DatePicker picker;
+    public static final String
+            DATE = TAG + "DATE";
+
 
     public static SimpleDateDialog build(){
         return new SimpleDateDialog();
     }
+
 
     /**
      * Specify the initially set date
@@ -96,6 +95,14 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
     public SimpleDateDialog firstDayOfWeek(int day){ return setArg(FIRST_DAY_OF_WEEK, day); }
 
 
+
+
+    protected static final String
+            MIN_DATE = TAG + "MIN_DATE",
+            MAX_DATE = TAG + "MAX_DATE",
+            FIRST_DAY_OF_WEEK = TAG + "FIRST_DAY_OF_WEEK";
+
+    private DatePicker picker;
 
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {

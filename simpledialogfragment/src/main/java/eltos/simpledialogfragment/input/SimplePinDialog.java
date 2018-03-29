@@ -54,23 +54,13 @@ import eltos.simpledialogfragment.R;
  */
 public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
 
-    private static final String TAG = "simplePinDialog";
+    public static final String TAG = "SimplePinDialog.";
 
-    public static final String PIN = TAG + "pin";
-
-    protected static final String
-            MASK = TAG + "mask",
-            LENGTH = TAG + "length",
-            CHECK_PIN = TAG + "checkPin";
-
-    private PinEntryEditText mInput;
-    private TextInputLayout mInputLayout;
+    public static final String
+            PIN = TAG + "pin";
 
     public static SimplePinDialog build(){
-        return new SimplePinDialog()
-                .title(R.string.pin)
-//                .mask("*")
-                .pos(null);
+        return new SimplePinDialog();
     }
 
 
@@ -104,6 +94,19 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
 
 
 
+    protected static final String
+            MASK = TAG + "mask",
+            LENGTH = TAG + "length",
+            CHECK_PIN = TAG + "checkPin";
+
+    private PinEntryEditText mInput;
+    private TextInputLayout mInputLayout;
+
+    public SimplePinDialog(){
+        title(R.string.pin);
+//        mask("*")
+        pos(null);
+    }
 
     protected String onValidateInput(@Nullable String input){
         String pin = getArguments().getString(CHECK_PIN);

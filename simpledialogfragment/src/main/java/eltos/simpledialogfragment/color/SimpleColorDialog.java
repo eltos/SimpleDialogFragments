@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 Philipp Niedermayer (github.com/eltos)
+ *  Copyright 2018 Philipp Niedermayer (github.com/eltos)
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -44,48 +44,29 @@ import eltos.simpledialogfragment.list.CustomListDialog;
  */
 public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> implements SimpleColorWheelDialog.OnDialogResultListener {
 
-    private static final String TAG = "SimpleColorDialog";
+    public static final String TAG = "SimpleColorDialog.";
 
-    public static final String COLOR = TAG + "color";
-    public static final String COLORS = TAG + "colors";
-    public static final int NONE = ColorView.NONE;
-    public static final int AUTO = ColorView.AUTO;
-    protected static final int PICKER = -2;
+    public static final String
+            COLOR = TAG + "color",
+            COLORS = TAG + "colors";
 
-    protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
-            0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
-            0xff3f51b5, 0xff2196f3, 0xff03a9f4, 0xff00bcd4,
-            0xff009688, 0xff4caf50, 0xff8bc34a, 0xffcddc39,
-            0xffffeb3b, 0xffffc107, 0xffff9800, 0xffff5722,
-            0xff795548, 0xff9e9e9e, 0xff607d8b
-    };
-
-    public static final @ArrayRes int MATERIAL_COLOR_PALLET = R.array.material_pallet;
-    public static final @ArrayRes int MATERIAL_COLOR_PALLET_LIGHT = R.array.material_pallet_light;
-    public static final @ArrayRes int MATERIAL_COLOR_PALLET_DARK = R.array.material_pallet_dark;
-    public static final @ArrayRes int BEIGE_COLOR_PALLET = R.array.beige_pallet;
-    public static final @ArrayRes int COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
-
-
-    protected static final String CUSTOM = TAG + "custom";
-    protected static final String PICKER_DIALOG_TAG = TAG + "picker";
-    private static final String SELECTED = TAG + "selected";
-    private static final String OUTLINE = TAG + "outline";
-
-    private @ColorInt int mCustomColor = NONE;
-    private @ColorInt int mSelectedColor = NONE;
-
-    public SimpleColorDialog(){
-        grid();
-        gridColumnWidth(R.dimen.dialog_color_item_size);
-        choiceMode(SINGLE_CHOICE);
-        choiceMin(1);
-        colors(DEFAULT_COLORS);
-    }
 
     public static SimpleColorDialog build(){
         return new SimpleColorDialog();
     }
+
+
+    public static final @ArrayRes int
+            MATERIAL_COLOR_PALLET = R.array.material_pallet,
+            MATERIAL_COLOR_PALLET_LIGHT = R.array.material_pallet_light,
+            MATERIAL_COLOR_PALLET_DARK = R.array.material_pallet_dark,
+            BEIGE_COLOR_PALLET = R.array.beige_pallet,
+            COLORFUL_COLOR_PALLET = R.array.colorful_pallet;
+
+    public static final int
+            NONE = ColorView.NONE,
+            AUTO = ColorView.AUTO;
+
 
     /**
      * Sets the colors to choose from
@@ -140,6 +121,34 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      */
     public SimpleColorDialog showOutline(@ColorInt int color){
         return setArg(OUTLINE, color);
+    }
+
+
+
+
+    protected static final @ColorInt int[] DEFAULT_COLORS = new int[]{
+            0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
+            0xff3f51b5, 0xff2196f3, 0xff03a9f4, 0xff00bcd4,
+            0xff009688, 0xff4caf50, 0xff8bc34a, 0xffcddc39,
+            0xffffeb3b, 0xffffc107, 0xffff9800, 0xffff5722,
+            0xff795548, 0xff9e9e9e, 0xff607d8b
+    };
+
+    protected static final int PICKER = 0x00BADA55;
+    protected static final String CUSTOM = TAG + "custom";
+    protected static final String PICKER_DIALOG_TAG = TAG + "picker";
+    private static final String SELECTED = TAG + "selected";
+    private static final String OUTLINE = TAG + "outline";
+
+    private @ColorInt int mCustomColor = NONE;
+    private @ColorInt int mSelectedColor = NONE;
+
+    public SimpleColorDialog(){
+        grid();
+        gridColumnWidth(R.dimen.dialog_color_item_size);
+        choiceMode(SINGLE_CHOICE);
+        choiceMin(1);
+        colors(DEFAULT_COLORS);
     }
 
 
