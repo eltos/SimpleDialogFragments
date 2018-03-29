@@ -29,6 +29,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
  * Color pickers
  * Form dialogs
  * Date and time pickers
+ * Pin code dialog
 * Customizable and extendable dialogs
 * Material design
 * **Easy resut handling even after rotation changes**
