@@ -3,7 +3,6 @@
 [ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
 [ ![Download Latest](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
-[![Travis CI](https://travis-ci.org/eltos/SimpleDialogFragments.svg?branch=master)](https://travis-ci.org/eltos/SimpleDialogFragments)
 
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/wiki/simplecolorwheeldialog.png"/>
 
