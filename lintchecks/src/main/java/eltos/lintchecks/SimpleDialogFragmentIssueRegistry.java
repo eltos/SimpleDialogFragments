@@ -29,7 +29,7 @@ public class SimpleDialogFragmentIssueRegistry extends IssueRegistry {
     @Override
     public List<Issue> getIssues() {
         return Arrays.asList(
-                DialogExtendLintDetector.BUILD_OVERWRITE
-        );
+                DialogExtendLintDetector.BUILD_OVERWRITE,
+                DialogExtendLintDetector.TAG);
     }
 }

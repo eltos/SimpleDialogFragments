@@ -21,12 +21,14 @@ import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
+import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiModifierList;
 
 import org.jetbrains.uast.UClass;
+import org.jetbrains.uast.UField;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,10 +39,6 @@ import java.util.List;
 
 public class DialogExtendLintDetector extends Detector implements Detector.UastScanner {
 
-    /**
-     * Overwriting of static build() method is required when extending a SimpleDialog
-     *
-     */
     private static String BUILD_OVERWRITE_MESSAGE = "Class extends SimpleDialog but does not " +
             "implement a static `build` method.";
     public static final Issue BUILD_OVERWRITE = Issue.create("BuildOverwrite",
@@ -51,6 +49,18 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
                     "Implementing the method is required, as a call to the inherited build method " +
                     "would otherwise unintentionally create an instance of the parent class.\n",
             Category.USABILITY, 6, Severity.WARNING,
+            new Implementation(DialogExtendLintDetector.class, Scope.JAVA_FILE_SCOPE));
+
+    private static String TAG_MESSAGE = "Class extends SimpleDialog but does not " +
+            "have a `public static String TAG` field.";
+    public static final Issue TAG = Issue.create("DialogTag",
+            "Missing TAG field",
+            "This check checks for classes that extend a `SimpleDialog` " +
+                    "but do not have a public static String `TAG` field.\n" +
+                    "\n" +
+                    "This field is required, as it is used as default identifier for result" +
+                    "receiving. If not given, the parent classes TAG would unintentionally be used.\n",
+            Category.CORRECTNESS, 6, Severity.WARNING,
             new Implementation(DialogExtendLintDetector.class, Scope.JAVA_FILE_SCOPE));
 
 
@@ -82,6 +92,21 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
             if (!hasBuildMethod){
                 context.report(BUILD_OVERWRITE, context.getLocation(declaration.getExtendsList()),
                         BUILD_OVERWRITE_MESSAGE);
+            }
+
+            // check for public static String TAG
+            boolean hasTag = false;
+            for (UField field : declaration.getFields()) {
+                PsiModifierList modifiers = field.getModifierList();
+                if ("TAG".equals(field.getName()) && LintUtils.isString(field.getType()) &&
+                        modifiers != null && modifiers.hasModifierProperty("public") &&
+                        modifiers.hasModifierProperty("static")) {
+                    hasTag = true;
+                    break;
+                }
+            }
+            if (!hasTag) {
+                context.report(TAG, context.getLocation(declaration.getExtendsList()), TAG_MESSAGE);
             }
 
         }
