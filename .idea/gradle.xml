@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/lintchecks" />
             <option value="$PROJECT_DIR$/simpledialogfragment" />
             <option value="$PROJECT_DIR$/testApp" />
           </set>
