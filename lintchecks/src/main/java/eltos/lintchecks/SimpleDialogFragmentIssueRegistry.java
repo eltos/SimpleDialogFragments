@@ -30,6 +30,7 @@ public class SimpleDialogFragmentIssueRegistry extends IssueRegistry {
     public List<Issue> getIssues() {
         return Arrays.asList(
                 DialogExtendLintDetector.BUILD_OVERWRITE,
-                DialogExtendLintDetector.TAG);
+                DialogExtendLintDetector.TAG,
+                DialogMethodCallLintDetector.BUILD_CALL);
     }
 }
