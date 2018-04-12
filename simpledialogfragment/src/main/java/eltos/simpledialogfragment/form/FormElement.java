@@ -21,7 +21,7 @@ import android.os.Parcelable;
 
 /**
  * Base-class for form elements to be used with {@link SimpleFormDialog}
- * </p>
+ * 
  * Each form element holds a {@link FormElement#resultKey} that is used to receive element
  * specific results in {@link SimpleFormDialog#onResult}
  *
@@ -59,7 +59,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     /**
      * Set the required flag for this field.
      * This has different meanings depending on the element type
-     * </p>
+     * 
      * Input fields will display an error message if their input is empty.
      * Check fields will be required to be checked
      *

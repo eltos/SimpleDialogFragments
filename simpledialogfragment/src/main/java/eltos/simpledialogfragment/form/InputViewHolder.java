@@ -36,9 +36,9 @@ import eltos.simpledialogfragment.R;
 
 /**
  * The ViewHolder class for {@link Input}
- * </p>
+ * 
  * This class is used to create an EditText and to maintain it's functionality
- * </p>
+ * 
  * Created by philipp on 23.02.17.
  */
 

@@ -29,9 +29,9 @@ import eltos.simpledialogfragment.R;
 
 /**
  * The ViewHolder class for {@link Check}
- * </p>
+ * 
  * This class is used to create a CheckBox and to maintain it's functionality
- * </p>
+ * 
  * Created by eltos on 23.02.17.
  */
 

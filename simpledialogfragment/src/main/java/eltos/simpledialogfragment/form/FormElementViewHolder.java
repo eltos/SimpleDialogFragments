@@ -25,10 +25,10 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 
 /**
  * The Base class for all ViewHolders
- * </p>
+ * 
  * This class is used to create the View that represents the corresponding {@link FormElement}
  * and to maintain it's functionality
- * </p>
+ * 
  * Created by eltos on 23.02.17.
  */
 

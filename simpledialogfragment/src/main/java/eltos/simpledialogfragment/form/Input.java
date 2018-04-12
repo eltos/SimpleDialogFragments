@@ -32,12 +32,12 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 
 /**
  * An input form element to be used with {@link SimpleFormDialog}
- * </p>
+ * 
  * This is an EditText that can be used to enter text, email-addresses, numbers, passwords etc.
  * Optionally supports auto-complete behaviour using suggestions.
- * </p>
+ * 
  * This will add a String to resource bundle containing the entered text.
- * </p>
+ * 
  * Created by eltos on 20.02.17.
  */
 
@@ -304,7 +304,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Specify weather this input may contain only one of the suggestions provided.
      * If enabled, the EditText will show an error message if something else was entered. This
      * will only take affect if suggestions were set by any of the {@link Input#suggest} methods
-     * </p>
+     * 
      * If the suggestion array is small, consider using a spinner instead.
      *
      * @param force weather to force the input to be one of the suggestions or not
