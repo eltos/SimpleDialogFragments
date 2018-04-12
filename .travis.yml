@@ -1,0 +1,20 @@
+language: android
+
+android:
+  components:
+    - android-25
+    - build-tools-27.0.3
+    
+before_install:
+  - touch local.properties
+
+install:
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  
+script:
+  - ./gradlew install
+  
+
+
+notifications:
+email: false
