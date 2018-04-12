@@ -79,6 +79,8 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * e.g. if you want to consider for preconditions to be fulfilled
      *
      * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
+	 * 
+	 * @param enabled weather to en- or disable the button
      */
     protected final void setPositiveButtonEnabled(boolean enabled){
         if (positiveButton != null) {

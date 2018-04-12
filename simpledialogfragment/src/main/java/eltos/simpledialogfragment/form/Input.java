@@ -217,6 +217,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Hide or show a button to toggle the password visibility.
      * Note that this will only work if the input type is a password.
+	 *
+	 * @param show weather to show the password toggle button
      */
     public Input showPasswordToggle(boolean show){
         this.passwordToggleVisible = show;
