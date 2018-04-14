@@ -1,4 +1,4 @@
-<p align="center"><img src="logo/SDF2.png" alt="SimpleDialogFragments" height="200px"></p>
+<p align="center"><img src="media/logo_named_right.png" alt="" width="40%"></p>
 
 # SimpleDialogFragments
 
