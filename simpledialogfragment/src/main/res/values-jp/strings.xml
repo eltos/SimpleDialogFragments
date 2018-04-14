@@ -13,4 +13,6 @@
     <string name="strong_pw_requirements">パスワードは、数字、小文字と大文字や特殊文字が含まれている必要があり</string>
     <string name="letters_only_error">アルファベットのみ</string>
     <string name="alphanumeric_only_error">英数字のみ</string>
+    <string name="pin">ピン</string>
+    <string name="wrong_pin">間違ったピン</string>
 </resources>
