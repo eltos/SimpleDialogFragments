@@ -14,4 +14,5 @@
     <string name="strong_pw_requirements">Il doit contenir un numéro, une lettre majuscule et à faible revenu et un caractère spécial</string>
     <string name="input_not_a_given_option">Ne saisissez pas une option donnée</string>
     <string name="pin">Code PIN</string>
+    <string name="wrong_pin">Faux code</string>
 </resources>
