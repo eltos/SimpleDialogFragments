@@ -3,6 +3,8 @@
 
 apply plugin: 'com.github.dcendents.android-maven'
 
+group = publishedGroupId  // Maven Group ID for the artifact (do not remove!)
+
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
