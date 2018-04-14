@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 222
-        versionName "2.2.2"
+        versionCode 230
+        versionName "2.3"
     }
     buildTypes {
         release {
@@ -45,7 +45,7 @@ ext {
     gitUrl = 'https://github.com/eltos/SimpleDialogFragments.git'
     githubRepository= 'eltos/SimpleDialogFragments'
 
-    libraryVersion = '2.2.2'
+    libraryVersion = '2.3'
 
     developerId = 'eltos'
     developerName = 'Philipp Niedermayer'
