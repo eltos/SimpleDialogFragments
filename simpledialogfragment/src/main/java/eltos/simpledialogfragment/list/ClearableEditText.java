@@ -25,7 +25,6 @@ package eltos.simpledialogfragment.list;
 
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
