@@ -1,3 +1,5 @@
+<p align="center"><img src="media/logo_named_right.png" alt="" width="50%"></p>
+
 # SimpleDialogFragments
 
 [![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
