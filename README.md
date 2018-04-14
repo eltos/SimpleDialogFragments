@@ -1,4 +1,4 @@
-<p align="center"><img src="media/logo_named_right.png" alt="" width="40%"></p>
+<p align="center"><img src="media/logo_named_right.png" alt="" width="50%"></p>
 
 # SimpleDialogFragments
 
