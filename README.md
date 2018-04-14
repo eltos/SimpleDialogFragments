@@ -46,7 +46,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
 In your ``build.gradle`` file[\*](https://github.com/eltos/SimpleDialogFragments/wiki/Repository-Info):
 ```groovy
 dependencies {
-    compile 'com.github.eltos:simpledialogfragment:2.2.2'
+    compile 'com.github.eltos:simpledialogfragment:2.3'
 }
 ```
 
