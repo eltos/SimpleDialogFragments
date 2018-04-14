@@ -1,3 +1,4 @@
 theme: jekyll-theme-minimal
 title: Simple Dialog Fragments
+logo: https://raw.githubusercontent.com/eltos/SimpleDialogFragments/master/media/logo.png
 description: A collection of easy to use and extendable DialogFragment's for Android
