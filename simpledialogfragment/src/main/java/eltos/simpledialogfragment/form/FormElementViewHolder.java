@@ -62,12 +62,9 @@ public abstract class FormElementViewHolder<E extends FormElement> {
      * @param savedInstanceState A bundle containing everything that was saved in
      *                           {@link FormElementViewHolder#saveState(Bundle)}
      * @param actions A callback for convenient methods. See {@link SimpleFormDialog.DialogActions}
-     * @param isLastElement Weather this is the last form element
-     * @param isOnlyElement Weather this is the only form element
      */
     protected abstract void setUpView(View view, Context context, Bundle savedInstanceState,
-                            SimpleFormDialog.DialogActions actions,
-                            boolean isLastElement, boolean isOnlyElement);
+                            SimpleFormDialog.DialogActions actions);
 
     /**
      * Method to save this elements state

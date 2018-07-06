@@ -57,8 +57,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     @Override
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
-                             final SimpleFormDialog.DialogActions actions,
-                             final boolean isLastElement, boolean isOnlyElement) {
+                             final SimpleFormDialog.DialogActions actions) {
 
         spinner = (android.widget.Spinner) view.findViewById(R.id.spinner);
         label = (TextView) view.findViewById(R.id.label);
@@ -87,9 +86,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!isLastElement) {
-                    actions.continueWithNextElement();
-                }
+                actions.continueWithNextElement(false);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}

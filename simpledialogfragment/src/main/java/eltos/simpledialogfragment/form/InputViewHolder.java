@@ -24,6 +24,7 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -60,8 +61,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
 
     @Override
     protected void setUpView(View view, Context context, final Bundle savedInstanceState,
-                             final SimpleFormDialog.DialogActions actions,
-                             boolean isLastElement, boolean isOnlyElement) {
+                             final SimpleFormDialog.DialogActions actions) {
 
         input = (AutoCompleteTextView) view.findViewById(R.id.editText);
         inputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
@@ -113,8 +113,11 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             inputLayout.setCounterEnabled(true);
         }
 
+        Log.d("PHILIPP", "LAST: "+actions.isLastFocusableElement());
+        Log.d("PHILIPP", "LAST: "+actions.isLastFocusableElement());
+
         // IME action
-        input.setImeOptions(isLastElement ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
+        input.setImeOptions(actions.isLastFocusableElement() ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
         input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -128,7 +131,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
                     // fall through...
                     case EditorInfo.IME_ACTION_DONE:
                         // input.performCompletion();
-                        actions.continueWithNextElement();
+                        actions.continueWithNextElement(true);
                         return true;
                 }
                 return false;
@@ -144,7 +147,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
         });
 
         // Positive button state for single element forms
-        if (isOnlyElement) {
+        if (actions.isOnlyFocusableElement()) {
             input.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

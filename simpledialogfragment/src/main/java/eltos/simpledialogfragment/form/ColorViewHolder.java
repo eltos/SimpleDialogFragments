@@ -55,8 +55,7 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
 
     @Override
     protected void setUpView(View view, final Context context, Bundle savedInstanceState,
-                             final SimpleFormDialog.DialogActions actions,
-                             boolean isLastElement, boolean isOnlyElement) {
+                             final SimpleFormDialog.DialogActions actions) {
 
         label = (TextView) view.findViewById(R.id.label);
         colorView = (ColorView) view.findViewById(R.id.color);

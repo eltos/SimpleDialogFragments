@@ -63,6 +63,7 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
 import eltos.simpledialogfragment.form.Check;
 import eltos.simpledialogfragment.form.ColorField;
+import eltos.simpledialogfragment.form.Hint;
 import eltos.simpledialogfragment.form.Input;
 import eltos.simpledialogfragment.form.SimpleFormDialog;
 import eltos.simpledialogfragment.form.Spinner;
@@ -395,7 +396,8 @@ public class MainActivity extends AppCompatActivity implements
                 .fields(Input.email(EMAIL)
                         .required()
                         .suggest(emails)
-                        .text(emails.size() > 0 ? emails.get(0) : null)
+                        .text(emails.size() > 0 ? emails.get(0) : null),
+                        Hint.plain(R.string.email_address_from_accounts)
                 )
                 .show(this, EMAIL_DIALOG);
 
@@ -456,7 +458,8 @@ public class MainActivity extends AppCompatActivity implements
                         Input.email(EMAIL).required(),
                         Check.box(NEWSLETTER).label(R.string.receive_newsletter).check(true),
                         Input.password(PASSWORD).max(20).required().validatePatternStrongPassword(),
-                        Check.box(null).label(R.string.terms_accept).required()
+                        //Check.box(null).label(R.string.terms_accept).required(),
+                        Hint.plain(R.string.form_hint)
                 )
                 .show(this, REGISTRATION_DIALOG);
 
