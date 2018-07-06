@@ -39,13 +39,9 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
 
-    private static final int NO_ID = -1;
-
     private int itemArrayRes = NO_ID;
     private int[] itemStringResArray = null;
     private String[] items = null;
-    private String text = null;
-    private int textResourceId = NO_ID;
     private String placeholder = null;
     private int placeholderResourceId = NO_ID;
     int position = -1;
@@ -67,25 +63,6 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
 
 
 
-    /**
-     * Sets the label
-     *
-     * @param text label text as string
-     */
-    public Spinner label(String text){
-        this.text = text;
-        return this;
-    }
-
-    /**
-     * Sets the label
-     *
-     * @param textResourceId label text as android string resource
-     */
-    public Spinner label(@StringRes int textResourceId){
-        this.textResourceId = textResourceId;
-        return this;
-    }
 
     /**
      * Sets the placeholder text displayed if nothing is selected
@@ -164,15 +141,6 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    @Nullable
-    protected String getText(Context context){
-        if (text != null) {
-            return text;
-        } else if (textResourceId != NO_ID){
-            return context.getString(textResourceId);
-        }
-        return null;
-    }
 
     @Nullable
     protected String getPlaceholderText(Context context){
@@ -208,8 +176,6 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
         itemArrayRes = in.readInt();
         itemStringResArray = in.createIntArray();
         items = in.createStringArray();
-        text = in.readString();
-        textResourceId = in.readInt();
         placeholder = in.readString();
         placeholderResourceId = in.readInt();
         position = in.readInt();
@@ -238,8 +204,6 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
         dest.writeInt(itemArrayRes);
         dest.writeIntArray(itemStringResArray);
         dest.writeStringArray(items);
-        dest.writeString(text);
-        dest.writeInt(textResourceId);
         dest.writeString(placeholder);
         dest.writeInt(placeholderResourceId);
         dest.writeInt(position);

@@ -71,7 +71,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         String[] items = field.getItems(context);
         if (items != null) {
             adapter = new CustomSpinnerAdapter(context, items,
-                    !field.required, field.getPlaceholderText(context));
+                    !field.isRequired(), field.getPlaceholderText(context));
             spinner.setAdapter(adapter);
 
             int preset = field.position >= 0 && field.position < items.length ? field.position : NONE;
@@ -121,25 +121,20 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     @Override
     protected boolean posButtonEnabled(Context context) {
-        return !field.required || getSelection() != NONE;
+        return !field.isRequired() || getSelection() != NONE;
     }
 
     @Override
     protected boolean validate(Context context) {
-        boolean valid = !field.required || getSelection() != NONE;
+        boolean valid = posButtonEnabled(context);
         if (valid) {
             TypedValue value = new TypedValue();
             label.getContext().getTheme().resolveAttribute(android.R.attr.textColor, value, true);
-//            int[] attr = new int[] {android.R.attr.textColor};
-//            TypedArray a = context.obtainStyledAttributes(value.data, attr);
             label.setTextColor(value.data);
-//            a.recycle();
-
         } else {
             //noinspection deprecation
             label.setTextColor(context.getResources().getColor(R.color.simpledialogfragment_error_color));
         }
-//        checkBox.setError(valid ? null : context.getString(R.string.required));
         return valid;
     }
 

@@ -114,13 +114,13 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
     @Override
     protected boolean posButtonEnabled(Context context) {
-        return !field.required || checkBox.isChecked();
+        return !field.isRequired() || checkBox.isChecked();
     }
 
 
     @Override
     protected boolean validate(Context context) {
-        boolean valid = !field.required || checkBox.isChecked();
+        boolean valid = posButtonEnabled(context);
         if (valid) {
             TypedValue value = new TypedValue();
             checkBox.getContext().getTheme().resolveAttribute(android.R.attr.checkboxStyle, value, true);
