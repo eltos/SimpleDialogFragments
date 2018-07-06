@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -83,16 +84,16 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         }
 
         // Select listener
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (!isLastElement) {
-//                    actions.continueWithNextElement();
-//                }
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {}
-//        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!isLastElement) {
+                    actions.continueWithNextElement();
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
 
 
