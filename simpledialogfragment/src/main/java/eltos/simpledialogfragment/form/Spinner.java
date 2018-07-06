@@ -135,7 +135,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public SpinnerViewHolder getViewHolder() {
+    public SpinnerViewHolder buildViewHolder() {
         return new SpinnerViewHolder(this);
     }
 

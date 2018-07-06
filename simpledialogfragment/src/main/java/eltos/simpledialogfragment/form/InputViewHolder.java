@@ -226,14 +226,14 @@ class InputViewHolder extends FormElementViewHolder<Input> {
 
     @Override
     protected boolean posButtonEnabled(Context context) {
-        return !(field.isRequired() && isInputEmpty() || isLengthExceeded());
+        return !(field.required && isInputEmpty() || isLengthExceeded());
     }
 
 
     @Override
     protected boolean validate(Context context) {
         // required but empty?
-        if (field.isRequired() && isInputEmpty()) {
+        if (field.required && isInputEmpty()) {
             setError(true, context.getString(R.string.required));
             return false;
         }

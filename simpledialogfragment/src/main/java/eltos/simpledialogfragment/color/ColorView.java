@@ -50,7 +50,7 @@ import eltos.simpledialogfragment.R;
 
 
 
-class ColorView extends FrameLayout implements Checkable {
+public class ColorView extends FrameLayout implements Checkable {
 
     public static final int NONE = 0x00000000;
     public static final int AUTO = 0x00FFFFFF;
@@ -93,7 +93,7 @@ class ColorView extends FrameLayout implements Checkable {
         update();
     }
 
-    enum Style {CHECK, PALETTE}
+    public enum Style {CHECK, PALETTE}
 
     public void setStyle(Style style){
         if (mStyle != style){

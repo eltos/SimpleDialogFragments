@@ -62,6 +62,7 @@ import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
 import eltos.simpledialogfragment.form.Check;
+import eltos.simpledialogfragment.form.ColorField;
 import eltos.simpledialogfragment.form.Input;
 import eltos.simpledialogfragment.form.SimpleFormDialog;
 import eltos.simpledialogfragment.form.Spinner;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements
             SURNAME = "surname",
             EMAIL = "email",
             GENDER = "gender",
+            COLOR = "color",
             QR_CONTENT = "qrContent",
             RECURSIVE_DIALOG = "recursive";
 
@@ -447,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements
                         Spinner.plain(GENDER)
                                 .label(R.string.gender).items(R.array.genders)
                                 .placeholder(R.string.select___).required(),
+                        ColorField.picker(COLOR).label(R.string.favourite_color),
                         Input.plain(COUNTRY).hint(R.string.country)
                                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                                 .suggest(R.array.countries_locale).forceSuggestion(),

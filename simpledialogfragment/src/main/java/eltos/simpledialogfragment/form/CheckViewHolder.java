@@ -114,7 +114,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
     @Override
     protected boolean posButtonEnabled(Context context) {
-        return !field.isRequired() || checkBox.isChecked();
+        return !field.required || checkBox.isChecked();
     }
 
 

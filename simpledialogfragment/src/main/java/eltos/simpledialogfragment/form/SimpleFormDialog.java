@@ -30,6 +30,7 @@ import java.util.Collections;
 
 import eltos.simpledialogfragment.CustomViewDialog;
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.SimpleDialog;
 
 /**
  * A form dialog to display a number of input fields to the user, such as
@@ -41,7 +42,7 @@ import eltos.simpledialogfragment.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
+public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> implements SimpleDialog.OnDialogResultListener {
 
     public static final String TAG = "SimpleFormDialog.";
 
@@ -333,6 +334,10 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             }
         }
 
+        public void showDialog(SimpleDialog dialog, String tag){
+            dialog.show(SimpleFormDialog.this, tag);
+        }
+
     }
 
 
@@ -354,6 +359,8 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
         ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 
         populateContainer(container, savedInstanceState);
+
+        setPositiveButtonEnabled(posButtonEnabled());
 
         return view;
     }
@@ -377,7 +384,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             int lastI = fields.size() - 1;
             for (int i = 0; i <= lastI; i++) {
 
-                FormElementViewHolder<?> viewHolder = fields.get(i).getViewHolder();
+                FormElementViewHolder<?> viewHolder = fields.get(i).buildViewHolder();
 
                 View child = inflate(viewHolder.getContentViewLayout(), mFormContainer, false);
 
@@ -413,6 +420,22 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             outState.putBundle(SAVE_TAG + i, viewState);
         }
         super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        if (fields != null) {
+            for (FormElementViewHolder<?> view : mViews) {
+                if (view instanceof OnDialogResultListener){
+                    if (((OnDialogResultListener) view).onResult(dialogTag, which, extras)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

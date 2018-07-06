@@ -378,7 +378,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public InputViewHolder getViewHolder() {
+    public InputViewHolder buildViewHolder() {
         return new InputViewHolder(this);
     }
 

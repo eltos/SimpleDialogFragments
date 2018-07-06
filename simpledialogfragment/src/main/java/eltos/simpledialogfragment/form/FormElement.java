@@ -37,7 +37,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     protected static final int NO_ID = -1;
 
     protected String resultKey;
-    private boolean required = false;
+    protected boolean required = false;
     private String text = null;
     private int textResourceId = NO_ID;
 
@@ -52,7 +52,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      *
      * @return The view holder that can represent this form element
      */
-    public abstract V getViewHolder();
+    public abstract V buildViewHolder();
 
 
     /**
@@ -102,10 +102,6 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
-
-    protected boolean isRequired(){
-        return required;
-    }
 
     @Nullable
     protected String getText(Context context){

@@ -111,7 +111,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public CheckViewHolder getViewHolder() {
+    public CheckViewHolder buildViewHolder() {
         return new CheckViewHolder(this);
     }
 
