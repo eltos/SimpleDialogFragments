@@ -8,8 +8,8 @@ android {
         applicationId "eltos.simpledialogfragments.test"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 230
-        versionName "2.3"
+        versionCode 240
+        versionName "2.4"
     }
     buildTypes {
         release {
