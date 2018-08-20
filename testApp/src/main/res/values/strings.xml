@@ -253,6 +253,9 @@
     <string name="canceled">Canceled</string>
     <string name="gender">Gender</string>
     <string name="select___">Select…</string>
+    <string name="favourite_color">Favourite color</string>
+    <string name="form_hint">Form-dialogs can be customized with a variety of elements.\nIt is also possible to include hints like this one.</string>
+    <string name="email_address_from_accounts">Autocompletion using available accounts is enabled if the permission was granted.</string>
 
 
 </resources>

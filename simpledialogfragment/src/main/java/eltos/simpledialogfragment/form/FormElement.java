@@ -16,8 +16,11 @@
 
 package eltos.simpledialogfragment.form;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 /**
  * Base-class for form elements to be used with {@link SimpleFormDialog}
@@ -31,8 +34,12 @@ import android.os.Parcelable;
 @SuppressWarnings("WeakerAccess")
 public abstract class FormElement<T extends FormElement, V extends FormElementViewHolder> implements Parcelable {
 
+    protected static final int NO_ID = -1;
+
     protected String resultKey;
-    public boolean required = false;
+    protected boolean required = false;
+    private String text = null;
+    private int textResourceId = NO_ID;
 
 
     protected FormElement(String resultKey){
@@ -45,7 +52,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      *
      * @return The view holder that can represent this form element
      */
-    public abstract V getViewHolder();
+    public abstract V buildViewHolder();
 
 
     /**
@@ -71,8 +78,40 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
         return (T) this;
     }
 
+    /**
+     * Sets the label
+     *
+     * @param text label text as string
+     */
+    @SuppressWarnings("unchecked cast")
+    public T label(String text){
+        this.text = text;
+        return (T) this;
+    }
+
+    /**
+     * Sets the label
+     *
+     * @param textResourceId label text as android string resource
+     */
+    @SuppressWarnings("unchecked cast")
+    public T label(@StringRes int textResourceId){
+        this.textResourceId = textResourceId;
+        return (T) this;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////
+
+    @Nullable
+    protected String getText(Context context){
+        if (text != null) {
+            return text;
+        } else if (textResourceId != NO_ID){
+            return context.getString(textResourceId);
+        }
+        return null;
+    }
 
 
     // Parcel implementation
@@ -80,6 +119,8 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     protected FormElement(Parcel in) {
         resultKey = in.readString();
         required = in.readByte() != 0;
+        text = in.readString();
+        textResourceId = in.readInt();
     }
 
     @Override
@@ -91,5 +132,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(resultKey);
         dest.writeByte((byte) (required ? 1 : 0));
+        dest.writeString(text);
+        dest.writeInt(textResourceId);
     }
 }

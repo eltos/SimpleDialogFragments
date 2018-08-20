@@ -44,8 +44,6 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Input extends FormElement<Input, InputViewHolder> {
 
-    private static final int NO_ID = -1;
-
     private String hint = null;
     private int hintResourceId = NO_ID;
     private String text = null;
@@ -380,7 +378,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public InputViewHolder getViewHolder() {
+    public InputViewHolder buildViewHolder() {
         return new InputViewHolder(this);
     }
 

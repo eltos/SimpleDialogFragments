@@ -30,6 +30,7 @@ import java.util.Collections;
 
 import eltos.simpledialogfragment.CustomViewDialog;
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.SimpleDialog;
 
 /**
  * A form dialog to display a number of input fields to the user, such as
@@ -41,7 +42,7 @@ import eltos.simpledialogfragment.R;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
+public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> implements SimpleDialog.OnDialogResultListener {
 
     public static final String TAG = "SimpleFormDialog.";
 
@@ -259,12 +260,17 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
 
     protected boolean posButtonEnabled() {
-        return mViews.size() != 1 || mViews.get(0).posButtonEnabled(getContext());
+        int first = getFirstFocusableIndex();
+        if (0 <= first && isLastFocusableIndex(first) && first < mViews.size()){
+            // first==last --> only one
+            return mViews.get(first).posButtonEnabled(getContext());
+        }
+        return true;
     }
 
 
     protected void requestFocus(int viewIndex){
-        if (viewIndex < mViews.size() && viewIndex >= 0) {
+        if (0 <= viewIndex && viewIndex < mViews.size()) {
             mViews.get(viewIndex).focus(mFocusActions);
         }
     }
@@ -322,18 +328,68 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
         }
 
         /**
+         * weather this is the final element
+         */
+        public boolean isOnlyFocusableElement(){
+            return isOnlyFocusableIndex(index);
+        }
+
+        /**
+         * weather this is the final element
+         */
+        public boolean isLastFocusableElement(){
+            return isLastFocusableIndex(index);
+        }
+
+        /**
          * Helper to move the focus to the next element or to simulate a positive button
          * press if this is the last element
+         *
+         * @param mayPressPositiveButtonIfLast weather the positive button can be pressed
+         *                                     if this was the last element
          */
-        public void continueWithNextElement(){
-            if (index == lastIndex){
+        public void continueWithNextElement(boolean mayPressPositiveButtonIfLast){
+            if (mayPressPositiveButtonIfLast && isLastFocusableElement()){
                 pressPositiveButton();
             } else {
-                requestFocus(index + 1);
+                requestFocus(getNextFocusableIndex(index));
             }
         }
 
+        public void showDialog(SimpleDialog dialog, String tag){
+            dialog.show(SimpleFormDialog.this, tag);
+        }
+
     }
+
+
+    private boolean isFocusableIndex(int i){
+        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        return 0 <= i && fields != null && i < fields.size() && !(fields.get(i) instanceof Hint);
+    }
+
+    private int getNextFocusableIndex(int i){
+        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        do {
+            i++;
+            if (fields == null || i >= fields.size()) return Integer.MAX_VALUE;
+        } while (!isFocusableIndex(i));
+        return i;
+    }
+
+    private int getFirstFocusableIndex(){
+        return getNextFocusableIndex(-1);
+    }
+
+    private boolean isOnlyFocusableIndex(int i){
+        return i == getFirstFocusableIndex() && isLastFocusableIndex(i);
+    }
+
+    private boolean isLastFocusableIndex(int i){
+        return isFocusableIndex(i) && getNextFocusableIndex(i) == Integer.MAX_VALUE;
+    }
+
+
 
 
     /**
@@ -355,6 +411,8 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
 
         populateContainer(container, savedInstanceState);
 
+        setPositiveButtonEnabled(posButtonEnabled());
+
         return view;
     }
 
@@ -375,17 +433,16 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             mViews = new ArrayList<>(fields.size());
 
             int lastI = fields.size() - 1;
-            for (int i = 0; i <= lastI; i++) {
+            for (int i = 0; i < fields.size(); i++) {
 
-                FormElementViewHolder<?> viewHolder = fields.get(i).getViewHolder();
+                FormElementViewHolder<?> viewHolder = fields.get(i).buildViewHolder();
 
                 View child = inflate(viewHolder.getContentViewLayout(), mFormContainer, false);
 
                 Bundle savedState = savedInstanceState == null ? null :
                         savedInstanceState.getBundle(SAVE_TAG + i);
 
-                viewHolder.setUpView(child, getContext(), savedState,
-                        new DialogActions(i, lastI), i == lastI, lastI == 0);
+                viewHolder.setUpView(child, getContext(), savedState, new DialogActions(i, lastI));
 
                 mFormContainer.addView(child);
                 mViews.add(viewHolder);
@@ -413,6 +470,22 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> {
             outState.putBundle(SAVE_TAG + i, viewState);
         }
         super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        if (fields != null) {
+            for (FormElementViewHolder<?> view : mViews) {
+                if (view instanceof OnDialogResultListener){
+                    if (((OnDialogResultListener) view).onResult(dialogTag, which, extras)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

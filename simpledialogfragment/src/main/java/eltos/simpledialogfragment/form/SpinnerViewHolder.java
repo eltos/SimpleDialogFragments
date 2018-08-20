@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -56,8 +57,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     @Override
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
-                             final SimpleFormDialog.DialogActions actions,
-                             final boolean isLastElement, boolean isOnlyElement) {
+                             final SimpleFormDialog.DialogActions actions) {
 
         spinner = (android.widget.Spinner) view.findViewById(R.id.spinner);
         label = (TextView) view.findViewById(R.id.label);
@@ -83,16 +83,14 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         }
 
         // Select listener
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (!isLastElement) {
-//                    actions.continueWithNextElement();
-//                }
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {}
-//        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                actions.continueWithNextElement(false);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
 
 
@@ -126,20 +124,18 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
     @Override
     protected boolean validate(Context context) {
-        boolean valid = !field.required || getSelection() != NONE;
+        boolean valid = posButtonEnabled(context);
         if (valid) {
             TypedValue value = new TypedValue();
-            label.getContext().getTheme().resolveAttribute(android.R.attr.textColor, value, true);
-//            int[] attr = new int[] {android.R.attr.textColor};
-//            TypedArray a = context.obtainStyledAttributes(value.data, attr);
-            label.setTextColor(value.data);
-//            a.recycle();
-
+            if (label.getContext().getTheme().resolveAttribute(android.R.attr.textColor, value, true)) {
+                label.setTextColor(value.data);
+            } else {
+                label.setTextColor(0x8a000000);
+            }
         } else {
             //noinspection deprecation
             label.setTextColor(context.getResources().getColor(R.color.simpledialogfragment_error_color));
         }
-//        checkBox.setError(valid ? null : context.getString(R.string.required));
         return valid;
     }
 

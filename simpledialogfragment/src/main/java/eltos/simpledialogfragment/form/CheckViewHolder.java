@@ -51,8 +51,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
     @Override
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
-                             final SimpleFormDialog.DialogActions actions,
-                             boolean isLastElement, boolean isOnlyElement) {
+                             final SimpleFormDialog.DialogActions actions) {
 
         checkBox = (CheckBox) view.findViewById(R.id.checkBox);
 
@@ -67,7 +66,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
         }
 
         // Positive button state for single element forms
-        if (isOnlyElement) {
+        if (actions.isOnlyFocusableElement()) {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -120,7 +119,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
     @Override
     protected boolean validate(Context context) {
-        boolean valid = !field.required || checkBox.isChecked();
+        boolean valid = posButtonEnabled(context);
         if (valid) {
             TypedValue value = new TypedValue();
             checkBox.getContext().getTheme().resolveAttribute(android.R.attr.checkboxStyle, value, true);

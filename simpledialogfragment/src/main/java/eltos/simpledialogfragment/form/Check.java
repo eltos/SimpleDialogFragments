@@ -36,8 +36,6 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 
 public class Check extends FormElement<Check, CheckViewHolder> {
 
-    private static final int NO_ID = -1;
-
     private String text = null;
     private int textResourceId = NO_ID;
     private Boolean preset = null;
@@ -113,7 +111,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public CheckViewHolder getViewHolder() {
+    public CheckViewHolder buildViewHolder() {
         return new CheckViewHolder(this);
     }
 
