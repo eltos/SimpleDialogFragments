@@ -5,7 +5,6 @@ buildscript {
         gradlePluginVersion = '3.0.1'   // <X>.<Y>.<Z>
         lintVersion = '26.0.1'          // <X+23>.<Y>.<Z>
 
-        buildToolsVersion = '27.0.3'
     }
     repositories {
         google()
