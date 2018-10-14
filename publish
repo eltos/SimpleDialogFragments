@@ -67,32 +67,19 @@ BUILD=$?
 ##############
 if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 	echo -e "\e[32mJavadoc created\e[0m"
-	TO="docs/v$LVN/javadoc"
-	COPY=1
-	if [ -d $TO ] && ! [ -z "$(ls -A $TO)" ]; then
-		# path exists but is not empty
-	   	read -r -p $'\e[33mJavadoc dir '"$TO"$' not empty. Overwrite? [Y/n]\e[0m ' OK
-		if [[ $OK =~ ^[Nn].*$ ]]; then
-			COPY=0
-		else
-			rm -rf "$TO"
-		fi
-	fi
-	if [ $COPY -ne 0 ]; then
-		mkdir -p $TO
-		cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
-
-		# Update README
-		if ! grep -q "v$LVN/javadoc" "docs/README.md"; then
-			DATE=`date +%d.%m.%Y`
-			echo "| **$LVN** | $DATE | [API $LVN](v$LVN/javadoc) |" >> docs/README.md
-		fi	
-
-		# Update latest version API link
-		sed -i 's/v[0-9.]*\/javadoc/v'"$LVN"'\/javadoc/g' docs/latest_javadoc.html 
-	
-		echo -e "\e[32mJavadoc copied to $TO\e[0m"
-	fi
+	TO="docs/javadoc"
+	rm -rf "$TO"
+	mkdir -p $TO
+	cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
+    
+	# Update README
+	sed -i 's/\[API [0-9.]*\]\(javadoc\)/\[API '"$LVN"'\]\(javadoc\)/g' docs/README.md
+	if ! grep -q "\*\*$LVN\*\*" "docs/README.md"; then
+		DATE=`date +%d.%m.%Y`
+		echo "| **$LVN** | $DATE |" >> docs/README.md
+	fi	
+    	
+	echo -e "\e[32mJavadoc copied to $TO\e[0m"
 else
 	echo -e "\e[31mJavadoc not created\e[0m"
 fi
