@@ -69,9 +69,10 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
 
         // Items
         String[] items = field.getItems(context);
+        String placeholder = field.getPlaceholderText(context);
         if (items != null) {
-            adapter = new CustomSpinnerAdapter(context, items,
-                    !field.required, field.getPlaceholderText(context));
+            adapter = new CustomSpinnerAdapter(context, items, !field.required,
+                    placeholder != null ? placeholder : text != null ? text : "");
             spinner.setAdapter(adapter);
 
             int preset = field.position >= 0 && field.position < items.length ? field.position : NONE;
