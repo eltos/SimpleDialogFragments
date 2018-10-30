@@ -1,11 +1,11 @@
 # SimpleDialogFragments
 
-[ ![API 11+](https://img.shields.io/badge/API-11+-lightgrey.svg)](https://developer.android.com/about/versions/android-3.0.html)
-[ ![Download Latest](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
+[ ![API 9+](https://img.shields.io/badge/API-9+-orange.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
+[ ![Download Latest](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment-api9/images/download.svg) ](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment-api9)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
-[![Code Climate Issue Count](https://img.shields.io/codeclimate/issues/github/eltos/SimpleDialogFragments.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
+[![License](https://img.shields.io/github/license/eltos/simpledialogfragments.svg)](https://github.com/eltos/SimpleDialogFragments#license)
  
-<img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/wiki/simplecolorwheeldialog.png"/>
+<img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/master/media/screenshot.png"/>
   
 SimpleDialogFragments Library is a collection of easy to use and extendable DialogFragment's for Android.
 It is fully compatible with rotation changes and can be implemented with only a few lines of code.
@@ -40,7 +40,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
 In your ``build.gradle`` file:
 ```groovy
 dependencies {
-    compile 'com.github.eltos:simpledialogfragment:2.1'
+    compile 'com.github.eltos:simpledialogfragment-api9:2.1.1'
 }
 ```
 
