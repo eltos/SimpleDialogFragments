@@ -73,7 +73,7 @@ if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 	cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
     
 	# Update README
-	sed -i 's/\[API [0-9.]*\]\(javadoc\)/\[API '"$LVN"'\]\(javadoc\)/g' docs/README.md
+	sed -i 's/\[API [0-9.]*\]/\[API '"$LVN"'\]/g' docs/README.md
 	if ! grep -q "\*\*$LVN\*\*" "docs/README.md"; then
 		DATE=`date +%d.%m.%Y`
 		echo "| **$LVN** | $DATE |" >> docs/README.md
