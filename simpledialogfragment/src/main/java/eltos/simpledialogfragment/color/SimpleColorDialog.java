@@ -113,6 +113,46 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     }
 
     /**
+     * Configures {@link SimpleColorWheelDialog} for custom color picking
+     * See {@link SimpleColorWheelDialog#alpha(boolean)}
+     */
+    public SimpleColorDialog setupColorWheelAlpha(boolean alpha){
+        return setArg(CUSTOM_ALPHA, alpha);
+    }
+
+    /**
+     * Configures {@link SimpleColorWheelDialog} for custom color picking
+     * See {@link SimpleColorWheelDialog#hideHexInput(boolean)}
+     */
+    public SimpleColorDialog setupColorWheelHideHex(boolean hideHex){
+        return setArg(CUSTOM_HIDE_HEX, hideHex);
+    }
+
+    /**
+     * Configures {@link SimpleColorWheelDialog} for custom color picking
+     * See {@link SimpleColorWheelDialog#title(String)}
+     */
+    public SimpleColorDialog setupColorWheelTitle(String text){
+        return setArg(CUSTOM_TITLE, text);
+    }
+
+    /**
+     * Configures {@link SimpleColorWheelDialog} for custom color picking
+     * See {@link SimpleColorWheelDialog#pos(String)}
+     */
+    public SimpleColorDialog setupColorWheelPosButton(String text){
+        return setArg(CUSTOM_POS, text);
+    }
+
+    /**
+     * Configures {@link SimpleColorWheelDialog} for custom color picking
+     * See {@link SimpleColorWheelDialog#neut(String)}
+     */
+    public SimpleColorDialog setupColorWheelNeutButton(String text){
+        return setArg(CUSTOM_NEUT, text);
+    }
+
+    /**
      * Add a colored outline to the color fields.
      * {@link SimpleColorDialog#NONE} disables the outline (default)
      * {@link SimpleColorDialog#AUTO} uses a black or white outline depending on the brightness
@@ -135,8 +175,14 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     };
 
     protected static final int PICKER = 0x00BADA55;
-    protected static final String CUSTOM = TAG + "custom";
-    protected static final String PICKER_DIALOG_TAG = TAG + "picker";
+    protected static final String PICKER_DIALOG_TAG = TAG + "picker",
+            CUSTOM = TAG + "custom",
+            CUSTOM_ALPHA = TAG + "custom_alpha",
+            CUSTOM_HIDE_HEX = TAG + "custom_hide_hex",
+            CUSTOM_TITLE = TAG + "custom_title",
+            CUSTOM_POS = TAG + "custom_pos",
+            CUSTOM_NEUT = TAG + "custom_neut";
+
     private static final String SELECTED = TAG + "selected";
     private static final String OUTLINE = TAG + "outline";
 
@@ -149,6 +195,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         choiceMode(SINGLE_CHOICE);
         choiceMin(1);
         colors(DEFAULT_COLORS);
+        setArg(CUSTOM_POS, android.R.string.ok);
     }
 
 
@@ -221,7 +268,11 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         if (id == PICKER){
             SimpleColorWheelDialog dialog = SimpleColorWheelDialog.build()
                     .theme(getTheme())
-                    .alpha(false);
+                    .title(getArgString(CUSTOM_TITLE))
+                    .pos(getArgString(CUSTOM_POS))
+                    .neut(getArgString(CUSTOM_NEUT))
+                    .alpha(getArguments().getBoolean(CUSTOM_ALPHA))
+                    .hideHexInput(getArguments().getBoolean(CUSTOM_HIDE_HEX));
             if (mCustomColor != NONE){
                 dialog.color(mCustomColor);
             } else if (mSelectedColor != NONE){
