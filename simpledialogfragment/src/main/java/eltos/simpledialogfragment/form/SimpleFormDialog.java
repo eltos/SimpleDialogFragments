@@ -169,6 +169,16 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
         getArguments().putParcelableArrayList(INPUT_FIELDS, list);
         return this;
     }
+    
+    /**
+     * En- or disables the automatic focussing of the first field in the form when the dialog opens.
+     * This is enabled by default.
+     *
+     * @param enabled whether or not to autofocus the first field
+     */
+    public SimpleFormDialog autofocus(boolean enabled){
+        return setArg(AUTO_FOCUS, enabled);
+    }
 
 
 
@@ -201,6 +211,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     protected static final String INPUT_FIELDS = TAG + "inputFields";
+    protected static final String AUTO_FOCUS = TAG + "autofocus";
     protected static final String SAVE_TAG = "form.";
 
     private FocusActions mFocusActions = new FocusActions();
@@ -234,7 +245,10 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
         }
 
         setPositiveButtonEnabled(posButtonEnabled());
-        requestFocus(0);
+        
+        if (getArguments().getBoolean(AUTO_FOCUS, true)){
+            requestFocus(0);
+        }
     }
 
 
