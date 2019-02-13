@@ -160,12 +160,6 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-//    protected @ColorInt int getInitialColor(Context context){
-//        if (presetId != NO_ID){
-//            return context.getResources().getColor(presetId);
-//        }
-//        return preset;
-//    }
 
 
     protected DateTime(Parcel in) {

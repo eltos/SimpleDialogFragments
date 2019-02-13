@@ -19,9 +19,9 @@ package eltos.simpledialogfragment.form;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,9 +47,8 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
             SAVED_MINUTE = "minute";
     private static final String DATE_DIALOG_TAG = "datePickerDialogTag",
             TIME_DIALOG_TAG = "timePickerDialogTag";
-    private TextView label;
-    private EditText date;
-    private EditText time;
+    private EditText date, time;
+    private TextInputLayout dateLayout, timeLayout;
     private Long day;
     private Integer hour, minute;
 
@@ -66,35 +65,21 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
     protected void setUpView(View view, final Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        label = (TextView) view.findViewById(R.id.label);
         date = (EditText) view.findViewById(R.id.date);
         time = (EditText) view.findViewById(R.id.time);
+        dateLayout = (TextInputLayout) view.findViewById(R.id.dateLayout);
+        timeLayout = (TextInputLayout) view.findViewById(R.id.timeLayout);
 
         // Label
         String text = field.getText(context);
-        label.setText(text);
-        label.setVisibility(text == null ? View.GONE : View.VISIBLE);
-//        label.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                colorView.performClick();
-//            }
-//        });
+        if (text != null){
+            dateLayout.setHint(text);
+            if (field.type == DateTime.Type.TIME){
+                timeLayout.setHint(text);
+            }
+        }
 
-        // Color preset
-//        if (savedInstanceState != null) {
-//            colorView.setColor(savedInstanceState.getInt(SAVED_COLOR));
-//        } else {
-//            colorView.setColor(field.getInitialColor(context));
-//        }
-//        colorView.setOutlineWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-//                2 /*dp*/, context.getResources().getDisplayMetrics()));
-//        colorView.setOutlineColor(field.outline);
-//        colorView.setStyle(ColorView.Style.PALETTE);
-//        colorView.setChecked(true);
-//
-//
-        date.setVisibility(field.type == DateTime.Type.DATETIME
+        dateLayout.setVisibility(field.type == DateTime.Type.DATETIME
                 || field.type == DateTime.Type.DATE ? View.VISIBLE : View.GONE);
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +97,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
         });
 
 
-        time.setVisibility(field.type == DateTime.Type.DATETIME
+        timeLayout.setVisibility(field.type == DateTime.Type.DATETIME
                 || field.type == DateTime.Type.TIME ? View.VISIBLE : View.GONE);
 
         time.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +132,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
         date.setText(day == null ? null : SimpleDateFormat.getDateInstance().format(new Date(day)));
         time.setText(hour == null || minute == null ? null :
                 SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(0, 0, 0, hour, minute)));
+
     }
 
 
@@ -191,14 +177,14 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
     @Override
     protected boolean validate(Context context) {
         boolean valid = posButtonEnabled(context);
-        date.setError(null);
-        time.setError(null);
+        dateLayout.setErrorEnabled(false);
+        timeLayout.setErrorEnabled(false);
         if (!valid) {
             if (day == null){
-                date.setError(context.getString(R.string.required));
+                dateLayout.setError(context.getString(R.string.required));
             }
             if (hour == null || minute == null){
-                time.setError(context.getString(R.string.required));
+                timeLayout.setError(context.getString(R.string.required));
             }
         }
         return valid;
@@ -209,6 +195,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
         if ((DATE_DIALOG_TAG+field.resultKey).equals(dialogTag)){
             if (which == BUTTON_POSITIVE){
                 day = extras.getLong(SimpleDateDialog.DATE);
+                dateLayout.setErrorEnabled(false);
                 if (field.type == DateTime.Type.DATETIME){
                     time.performClick();
                 }
@@ -222,6 +209,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
             if (which == BUTTON_POSITIVE){
                 hour = extras.getInt(SimpleTimeDialog.HOUR);
                 minute = extras.getInt(SimpleTimeDialog.MINUTE);
+                timeLayout.setErrorEnabled(false);
             } else if (which == BUTTON_NEGATIVE){
                 hour = null;
                 minute = null;
