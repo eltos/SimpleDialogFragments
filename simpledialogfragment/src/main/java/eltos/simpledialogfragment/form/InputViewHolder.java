@@ -113,8 +113,6 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             inputLayout.setCounterEnabled(true);
         }
 
-        Log.d("PHILIPP", "LAST: "+actions.isLastFocusableElement());
-        Log.d("PHILIPP", "LAST: "+actions.isLastFocusableElement());
 
         // IME action
         input.setImeOptions(actions.isLastFocusableElement() ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);

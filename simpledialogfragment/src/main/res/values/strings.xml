@@ -17,4 +17,7 @@
     <string name="rrggbb" translatable="false">RRGGBB</string>
     <string name="pin">Pin code</string>
     <string name="wrong_pin">Wrong pin</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="clear">Clear</string>
 </resources>

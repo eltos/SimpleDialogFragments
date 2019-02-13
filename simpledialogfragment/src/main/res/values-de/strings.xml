@@ -15,4 +15,7 @@
     <string name="alphanumeric_only_error">Nur alphanumerische Zeichen erlaubt</string>
     <string name="pin">PIN-Code</string>
     <string name="wrong_pin">Falsche PIN</string>
+    <string name="date">Datum</string>
+    <string name="time">Zeit</string>
+    <string name="clear">Löschen</string>
 </resources>

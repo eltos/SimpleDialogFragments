@@ -15,4 +15,7 @@
     <string name="input_not_a_given_option">Ne saisissez pas une option donnée</string>
     <string name="pin">Code PIN</string>
     <string name="wrong_pin">Faux code</string>
+    <string name="date">Date</string>
+    <string name="time">Temps</string>
+    <string name="clear">Clair</string>
 </resources>

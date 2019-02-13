@@ -228,6 +228,7 @@
     <string name="new_pw_set">New password set</string>
     <string name="first_name">First Name</string>
     <string name="surname">Surname</string>
+    <string name="birthday">Birthday</string>
     <string name="form">Form</string>
     <string name="search_name">Search for a name</string>
     <string name="message">Message</string>

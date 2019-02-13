@@ -63,6 +63,7 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
 import eltos.simpledialogfragment.form.Check;
 import eltos.simpledialogfragment.form.ColorField;
+import eltos.simpledialogfragment.form.DateTime;
 import eltos.simpledialogfragment.form.Hint;
 import eltos.simpledialogfragment.form.Input;
 import eltos.simpledialogfragment.form.SimpleFormDialog;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements
             NEWSLETTER = "newsletter",
             FIRST_NAME = "firstName",
             SURNAME = "surname",
+            BIRTHDAY = "birthday",
             EMAIL = "email",
             GENDER = "gender",
             COLOR = "color",
@@ -448,6 +450,7 @@ public class MainActivity extends AppCompatActivity implements
                 .fields(
                         Input.name(FIRST_NAME).hint(R.string.first_name),
                         Input.name(SURNAME).hint(R.string.surname).required(),
+                        DateTime.date(BIRTHDAY).label(R.string.birthday).max(new Date()).required(),
                         Spinner.plain(GENDER)
                                 .label(R.string.gender).items(R.array.genders)
                                 .placeholder(R.string.select___).required(),
@@ -652,6 +655,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 case REGISTRATION_DIALOG: /** {@link MainActivity#showForm(View)} **/
                     int gender = extras.getInt(GENDER);
+                    Date birthday = new Date(extras.getLong(BIRTHDAY));
                     boolean newsletter = extras.getBoolean(NEWSLETTER);
                     String firstName = extras.getString(FIRST_NAME),
                             name = extras.getString(SURNAME),
@@ -660,7 +664,8 @@ public class MainActivity extends AppCompatActivity implements
                             email = extras.getString(EMAIL),
                             password = extras.getString(PASSWORD);
 
-                    Toast.makeText(this, firstName+" "+name+" ("+genderString+"), "+country+"\n"+
+                    Toast.makeText(this, firstName+" "+name+" ("+genderString+"), "+
+                            SimpleDateFormat.getDateInstance().format(birthday)+", "+country+"\n"+
                             email+"(Newsletter: "+newsletter+"), "+password, Toast.LENGTH_SHORT).show();
                     // ...
                     return true;
