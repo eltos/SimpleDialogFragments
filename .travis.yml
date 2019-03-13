@@ -18,10 +18,10 @@ stages:
 jobs:
   include:
     - stage: compile
-	    script: ./gradlew install
+      script: ./gradlew install
 	  
     - stage: testApp
-	    script: ./gradlew :testApp:assembleRelease  
+      script: ./gradlew :testApp:assembleRelease  
 
 
 notifications:
