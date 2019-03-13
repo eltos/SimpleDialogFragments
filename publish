@@ -17,6 +17,9 @@
 ##  - Update version code in build.gradle!
 ## 
 ##  - Run
+##      $ ./gradlew :testApp:assembleRelease
+##
+##  - Run
 ##      $ ./gradlew clean build install
 ##      This may fail during javadoc generation. However, the javadoc will most likely have been
 ##      generated in simpledialogfragment/build/docs/javadoc/
@@ -26,6 +29,7 @@
 ##      $ ./gradlew bintrayUpload
 ##
 ##############################################################################
+
 
 
 # Check for config in local.properties
@@ -55,6 +59,22 @@ if [[ $OK =~ ^[Nn].*$ ]]; then
 	echo -e "\e[31mThen please update them!\e[0m"
 	exit 1
 fi
+
+
+# Assemble testApp
+##################
+echo "Assemble testApp..."
+APP="testApp/build/outputs/apk/debug/testApp-debug.apk"
+rm -f "$APP"
+./gradlew :testApp:assembleDebug
+if [ -f "$APP" ]; then
+	cp -f "$APP" "testApp.apk"
+	echo -e "\e[32mtestApp created\e[0m"
+else
+	echo -e "\e[31mtestApp not created!\e[0m"
+	exit 1
+fi
+
 
 
 # Build
@@ -110,13 +130,15 @@ if [ $BUILD -eq 0 ]; then
 		if [ $? -eq 0 ]; then
 
 			# Update README.md
-			sed -i 's/:simpledialogfragment:[0-9.]*/:simpledialogfragment:'"$LVN"'/' README.md
+			sed -i 's|:simpledialogfragment:[0-9.]*|:simpledialogfragment:'"$LVN"'|' README.md
+			sed -i 's|releases/download/v[0-9.]*/|releases/download/v'"$AVN"'/|' README.md
 
 			echo -e "\e[32mSUCCESS :)\e[0m"
 			echo "You still need to publish the files uploaded."
 			xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
 		else
 			echo -e "\e[31mUpload failed :(\e[0m"
+			exit 1
 		fi
 	fi
 else
