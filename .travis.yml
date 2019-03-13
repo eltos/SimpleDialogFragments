@@ -11,10 +11,19 @@ before_install:
 install:
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   
-script:
-  - ./gradlew install
+stages:
+  - testApp
+  - compile
   
+jobs:
+  include:
+    - stage: compile
+	    script: ./gradlew install
+	  
+    - stage: testApp
+	    script: ./gradlew :testApp:assembleRelease  
 
 
 notifications:
 email: false
+
