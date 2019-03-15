@@ -2,8 +2,8 @@
 
 buildscript {
     ext {
-        gradlePluginVersion = '3.0.1'   // <X>.<Y>.<Z>
-        lintVersion = '26.0.1'          // <X+23>.<Y>.<Z>
+        gradlePluginVersion = '3.3.2'   // <X>.<Y>.<Z>
+        lintVersion = '26.2.1'          // <X+23>.<Y>.<Z>
 
     }
     repositories {

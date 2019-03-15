@@ -16,7 +16,7 @@
 
 package eltos.simpledialogfragment.input;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.InputType;
 
 import java.util.regex.Pattern;

@@ -18,7 +18,7 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.view.View;
 
 import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;

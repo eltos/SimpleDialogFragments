@@ -19,8 +19,8 @@ package eltos.simpledialogfragment.form;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 /**
  * Base-class for form elements to be used with {@link SimpleFormDialog}
