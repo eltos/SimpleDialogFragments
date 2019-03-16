@@ -21,7 +21,8 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
-[Version history and JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)  
+[JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)  
+[Releases](https://github.com/eltos/SimpleDialogFragments/releases)  
 [Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)  
 [Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.1/testApp.apk)
 
@@ -43,6 +44,8 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 ## Usage
 
+Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases) for releases using androidX, otherwise:
+
 In your ``build.gradle``:
 ```groovy
 dependencies {
@@ -50,7 +53,7 @@ dependencies {
 }
 ```
 
-You can also use the [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments) repository.
+You can also use [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments).
 
 ### Examples
 
