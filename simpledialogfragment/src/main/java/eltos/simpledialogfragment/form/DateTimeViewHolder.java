@@ -33,9 +33,9 @@ import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleTimeDialog;
 
 /**
- * The ViewHolder class for {@link ColorField}
+ * The ViewHolder class for {@link DateTime}
  * 
- * This class is used to create a Color Box and to maintain it's functionality
+ * This class is used to create a Date-Time Field and to maintain it's functionality
  * 
  * Created by eltos on 06.07.2018.
  */
