@@ -395,7 +395,7 @@ public class ColorWheelView extends View {
 
         private SavedState(Parcel in) {
             super(in);
-            in.readFloatArray(saveColor);
+            saveColor = in.createFloatArray();
             saveAlpha = in.readInt();
         }
 
