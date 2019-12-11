@@ -257,6 +257,9 @@
     <string name="favourite_color">Favourite color</string>
     <string name="form_hint">Form-dialogs can be customized with a variety of elements.\nIt is also possible to include hints like this one.</string>
     <string name="email_address_from_accounts">Autocompletion using available accounts is enabled if the permission was granted.</string>
+    <string name="ask_changes_discard_too_late">Oops, I\'m afraid I forgot about the changes you made. Sorry.</string>
+    <string name="nevermind">Nevermind</string>
+    <string name="replace">Replace</string>
 
 
 </resources>

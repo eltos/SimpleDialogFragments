@@ -309,10 +309,37 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param tag the dialogs tag
      */
     public void show(Fragment fragment, String tag){
-        setTargetFragment(fragment, -1);
-        try {
-            super.show(fragment.getFragmentManager(), tag);
-        } catch (IllegalStateException ignored){}
+        show(fragment, tag, null);
+    }
+
+    /**
+     * Shows the dialog. Results will be forwarded to the fragment supplied.
+     * The tag can be used to identify the dialog in {@link OnDialogResultListener#onResult}
+     * An optional argument can be used to remove a previously shown dialog with the tag given
+     * prior to showing this one.
+     *
+     * @param fragment the hosting fragment
+     * @param tag the dialogs tag
+     * @param replaceTag removes the dialog with the given tag if specified
+     */
+    public void show(Fragment fragment, String tag, String replaceTag){
+        FragmentManager manager = fragment.getFragmentManager();
+        if (manager != null) {
+            Fragment existing = manager.findFragmentByTag(replaceTag);
+            if (existing != null){
+                FragmentManager otherManager = existing.getFragmentManager();
+                if (otherManager != null) {
+                    FragmentTransaction ft = otherManager.beginTransaction();
+                    ft.remove(existing);
+                    ft.commit();
+                }
+            }
+            setTargetFragment(fragment, -1);
+            try {
+                super.show(manager, tag);
+            } catch (IllegalStateException ignored) {
+            }
+        }
     }
 
     /**
@@ -337,9 +364,34 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param tag the dialogs tag
      */
     public void show(FragmentActivity activity, String tag){
+        show(activity, tag, null);
+    }
+
+    /**
+     * Shows the dialog. Results will be forwarded to the activity supplied.
+     * The tag can be used to identify the dialog in {@link OnDialogResultListener#onResult}
+     * An optional argument can be used to remove a previously shown dialog with the tag given
+     * prior to showing this one.
+     *
+     * @param activity the hosting activity
+     * @param tag the dialogs tag
+     * @param replaceTag removes the dialog with the given tag if specified
+     */
+    public void show(FragmentActivity activity, String tag, String replaceTag){
+        FragmentManager manager = activity.getSupportFragmentManager();
+        Fragment existing = manager.findFragmentByTag(replaceTag);
+        if (existing != null) {
+            FragmentManager otherManager = existing.getFragmentManager();
+            if (otherManager != null) {
+                FragmentTransaction ft = otherManager.beginTransaction();
+                ft.remove(existing);
+                ft.commit();
+            }
+        }
         try {
-            super.show(activity.getSupportFragmentManager(), tag);
-        } catch (IllegalStateException ignored){}
+            super.show(manager, tag);
+        } catch (IllegalStateException ignored) {
+        }
     }
 
 

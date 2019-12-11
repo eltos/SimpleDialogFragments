@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private @ColorInt int color = 0xff9c27b0;
     private int counter = 0;
+    private Handler handler = new Handler();
 
 
     @Override
@@ -133,6 +134,11 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
 
     // ==   A l e r t s   ==
 
@@ -235,6 +241,18 @@ public class MainActivity extends AppCompatActivity implements
                 .neg(R.string.discard)
                 .neut()
                 .show(this, YES_NO_DIALOG);
+
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDialog.build()
+                        .title(R.string.ask_exit)
+                        .msg(R.string.ask_changes_discard_too_late)
+                        .pos(R.string.nevermind)
+                        .show(MainActivity.this, null, YES_NO_DIALOG);
+            }
+        }, 3000);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -610,7 +628,6 @@ public class MainActivity extends AppCompatActivity implements
                     newColor(extras.getInt(SimpleColorDialog.COLOR));
                     int[] colors = extras.getIntArray(SimpleColorDialog.COLORS);
                     if (colors != null) {
-                        final Handler handler = new Handler();
                         for (int i = 0; i < colors.length; i++) {
                             @ColorInt final int color = colors[i];
                             handler.postDelayed(new Runnable() {
@@ -774,7 +791,6 @@ public class MainActivity extends AppCompatActivity implements
         if (requestCode == REQUEST_ACCOUNTS_PERMISSION){
             // Another android bug requires this delay
             // See https://code.google.com/p/android/issues/detail?id=190966
-            final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

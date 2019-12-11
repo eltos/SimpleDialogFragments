@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import eltos.simpledialogfragment.CustomViewDialog;
@@ -35,23 +36,35 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
 
     @Override
     protected View onCreateContentView(Bundle savedInstanceState) {
+        LinearLayout main = new LinearLayout(getContext());
         Button b = new Button(getContext());
         b.setText(R.string.popup);
-
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 RecursiveDialog.build()
                         .i(getArguments().getInt(I, 1)+1)
                         .neg()
                         .show(RecursiveDialog.this, RECURSIVE_DIALOG);
-
-
             }
         });
+        main.addView(b);
 
-        return b;
+        Button b2 = new Button(getContext());
+        b2.setText(R.string.replace);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecursiveDialog.build()
+                        .i(getArguments().getInt(I, 1)+1)
+                        .neg()
+                        .show(getTargetFragment(), RECURSIVE_DIALOG, RECURSIVE_DIALOG);
+                        // We don't use RecursiveDialog.this here as this dialog will be replaced
+            }
+        });
+        main.addView(b2);
+
+        return main;
     }
 
 
