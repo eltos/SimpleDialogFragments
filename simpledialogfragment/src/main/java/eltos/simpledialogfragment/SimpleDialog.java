@@ -95,9 +95,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     @CallSuper
     protected boolean callResultListener(int which, Bundle extras) {
         if (extras == null) extras = new Bundle();
-        if (getArguments().getBundle(BUNDLE) != null) {
-            extras.putAll(getArguments().getBundle(BUNDLE));
-        }
+        extras.putAll(getExtras());
         boolean handled = false;
         if (getTag() != null) {
             Fragment resultFragment = getTargetFragment();
@@ -174,6 +172,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public This title(@StringRes int titleResourceId){ return setArg(TITLE, titleResourceId); }
 
     /**
+     * Gets the string representation of the title set
+     * @return the dialog title
+     */
+    public @Nullable String getTitle(){
+        return getArgString(TITLE);
+    }
+
+    /**
      * Sets this dialogs message
      *
      * @param message title as string
@@ -200,6 +206,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param messageResourceId the message as html-styled android string resource
      */
     public This msgHtml(@StringRes int messageResourceId){ setArg(HTML, true); return setArg(MESSAGE, messageResourceId); }
+
+    /**
+     * Gets the string representation of the message set
+     * @return the dialog message
+     */
+    public @Nullable String getMessage(){
+        return getArgString(MESSAGE);
+    }
 
     /**
      * Sets this dialogs positive button text
@@ -270,6 +284,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public This cancelable(boolean cancelable){ return setArg(CANCELABLE, cancelable); }
 
     /**
+     * Return whether the dialog was set to be cancelable or not
+     * @return whether the dialog is cancelable
+     */
+    public boolean isCancelable(){
+        return getArguments() == null || getArguments().getBoolean(CANCELABLE, true);
+    }
+
+    /**
      * Pass extras to the dialog to retain specific information across configuration changes.
      * All extras supplied here will be contained in the extras bundle passed to
      * {@link OnDialogResultListener#onResult}
@@ -278,6 +300,18 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      */
     @SuppressWarnings("unchecked cast")
     public This extra(Bundle extras){ getArguments().putBundle(BUNDLE, extras); return (This) this; }
+
+    /**
+     * Gets the extras bundle provided
+     * @return the extras bundle (which may be empty)
+     */
+    public @NonNull Bundle getExtras(){
+        Bundle bundle = null;
+        if (getArguments() != null){
+            bundle = getArguments().getBundle(BUNDLE);
+        }
+        return bundle != null ? bundle : new Bundle();
+    }
 
     /**
      * Set a custom theme. Default is using the theme defined by the 'alertDialogTheme'-attribute.
@@ -406,7 +440,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         // Retain this fragment across configuration changes.
         setRetainInstance(true);
 
-        setCancelable(getArguments().getBoolean(CANCELABLE, true));
+        setCancelable(isCancelable());
 
     }
 
@@ -431,8 +465,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
         context = dialog.getContext();
 
-        dialog.setTitle(getArgString(TITLE));
-        String msg = getArgString(MESSAGE);
+        dialog.setTitle(getTitle());
+        String msg = getMessage();
         if (msg != null) {
             if (getArguments().getBoolean(HTML)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -463,7 +497,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         if (getArguments().containsKey(ICON_RESOURCE)){
             dialog.setIcon(getArguments().getInt(ICON_RESOURCE));
         }
-        dialog.setCancelable(getArguments().getBoolean(CANCELABLE, true));
+        dialog.setCancelable(isCancelable());
 
         return dialog;
     }

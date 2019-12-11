@@ -105,8 +105,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
         if (pin != null && !pin.equals(getText())){
             return getString(R.string.wrong_pin);
         } else {
-            Bundle extras = getArguments().getBundle(BUNDLE);
-            if (extras == null) extras = new Bundle();
+            Bundle extras = getExtras();
             if (getTargetFragment() instanceof SimpleInputDialog.InputValidator) {
                 return ((SimpleInputDialog.InputValidator) getTargetFragment())
                         .validate(getTag(), input, extras);

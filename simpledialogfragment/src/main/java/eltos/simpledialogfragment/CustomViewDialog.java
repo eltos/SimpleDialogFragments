@@ -203,7 +203,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         dialog.setView(intermediate);
 
 
-        String msg = getArgString(MESSAGE);
+        String msg = getMessage();
         if (msg != null) {
             CharSequence message;
             if (getArguments().getBoolean(HTML)) {
@@ -223,7 +223,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         }
         dialog.setMessage(null);
 
-        topSpacer.setVisibility(getArgString(TITLE) == null && msg != null ? View.VISIBLE : View.GONE);
+        topSpacer.setVisibility(getTitle() == null && msg != null ? View.VISIBLE : View.GONE);
 
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {

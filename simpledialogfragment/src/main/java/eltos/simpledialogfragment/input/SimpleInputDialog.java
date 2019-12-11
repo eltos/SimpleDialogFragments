@@ -165,8 +165,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
 
 
     protected String onValidateInput(@Nullable String input){
-        Bundle extras = getArguments().getBundle(BUNDLE);
-        if (extras == null) extras = new Bundle();
+        Bundle extras = getExtras();
         if (getTargetFragment() instanceof InputValidator) {
             return ((InputValidator) getTargetFragment())
                     .validate(getTag(), input, extras);
