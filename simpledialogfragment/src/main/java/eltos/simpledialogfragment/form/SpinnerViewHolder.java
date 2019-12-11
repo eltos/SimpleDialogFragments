@@ -42,7 +42,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
     public static final int NONE = -1;
 
     protected static final String SAVED_POSITION = "pos";
-    private android.widget.Spinner spinner;
+    private CustomSpinnerView spinner;
     private TextView label;
     private CustomSpinnerAdapter adapter;
 
@@ -59,7 +59,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        spinner = (android.widget.Spinner) view.findViewById(R.id.spinner);
+        spinner = view.findViewById(R.id.spinner);
         label = (TextView) view.findViewById(R.id.label);
 
         // Label
@@ -92,7 +92,14 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
+        spinner.setSpinnerEventsListener(new CustomSpinnerView.OnSpinnerOpenListener() {
+            @Override
+            public void onOpen() {
+                if (getSelection() == NONE && field.required) {
+                    setSelection(0);
+                }
+            }
+        });
 
 
     }

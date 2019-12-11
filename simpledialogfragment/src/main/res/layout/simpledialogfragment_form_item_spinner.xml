@@ -11,7 +11,7 @@
         android:paddingTop="4dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <Spinner
+    <eltos.simpledialogfragment.form.CustomSpinnerView
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
