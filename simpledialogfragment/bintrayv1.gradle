@@ -1,5 +1,5 @@
 // apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
-// Local copy of above file as of 2017-02-20
+// Local copy of above file as of 2019-12-11
 
 apply plugin: 'com.jfrog.bintray'
 
@@ -14,16 +14,6 @@ if (project.hasProperty("android")) { // Android libraries
     task javadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-    afterEvaluate {
-        // adding this to the classpath fixes "cannot find annotations symbols" errors
-        javadoc.classpath += files(android.libraryVariants.collect { variant ->
-            variant.javaCompileProvider.get().classpath
-        })
-        // adding this to the classpath fixes "package R not found" errors
-        javadoc.classpath += files(android.libraryVariants.collect { variant ->
-            variant.javaCompileProvider.get().outputs.files
-        })
     }
 } else { // Java libraries
     task sourcesJar(type: Jar, dependsOn: classes) {

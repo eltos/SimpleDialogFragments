@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         applicationId 'eltos.simpledialogfragments.test'
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 310
         versionName '3.1'
     }
@@ -21,7 +21,7 @@ android {
 
 dependencies {
     testImplementation  'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.zxing:core:3.3.3'
     api project(path: ':simpledialogfragment')
 }
