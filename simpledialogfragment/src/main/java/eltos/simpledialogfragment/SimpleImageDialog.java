@@ -279,7 +279,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
                     mView.get().setImageBitmap((Bitmap) image);
                 } else if (image instanceof Drawable){
                     mView.get().setImageDrawable((Drawable) image);
-                } else if (image instanceof Icon && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && image instanceof Icon){
                     mView.get().setImageIcon((Icon) image);
                 }
             }

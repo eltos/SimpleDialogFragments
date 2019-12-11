@@ -17,6 +17,10 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+
+    lintOptions{
+        disable 'MissingTranslation'
+    }
 }
 
 dependencies {
