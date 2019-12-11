@@ -18,9 +18,9 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Parcel;
-import android.support.annotation.BoolRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.BoolRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
 

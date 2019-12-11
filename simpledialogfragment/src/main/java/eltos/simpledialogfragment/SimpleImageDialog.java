@@ -24,10 +24,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -279,7 +279,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
                     mView.get().setImageBitmap((Bitmap) image);
                 } else if (image instanceof Drawable){
                     mView.get().setImageDrawable((Drawable) image);
-                } else if (image instanceof Icon && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && image instanceof Icon){
                     mView.get().setImageIcon((Icon) image);
                 }
             }

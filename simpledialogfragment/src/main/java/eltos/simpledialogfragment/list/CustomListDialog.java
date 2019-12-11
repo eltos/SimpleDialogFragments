@@ -18,8 +18,8 @@ package eltos.simpledialogfragment.list;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.DimenRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;

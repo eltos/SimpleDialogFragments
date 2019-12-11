@@ -2,8 +2,8 @@
 
 buildscript {
     ext {
-        gradlePluginVersion = '3.0.1'   // <X>.<Y>.<Z>
-        lintVersion = '26.0.1'          // <X+23>.<Y>.<Z>
+        gradlePluginVersion = '3.5.3'   // <X>.<Y>.<Z>
+        lintVersion = '26.2.1'          // <X+23>.<Y>.<Z>
 
     }
     repositories {
@@ -13,15 +13,15 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradlePluginVersion"
 
+        // Required plugins added to classpath to facilitate pushing to Jcenter/Bintray
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-    id "com.github.dcendents.android-maven" version "2.0"
-}
 
 allprojects {
     repositories {

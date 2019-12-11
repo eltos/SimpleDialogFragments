@@ -18,8 +18,8 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import androidx.annotation.NonNull;
+
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
