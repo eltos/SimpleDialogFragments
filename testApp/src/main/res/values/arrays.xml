@@ -39,6 +39,25 @@
     <string-array name="genders">
         <item>Male</item>
         <item>Female</item>
+        <item>Binary</item>
+        <item>Non-Binary</item>
+        <item>Genderfluid</item>
+        <item>Agender</item>
+        <item>Bigender</item>
+        <item>Polygender</item>
+        <item>Neutrois</item>
+        <item>Gender Apathetic</item>
+        <item>Androgyne</item>
+        <item>Intergender</item>
+        <item>Demigender</item>
+        <item>Greygender</item>
+        <item>Aporagender</item>
+        <item>Maverique</item>
+        <item>Novigender</item>
+        <item>Designated gender</item>
+        <item>Transitioning</item>
+        <item>Intersex</item>
+        <item>Dyadic</item>
     </string-array>
 
 </resources>
