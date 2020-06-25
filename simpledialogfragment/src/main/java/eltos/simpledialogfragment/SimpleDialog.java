@@ -292,11 +292,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public This icon(@DrawableRes int iconResourceId){ return setArg(ICON_RESOURCE, iconResourceId); }
 
     /**
-     * Specifies weather this dialog may be canceled by pressing the back button or
+     * Specifies whether this dialog may be canceled by pressing the back button or
      * touching outside of the dialog.
      * The dialog may still be "canceled" by a neutral button.
      *
-     * @param cancelable weather this dialog may be canceled
+     * @param cancelable whether this dialog may be canceled
      * @return this instance
      */
     public This cancelable(boolean cancelable){ return setArg(CANCELABLE, cancelable); }

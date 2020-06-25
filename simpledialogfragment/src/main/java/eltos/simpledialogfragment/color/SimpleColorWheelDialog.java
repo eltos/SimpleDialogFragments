@@ -61,9 +61,9 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
     }
 
     /**
-     * Specifies weather a seek bar for transparency control is displayed
+     * Specifies whether a seek bar for transparency control is displayed
      *
-     * @param enabled weather or not to allow transparency (alpha) adjustment
+     * @param enabled whether or not to allow transparency (alpha) adjustment
      * @return this instance
      */
     public SimpleColorWheelDialog alpha(boolean enabled){
@@ -73,7 +73,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
     /**
      * Method to hide the input field for color hex code
      *
-     * @param enabled weather or not to hide the input field
+     * @param enabled whether or not to hide the input field
      * @return this instance
      */
     public SimpleColorWheelDialog hideHexInput(boolean enabled){

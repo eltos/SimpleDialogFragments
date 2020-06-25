@@ -72,7 +72,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      * Input fields will display an error message if their input is empty.
      * Check fields will be required to be checked
      *
-     * @param required weather this field is required
+     * @param required whether this field is required
      * @return this instance
      */
     @SuppressWarnings("unchecked cast")

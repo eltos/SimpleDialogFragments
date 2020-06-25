@@ -103,7 +103,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     /**
      * Allow empty input. Default is to disable the positive button until text is entered.
      *
-     * @param allow weather to allow empty input
+     * @param allow whether to allow empty input
      * @return this instance
      */
     public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }

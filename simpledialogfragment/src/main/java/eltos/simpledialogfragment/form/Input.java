@@ -229,7 +229,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Hide or show a button to toggle the password visibility.
      * Note that this will only work if the input type is a password.
 	 *
-	 * @param show weather to show the password toggle button
+	 * @param show whether to show the password toggle button
      * @return this instance
      */
     public Input showPasswordToggle(boolean show){
@@ -323,13 +323,13 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     /**
-     * Specify weather this input may contain only one of the suggestions provided.
+     * Specify whether this input may contain only one of the suggestions provided.
      * If enabled, the EditText will show an error message if something else was entered. This
      * will only take affect if suggestions were set by any of the {@link Input#suggest} methods
      * 
      * If the suggestion array is small, consider using a spinner instead.
      *
-     * @param force weather to force the input to be one of the suggestions or not
+     * @param force whether to force the input to be one of the suggestions or not
      * @return this instance
      */
     public Input forceSuggestion(boolean force){

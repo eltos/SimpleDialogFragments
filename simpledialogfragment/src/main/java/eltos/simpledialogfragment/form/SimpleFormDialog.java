@@ -371,7 +371,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
          * Helper to move the focus to the next element or to simulate a positive button
          * press if this is the last element
          *
-         * @param mayPressPositiveButtonIfLast weather the positive button can be pressed
+         * @param mayPressPositiveButtonIfLast whether the positive button can be pressed
          *                                     if this was the last element
          */
         public void continueWithNextElement(boolean mayPressPositiveButtonIfLast){

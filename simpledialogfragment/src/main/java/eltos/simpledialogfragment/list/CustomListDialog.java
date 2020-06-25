@@ -239,7 +239,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     /**
      * Sets the visibility of the divider
      *
-     * @param show weather to display a divider or not
+     * @param show whether to display a divider or not
      * @return this instance
      */
     public This divider(boolean show){ return setArg(SHOW_DIVIDER, show); }
@@ -248,7 +248,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * If set to true, show an input field at the to of the list and allow the user
      * to filter the list
      *
-     * @param enabled weather to allow filtering or not
+     * @param enabled whether to allow filtering or not
      * @return this instance
      */
     public This filterable(boolean enabled){ return setArg(FILTER, enabled); }

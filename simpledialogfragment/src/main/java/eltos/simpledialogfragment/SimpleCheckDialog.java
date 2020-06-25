@@ -65,10 +65,10 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
     public SimpleCheckDialog label(@StringRes int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
 
     /**
-     * Weather the check is required. The positive button will be disabled until the checkbox
+     * Whether the check is required. The positive button will be disabled until the checkbox
      * got checked
      *
-     * @param required weather checking the checkbox is required
+     * @param required whether checking the checkbox is required
      * @return this instance
      */
     public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }

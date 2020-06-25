@@ -126,8 +126,8 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * If set to true, show an input field at the to of the list and allow the user
      * to filter the list
      *
-     * @param enabled weather to allow filtering or not
-     * @param highlight weather to highlight the text filtered
+     * @param enabled whether to allow filtering or not
+     * @param highlight whether to highlight the text filtered
      * @return this instance
      */
     public SimpleListDialog filterable(boolean enabled, boolean highlight) {

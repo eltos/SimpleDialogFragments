@@ -120,7 +120,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#alpha(boolean)}
      *
-     * @param alpha weather or not to allow transparency (alpha) adjustment
+     * @param alpha whether or not to allow transparency (alpha) adjustment
      * @return this instance
      */
     public SimpleColorDialog setupColorWheelAlpha(boolean alpha){
@@ -131,7 +131,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#hideHexInput(boolean)}
      *
-     * @param hideHex weather or not to hide the input field
+     * @param hideHex whether or not to hide the input field
      * @return this instance
      */
     public SimpleColorDialog setupColorWheelHideHex(boolean hideHex){

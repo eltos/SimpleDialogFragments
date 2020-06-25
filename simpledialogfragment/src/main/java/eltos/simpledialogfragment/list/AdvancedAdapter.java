@@ -400,8 +400,8 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
          * The flags specified here are used in the default {@link AdvancedFilter#matches} and
          * {@link AdvancedAdapter#highlight} methods.
          *
-         * @param ignoreCase weather default matching is not case-sensitive
-         * @param matchWordBeginning weather default matching is performed only at the beginning of words
+         * @param ignoreCase whether default matching is not case-sensitive
+         * @param matchWordBeginning whether default matching is performed only at the beginning of words
          */
         public AdvancedFilter(boolean ignoreCase, boolean matchWordBeginning){
             mIgnoreCase = ignoreCase;
