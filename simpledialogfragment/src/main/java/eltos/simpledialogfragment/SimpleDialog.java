@@ -161,6 +161,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs title
      *
      * @param title the title as string
+     * @return this instance
      */
     public This title(String title){ return setArg(TITLE, title); }
 
@@ -168,6 +169,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs title
      *
      * @param titleResourceId the title as android string resource
+     * @return this instance
      */
     public This title(@StringRes int titleResourceId){ return setArg(TITLE, titleResourceId); }
 
@@ -183,6 +185,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs message
      *
      * @param message title as string
+     * @return this instance
      */
     public This msg(String message){ return setArg(MESSAGE, message); }
 
@@ -190,6 +193,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs message
      *
      * @param messageResourceId the message as android string resource
+     * @return this instance
      */
     public This msg(@StringRes int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
 
@@ -197,6 +201,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs message as html styled string
      *
      * @param message title as html-string
+     * @return this instance
      */
     public This msgHtml(String message){ setArg(HTML, true); return setArg(MESSAGE, message); }
 
@@ -204,6 +209,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs message as html styled string
      *
      * @param messageResourceId the message as html-styled android string resource
+     * @return this instance
      */
     public This msgHtml(@StringRes int messageResourceId){ setArg(HTML, true); return setArg(MESSAGE, messageResourceId); }
 
@@ -219,6 +225,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs positive button text
      *
      * @param positiveButton the text as string
+     * @return this instance
      */
     public This pos(String positiveButton){ return setArg(POSITIVE_BUTTON_TEXT, positiveButton); }
 
@@ -226,6 +233,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs positive button text
      *
      * @param positiveButtonResourceId the text as android string resource
+     * @return this instance
      */
     public This pos(@StringRes int positiveButtonResourceId){ return setArg(POSITIVE_BUTTON_TEXT, positiveButtonResourceId); }
 
@@ -233,6 +241,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs negative button text
      *
      * @param negativeButton the text as string
+     * @return this instance
      */
     public This neg(String negativeButton){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButton); }
 
@@ -240,11 +249,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs negative button text
      *
      * @param negativeButtonResourceId the text as android string resource
+     * @return this instance
      */
     public This neg(@StringRes int negativeButtonResourceId){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButtonResourceId); }
 
     /**
      * Sets this dialogs negative button text to {@link android.R.string#no}
+     *
+     * @return this instance
      */
     public This neg(){ return neg(android.R.string.no); }
 
@@ -252,6 +264,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs neutral button text
      *
      * @param neutralButton the text as string
+     * @return this instance
      */
     public This neut(String neutralButton){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButton); }
 
@@ -259,11 +272,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs neutral button text
      *
      * @param neutralButtonResourceId the text as android string resource
+     * @return this instance
      */
     public This neut(@StringRes int neutralButtonResourceId){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButtonResourceId); }
 
     /**
      * Sets this dialogs neutral button text to {@link android.R.string#cancel}
+     *
+     * @return this instance
      */
     public This neut(){ return neut(android.R.string.cancel); }
 
@@ -271,6 +287,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Sets this dialogs icon
      *
      * @param iconResourceId the icon as android drawable resource
+     * @return this instance
      */
     public This icon(@DrawableRes int iconResourceId){ return setArg(ICON_RESOURCE, iconResourceId); }
 
@@ -280,11 +297,13 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * The dialog may still be "canceled" by a neutral button.
      *
      * @param cancelable weather this dialog may be canceled
+     * @return this instance
      */
     public This cancelable(boolean cancelable){ return setArg(CANCELABLE, cancelable); }
 
     /**
      * Return whether the dialog was set to be cancelable or not
+     *
      * @return whether the dialog is cancelable
      */
     public boolean isCancelable(){
@@ -297,12 +316,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * {@link OnDialogResultListener#onResult}
      *
      * @param extras a bundle of extras to store
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public This extra(Bundle extras){ getArguments().putBundle(BUNDLE, extras); return (This) this; }
 
     /**
      * Gets the extras bundle provided
+     *
      * @return the extras bundle (which may be empty)
      */
     public @NonNull Bundle getExtras(){
@@ -317,6 +338,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Set a custom theme. Default is using the theme defined by the 'alertDialogTheme'-attribute.
      *
      * @param theme the android style resource id of the custom theme
+     * @return this instance
      */
     public This theme(@StyleRes int theme){ return setArg(THEME, theme); }
 

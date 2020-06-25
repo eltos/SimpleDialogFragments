@@ -44,6 +44,8 @@ public class Hint extends FormElement<Hint, HintViewHolder> {
     /**
      * Factory method for a hint.
      *
+     * @param hint the hint text
+     * @return this instance
      */
     public static Hint plain(String hint){
         return new Hint().label(hint);

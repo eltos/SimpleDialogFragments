@@ -111,6 +111,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the list choice mode
      * @param mode one of {@link CustomListDialog#NO_CHOICE}, {@link CustomListDialog#SINGLE_CHOICE},
      * {@link CustomListDialog#SINGLE_CHOICE_DIRECT} or {@link CustomListDialog#MULTI_CHOICE}
+     * @return this instance
      */
     public This choiceMode(int mode){
         if (!pmFlag && mode == SINGLE_CHOICE_DIRECT){
@@ -123,6 +124,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the minimum required choices for the positive button to become enabled
      *
      * @param count the minimum required choices
+     * @return this instance
      */
     public This choiceMin(int count){ return setArg(CHOICE_MIN_COUNT, count); }
 
@@ -130,6 +132,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the maximum allowed choices for the positive button to become enabled
      *
      * @param count the maximum allowed choices
+     * @return this instance
      */
     public This choiceMax(int count){ return setArg(CHOICE_MAX_COUNT, count); }
 
@@ -137,6 +140,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked item positions
      *
      * @param positions the initially checked positions
+     * @return this instance
      */
     public This choicePreset(List<Integer> positions){
         int[] p = new int[positions.size()];
@@ -150,6 +154,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked item positions
      *
      * @param positions the initially checked positions
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public This choicePreset(int[] positions){
@@ -161,6 +166,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked item position
      *
      * @param position the initially checked position
+     * @return this instance
      */
     public This choicePreset(int position){
         return choicePreset(new int[]{position});
@@ -170,6 +176,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked items by their ids
      *
      * @param ids the initially checked item ids
+     * @return this instance
      */
     public This choiceIdPreset(List<Long> ids){
         long[] p = new long[ids.size()];
@@ -183,6 +190,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked items by their ids
      *
      * @param ids the initially checked item ids
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public This choiceIdPreset(long[] ids){
@@ -194,6 +202,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the initially checked item by its id
      *
      * @param id the initially checked item id
+     * @return this instance
      */
     public This choiceIdPreset(long id){
         return choiceIdPreset(new long[]{id});
@@ -201,6 +210,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
     /**
      * Change the list into a grid list view (grid mode)
+     * @return this instance
      */
     public This grid(){
         return setArg(GRID, true);
@@ -210,6 +220,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Specifies the number of columns of this grid view (only if in grid mode)
      *
      * @param numColumns the number of columns
+     * @return this instance
      */
     public This gridNumColumn(int numColumns){
         return setArg(GRID_N, numColumns);
@@ -219,6 +230,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Specifies the column with of this grid view (only if in grid mode)
      *
      * @param columnWidthDimenResId the with as an android dimension resource identifier
+     * @return this instance
      */
     public This gridColumnWidth(@DimenRes int columnWidthDimenResId){
         return setArg(GRID_W, columnWidthDimenResId);
@@ -228,6 +240,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets the visibility of the divider
      *
      * @param show weather to display a divider or not
+     * @return this instance
      */
     public This divider(boolean show){ return setArg(SHOW_DIVIDER, show); }
 
@@ -236,6 +249,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * to filter the list
      *
      * @param enabled weather to allow filtering or not
+     * @return this instance
      */
     public This filterable(boolean enabled){ return setArg(FILTER, enabled); }
 
@@ -243,6 +257,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets a string to be displayed if no items are currently visible
      *
      * @param title the string to be displayed
+     * @return this instance
      */
     public This emptyText(String title){ return setArg(EMPTY_TEXT, title); }
 
@@ -250,6 +265,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * Sets a string to be displayed if no items are currently visible
      *
      * @param titleResourceId the android string resource to be displayed
+     * @return this instance
      */
     public This emptyText(@StringRes int titleResourceId){ return setArg(EMPTY_TEXT, titleResourceId); }
 

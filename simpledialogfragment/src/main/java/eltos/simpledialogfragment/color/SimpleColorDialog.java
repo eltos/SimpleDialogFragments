@@ -73,6 +73,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * Default is the {@link SimpleColorDialog#DEFAULT_COLORS} set
      *
      * @param colors array of rgb-colors
+     * @return this instance
      */
     public SimpleColorDialog colors(@ColorInt int[] colors){
         getArguments().putIntArray(COLORS, colors);
@@ -88,6 +89,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      *
      * @param context a context to resolve the resource
      * @param colorArrayRes color array resource id
+     * @return this instance
      */
     public SimpleColorDialog colors(Context context, @ArrayRes int colorArrayRes){
         return colors(context.getResources().getIntArray(colorArrayRes));
@@ -97,6 +99,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * Sets the initially selected color
      *
      * @param color the selected color
+     * @return this instance
      */
     public SimpleColorDialog colorPreset(@ColorInt int color){
         getArguments().putInt(COLOR, color);
@@ -107,6 +110,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * Set this to true to show a field with a color picker option
      *
      * @param allow allow custom picked color if true
+     * @return this instance
      */
     public SimpleColorDialog allowCustom(boolean allow){
         return setArg(CUSTOM, allow);
@@ -115,6 +119,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#alpha(boolean)}
+     *
+     * @param alpha weather or not to allow transparency (alpha) adjustment
+     * @return this instance
      */
     public SimpleColorDialog setupColorWheelAlpha(boolean alpha){
         return setArg(CUSTOM_ALPHA, alpha);
@@ -123,6 +130,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#hideHexInput(boolean)}
+     *
+     * @param hideHex weather or not to hide the input field
+     * @return this instance
      */
     public SimpleColorDialog setupColorWheelHideHex(boolean hideHex){
         return setArg(CUSTOM_HIDE_HEX, hideHex);
@@ -131,6 +141,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#title(String)}
+     *
+     * @param text the title for the color wheel dialog
+     * @return this instance
      */
     public SimpleColorDialog setupColorWheelTitle(String text){
         return setArg(CUSTOM_TITLE, text);
@@ -139,6 +152,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#pos(String)}
+     *
+     * @param text the positive button text for the color wheel dialog
+     * @return this instance
      */
     public SimpleColorDialog setupColorWheelPosButton(String text){
         return setArg(CUSTOM_POS, text);
@@ -147,6 +163,9 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
      * See {@link SimpleColorWheelDialog#neut(String)}
+     *
+     * @param text the neutral button text for the color wheel dialog
+     * @return this instance
      */
     public SimpleColorDialog setupColorWheelNeutButton(String text){
         return setArg(CUSTOM_NEUT, text);
@@ -158,6 +177,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * {@link SimpleColorDialog#AUTO} uses a black or white outline depending on the brightness
      *
      * @param color color int or {@link SimpleColorDialog#NONE} or {@link SimpleColorDialog#AUTO}
+     * @return this instance
      */
     public SimpleColorDialog showOutline(@ColorInt int color){
         return setArg(OUTLINE, color);

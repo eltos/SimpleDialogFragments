@@ -45,6 +45,7 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>
      * Specify the initially set hour
      *
      * @param hour initial hour (0-23)
+     * @return this instance
      */
     public SimpleTimeDialog hour(int hour){ return setArg(HOUR, hour); }
 
@@ -52,6 +53,7 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>
      * Specify the initially set minute
      *
      * @param minute initial minute (0-59)
+     * @return this instance
      */
     public SimpleTimeDialog minute(int minute){ return setArg(MINUTE, minute); }
 
@@ -59,6 +61,7 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>
      * Changes the hour display mode between 24 and AM/PM
      *
      * @param view24Hour true to use 24 hour mode, false to use AM/PM
+     * @return this instance
      */
     public SimpleTimeDialog set24HourView(boolean view24Hour){ return setArg(VIEW_24_HOUR, view24Hour); }
 

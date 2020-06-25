@@ -60,6 +60,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
      * Sets the pin codes length (default is 4 digits)
      *
      * @param length the code length
+     * @return this instance
      */
     public SimplePinDialog length(int length){ return setArg(LENGTH, length); }
 
@@ -68,6 +69,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
      * When set, the dialog will not close with BUTTON_POSITIVE until this exact pin was entered.
      *
      * @param pin the correct pin
+     * @return this instance
      */
     public SimplePinDialog pin(String pin){
         if (pin != null) {

@@ -57,6 +57,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *
      * @param emailFieldKey the key that can be used to receive the entered text from the bundle in
      *                      {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildEmailInput(String emailFieldKey){
         return SimpleFormDialog.build()
@@ -70,6 +71,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *
      * @param passwordFieldKey the key that can be used to receive the entered text from the bundle
      *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildPasswordInput(String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -83,6 +85,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *
      * @param pinFieldKey the key that can be used to receive the entered text from the bundle
      *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildPinCodeInput(String pinFieldKey){
         return SimpleFormDialog.build()
@@ -97,6 +100,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      * @param pinFieldKey the key that can be used to receive the entered text from the bundle
      *                         in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      * @param digits the length of the pin code
+     * @return this instance
      */
     public static SimpleFormDialog buildPinCodeInput(String pinFieldKey, int digits){
         return SimpleFormDialog.build()
@@ -110,6 +114,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *
      * @param numberFieldKey the key that can be used to receive the entered text from the bundle
      *                       in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildNumberInput(String numberFieldKey){
         return SimpleFormDialog.build()
@@ -126,6 +131,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *                      in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      * @param passwordFieldKey the key that can be used to receive the entered password from the
      *                         bundle in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildLoginEmail(String emailFieldKey, String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -145,6 +151,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      *                     in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
      * @param passwordFieldKey the key that can be used to receive the entered password from the
      *                         bundle in {@link eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static SimpleFormDialog buildLogin(String userFieldKey, String passwordFieldKey){
         return SimpleFormDialog.build()
@@ -162,6 +169,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      * Convenient method to populate the form with form elements
      *
      * @param elements the {@link FormElement}s that form should contain
+     * @return this instance
      */
     public SimpleFormDialog fields(FormElement... elements){
         ArrayList<FormElement> list = new ArrayList<>(elements.length);
@@ -175,6 +183,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
      * This is enabled by default.
      *
      * @param enabled whether or not to autofocus the first field
+     * @return this instance
      */
     public SimpleFormDialog autofocus(boolean enabled){
         return setArg(AUTO_FOCUS, enabled);
@@ -341,14 +350,18 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
         }
 
         /**
-         * weather this is the final element
+         * Check if this is the only (focusable) element
+         *
+         * @return true if this is the only (focusable) element
          */
         public boolean isOnlyFocusableElement(){
             return isOnlyFocusableIndex(index);
         }
 
         /**
-         * weather this is the final element
+         * Check if this is the last (focusable) element
+         *
+         * @return true if this is the last (focusable) element
          */
         public boolean isLastFocusableElement(){
             return isLastFocusableIndex(index);

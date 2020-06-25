@@ -44,6 +44,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * Sets the initial check state
      *
      * @param preset checkbox initial state
+     * @return this instance
      */
     public SimpleCheckDialog check(boolean preset){ return setArg(CHECKED, preset); }
 
@@ -51,6 +52,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * Sets the checkbox's label
      *
      * @param checkBoxLabel the label as string
+     * @return this instance
      */
     public SimpleCheckDialog label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
 
@@ -58,6 +60,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * Sets the checkbox's label
      *
      * @param checkBoxLabelResourceId the label as android string resource
+     * @return this instance
      */
     public SimpleCheckDialog label(@StringRes int checkBoxLabelResourceId){ return setArg(CHECKBOX_LABEL, checkBoxLabelResourceId); }
 
@@ -66,6 +69,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * got checked
      *
      * @param required weather checking the checkbox is required
+     * @return this instance
      */
     public SimpleCheckDialog checkRequired(boolean required){ return setArg(CHECKBOX_REQUIRED, required); }
 

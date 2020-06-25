@@ -52,6 +52,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static DateTime picker(String key){
         return new DateTime(key);
@@ -62,6 +63,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static DateTime date(String key){
         return picker(key).type(Type.DATE);
@@ -72,6 +74,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static DateTime time(String key){
         return picker(key).type(Type.TIME);
@@ -82,6 +85,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static DateTime datetime(String key){
         return picker(key).type(Type.DATETIME);
@@ -92,6 +96,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      * Sets this fields type
      *
      * @param type type of field: {@link Type#DATE}, {@link Type#TIME} or {@link Type#DATETIME}
+     * @return this instance
      */
     public DateTime type(Type type){
         this.type = type;
@@ -103,6 +108,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      * Sets the first date selectable
      *
      * @param date minimal date
+     * @return this instance
      */
     public DateTime min(Date date){
         this.min = date.getTime();
@@ -113,6 +119,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      * Sets the last date selectable
      *
      * @param date maximal date
+     * @return this instance
      */
     public DateTime max(Date date){
         this.max = date.getTime();
@@ -123,6 +130,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      * Sets the initial date and time
      *
      * @param date initial date
+     * @return this instance
      */
     public DateTime date(Date date){
         this.date = date.getTime();
@@ -136,6 +144,7 @@ public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
      *
      * @param hour initial hour
      * @param minute initial minute
+     * @return this instance
      */
     public DateTime time(int hour, int minute){
         this.hour = hour;

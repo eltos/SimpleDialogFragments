@@ -54,6 +54,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      *
      * @param context a context for resolving the string ids (cannot use getContext() here)
      * @param labelsResourceIds a list of android string resource identifiers
+     * @return this instance
      */
     public SimpleListDialog items(Context context, @StringRes int[] labelsResourceIds){
         ArrayList<SimpleListItem> list = new ArrayList<>(labelsResourceIds.length);
@@ -68,6 +69,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      *
      * @param context a context for resolving the resource id (cannot use getContext() here)
      * @param labelArrayResourceIds an android string array resource identifier
+     * @return this instance
      */
     public SimpleListDialog items(Context context, @ArrayRes int labelArrayResourceIds){
         return items(context.getResources().getStringArray(labelArrayResourceIds));
@@ -77,6 +79,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * Populate the list with the labels provided
      *
      * @param labels a list of string to be displayed
+     * @return this instance
      */
     public SimpleListDialog items(String[] labels){
         ArrayList<SimpleListItem> list = new ArrayList<>(labels.length);
@@ -92,6 +95,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      *
      * @param labels a list of string to be displayed
      * @param ids a list of ids corresponding to the strings
+     * @return this instance
      *
      * @throws IllegalArgumentException if the arrays length don't match
      */
@@ -111,6 +115,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * See {@link SimpleListItem} for further details
      *
      * @param items a list of {@link SimpleListItem}
+     * @return this instance
      */
     public SimpleListDialog items(ArrayList<SimpleListItem> items){
         getArguments().putParcelableArrayList(DATA_SET, items);
@@ -123,6 +128,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      *
      * @param enabled weather to allow filtering or not
      * @param highlight weather to highlight the text filtered
+     * @return this instance
      */
     public SimpleListDialog filterable(boolean enabled, boolean highlight) {
         setArg(HIGHLIGHT, highlight);

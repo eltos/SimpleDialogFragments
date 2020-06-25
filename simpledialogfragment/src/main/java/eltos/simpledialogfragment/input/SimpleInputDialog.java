@@ -63,6 +63,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Sets the EditText's hint
      *
      * @param hint the hint as string
+     * @return this instance
      */
     public SimpleInputDialog hint(String hint){ return setArg(HINT, hint); }
 
@@ -70,6 +71,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Sets the EditText's hint
      *
      * @param hintResourceId the hint as android string resource
+     * @return this instance
      */
     public SimpleInputDialog hint(@StringRes int hintResourceId){ return setArg(HINT, hintResourceId); }
 
@@ -77,6 +79,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Sets the EditText's initial text
      *
      * @param text initial text as string
+     * @return this instance
      */
     public SimpleInputDialog text(String text){ return setArg(TEXT, text); }
 
@@ -84,6 +87,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Sets the EditText's initial text
      *
      * @param textResourceId initial text as android string resource
+     * @return this instance
      */
     public SimpleInputDialog text(@StringRes int textResourceId){ return setArg(TEXT, textResourceId); }
 
@@ -92,6 +96,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * The default is {@link InputType#TYPE_CLASS_TEXT}.
      *
      * @param inputType the InputType
+     * @return this instance
      */
     public SimpleInputDialog inputType(int inputType){ return setArg(INPUT_TYPE, inputType); }
 
@@ -99,6 +104,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Allow empty input. Default is to disable the positive button until text is entered.
      *
      * @param allow weather to allow empty input
+     * @return this instance
      */
     public SimpleInputDialog allowEmpty(boolean allow){ return setArg(ALLOW_EMPTY, allow); }
 
@@ -106,6 +112,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Sets a max limit to the EditText.
      *
      * @param maxLength the maximum text length
+     * @return this instance
      */
     public SimpleInputDialog max(int maxLength){ return setArg(MAX_LENGTH, maxLength); }
 
@@ -114,6 +121,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      *
      * @param context a context to resolve the resource ids
      * @param stringResourceIds suggestion array as android string resources
+     * @return this instance
      */
     public SimpleInputDialog suggest(Context context, int[] stringResourceIds){
         String[] strings = new String[stringResourceIds.length];
@@ -127,6 +135,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Provide an array of suggestions to be shown while the user is typing
      *
      * @param strings suggestion string array
+     * @return this instance
      */
     public SimpleInputDialog suggest(String[] strings){
         getArguments().putStringArray(SUGGESTIONS, strings);

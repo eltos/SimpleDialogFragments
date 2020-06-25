@@ -47,6 +47,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Specify the initially set date
      *
      * @param date initial date
+     * @return this instance
      */
     public SimpleDateDialog date(Date date){ return date(date.getTime()); }
 
@@ -54,6 +55,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Specify the initially set date as milliseconds
      *
      * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     * @return this instance
      */
     public SimpleDateDialog date(long millis){ return setArg(DATE, millis); }
 
@@ -61,6 +63,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Sets the first date selectable
      *
      * @param date minimal date
+     * @return this instance
      */
     public SimpleDateDialog minDate(Date date){ return minDate(date.getTime()); }
 
@@ -68,6 +71,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Sets the first date selectable as milliseconds
      *
      * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     * @return this instance
      */
     public SimpleDateDialog minDate(long millis){ return setArg(MIN_DATE, millis); }
 
@@ -75,6 +79,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Sets the last date selectable
      *
      * @param date maximal date
+     * @return this instance
      */
     public SimpleDateDialog maxDate(Date date){ return maxDate(date.getTime()); }
 
@@ -82,6 +87,7 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      * Sets the last date selectable as milliseconds
      *
      * @param millis milliseconds since Jan. 1, 1970, midnight GMT.
+     * @return this instance
      */
     public SimpleDateDialog maxDate(long millis){ return setArg(MAX_DATE, millis); }
 
@@ -90,7 +96,8 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
      *
      * @param day one of {@link Calendar#MONDAY}, {@link Calendar#TUESDAY},
      *            {@link Calendar#WEDNESDAY}, {@link Calendar#THURSDAY}, {@link Calendar#FRIDAY},
-     *            {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY},
+     *            {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY}
+     * @return this instance
      */
     public SimpleDateDialog firstDayOfWeek(int day){ return setArg(FIRST_DAY_OF_WEEK, day); }
 

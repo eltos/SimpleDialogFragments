@@ -54,6 +54,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
      * Specifies the initial color of the color wheel
      *
      * @param color the initial color (argb)
+     * @return this instance
      */
     public SimpleColorWheelDialog color(int color){
         return setArg(COLOR, color);
@@ -63,6 +64,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
      * Specifies weather a seek bar for transparency control is displayed
      *
      * @param enabled weather or not to allow transparency (alpha) adjustment
+     * @return this instance
      */
     public SimpleColorWheelDialog alpha(boolean enabled){
         return setArg(ALPHA, enabled);
@@ -72,6 +74,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
      * Method to hide the input field for color hex code
      *
      * @param enabled weather or not to hide the input field
+     * @return this instance
      */
     public SimpleColorWheelDialog hideHexInput(boolean enabled){
         return setArg(HIDE_HEX, enabled);

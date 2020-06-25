@@ -59,6 +59,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static ColorField picker(String key){
         return new ColorField(key);
@@ -69,6 +70,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      * Sets the initial color
      *
      * @param preset initial state
+     * @return this instance
      */
     public ColorField color(@ColorInt int preset){
         this.preset = preset;
@@ -79,6 +81,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      * Sets the initial color
      *
      * @param presetResourceId initial color as resource
+     * @return this instance
      */
     public ColorField colorRes(@ColorRes int presetResourceId){
         this.presetId = presetResourceId;
@@ -90,6 +93,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      * Default is the {@link SimpleColorDialog#DEFAULT_COLORS} set
      *
      * @param colors array of rgb-colors
+     * @return this instance
      */
     public ColorField colors(@ColorInt int[] colors){
         this.colors = colors;
@@ -105,6 +109,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      *
      * @param context a context to resolve the resource
      * @param colorArrayRes color array resource id
+     * @return this instance
      */
     public ColorField colors(Context context, @ArrayRes int colorArrayRes){
         return colors(context.getResources().getIntArray(colorArrayRes));
@@ -114,6 +119,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      * Set this to true to show a field with a color picker option
      *
      * @param allow allow custom picked color if true
+     * @return this instance
      */
     public ColorField allowCustom(boolean allow){
         allowCustom = allow;
@@ -126,6 +132,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
      * {@link ColorField#AUTO} uses a black or white outline depending on the brightness
      *
      * @param color color int or {@link ColorField#NONE} or {@link ColorField#AUTO}
+     * @return this instance
      */
     public ColorField showOutline(@ColorInt int color){
         outline = color;

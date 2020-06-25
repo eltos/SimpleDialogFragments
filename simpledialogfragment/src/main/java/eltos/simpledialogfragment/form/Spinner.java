@@ -56,6 +56,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      *
      * @param key the key that can be used to receive the chosen item index from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Spinner plain(String key){
         return new Spinner(key);
@@ -68,6 +69,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Sets the placeholder text displayed if nothing is selected
      *
      * @param text placeholder text as string
+     * @return this instance
      */
     public Spinner placeholder(String text){
         this.placeholder = text;
@@ -78,6 +80,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Sets the placeholder text displayed if nothing is selected
      *
      * @param textResourceId placeholder text as android string resource
+     * @return this instance
      */
     public Spinner placeholder(@StringRes int textResourceId){
         this.placeholderResourceId = textResourceId;
@@ -88,6 +91,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Provide an array resource with items to be shown by this spinner.
      *
      * @param itemArrayRes the string array resource to suggest
+     * @return this instance
      */
     public Spinner items(@ArrayRes int itemArrayRes){
         this.itemArrayRes = itemArrayRes;
@@ -98,6 +102,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Provide an array of items to be shown by this spinner.
      *
      * @param itemsStringResArray array of string resources to suggest
+     * @return this instance
      */
     public Spinner items(@StringRes int... itemsStringResArray){
         if (itemsStringResArray != null && itemsStringResArray.length > 0) {
@@ -110,6 +115,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Provide an array of items to be shown by this spinner.
      *
      * @param items array of strings to suggest
+     * @return this instance
      */
     public Spinner items(String... items){
         if (items != null && items.length > 0) {
@@ -122,6 +128,7 @@ public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
      * Set the initially selected item
      *
      * @param itemIndex The index of the initially selected item
+     * @return this instance
      */
     public Spinner preset(int itemIndex){
         this.position = itemIndex;

@@ -420,6 +420,10 @@ public abstract class AdvancedAdapter<T> extends BaseAdapter implements Filterab
 
         /**
          * Use {@link AdvancedFilter#matches(String)} instead
+         *
+         * @param string string to search in
+         * @param constraint string to search for
+         * @return true if string contains the constraint, false otherwise
          */
         @Deprecated
         protected boolean matchesWord(String string, @NonNull CharSequence constraint) {

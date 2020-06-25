@@ -50,6 +50,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
      *
      * @param key the key that can be used to receive the final state from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Check box(String key){
         return new Check(key);
@@ -60,6 +61,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
      * Sets the initial state of the checkbox
      *
      * @param preset initial state
+     * @return this instance
      */
     public Check check(boolean preset){
         this.preset = preset;
@@ -70,6 +72,7 @@ public class Check extends FormElement<Check, CheckViewHolder> {
      * Sets the initial state of the checkbox
      *
      * @param preset initial state as boolean resource
+     * @return this instance
      */
     public Check check(@BoolRes int preset){
         this.presetId = preset;

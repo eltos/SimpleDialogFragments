@@ -58,6 +58,8 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     /**
      * Mark this Field as required.
      * See {@link FormElement#required(boolean)}
+     *
+     * @return this instance
      */
     public T required(){
         return required(true);
@@ -71,6 +73,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      * Check fields will be required to be checked
      *
      * @param required weather this field is required
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public T required(boolean required){
@@ -82,6 +85,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      * Sets the label
      *
      * @param text label text as string
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public T label(String text){
@@ -93,6 +97,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
      * Sets the label
      *
      * @param textResourceId label text as android string resource
+     * @return this instance
      */
     @SuppressWarnings("unchecked cast")
     public T label(@StringRes int textResourceId){

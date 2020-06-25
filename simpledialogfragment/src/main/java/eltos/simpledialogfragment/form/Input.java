@@ -72,6 +72,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input plain(String key){
         return new Input(key);
@@ -83,6 +84,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input name(String key){
         return new Input(key)
@@ -97,6 +99,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input password(String key){
         return new Input(key)
@@ -111,6 +114,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input pin(String key){
         return new Input(key)
@@ -125,6 +129,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input email(String key){
         return new Input(key)
@@ -140,6 +145,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param key the key that can be used to receive the entered text from the bundle in
      *            {@link OnDialogResultListener#onResult}
+     * @return this instance
      */
     public static Input phone(String key){
         return new Input(key)
@@ -156,6 +162,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets a hint
      *
      * @param hint the hint as string
+     * @return this instance
      */
     public Input hint(String hint){
         this.hint = hint;
@@ -166,6 +173,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets a hint
      *
      * @param hintResourceId the hint as android string resource
+     * @return this instance
      */
     public Input hint(@StringRes int hintResourceId){
         this.hintResourceId = hintResourceId;
@@ -176,6 +184,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets the initial text
      *
      * @param text initial text as string
+     * @return this instance
      */
     public Input text(String text){
         this.text = text;
@@ -186,6 +195,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets the initial text
      *
      * @param textResourceId initial text as android string resource
+     * @return this instance
      */
     public Input text(@StringRes int textResourceId){
         this.textResourceId = textResourceId;
@@ -197,6 +207,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * The default is {@link InputType#TYPE_CLASS_TEXT}.
      *
      * @param inputType the input type. See {@link InputType}
+     * @return this instance
      */
     public Input inputType(int inputType){
         this.inputType = inputType;
@@ -207,6 +218,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Displays a button to toggle the password visibility.
      * Note that this will only work if the input type is a password.
      * See {@link Input#showPasswordToggle(boolean)}
+     *
+     * @return this instance
      */
     public Input showPasswordToggle(){
         return showPasswordToggle(true);
@@ -217,6 +230,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Note that this will only work if the input type is a password.
 	 *
 	 * @param show weather to show the password toggle button
+     * @return this instance
      */
     public Input showPasswordToggle(boolean show){
         this.passwordToggleVisible = show;
@@ -227,6 +241,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets an upper limit to the input's text length.
      *
      * @param maxLength the maximum text length
+     * @return this instance
      */
     public Input max(@IntRange(from=1) int maxLength){
         this.maxLength = maxLength;
@@ -237,6 +252,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Sets a lower limit to the input's text length.
      *
      * @param minLength the minimum text length
+     * @return this instance
      */
     public Input min(@IntRange(from=1) int minLength){
         this.minLength = minLength;
@@ -248,6 +264,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This enables the auto-complete behaviour.
      *
      * @param suggestionArrayRes the string array resource to suggest
+     * @return this instance
      */
     public Input suggest(@ArrayRes int suggestionArrayRes){
         this.suggestionArrayRes = suggestionArrayRes;
@@ -259,6 +276,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This enables the auto-complete behaviour.
      *
      * @param suggestionStringResArray array of string resources to suggest
+     * @return this instance
      */
     public Input suggest(@StringRes int... suggestionStringResArray){
         if (suggestionStringResArray != null && suggestionStringResArray.length > 0) {
@@ -272,6 +290,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This enables the auto-complete behaviour.
      *
      * @param strings array of strings to suggest
+     * @return this instance
      */
     public Input suggest(String... strings){
         if (strings != null && strings.length > 0) {
@@ -285,6 +304,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * This enables the auto-complete behaviour.
      *
      * @param strings An ArrayList of strings to suggest
+     * @return this instance
      */
     public Input suggest(ArrayList<String> strings){
         if (strings != null && strings.size() > 0) {
@@ -295,6 +315,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Shortcut for {@link Input#forceSuggestion(boolean)}
+     *
+     * @return this instance
      */
     public Input forceSuggestion(){
         return forceSuggestion(true);
@@ -308,6 +330,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * If the suggestion array is small, consider using a spinner instead.
      *
      * @param force weather to force the input to be one of the suggestions or not
+     * @return this instance
      */
     public Input forceSuggestion(boolean force){
         this.forceSuggestion = force;
@@ -320,6 +343,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param pattern a regular expression used to validate input
      * @param errorMsg the error message to display, if the pattern does not match the input
+     * @return this instance
      */
     public Input validatePattern(String pattern, @Nullable String errorMsg){
         this.pattern = pattern;
@@ -333,6 +357,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      *
      * @param pattern a regular expression used to validate input
      * @param errorMsgId the error message to display as string resource
+     * @return this instance
      */
     public Input validatePattern(String pattern, @StringRes int errorMsgId){
         this.pattern = pattern;
@@ -342,6 +367,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
 
     /**
      * Validate input as email address. Shortcut for {@link Input#validatePattern(String, int)}.
+     *
+     * @return this instance
      */
     public Input validatePatternEmail(){
         return validatePattern(EMAIL_PATTERN, R.string.invalid_email_address);
@@ -351,6 +378,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Validate input as password. The password must consists of at least 8 chars and contains
      * at least one number, one special character, one upper and one lower case letter
      * Shortcut for {@link Input#validatePattern(String, int)}.
+     *
+     * @return this instance
      */
     public Input validatePatternStrongPassword(){
         if (minLength < 8) min(8);
@@ -360,6 +389,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Validate input so that only upper- and lowercase letters are contained.
      * Shortcut for {@link Input#validatePattern(String, int)}.
+     *
+     * @return this instance
      */
     public Input validatePatternLetters(){
         return validatePattern(LETTERS_PATTERN, R.string.letters_only_error);
@@ -368,6 +399,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Validate input to consist of alpha-numeric characters only.
      * Shortcut for {@link Input#validatePattern(String, int)}.
+     *
+     * @return this instance
      */
     public Input validatePatternAlphanumeric(){
         return validatePattern(ALPHANUMERIC_PATTERN, R.string.alphanumeric_only_error);

@@ -73,6 +73,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * Sets the image drawable to be displayed
      *
      * @param resourceId the android resource id of the drawable
+     * @return this instance
      */
     public SimpleImageDialog image(@DrawableRes int resourceId){
         return setArg(DRAWABLE_RESOURCE, resourceId);
@@ -88,6 +89,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * – {@link SimpleImageDialog#image(Class)}
      *
      * @param image the bitmap to display
+     * @return this instance
      */
     @Deprecated
     public SimpleImageDialog image(Bitmap image){
@@ -101,6 +103,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * @param builderClass A class implementing one of {@link SimpleImageDialog.BitmapCreator},
      *                     {@link SimpleImageDialog.DrawableCreator} or
      *                     {@link SimpleImageDialog.IconCreator}
+     * @return this instance
      */
     public SimpleImageDialog image(Class<? extends Creator> builderClass){
         getArguments().putSerializable(CREATOR_CLASS, builderClass);
@@ -111,6 +114,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * Sets the image uri to be displayed
      *
      * @param imageUri Uri of the image
+     * @return this instance
      */
     public SimpleImageDialog image(Uri imageUri){
         getArguments().putParcelable(IMAGE_URI, imageUri);
@@ -144,6 +148,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * Sets the images scale and scroll type to one of {@link Scale}
      *
      * @param scale the scale type used for scaling
+     * @return this instance
      */
     public SimpleImageDialog scaleType(Scale scale){
         return setArg(SCALE_TYPE, scale.nativeInt);
