@@ -479,6 +479,12 @@
             android:onClick="showRecursiveDialog"
             android:text="Recursive Dialogs" />
 
+        <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Simple input"
+          android:onClick="showSimpleInput" />
+
         <TextView
             android:id="@+id/version_info"
             android:layout_width="match_parent"

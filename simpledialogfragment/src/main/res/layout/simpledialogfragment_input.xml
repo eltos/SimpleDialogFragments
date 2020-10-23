@@ -6,6 +6,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,6 +14,7 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="8dp"
+        app:endIconMode="none"
         app:counterOverflowTextAppearance="@style/OverflowText">
 
         <eltos.simpledialogfragment.input.TextInputAutoCompleteTextView
