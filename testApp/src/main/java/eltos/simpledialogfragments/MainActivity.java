@@ -459,6 +459,16 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    public void showSimpleInput(View view){
+
+        SimpleInputDialog.build()
+            .title("Input")
+            .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+            .hint("Hint")
+            .show(this);
+
+    }
+
 
     public void showForm(View view){
 
