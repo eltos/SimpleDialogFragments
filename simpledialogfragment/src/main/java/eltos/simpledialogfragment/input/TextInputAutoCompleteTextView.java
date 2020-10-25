@@ -37,6 +37,8 @@ import android.view.inputmethod.InputConnection;
  */
 public class TextInputAutoCompleteTextView extends AppCompatAutoCompleteTextView {
 
+    public boolean doNotFilter = false;
+
     public TextInputAutoCompleteTextView(Context context) {
         super(context);
     }
@@ -47,6 +49,16 @@ public class TextInputAutoCompleteTextView extends AppCompatAutoCompleteTextView
 
     public TextInputAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public boolean enoughToFilter() {
+        return doNotFilter || super.enoughToFilter();
+    }
+
+    @Override
+    protected void performFiltering(CharSequence text, int keyCode) {
+        super.performFiltering(doNotFilter ? "" : text, keyCode);
     }
 
     @Override

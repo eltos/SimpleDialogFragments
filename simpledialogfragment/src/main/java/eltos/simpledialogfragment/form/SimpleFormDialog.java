@@ -332,7 +332,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
     /**
      * A Callback Class with useful methods used by {@link FormElementViewHolder#setUpView}
      */
-    public class DialogActions {
+    public class DialogActions extends FocusActions {
 
         private int index;
         private int lastIndex;

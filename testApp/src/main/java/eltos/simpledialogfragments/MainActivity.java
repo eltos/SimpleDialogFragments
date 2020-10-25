@@ -478,10 +478,8 @@ public class MainActivity extends AppCompatActivity implements
                 .fields(
                         Input.name(FIRST_NAME).hint(R.string.first_name),
                         Input.name(SURNAME).hint(R.string.surname).required(),
+                        Input.spinner(GENDER, R.array.genders).hint(R.string.gender).required(false),
                         DateTime.date(BIRTHDAY).label(R.string.birthday).max(new Date()).required(),
-                        Spinner.plain(GENDER)
-                                .label(R.string.gender).items(R.array.genders)
-                                .placeholder(R.string.select___).required(),
                         ColorField.picker(COLOR).label(R.string.favourite_color),
                         Input.plain(COUNTRY).hint(R.string.country)
                                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)

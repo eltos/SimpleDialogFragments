@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:saveEnabled="false"
-        android:focusable="false"
         android:layout_weight="1"
         app:counterOverflowTextAppearance="@style/OverflowText">
 
@@ -20,7 +19,6 @@
             android:layout_height="wrap_content"
             android:saveEnabled="false"
             android:hint="@string/date"
-            android:focusable="false"
             android:inputType="date"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:saveEnabled="false"
-        android:focusable="false"
         android:layout_weight="1"
         app:counterOverflowTextAppearance="@style/OverflowText">
 
@@ -40,7 +37,6 @@
             android:layout_height="wrap_content"
             android:saveEnabled="false"
             android:hint="@string/time"
-            android:focusable="false"
             android:inputType="date"/>
 
     </com.google.android.material.textfield.TextInputLayout>

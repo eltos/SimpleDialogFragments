@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="8dp"
+        android:focusable="false"
         app:counterOverflowTextAppearance="@style/OverflowText">
 
         <com.alimuzaffar.lib.pin.PinEntryEditText
@@ -25,6 +26,8 @@
             android:cursorVisible="false"
             android:digits="1234567890"
             android:inputType="number"
+            android:focusable="true"
+            android:minHeight="36dp"
             android:textIsSelectable="false"
             app:pinCharacterMask="*" />
 

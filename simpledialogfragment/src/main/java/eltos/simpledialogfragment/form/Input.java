@@ -56,6 +56,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     private String[] suggestions = null;
     boolean passwordToggleVisible;
     boolean forceSuggestion = false;
+    boolean isSpinner = false;
     String pattern = null;
     private String patternError = null;
     private int patternErrorId = NO_ID;
@@ -152,6 +153,37 @@ public class Input extends FormElement<Input, InputViewHolder> {
                 .inputType(InputType.TYPE_CLASS_PHONE)
                 .hint(R.string.phone_number);
     }
+
+    /**
+     * Factory method for a spinner input field.
+     * This disables editing and only uses suggestions.
+     *
+     * Make sure to supply the items via {@link Input#suggest}
+     *
+     * @param key the key that can be used to receive the entered text from the bundle in
+     *            {@link OnDialogResultListener#onResult}
+     * @return this instance
+     */
+    public static Input spinner(String key){
+        return new Input(key)
+                .asSpinner(true)
+                .forceSuggestion()
+                .inputType(InputType.TYPE_NULL);
+    }
+    public static Input spinner(String key, @ArrayRes int suggestionArrayRes){
+        return Input.spinner(key).suggest(suggestionArrayRes);
+    }
+    public static Input spinner(String key, @StringRes int... suggestionStringResArray){
+        return Input.spinner(key).suggest(suggestionStringResArray);
+    }
+    public static Input spinner(String key, String... strings){
+        return Input.spinner(key).suggest(strings);
+    }
+    public static Input spinner(String key, ArrayList<String> strings){
+        return Input.spinner(key).suggest(strings);
+    }
+
+
 
 
 
@@ -338,6 +370,17 @@ public class Input extends FormElement<Input, InputViewHolder> {
     }
 
     /**
+     * Make this Input field a spinner (not editable, drop down button)
+     *
+     * @param spinner whether to make this a spinner
+     * @return this instance
+     */
+    public Input asSpinner(boolean spinner){
+        this.isSpinner = spinner;
+        return this;
+    }
+
+    /**
      * Validate input using the supplied regular expression pattern and display an error
      * message if the pattern does not match.
      *
@@ -508,6 +551,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
         pattern = in.readString();
         patternError = in.readString();
         patternErrorId = in.readInt();
+        isSpinner = in.readByte() != 0;
     }
 
     public static final Creator<Input> CREATOR = new Creator<Input>() {
@@ -545,6 +589,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
         dest.writeString(pattern);
         dest.writeString(patternError);
         dest.writeInt(patternErrorId);
+        dest.writeByte((byte) (isSpinner ? 1 : 0));
     }
 
 

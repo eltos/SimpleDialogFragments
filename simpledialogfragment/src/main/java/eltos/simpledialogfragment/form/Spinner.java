@@ -37,6 +37,7 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
  */
 
 @SuppressWarnings({"unused", "WeakerAccess"})
+@Deprecated // Use Input.spinner() instead
 public class Spinner extends FormElement<Spinner, SpinnerViewHolder> {
 
     private int itemArrayRes = NO_ID;

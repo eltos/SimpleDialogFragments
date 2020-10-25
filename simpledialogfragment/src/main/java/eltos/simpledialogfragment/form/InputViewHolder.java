@@ -18,8 +18,6 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
@@ -28,11 +26,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Arrays;
+
 import eltos.simpledialogfragment.R;
+import eltos.simpledialogfragment.input.TextInputAutoCompleteTextView;
 
 /**
  * The ViewHolder class for {@link Input}
@@ -46,7 +51,7 @@ import eltos.simpledialogfragment.R;
 class InputViewHolder extends FormElementViewHolder<Input> {
 
     protected static final String SAVED_TEXT = "savedText";
-    private AutoCompleteTextView input;
+    private TextInputAutoCompleteTextView input;
     private TextInputLayout inputLayout;
 
     InputViewHolder(Input field) {
@@ -62,8 +67,8 @@ class InputViewHolder extends FormElementViewHolder<Input> {
     protected void setUpView(View view, Context context, final Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        input = (AutoCompleteTextView) view.findViewById(R.id.editText);
-        inputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
+        input = view.findViewById(R.id.editText);
+        inputLayout = view.findViewById(R.id.inputLayout);
 
         if (savedInstanceState == null) {
             // Text preset
@@ -104,7 +109,9 @@ class InputViewHolder extends FormElementViewHolder<Input> {
         }
 
         // PW hide/visible toggle button
-        inputLayout.setPasswordVisibilityToggleEnabled(field.passwordToggleVisible);
+        if (field.passwordToggleVisible){
+            inputLayout.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
+        }
 
         // Counter (maxLength)
         if (field.maxLength > 0) {
@@ -149,11 +156,9 @@ class InputViewHolder extends FormElementViewHolder<Input> {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
-
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                 }
-
                 @Override
                 public void afterTextChanged(Editable s) {
                     actions.updatePosButtonState();
@@ -164,11 +169,41 @@ class InputViewHolder extends FormElementViewHolder<Input> {
         // Auto complete suggestions
         String[] suggestions = field.getSuggestions(context);
         if (suggestions != null) {
+            if (field.isSpinner && !field.required){
+                suggestions = Arrays.copyOf(suggestions, suggestions.length + 1);
+                suggestions[suggestions.length - 1] = "";
+            }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
                     // android.R.layout.simple_dropdown_item_1line
                     android.R.layout.simple_list_item_1, suggestions);
             input.setAdapter(adapter);
             input.setThreshold(1);
+            input.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (field.isSpinner && !field.required && position == input.getAdapter().getCount()-1){
+                        input.setText(null);
+                    }
+                    validate(view.getContext());
+                    actions.updatePosButtonState();
+                    actions.continueWithNextElement(true);
+                }
+            });
+            if (field.isSpinner || (field.forceSuggestion && !field.passwordToggleVisible)) {
+                inputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE); // Background none not supported in combination with dropdown
+                inputLayout.setEndIconMode(TextInputLayout.END_ICON_DROPDOWN_MENU);
+            }
+            if (field.isSpinner) {
+                input.setInputType(InputType.TYPE_NULL);
+                input.setKeyListener(null);
+                input.doNotFilter = true;
+                input.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        actions.hideKeyboard();
+                    }
+                });
+            }
         }
     }
 
@@ -204,21 +239,29 @@ class InputViewHolder extends FormElementViewHolder<Input> {
 
 
     @Override
-    protected boolean focus(SimpleFormDialog.FocusActions actions) {
-        // Damn, there is an issue that hides the error hint and counter behind the keyboard
-        // because only the input EditText gets focused here, not the entire layout
-        // See: https://code.google.com/p/android/issues/detail?id=178153
-        // Workaround is resizing the dialog
-        input.post(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager imm = (InputMethodManager) input.getContext()
-                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+    protected boolean focus(final SimpleFormDialog.FocusActions actions) {
+        if (field.isSpinner){
+            actions.hideKeyboard();
+            input.showDropDown();
+        } else {
+            // Damn, there is an issue that hides the error hint and counter behind the keyboard
+            // because only the input EditText gets focused here, not the entire layout
+            // See: https://code.google.com/p/android/issues/detail?id=178153
+            // Workaround is resizing the dialog
+            input.post(new Runnable() {
+                @Override
+                public void run() {
+                    InputMethodManager imm = (InputMethodManager) input.getContext()
+                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                    }
                 }
-            }
-        });
+            });
+        }
+        if (field.forceSuggestion){
+            input.showDropDown();
+        }
 //        actions.openKeyboard(input);
         return input.requestFocus();
     }
@@ -249,7 +292,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             return false;
         }
         // input not any of the provided suggestions?
-        if (field.forceSuggestion){
+        if (field.forceSuggestion && !isInputEmpty()){
             String[] suggestions = field.getSuggestions(context);
             String text = getText();
             boolean match = false;

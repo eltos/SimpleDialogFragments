@@ -20,6 +20,8 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.textfield.TextInputLayout;
+
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
@@ -51,6 +53,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
     private TextInputLayout dateLayout, timeLayout;
     private Long day;
     private Integer hour, minute;
+    private SimpleFormDialog.DialogActions actions;
 
     public DateTimeViewHolder(DateTime field) {
         super(field);
@@ -64,6 +67,8 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
     @Override
     protected void setUpView(View view, final Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
+
+        this.actions = actions;
 
         date = (EditText) view.findViewById(R.id.date);
         time = (EditText) view.findViewById(R.id.time);
@@ -81,35 +86,36 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
 
         dateLayout.setVisibility(field.type == DateTime.Type.DATETIME
                 || field.type == DateTime.Type.DATE ? View.VISIBLE : View.GONE);
-
+        date.setInputType(InputType.TYPE_NULL);
+        date.setKeyListener(null);
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateDialog dialog = SimpleDateDialog.build()
-                        .title(field.getText(context))
-                        .neut();
-                if (field.min != null) dialog.minDate(field.min);
-                if (field.max != null) dialog.maxDate(field.max);
-                if (!field.required) dialog.neg(R.string.clear);
-                if (day != null) dialog.date(day);
-                actions.showDialog(dialog, DATE_DIALOG_TAG+field.resultKey);
+                //actions.clearCurrentFocus();
+                actions.hideKeyboard();
+                pickDate();
+            }
+        });
+        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus && (day == null || field.required)){
+                    date.performClick();
+                }
             }
         });
 
 
         timeLayout.setVisibility(field.type == DateTime.Type.DATETIME
                 || field.type == DateTime.Type.TIME ? View.VISIBLE : View.GONE);
-
-        time.setOnClickListener(new View.OnClickListener() {
+        time.setInputType(InputType.TYPE_NULL);
+        time.setKeyListener(null);
+        time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                SimpleTimeDialog dialog = SimpleTimeDialog.build()
-                                .title(field.getText(context))
-                                .neut();
-                if (hour != null) dialog.hour(hour);
-                if (minute != null) dialog.minute(minute);
-                if (!field.required) dialog.neg(R.string.clear);
-                actions.showDialog(dialog, TIME_DIALOG_TAG+field.resultKey);
+            public void onFocusChange(View v, boolean hasFocus) {
+                actions.clearCurrentFocus();
+                actions.hideKeyboard();
+                pickTime();
             }
         });
 
@@ -132,7 +138,29 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
         date.setText(day == null ? null : SimpleDateFormat.getDateInstance().format(new Date(day)));
         time.setText(hour == null || minute == null ? null :
                 SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(0, 0, 0, hour, minute)));
+        dateLayout.setEndIconMode(field.required || day == null ? TextInputLayout.END_ICON_NONE : TextInputLayout.END_ICON_CLEAR_TEXT);
+        timeLayout.setEndIconMode(field.required || hour == null || minute == null ? TextInputLayout.END_ICON_NONE : TextInputLayout.END_ICON_CLEAR_TEXT);
+    }
 
+    private void pickDate(){
+        SimpleDateDialog dialog = SimpleDateDialog.build()
+                .title(field.getText(date.getContext()))
+                .neut();
+        if (field.min != null) dialog.minDate(field.min);
+        if (field.max != null) dialog.maxDate(field.max);
+        if (!field.required) dialog.neg(R.string.clear);
+        if (day != null) dialog.date(day);
+        actions.showDialog(dialog, DATE_DIALOG_TAG+field.resultKey);
+    }
+
+    private void pickTime(){
+        SimpleTimeDialog dialog = SimpleTimeDialog.build()
+                .title(field.getText(time.getContext()))
+                .neut();
+        if (hour != null) dialog.hour(hour);
+        if (minute != null) dialog.minute(minute);
+        if (!field.required) dialog.neg(R.string.clear);
+        actions.showDialog(dialog, TIME_DIALOG_TAG+field.resultKey);
     }
 
 
@@ -155,13 +183,11 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
 
     @Override
     protected boolean focus(final SimpleFormDialog.FocusActions actions) {
-        actions.hideKeyboard();
         if (field.type == DateTime.Type.TIME){
-            time.performClick();
+            return time.requestFocus();
         } else {
-            date.performClick();
+            return date.requestFocus();
         }
-        return true;
     }
 
 
