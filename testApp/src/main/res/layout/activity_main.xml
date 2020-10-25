@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="eltos.simpledialogfragments.MainActivity"
     android:layout_width="match_parent"
@@ -23,12 +24,12 @@
             android:columnCount="4">
 
             <TextView
-                android:text="Alerts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnSpan="4"
+                android:text="Alerts"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
@@ -37,17 +38,9 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:text="Info"
-                android:onClick="showInfo" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:text="HTML"
-                android:onClick="showHtml" />
+                android:layout_margin="3dp"
+                android:onClick="showInfo"
+                android:text="Info" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -55,18 +48,20 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Image"
-                android:onClick="showImage" />
+                android:layout_margin="3dp"
+                android:onClick="showImage"
+                android:text="Image" />
 
             <Button
+                android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="HTML"
-                android:id="@+id/button"
-                android:onClick="showHtml" />
+                android:layout_margin="3dp"
+                android:onClick="showHtml"
+                android:text="HTML" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -74,6 +69,7 @@
                 android:layout_row="2"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
+                android:layout_margin="3dp"
                 android:onClick="showQr"
                 android:text="QR code" />
 
@@ -83,8 +79,9 @@
                 android:layout_row="2"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Yes | No"
-                android:onClick="showYesNo" />
+                android:layout_margin="3dp"
+                android:onClick="showYesNo"
+                android:text="Yes | No" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -92,8 +89,9 @@
                 android:layout_row="2"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Themed"
-                android:onClick="showThemed" />
+                android:layout_margin="3dp"
+                android:onClick="showThemed"
+                android:text="Themed" />
 
         </GridLayout>
 
@@ -118,8 +116,9 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:text="Direct"
-                android:onClick="showDirectChoice" />
+                android:layout_margin="3dp"
+                android:onClick="showDirectChoice"
+                android:text="Direct" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -127,8 +126,9 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Single"
-                android:onClick="showSingleChoice" />
+                android:layout_margin="3dp"
+                android:onClick="showSingleChoice"
+                android:text="Single" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -136,8 +136,9 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Multi"
-                android:onClick="showMultiChoice" />
+                android:layout_margin="3dp"
+                android:onClick="showMultiChoice"
+                android:text="Multi" />
 
         </GridLayout>
 
@@ -148,12 +149,12 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView
-                android:text="Colors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_columnSpan="4"
+                android:text="Color picker"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
@@ -162,8 +163,9 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:text="Picker"
-                android:onClick="showColorPicker" />
+                android:layout_margin="3dp"
+                android:onClick="showColorPicker"
+                android:text="1 color" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -171,8 +173,9 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="HSV Wheel"
-                android:onClick="showHsvWheel" />
+                android:layout_margin="3dp"
+                android:onClick="showHsvWheel"
+                android:text="HSV Wheel" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -180,8 +183,9 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Colors"
-                android:onClick="showMultiColorPicker" />
+                android:layout_margin="3dp"
+                android:onClick="showMultiColorPicker"
+                android:text="N Colors" />
 
         </GridLayout>
 
@@ -206,8 +210,9 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:text="Checkbox"
-                android:onClick="showCheckBox" />
+                android:layout_margin="3dp"
+                android:onClick="showCheckBox"
+                android:text="Checkbox" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -215,8 +220,9 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Email"
-                android:onClick="showEmailInput" />
+                android:layout_margin="3dp"
+                android:onClick="showEmailInput"
+                android:text="Email" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -224,8 +230,9 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Login"
-                android:onClick="showLogin" />
+                android:layout_margin="3dp"
+                android:onClick="showLogin"
+                android:text="Login" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -233,8 +240,9 @@
                 android:layout_row="2"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
-                android:text="Number"
-                android:onClick="showNumberInput" />
+                android:layout_margin="3dp"
+                android:onClick="showNumberInput"
+                android:text="Number" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -242,8 +250,9 @@
                 android:layout_row="2"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Simple input"
-                android:onClick="showSimpleInput" />
+                android:layout_margin="3dp"
+                android:onClick="showSimpleInput"
+                android:text="Simple input" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -251,8 +260,9 @@
                 android:layout_row="2"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Pin code"
-                android:onClick="showPinInput" />
+                android:layout_margin="3dp"
+                android:onClick="showPinInput"
+                android:text="Pin code" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -261,8 +271,9 @@
                 android:layout_column="0"
                 android:layout_columnSpan="3"
                 android:layout_columnWeight="1"
-                android:text="Form with different input types"
-                android:onClick="showForm" />
+                android:layout_margin="3dp"
+                android:onClick="showForm"
+                android:text="Form with different input types" />
 
         </GridLayout>
 
@@ -287,6 +298,7 @@
                 android:layout_row="1"
                 android:layout_column="0"
                 android:layout_columnWeight="1"
+                android:layout_margin="3dp"
                 android:onClick="showDate"
                 android:text="Date" />
 
@@ -296,8 +308,9 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Time"
-                android:onClick="showTime" />
+                android:layout_margin="3dp"
+                android:onClick="showTime"
+                android:text="Time" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -305,8 +318,9 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_columnWeight="1"
-                android:text="Datetime"
-                android:onClick="showDatetime" />
+                android:layout_margin="3dp"
+                android:onClick="showDatetime"
+                android:text="Datetime" />
 
         </GridLayout>
 
@@ -477,10 +491,10 @@
             android:text="Various"/>
 
         <Button
-            android:text="Using dialogs as 'normal' fragments"
+            android:id="@+id/flat_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/flat_button"/>
+            android:text="Using dialogs as 'normal' fragments" />
 
         <Button
             android:layout_width="match_parent"
