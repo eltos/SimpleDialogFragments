@@ -7,11 +7,13 @@
         <item name="colorSecondary">@color/colorAccent</item>
 
         <!-- Optional custom theme for all dialogs
-             Use one of the default themes, inherit from them or create your own:
+             Use simpleDialogTheme for simple dialogs only or alertDialogTheme for all dialogs
+             You can directly reference the default themes or use them as parent:
              - SimpleDialogTheme
              - SimpleDialogMaterialTheme
          -->
-        <item name="alertDialogTheme">@style/MyDialogTheme</item>
+        <item name="simpleDialogTheme">@style/MyDialogTheme</item>
+        <!--<item name="alertDialogTheme">@style/SimpleDialogTheme</item>-->
         <!--<item name="alertDialogTheme">@style/SimpleDialogMaterialTheme</item>-->
         <!--<item name="imageDialogTheme">@style/MyImageDialogTheme</item>-->
     </style>
@@ -19,6 +21,7 @@
 
     <style name="MyDialogTheme" parent="SimpleDialogTheme">
         <!-- customizations for all dialogs -->
+        <item name="colorPrimary">@color/colorAccent</item>
     </style>
 
 
