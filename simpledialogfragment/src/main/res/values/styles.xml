@@ -14,7 +14,7 @@
     </style>
 
     <!-- material design -->
-    <style name="SimpleDialogMaterialTheme" parent="SimpleDialogTheme">
+    <style name="SimpleDialogTheme.Material">
         <item name="textInputStyle">@style/SimpleDialogMaterialTextInputStyle</item>
     </style>
     <style name="SimpleDialogMaterialTextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
