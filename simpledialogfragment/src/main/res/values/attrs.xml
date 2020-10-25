@@ -16,5 +16,6 @@
     </declare-styleable>
 
     <attr name="imageDialogTheme" format="reference"/>
+    <attr name="simpleDialogTheme" format="reference"/>
     
 </resources>

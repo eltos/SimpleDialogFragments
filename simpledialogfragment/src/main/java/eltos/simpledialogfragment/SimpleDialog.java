@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
+import android.util.TypedValue;
 
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
@@ -335,7 +336,9 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     /**
-     * Set a custom theme. Default is using the theme defined by the 'alertDialogTheme'-attribute.
+     * Set a custom theme.
+     * Default is using the theme defined by the 'simpleDialogTheme'-attribute
+     * or the 'alertDialogTheme'-attribute.
      *
      * @param theme the android style resource id of the custom theme
      * @return this instance
@@ -477,9 +480,20 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        if (getArguments().containsKey(THEME)){
-            dialog = new AlertDialog.Builder(getContext(), getArguments().getInt(THEME)).create();
-            setStyle(STYLE_NORMAL, getArguments().getInt(THEME));
+        // dialog theme
+        @StyleRes Integer theme = null;
+        if (getArguments().containsKey(THEME)){  // per-dialog theme
+            theme = getArguments().getInt(THEME);
+        } else {  // theme specified by 'simpleDialogTheme' attribute
+            TypedValue outValue = new TypedValue();
+            getContext().getTheme().resolveAttribute(R.attr.simpleDialogTheme, outValue, true);
+            if (outValue.type == TypedValue.TYPE_REFERENCE) {
+                theme = outValue.resourceId;
+            }
+        }
+        if (theme != null) {
+            dialog = new AlertDialog.Builder(getContext(), theme).create();
+            setStyle(STYLE_NORMAL, theme);
         } else {
             // default theme or 'alertDialogTheme'
             dialog = new AlertDialog.Builder(getContext()).create();
