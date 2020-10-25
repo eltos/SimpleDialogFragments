@@ -242,8 +242,8 @@
                 android:layout_row="2"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:text="Form"
-                android:onClick="showForm" />
+                android:text="Simple input"
+                android:onClick="showSimpleInput" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -253,6 +253,16 @@
                 android:layout_columnWeight="1"
                 android:text="Pin code"
                 android:onClick="showPinInput" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_columnSpan="3"
+                android:layout_columnWeight="1"
+                android:text="Form with different input types"
+                android:onClick="showForm" />
 
         </GridLayout>
 
@@ -478,12 +488,6 @@
             android:layout_marginBottom="16dp"
             android:onClick="showRecursiveDialog"
             android:text="Recursive Dialogs" />
-
-        <Button
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Simple input"
-          android:onClick="showSimpleInput" />
 
         <TextView
             android:id="@+id/version_info"
