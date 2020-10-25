@@ -1,10 +1,14 @@
+
+# Created by https://www.gitignore.io/api/androidstudio
+# Edit at https://www.gitignore.io?templates=androidstudio
+
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
 # Built application files
 *.apk
 *.ap_
-!testApp.apk
+*.aab
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -46,6 +50,13 @@ captures/
 *~
 *.swp
 
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+# google-services.json
+
 # Android Patch
 gen-external-apklibs
 
@@ -81,6 +92,10 @@ obj/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/assetWizardSettings.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/navEditor.xml
 
 # OS-specific files
 .DS_Store
