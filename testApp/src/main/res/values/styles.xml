@@ -6,8 +6,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Optional custom theme for all dialogs -->
+        <!-- Optional custom theme for all dialogs
+             Use one of the default themes, inherit from them or create your own:
+             - SimpleDialogTheme
+             - SimpleDialogMaterialTheme
+         -->
         <item name="alertDialogTheme">@style/MyDialogTheme</item>
+        <!--<item name="alertDialogTheme">@style/SimpleDialogMaterialTheme</item>-->
         <!--<item name="imageDialogTheme">@style/MyImageDialogTheme</item>-->
     </style>
 
@@ -18,16 +23,20 @@
 
 
     <style name="MyFancyDialogTheme" parent="SimpleDialogTheme">
-        <!-- customizations per dialog-->
+        <!-- customizations per dialog, passed via the SimpleDialog.theme(...) method -->
         <item name="android:colorBackground">#282828</item>
         <item name="colorAccent">#d50000</item>
         <item name="android:textColorPrimary">#ffa000</item>
         <item name="android:textColorSecondary">#33691e</item>
         <item name="android:textColorHint">#9e9d24</item>
         <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+        <item name="textInputStyle">@style/MyTextInputStyle</item>
     </style>
     <style name="MyCheckBoxStyle" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">#64b5f6</item>
+    </style>
+    <style name="MyTextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="endIconMode">none</item>
     </style>
 
 
