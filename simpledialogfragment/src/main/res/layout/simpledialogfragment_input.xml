@@ -12,7 +12,6 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="8dp"
-        app:endIconMode="none"
         app:counterOverflowTextAppearance="@style/OverflowText">
 
         <eltos.simpledialogfragment.input.TextInputAutoCompleteTextView
