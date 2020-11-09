@@ -130,7 +130,7 @@ if [ $BUILD -eq 0 ]; then
 		if [ $? -eq 0 ]; then
 
 			# Update README.md
-			sed -i 's|:simpledialogfragment:[0-9.]*|:simpledialogfragment:'"$LVN"'|' README.md
+			sed -i 's|:simpledialogfragment:v[0-9.]*|:simpledialogfragment:v'"$LVN"'|' README.md
 			sed -i 's|releases/download/v[0-9.]*/|releases/download/v'"$AVN"'/|' README.md
 
 			echo -e "\e[32mSUCCESS :)\e[0m"
