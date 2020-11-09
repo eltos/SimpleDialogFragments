@@ -110,12 +110,20 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
                 || field.type == DateTime.Type.TIME ? View.VISIBLE : View.GONE);
         time.setInputType(InputType.TYPE_NULL);
         time.setKeyListener(null);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //actions.clearCurrentFocus();
+                actions.hideKeyboard();
+                pickTime();
+            }
+        });
         time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                actions.clearCurrentFocus();
-                actions.hideKeyboard();
-                pickTime();
+                if (hasFocus && (hour == null || minute == null || field.required)){
+                    time.performClick();
+                }
             }
         });
 
@@ -140,6 +148,7 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
                 SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(0, 0, 0, hour, minute)));
         dateLayout.setEndIconMode(field.required || day == null ? TextInputLayout.END_ICON_NONE : TextInputLayout.END_ICON_CLEAR_TEXT);
         timeLayout.setEndIconMode(field.required || hour == null || minute == null ? TextInputLayout.END_ICON_NONE : TextInputLayout.END_ICON_CLEAR_TEXT);
+        actions.updatePosButtonState();
     }
 
     private void pickDate(){
@@ -219,11 +228,14 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
         if ((DATE_DIALOG_TAG+field.resultKey).equals(dialogTag)){
+            boolean wasEmpty = day == null;
             if (which == BUTTON_POSITIVE){
                 day = extras.getLong(SimpleDateDialog.DATE);
                 dateLayout.setErrorEnabled(false);
-                if (field.type == DateTime.Type.DATETIME){
+                if (field.type == DateTime.Type.DATETIME && (hour == null || minute == null)){
                     time.performClick();
+                } else if (wasEmpty){
+                    actions.continueWithNextElement(false);
                 }
             } else if (which == BUTTON_NEGATIVE){
                 day = null;
@@ -232,10 +244,14 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
             return true;
         }
         if ((TIME_DIALOG_TAG+field.resultKey).equals(dialogTag)){
+            boolean wasEmpty = hour == null || minute == null;
             if (which == BUTTON_POSITIVE){
                 hour = extras.getInt(SimpleTimeDialog.HOUR);
                 minute = extras.getInt(SimpleTimeDialog.MINUTE);
                 timeLayout.setErrorEnabled(false);
+                if (wasEmpty) {
+                    actions.continueWithNextElement(false);
+                }
             } else if (which == BUTTON_NEGATIVE){
                 hour = null;
                 minute = null;

@@ -479,11 +479,11 @@ public class MainActivity extends AppCompatActivity implements
                         Input.name(FIRST_NAME).hint(R.string.first_name),
                         Input.name(SURNAME).hint(R.string.surname).required(),
                         Input.spinner(GENDER, R.array.genders).hint(R.string.gender).required(false),
-                        DateTime.date(BIRTHDAY).label(R.string.birthday).max(new Date()).required(),
-                        ColorField.picker(COLOR).label(R.string.favourite_color),
+                        DateTime.datetime(BIRTHDAY).label(R.string.birthday).max(new Date()).required(),
                         Input.plain(COUNTRY).hint(R.string.country)
                                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                                 .suggest(R.array.countries_locale).forceSuggestion(),
+                        ColorField.picker(COLOR).label(R.string.favourite_color),
                         Input.email(EMAIL).required(),
                         Check.box(NEWSLETTER).label(R.string.receive_newsletter).check(true),
                         Input.password(PASSWORD).max(20).required().validatePatternStrongPassword(),
