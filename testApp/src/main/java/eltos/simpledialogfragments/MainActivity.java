@@ -55,6 +55,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
 
+import eltos.simpledialogfragment.SimpleCheckDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleImageDialog;
@@ -154,10 +155,12 @@ public class MainActivity extends AppCompatActivity implements
 
     public void showHtml(View view){
 
-        SimpleDialog.build()
+        SimpleCheckDialog.build()
                 .title(R.string.terms_title)
                 .msgHtml(R.string.terms_and_conditions_html_styled)
                 .cancelable(false)
+                .label(R.string.terms_accept)
+                .checkRequired(true)
                 .pos(R.string.accept)
                 .neg(R.string.decline)
                 .show(this, TERMS_DIALOG);
