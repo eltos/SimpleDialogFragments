@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"eltos.simpledialogfragment"},{"l":"eltos.simpledialogfragment.color"},{"l":"eltos.simpledialogfragment.form"},{"l":"eltos.simpledialogfragment.input"},{"l":"eltos.simpledialogfragment.list"}]
