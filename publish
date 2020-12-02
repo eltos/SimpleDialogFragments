@@ -91,14 +91,14 @@ if [ -d "simpledialogfragment/build/docs/javadoc/" ]; then
 	rm -rf "$TO"
 	mkdir -p $TO
 	cp -r "simpledialogfragment/build/docs/javadoc/." "$TO"
-    
+
 	# Update README
 	sed -i 's/\[API [0-9.]*\]/\[API '"$LVN"'\]/g' docs/README.md
 	if ! grep -q "\*\*$LVN\*\*" "docs/README.md"; then
 		DATE=`date +%d.%m.%Y`
 		echo "| **$LVN** | $DATE |" >> docs/README.md
 	fi	
-    	
+
 	echo -e "\e[32mJavadoc copied to $TO\e[0m"
 else
 	echo -e "\e[31mJavadoc not created\e[0m"
@@ -130,12 +130,37 @@ if [ $BUILD -eq 0 ]; then
 		if [ $? -eq 0 ]; then
 
 			# Update README.md
-			sed -i 's|:simpledialogfragment:v[0-9.]*|:simpledialogfragment:v'"$LVN"'|' README.md
-			sed -i 's|releases/download/v[0-9.]*/|releases/download/v'"$AVN"'/|' README.md
+			sed -i -E "s|v[0-9.]+|v$LVN|" README.md
 
-			echo -e "\e[32mSUCCESS :)\e[0m"
-			echo "You still need to publish the files uploaded."
-			xdg-open https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment
+			echo -e "\e[32mUpload successful :)\e[0m"
+			echo "You still need to publish the files uploaded:"
+			echo "  https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment"
+			start "https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment"
+			
+			# git commit
+			read -r -p $'\e[32mGit commit and tag new version as v'"$LVN"$'? [Y/n]\e[0m ' OK
+			if ! [[ $OK =~ ^[Nn].*$ ]]; then
+				git reset HEAD
+				git add **/build.gradle README.md
+				echo -e "Release v$LVN\n\nddZZ" > commit_message.tmp
+				git commit -t commit_message.tmp
+				if [ $? -eq 0 ]; then
+					git reset HEAD
+					git add docs/
+					echo -e "Javadoc v$LVN\n\nddZZ" > commit_message.tmp
+					git commit -t commit_message.tmp
+					if [ $? -eq 0 ]; then
+						git tag "v$LVN"
+						
+						echo -e "\e[32mCommit successful\e[0m"
+						echo "You still need to git push and create a release on github with the testApp.apk attachted:"
+						echo "  https://github.com/eltos/SimpleDialogFragments/releases/new?tag=v$LVN&title=Version $LVN"
+						start "https://github.com/eltos/SimpleDialogFragments/releases/new?tag=v$LVN&title=Version $LVN&body=%5B%20%21%5BAPI%2014%2B%5D%28https%3A%2F%2Fimg.shields.io%2Fbadge%2FAPI-14%2B-green.svg%29%5D%28https%3A%2F%2Fdeveloper.android.com%2Fabout%2Fdashboards%2Findex.html%23Platform%29%20%5B%21%5BDownload%5D%28https%3A%2F%2Fapi.bintray.com%2Fpackages%2Feltos%2Fsimpledialogfragments%2FSimpleDialogFragment%2Fimages%2Fdownload.svg%3Fversion%3D$LVN%29%5D%28https%3A%2F%2Fbintray.com%2Feltos%2Fsimpledialogfragments%2FSimpleDialogFragment%2F$LVN%29%20%5B%21%5BJitPack%5D%28https%3A%2F%2Fimg.shields.io%2Fbadge%2FJitPack-v$LVN-brightgreen.svg%29%5D%28https%3A%2F%2Fjitpack.io%2F%23eltos%2Fsimpledialogfragments%2Fv$LVN%29%0A%0A%0A%23%23%20JavaDoc%0A%0AAPI%20documentation%20can%20be%20found%20here%3A%20%5Bsimpledialogfragment%20API%5D%28https%3A%2F%2Feltos.github.io%2FSimpleDialogFragments%2Fjavadoc%29%0A%0A%23%23%20Changes%0A-%20...%0A%0A%23%23%20Licence%0A%0ACopyright%202020%20Philipp%20Niedermayer%20%28github.com%2Feltos%29%0A%0ALicenced%20under%20the%20%5BApache%20Licence%202.0%5D%28LICENSE%29%0A"
+					fi
+				fi
+				rm commit_message.tmp
+			fi
+			
 		else
 			echo -e "\e[31mUpload failed :(\e[0m"
 			exit 1
