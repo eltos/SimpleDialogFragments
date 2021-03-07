@@ -29,6 +29,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eltos.simpledialogfragment.R;
+
 /**
  * A dialog that displays a filterable list in single- or multi-choice mode.
  *
@@ -148,17 +150,17 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     protected SimpleListAdapter onCreateAdapter() {
 
         int layout;
-        switch (getArguments().getInt(CHOICE_MODE)) {
+        switch (getArguments().getInt(CHOICE_MODE, NO_CHOICE)) {
             case SINGLE_CHOICE:
-                layout = android.R.layout.simple_list_item_single_choice;
+                layout = R.layout.simple_list_item_single_choice;
                 break;
             case MULTI_CHOICE:
-                layout = android.R.layout.simple_list_item_multiple_choice;
+                layout = R.layout.simple_list_item_multiple_choice;
                 break;
             case NO_CHOICE:
             case SINGLE_CHOICE_DIRECT:
             default:
-                layout = android.R.layout.simple_list_item_1;
+                layout = R.layout.simple_list_item;
                 break;
         }
 
