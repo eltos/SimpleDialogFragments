@@ -30,6 +30,13 @@ plugins {
 apply from: "publish.gradle"
 
 
+// Version number used for simpledialogfragments library, testApp and maven repository
+ext {
+    VERSION = '3.3.2'
+    VERSION_NR = 332
+}
+
+
 allprojects {
     repositories {
         google()

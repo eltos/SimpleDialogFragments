@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 332
-        versionName '3.3.2'
+        versionCode rootProject.ext['VERSION_NR']
+        versionName rootProject.ext['VERSION']
     }
     buildTypes {
         release {
@@ -38,7 +38,7 @@ dependencies {
 ext {
     PUBLISH_GROUP_ID = 'io.github.eltos'
     PUBLISH_ARTIFACT_ID = 'simpledialogfragments'
-    PUBLISH_VERSION = '3.3.2'
+    PUBLISH_VERSION = rootProject.ext['VERSION']
 }
 
 apply from: 'publish.gradle'
