@@ -3,7 +3,7 @@
 # SimpleDialogFragments
 
 [![API 14+](https://img.shields.io/badge/API-14+-green.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
-[![Download Latest](https://maven-badges.herokuapp.com/maven-central/io.github.eltos/simpledialogfragments/badge.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.eltos/simpledialogfragments.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
 [![JitPack](https://jitpack.io/v/eltos/SimpleDialogFragments.svg)](https://jitpack.io/#eltos/SimpleDialogFragments)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
 [![Travis CI](https://travis-ci.org/eltos/SimpleDialogFragments.svg?branch=master)](https://travis-ci.org/eltos/SimpleDialogFragments)
