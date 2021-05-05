@@ -1,6 +1,6 @@
 # API documentation
 
-[**Javadoc**](javadoc)
+[Javadoc](javadoc)
 
 
 
