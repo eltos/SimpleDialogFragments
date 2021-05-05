@@ -1,1 +1,1 @@
-include ':testApp', ':simpledialogfragment', ':lintchecks'
+include ':testApp', ':simpledialogfragments', ':lintchecks'

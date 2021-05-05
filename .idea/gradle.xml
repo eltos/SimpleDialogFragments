@@ -13,7 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/lintchecks" />
-            <option value="$PROJECT_DIR$/simpledialogfragment" />
+            <option value="$PROJECT_DIR$/simpledialogfragments" />
             <option value="$PROJECT_DIR$/testApp" />
           </set>
         </option>
