@@ -60,6 +60,3 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-// Install scripts to push to Jcenter/Bintray
-apply from: 'installv1.gradle'
-apply from: 'bintrayv1.gradle'
