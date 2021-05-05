@@ -3,7 +3,7 @@
 # SimpleDialogFragments
 
 [![API 14+](https://img.shields.io/badge/API-14+-green.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
-[![Download Latest](https://api.bintray.com/packages/eltos/simpledialogfragments/SimpleDialogFragment/images/download.svg)](https://bintray.com/eltos/simpledialogfragments/SimpleDialogFragment/_latestVersion)
+[![Download Latest](https://maven-badges.herokuapp.com/maven-central/io.github.eltos/simpledialogfragments/badge.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
 [![JitPack](https://jitpack.io/v/eltos/SimpleDialogFragments.svg)](https://jitpack.io/#eltos/SimpleDialogFragments)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
 [![Travis CI](https://travis-ci.org/eltos/SimpleDialogFragments.svg?branch=master)](https://travis-ci.org/eltos/SimpleDialogFragments)
@@ -44,18 +44,25 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 ## Usage
 
-Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases) for all available release variants:
+Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases) for the latest and older versions:
 
-In your apps ``build.gradle``:
+In your module level ``build.gradle`` when using [mavenCentral](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments):
+```groovy
+dependencies {
+    implementation 'io.github.eltos:simpledialogfragments:3.3.2'
+}
+```
+or if using [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments):
 ```groovy
 dependencies {
     implementation 'com.github.eltos:simpledialogfragments:v3.3.2'
 }
 ```
 
-You can also use [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments).
 
 ### Examples
+
+You can find more examples in the [testApp](testApp/src/main/java/eltos/simpledialogfragments/MainActivity.java) and the [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki).
 
 **Alert dialog**
 ```java
@@ -100,8 +107,6 @@ SimpleFormDialog.build()
                 .show(this, REGISTRATION_DIALOG);
 ```
 
-See [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki) for more examples.
-
 ### Receive Results
 Let the hosting Activity or Fragment implement the `SimpleDialog.OnDialogResultListener`
 ```java
@@ -128,8 +133,6 @@ public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle ex
 }
 
 ```
-
-Make sure to check the demo application.
 
 ## Extensions
 Known extensions and projects using this library:
