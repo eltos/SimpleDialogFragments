@@ -32,31 +32,13 @@ dependencies {
     lintChecks project(':lintchecks')
 }
 
-// maven, bintray
 
+
+// for publication to maven central via Sonatype nexus
 ext {
-    bintrayRepo = 'simpledialogfragments'
-    bintrayName = 'SimpleDialogFragment'
-
-    publishedGroupId = 'com.github.eltos'
-    libraryName = 'SimpleDialogFragment'
-    artifact = 'simpledialogfragment'
-
-    libraryDescription = 'A collection of easy to use and extendable DialogFragment\'s for Android'
-
-    // GitHub repo link
-    siteUrl = 'https://github.com/eltos/SimpleDialogFragments'
-    gitUrl = 'https://github.com/eltos/SimpleDialogFragments.git'
-    githubRepository= 'eltos/SimpleDialogFragments'
-
-    libraryVersion = '3.3.2'
-
-    developerId = 'eltos'
-    developerName = 'Philipp Niedermayer'
-    developerEmail = 'eltos@outlook.de'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    PUBLISH_GROUP_ID = 'io.github.eltos'
+    PUBLISH_ARTIFACT_ID = 'simpledialogfragments'
+    PUBLISH_VERSION = '3.3.2'
 }
 
+apply from: 'publish.gradle'
