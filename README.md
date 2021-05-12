@@ -6,7 +6,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.eltos/simpledialogfragments.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
 [![JitPack](https://jitpack.io/v/eltos/SimpleDialogFragments.svg)](https://jitpack.io/#eltos/SimpleDialogFragments)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
-[![Travis CI](https://travis-ci.org/eltos/SimpleDialogFragments.svg?branch=master)](https://travis-ci.org/eltos/SimpleDialogFragments)
+[![Github CI](https://github.com/eltos/SimpleDialogFragments/actions/workflows/build.yml/badge.svg)](https://github.com/eltos/SimpleDialogFragments/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/eltos/simpledialogfragments.svg)](https://github.com/eltos/SimpleDialogFragments#license)
 
 
