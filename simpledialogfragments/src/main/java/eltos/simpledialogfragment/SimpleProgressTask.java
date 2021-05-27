@@ -5,6 +5,12 @@ import android.util.Pair;
 
 import androidx.annotation.CallSuper;
 
+/**
+ * An {@link AsyncTask} for use with {@link SimpleProgressDialog}
+ *
+ * Automatically reflects the task's states in the dialog.
+ *
+ */
 public abstract class SimpleProgressTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 
     protected SimpleProgressDialog mDialog;

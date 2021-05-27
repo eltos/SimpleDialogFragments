@@ -12,6 +12,11 @@ import androidx.annotation.Nullable;
 
 import java.text.NumberFormat;
 
+/**
+ * A dialog that displays a progress
+ *
+ * Created by eltos on 27.05.21.
+ */
 public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog> {
 
 
