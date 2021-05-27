@@ -23,6 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.view.InflateException;
@@ -275,7 +276,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
     @Override
     @CallSuper
-    protected boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, @Nullable Bundle extras) {
         Bundle results = onResult(which);
         if (extras == null) extras = new Bundle();
         if (results != null) extras.putAll(results);

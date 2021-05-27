@@ -95,7 +95,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     };
 
     @CallSuper
-    protected boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, @Nullable Bundle extras) {
         if (extras == null) extras = new Bundle();
         extras.putAll(getExtras());
         boolean handled = false;
