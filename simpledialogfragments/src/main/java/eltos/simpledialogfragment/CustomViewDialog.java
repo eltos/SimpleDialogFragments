@@ -82,9 +82,37 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 	 * 
 	 * @param enabled whether to en- or disable the button
      */
-    protected final void setPositiveButtonEnabled(boolean enabled){
-        if (positiveButton != null) {
-            positiveButton.setEnabled(enabled);
+    public final void setPositiveButtonEnabled(boolean enabled){
+        if (getPositiveButton() != null) {
+            getPositiveButton().setEnabled(enabled);
+        }
+    }
+
+    /**
+     * Call this method to enable or disable the neutral button,
+     * e.g. if you want to consider for preconditions to be fulfilled
+     *
+     * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
+     *
+     * @param enabled whether to en- or disable the button
+     */
+    public final void setNeutralButtonEnabled(boolean enabled){
+        if (getNeutralButton() != null) {
+            getNeutralButton().setEnabled(enabled);
+        }
+    }
+
+    /**
+     * Call this method to enable or disable the positive button,
+     * e.g. if you want to consider for preconditions to be fulfilled
+     *
+     * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
+     *
+     * @param enabled whether to en- or disable the button
+     */
+    public final void setNegativeButtonEnabled(boolean enabled){
+        if (getNegativeButton() != null) {
+            getNegativeButton().setEnabled(enabled);
         }
     }
 
@@ -172,7 +200,6 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     // Internal
 
 
-    private Button positiveButton;
     private LayoutInflater layoutInflater;
 
 
@@ -229,13 +256,15 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface d) {
-                positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positiveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pressPositiveButton();
-                    }
-                });
+                Button positiveButton = getPositiveButton();
+                if (positiveButton != null) {
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pressPositiveButton();
+                        }
+                    });
+                }
                 onDialogShown();
 
             }

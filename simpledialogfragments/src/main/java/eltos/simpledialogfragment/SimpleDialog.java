@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.util.TypedValue;
+import android.widget.Button;
 
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
@@ -548,6 +549,18 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         dialog.setCancelable(isCancelable());
 
         return dialog;
+    }
+
+    protected @Nullable Button getPositiveButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+    }
+
+    protected @Nullable Button getNegativeButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+    }
+
+    protected @Nullable Button getNeutralButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
     }
 
 
