@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,7 +25,13 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
             PERCENTAGE = TAG + "percentage",
             TEXT_PROGRESS = TAG + "text_progress",
             TEXT_INFO = TAG + "text_info",
-            TYPE = TAG + "type";
+            TYPE = TAG + "type",
+            AUTO_DISMISS = TAG + "auto_dismiss";
+
+    /**
+     * Result type if dialog was auto-dismissed due a to completed task
+     */
+    public int COMPLETED = 5;
 
     /**
      * Enum for various progress bar types.
@@ -43,7 +50,7 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
          * {@link R.layout#simpledialogfragment_progress_circle}
          */
         CIRCLE,
-    };
+    }
 
 
     public static SimpleProgressDialog build(){
@@ -88,6 +95,47 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     public SimpleProgressDialog percentage(boolean visible){
         return setArg(PERCENTAGE, visible);
     }
+
+    /**
+     * Connect an AsyncTask with this dialog. This will
+     * - update the progress dialog based on the progress reported by the task (see {@link SimpleProgressTask#onProgressUpdate}
+     * - if cancelable, add a neutral "cancel" button and disable it once the task finished
+     * - prevent the user from dismissing the dialog via the back button or by clicking outside it
+     * - if autoDismiss is true, dismiss the dialog after the task has ended
+     * - if autoDismiss is false, add a positive button "OK" that is only enabled after the task finished
+     *
+     * @param task: The {@link SimpleProgressTask} associated with this dialog
+     * @param cancelable: If a cancel button is shown to allow canceling the task
+     * @param autoDismiss: Whether to dismiss the dialog once the task finishes
+     */
+    public SimpleProgressDialog task(SimpleProgressTask<?,?,?> task, boolean cancelable, boolean autoDismiss){
+        mTask = task;
+        mTask.registerDialog(this);
+
+        percentage(true);
+
+        cancelable(false); // not cancelable by back-button press
+        if (cancelable){
+            neut(android.R.string.cancel);
+        } else {
+            neut(null);
+        }
+
+        setArg(AUTO_DISMISS, autoDismiss);
+        if (autoDismiss){
+            pos(null);
+        } else {
+            pos(android.R.string.ok);
+        }
+
+        return this;
+    }
+
+
+
+
+
+
 
 
     /**
@@ -171,6 +219,25 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     }
 
     /**
+     * Set or update the progress to be finished, i.e. 100%
+     * If a task is linked to this dialog, the "cancel" button is disabled, the positive one enabled,
+     * and the dialog dismissed if autoDismiss was set.     *
+     */
+    public void updateFinished(){
+        updateProgress(false, 100, 100, 100);
+        if (mTask != null) {
+            setPositiveButtonEnabled(true);
+            setNeutralButtonEnabled(false);
+            if (getArgs().getBoolean(AUTO_DISMISS)){
+                dismiss();
+                callResultListener(COMPLETED, new Bundle());
+            }
+        }
+    }
+
+
+
+    /**
      * Set or update the progress text at the start of the progress bar /
      * in the center of the circle
      *
@@ -207,10 +274,13 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
 
 
 
+
+
+
     protected ProgressBar mProgressBar;
     protected TextView mProgressText;
     protected TextView mInfoText;
-
+    protected SimpleProgressTask<?,?,?> mTask;
 
 
 
@@ -242,6 +312,36 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
 
         return view;
     }
+
+    @Override
+    @CallSuper
+    protected void onDialogShown() {
+        if (mTask != null) {
+            setPositiveButtonEnabled(false);
+            updateIndeterminate(); // set to indeterminate until first progress is reported by task
+        }
+        super.onDialogShown();
+    }
+
+    @Override
+    @CallSuper
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mTask != null) {
+            setRetainInstance(true); // retain instance to keep connection with task
+        }
+    }
+
+    @Override
+    @CallSuper
+    protected boolean callResultListener(int which, Bundle extras) {
+        if (mTask != null && (which == OnDialogResultListener.BUTTON_NEUTRAL
+                || which == OnDialogResultListener.CANCELED)) {
+            mTask.cancel(false); // cancel task (if not already completed)
+        }
+        return super.callResultListener(which, null);
+    }
+
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
