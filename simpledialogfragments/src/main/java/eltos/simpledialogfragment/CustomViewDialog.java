@@ -46,6 +46,13 @@ import android.widget.TextView;
 public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         extends SimpleDialog<This> {
 
+    public static final String TAG = "CustomViewDialog.";
+
+    private static final String
+            POSITIVE_BUTTON_ENABLED = TAG + "pos_enabled",
+            NEGATIVE_BUTTON_ENABLED = TAG + "neg_enabled",
+            NEUTRAL_BUTTON_ENABLED = TAG + "neu_enabled";
+
 
     public static CustomViewDialog build(){
         throw new java.lang.InstantiationError("Unintended abuse of the builder method. " +
@@ -84,6 +91,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 	 * @param enabled whether to en- or disable the button
      */
     public final void setPositiveButtonEnabled(boolean enabled){
+        setArg(POSITIVE_BUTTON_ENABLED, enabled);
         if (getPositiveButton() != null) {
             getPositiveButton().setEnabled(enabled);
         }
@@ -98,6 +106,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @param enabled whether to en- or disable the button
      */
     public final void setNeutralButtonEnabled(boolean enabled){
+        setArg(NEUTRAL_BUTTON_ENABLED, enabled);
         if (getNeutralButton() != null) {
             getNeutralButton().setEnabled(enabled);
         }
@@ -112,6 +121,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @param enabled whether to en- or disable the button
      */
     public final void setNegativeButtonEnabled(boolean enabled){
+        setArg(NEGATIVE_BUTTON_ENABLED, enabled);
         if (getNegativeButton() != null) {
             getNegativeButton().setEnabled(enabled);
         }
@@ -257,6 +267,11 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface d) {
+                // restore button states
+                setPositiveButtonEnabled(getArgs().getBoolean(POSITIVE_BUTTON_ENABLED, true));
+                setNegativeButtonEnabled(getArgs().getBoolean(NEGATIVE_BUTTON_ENABLED, true));
+                setNeutralButtonEnabled(getArgs().getBoolean(NEUTRAL_BUTTON_ENABLED, true));
+                // set click listener
                 Button positiveButton = getPositiveButton();
                 if (positiveButton != null) {
                     positiveButton.setOnClickListener(new View.OnClickListener() {
@@ -266,6 +281,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
                         }
                     });
                 }
+                // callback for subclasses
                 onDialogShown();
 
             }

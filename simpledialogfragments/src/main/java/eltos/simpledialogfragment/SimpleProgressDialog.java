@@ -132,6 +132,7 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
             pos(null);
         } else {
             pos(android.R.string.ok);
+            setPositiveButtonEnabled(false);
         }
 
         return this;
@@ -324,15 +325,6 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
         return view;
     }
 
-    @Override
-    @CallSuper
-    protected void onDialogShown() {
-        if (mTask != null) {
-            setPositiveButtonEnabled(mTask.getStatus() == AsyncTask.Status.FINISHED);
-            setNeutralButtonEnabled(mTask.getStatus() != AsyncTask.Status.FINISHED);
-        }
-        super.onDialogShown();
-    }
 
     @Override
     @CallSuper
