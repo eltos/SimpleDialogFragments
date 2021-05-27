@@ -542,7 +542,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public void showProgressIndeterminate(View view){
 
-        SimpleProgressDialog.circle() // .bar() or .circle()
+        SimpleProgressDialog.bar() // .bar() or .indeterminateCircle()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
                 //.neut(null)
