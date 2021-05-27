@@ -120,9 +120,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     private AlertDialog dialog;
 
     public SimpleDialog(){
-        Bundle args = getArguments();
-        if (args == null) args = new Bundle();
-        setArguments(args);
+        getArgs(); // init arguments to never equal null
         // positive button default
         pos(android.R.string.ok);
     }
@@ -156,6 +154,20 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             return getString((Integer) value);
         }
         return null;
+    }
+
+    /**
+     * null-save method to get arguments
+     * @return dialog arguments bundle
+     */
+    @NonNull
+    protected final Bundle getArgs(){
+        Bundle args = getArguments();
+        if (args == null){
+            args = new Bundle();
+            setArguments(args);
+        }
+        return args;
     }
 
     /**

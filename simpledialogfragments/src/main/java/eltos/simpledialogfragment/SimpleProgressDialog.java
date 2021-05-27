@@ -44,7 +44,7 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
 
 
         if (savedInstanceState == null){
-            savedInstanceState = getArguments();
+            savedInstanceState = getArgs();
         }
         if (savedInstanceState != null) {
             mProgressBar.setIndeterminate(savedInstanceState.getBoolean(INDETERMINATE, true));
