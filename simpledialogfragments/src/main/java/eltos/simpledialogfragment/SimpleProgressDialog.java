@@ -1,5 +1,6 @@
 package eltos.simpledialogfragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -327,8 +328,8 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     @CallSuper
     protected void onDialogShown() {
         if (mTask != null) {
-            setPositiveButtonEnabled(false);
-            updateIndeterminate(); // set to indeterminate until first progress is reported by task
+            setPositiveButtonEnabled(mTask.getStatus() == AsyncTask.Status.FINISHED);
+            setNeutralButtonEnabled(mTask.getStatus() != AsyncTask.Status.FINISHED);
         }
         super.onDialogShown();
     }
