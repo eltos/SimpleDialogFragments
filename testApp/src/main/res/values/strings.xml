@@ -260,6 +260,7 @@
     <string name="ask_changes_discard_too_late">Oops, I\'m afraid I forgot about the changes you made. Sorry.</string>
     <string name="nevermind">Nevermind</string>
     <string name="replace">Replace</string>
+    <string name="creating_user_profile_wait">Please wait while a user profile is being created for you…</string>
 
 
 </resources>

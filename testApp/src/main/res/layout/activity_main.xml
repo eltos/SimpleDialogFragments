@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
     tools:context="eltos.simpledialogfragments.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -186,6 +186,33 @@
                 android:layout_margin="3dp"
                 android:onClick="showMultiColorPicker"
                 android:text="N Colors" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:text="Progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_columnSpan="4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_margin="3dp"
+                android:onClick="showProgressIndeterminate"
+                android:text="Indeterminate" />
 
         </GridLayout>
 

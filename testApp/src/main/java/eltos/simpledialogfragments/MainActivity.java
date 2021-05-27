@@ -59,6 +59,7 @@ import eltos.simpledialogfragment.SimpleCheckDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleImageDialog;
+import eltos.simpledialogfragment.SimpleProgressDialog;
 import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
@@ -68,7 +69,6 @@ import eltos.simpledialogfragment.form.DateTime;
 import eltos.simpledialogfragment.form.Hint;
 import eltos.simpledialogfragment.form.Input;
 import eltos.simpledialogfragment.form.SimpleFormDialog;
-import eltos.simpledialogfragment.form.Spinner;
 import eltos.simpledialogfragment.input.SimpleInputDialog;
 import eltos.simpledialogfragment.input.SimplePinDialog;
 import eltos.simpledialogfragment.list.SimpleListDialog;
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements
             CHECK_DIALOG = "dialogTagCheck",
             INPUT_DIALOG = "dialogTagInput",
             COLOR_DIALOG = "dialogTagColor",
+            PROGRESS_DIALOG = "dialogProgress",
             DATETIME_DIALOG_DATE = "dialogTagDateTimeDate",
             DATETIME_DIALOG_TIME = "dialogTagDateTimeTime",
             YES_NO_DIALOG = "dialogTagYesNo";
@@ -533,6 +534,19 @@ public class MainActivity extends AppCompatActivity implements
         /** Results: {@link MainActivity#onResult} **/
 
     }
+
+
+    // ==   P r o g r e s s   ==
+
+    public void showProgressIndeterminate(View view){
+
+        SimpleProgressDialog.build()
+                .title(R.string.login)
+                .msg(R.string.creating_user_profile_wait)
+                .show(this, PROGRESS_DIALOG);
+
+    }
+
 
 
     // ==   V a r i o u s   ==
