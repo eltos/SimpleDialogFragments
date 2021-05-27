@@ -208,11 +208,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
-                android:layout_column="0"
+                android:layout_column="1"
                 android:layout_columnWeight="1"
                 android:layout_margin="3dp"
                 android:onClick="showProgressIndeterminate"
                 android:text="Indeterminate" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:layout_columnWeight="1"
+                android:layout_margin="3dp"
+                android:onClick="showProgressTask"
+                android:text="Task" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="3"
+                android:layout_columnWeight="1"
+                android:layout_margin="3dp"
+                android:onClick="showProgressCircle"
+                android:text="Circular" />
 
         </GridLayout>
 

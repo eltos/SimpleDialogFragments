@@ -27,22 +27,24 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.ArrayRes;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
+import android.os.SystemClock;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.util.Pair;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.ArrayRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -62,6 +64,7 @@ import eltos.simpledialogfragment.SimpleDateDialog;
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.SimpleImageDialog;
 import eltos.simpledialogfragment.SimpleProgressDialog;
+import eltos.simpledialogfragment.SimpleProgressTask;
 import eltos.simpledialogfragment.SimpleTimeDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
 import eltos.simpledialogfragment.color.SimpleColorWheelDialog;
@@ -540,18 +543,79 @@ public class MainActivity extends AppCompatActivity implements
 
     // ==   P r o g r e s s   ==
 
-    public void showProgressIndeterminate(View view){
-
+    public void showProgressIndeterminate(View view) {
         SimpleProgressDialog.bar() // .bar() or .indeterminateCircle()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
-                //.neut(null)
                 .show(this, PROGRESS_DIALOG);
 
-        //FragmentManager fm = getSupportFragmentManager();
-        //SimpleProgressDialog dialog = (SimpleProgressDialog) fm.findFragmentByTag(PROGRESS_DIALOG);
-        //dialog.dismiss();
+//        FragmentManager fm = getSupportFragmentManager();
+//        Fragment fragment = fm.findFragmentByTag(PROGRESS_DIALOG);
+//        if (fragment instanceof SimpleProgressDialog) {
+//            SimpleProgressDialog dialog = (SimpleProgressDialog) fragment;
+//            dialog.updateProgress(10, 100);
+//            dialog.updateSecondaryProgress(30);
+//            dialog.updateInfoText("Starting...");
+//            dialog.dismiss();
+//
+//        }
 
+    }
+
+    public void showProgressTask(View view){
+
+        MyProgressTask task = new MyProgressTask();
+        task.execute();
+
+        SimpleProgressDialog.bar()
+                .title(R.string.login)
+                .msg(R.string.creating_user_profile_wait)
+                .task(task, true, false)
+                .show(this, PROGRESS_DIALOG);
+
+
+    }
+
+    static class MyProgressTask extends SimpleProgressTask<Void, Integer, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SystemClock.sleep(500);
+            for (int i = 0; !isCancelled() && i < 100; i+=1) {
+                publishProgress(i+25, 150);
+                SystemClock.sleep(10);
+            }
+            return null;
+        }
+    }
+
+
+    public void showProgressCircle(View view){
+
+        MyProgressStringTask task = new MyProgressStringTask();
+        task.execute();
+
+        SimpleProgressDialog.indeterminateCircle()
+                .title(R.string.login)
+                .msg(R.string.creating_user_profile_wait)
+                .task(task, false, true)
+                .percentage(false)
+                .show(this, PROGRESS_DIALOG);
+
+
+    }
+
+    static class MyProgressStringTask extends SimpleProgressTask<Void, Pair<Integer, String>, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            publishProgress(new Pair<>(-1, "Starting…"));
+            SystemClock.sleep(1000);
+            for (int i = 0; !isCancelled() && i < 100; i+=1) {
+                publishProgress(new Pair<>(i, i < 40 ? "Working…" : i < 85 ? "Still working…" : "Almost done…"));
+                SystemClock.sleep(10);
+            }
+            publishProgress(new Pair<>(100, "Finished"));
+            return null;
+        }
     }
 
 
@@ -608,6 +672,12 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
+
+        Log.d("onResult", "Dialog with tag '"+dialogTag+"' has result: "+which+" ("+
+                (which == BUTTON_POSITIVE ? "BUTTON_POSITIVE" :
+                        which == BUTTON_NEUTRAL ? "BUTTON_NEUTRAL" :
+                        which == BUTTON_NEGATIVE ? "BUTTON_NEGATIVE" :
+                        which == CANCELED ? "CANCELED" : "?")+")");
 
         if (TERMS_DIALOG.equals(dialogTag)){ /** {@link MainActivity#showHtml} **/
             if (which == BUTTON_POSITIVE){ // terms accepted
