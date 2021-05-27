@@ -163,13 +163,18 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
 
             // set percentage text if not disabled
             if (getArgs().getBoolean(PERCENTAGE)){
-                double percent;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    percent = 1.0 * (mProgressBar.getProgress() - mProgressBar.getMin()) / (mProgressBar.getMax() -mProgressBar.getMin());
+                if (mProgressBar.isIndeterminate()) {
+                    updateProgressTextInternal(null);
                 } else {
-                    percent = 1.0 * mProgressBar.getProgress() / mProgressBar.getMax();
+                    double percent;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        percent = 1.0 * (mProgressBar.getProgress() - mProgressBar.getMin()) /
+                                (mProgressBar.getMax() - mProgressBar.getMin());
+                    } else {
+                        percent = 1.0 * mProgressBar.getProgress() / mProgressBar.getMax();
+                    }
+                    updateProgressTextInternal(NumberFormat.getPercentInstance().format(percent));
                 }
-                updateProgressTextInternal(NumberFormat.getPercentInstance().format(percent));
             }
         }
 
