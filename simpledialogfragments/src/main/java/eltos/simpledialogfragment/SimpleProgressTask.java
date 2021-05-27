@@ -54,8 +54,8 @@ public abstract class SimpleProgressTask<Params, Progress, Result> extends Async
 
             if (values[0] instanceof Number){
                 v0 = (int) values[0];
-                if (values.length > 1) v1 = (int) values[0];
-                if (values.length > 2) v2 = (int) values[0];
+                if (values.length > 1) v1 = (int) values[1];
+                if (values.length > 2) v2 = (int) values[2];
             }
             if (values[0] instanceof String){
                 s0 = (String) values[0];
