@@ -33,6 +33,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -540,10 +542,15 @@ public class MainActivity extends AppCompatActivity implements
 
     public void showProgressIndeterminate(View view){
 
-        SimpleProgressDialog.build()
+        SimpleProgressDialog.circle() // .bar() or .circle()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
+                //.neut(null)
                 .show(this, PROGRESS_DIALOG);
+
+        //FragmentManager fm = getSupportFragmentManager();
+        //SimpleProgressDialog dialog = (SimpleProgressDialog) fm.findFragmentByTag(PROGRESS_DIALOG);
+        //dialog.dismiss();
 
     }
 

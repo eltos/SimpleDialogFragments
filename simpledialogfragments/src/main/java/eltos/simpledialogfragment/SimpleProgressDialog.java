@@ -12,11 +12,20 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     public static final String TAG = "SimpleProgressDialog.";
 
     private static final String
-            INDETERMINATE = TAG + "indeterminate";
+            INDETERMINATE = TAG + "indeterminate",
+            TYPE = TAG + "type";
+
+    public enum Type {BAR, CIRCLE};
 
 
     public static SimpleProgressDialog build(){
         return new SimpleProgressDialog();
+    }
+    public static SimpleProgressDialog bar(){
+        return SimpleProgressDialog.build().type(Type.BAR);
+    }
+    public static SimpleProgressDialog circle(){
+        return SimpleProgressDialog.build().type(Type.CIRCLE);
     }
 
     public SimpleProgressDialog(){
@@ -27,6 +36,9 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     }
 
 
+    public SimpleProgressDialog type(Type type){
+        return setArg(TYPE, type.ordinal());
+    }
 
 
 
@@ -40,15 +52,19 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
         // inflate and set your custom view here
 
         View view = inflate(R.layout.simpledialogfragment_progress);
-        mProgressBar = view.findViewById(R.id.progress);
+        if (getArgs().getInt(TYPE) == Type.CIRCLE.ordinal()) {
+            mProgressBar = view.findViewById(R.id.progressCircle);
+        } else { // default: Type.BAR
+            mProgressBar = view.findViewById(R.id.progress);
+        }
 
 
         if (savedInstanceState == null){
             savedInstanceState = getArgs();
         }
-        if (savedInstanceState != null) {
-            mProgressBar.setIndeterminate(savedInstanceState.getBoolean(INDETERMINATE, true));
-        }
+
+        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setIndeterminate(savedInstanceState.getBoolean(INDETERMINATE, true));
 
         return view;
     }
