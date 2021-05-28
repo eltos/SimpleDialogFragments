@@ -598,7 +598,6 @@ public class MainActivity extends AppCompatActivity implements
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
                 .task(task, false, true)
-                .percentage(false)
                 .show(this, PROGRESS_DIALOG);
 
 
