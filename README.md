@@ -11,6 +11,9 @@
 
 
 
+
+
+
 <img width="40%" align="right" src="https://github.com/eltos/SimpleDialogFragments/raw/main/media/screenshot.png"/>
 
 SimpleDialogFragments Library is a collection of easy to use and extendable DialogFragment's for Android.
@@ -20,26 +23,26 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
+|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.3.2/testApp.apk)|
+|-|-|-|-|-|
 
-[JavaDoc API](https://eltos.github.io/SimpleDialogFragments/)  
-[Releases](https://github.com/eltos/SimpleDialogFragments/releases)  
-[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)  
-[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.3.2/testApp.apk)
+
 
 ### Features
 
-* Common dialogs like
-  * Alert dialogs with optional checkbox
-  * Input dialogs with suggestions and validations
+* Common dialogs that can be used with few lines of code
+  * Alert dialogs
+  * Input and checkbox dialogs with suggestions and validations
   * Filterable single- / multi-choice dialogs
-  * Color pickers
-  * Form dialogs
+  * Color pickers (palettes and/or HSV)
+  * Extensive forms
   * Date and time pickers
   * Pin code dialog
-* Customizable and extendable dialogs
+  * Progress dialogs
+* Easy result handling even after rotation changes
+* Persistence on rotation changes
 * Material design
-* **Easy resut handling even after rotation changes**
-* **Persistant on rotation**
+* Customizable and extendable dialogs
 
 
 ## Usage
@@ -107,22 +110,35 @@ SimpleFormDialog.build()
                 .show(this, REGISTRATION_DIALOG);
 ```
 
+**Progress bar dialog**
+```java
+MyTask task = new MyTask();
+task.execute();
+
+SimpleProgressDialog.bar()
+        .title(R.string.working)
+        .task(task, cancelable, autoDismiss)
+        .neg(R.string.continue_in_background)
+        .show(this);
+```
+
 ### Receive Results
-Let the hosting Activity or Fragment implement the `SimpleDialog.OnDialogResultListener`
+Supply a tag when showing the dialog and let the hosting Activity or Fragment implement the `SimpleDialog.OnDialogResultListener`.  
+For details, please refere to the [wiki](https://github.com/eltos/SimpleDialogFragments/wiki/SimpleDialog#receiving-results).
 ```java
 @Override
 public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-    if (which == BUTTON_POSITIVE && PASSWORD_DIALOG.equals(dialogTag)){
+    if (PASSWORD_DIALOG.equals(dialogTag) && which == BUTTON_POSITIVE){
         String pw = extras.getString(SimpleInputDialogFragment.TEXT);
         // ...
         return true;
     }
-    if (which == BUTTON_POSITIVE && LIST_DIALOG.equals(dialogTag)){
+    if (LIST_DIALOG.equals(dialogTag) && which == BUTTON_POSITIVE){
         ArrayList<Integer> pos = extras.getIntegerArrayList(SimpleListDialog.SELECTED_POSITIONS);
         // ...
         return true;
     }
-    if (which == BUTTON_POSITIVE && REGISTRATION_DIALOG.equals(dialogTag)){
+    if (REGISTRATION_DIALOG.equals(dialogTag) && which == BUTTON_POSITIVE){
         String username = extras.getString(USERNAME);
         String password = extras.getString(PASSWORD);
         // ...
@@ -140,7 +156,7 @@ Known extensions and projects using this library:
 
 ## License
 
-Copyright 2018 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
+Copyright 2017-2021 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
 
 Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)  
 
