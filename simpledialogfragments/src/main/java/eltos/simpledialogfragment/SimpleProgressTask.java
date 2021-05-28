@@ -10,6 +10,7 @@ import androidx.annotation.CallSuper;
  *
  * Automatically reflects the task's states in the dialog.
  *
+ * Created by eltos on 27.05.21.
  */
 public abstract class SimpleProgressTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 
@@ -39,12 +40,12 @@ public abstract class SimpleProgressTask<Params, Progress, Result> extends Async
      * Updates the progress dialog by trying to guess the meaning of the supplied parameter(s):
      *
      * - if values is of numeric type
-     *   - if values[0] < 0, then progress is indeterminate
-     *   - if values[0] >= 0, then (int) values[0] is set as progress
-     *   - if values[1] > 0, then (int) values[1] is set as max, otherwise max defaults to 100
-     *   - if values[2] >= 0, then (int) values[2] is set as secondary progress
+     *   - if values[0] &lt; 0, then progress is indeterminate
+     *   - if values[0] &gt;= 0, then (int) values[0] is set as progress
+     *   - if values[1] &gt; 0, then (int) values[1] is set as max, otherwise max defaults to 100
+     *   - if values[2] &gt;= 0, then (int) values[2] is set as secondary progress
      * - if values is of CharSequence type, then values[0] is set as info text and progress to indeterminate
-     * - if values is of type Pair<Numeric, String>, the above is applied to either value of the pair
+     * - if values is a {@link Pair} of a {@link Number} and a {@link String}, the above is applied to either value of the pair
      */
     @Override
     protected void onProgressUpdate(Progress... values) {

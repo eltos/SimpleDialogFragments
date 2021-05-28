@@ -59,14 +59,29 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     }
 
 
+    /**
+     * Generic static method to build this dialog
+     * @return a new instance of a {@link SimpleProgressDialog}
+     */
     public static SimpleProgressDialog build(){
         return new SimpleProgressDialog();
     }
+
+    /**
+     * Static method to build a progress dialog of {@link Type#BAR}
+     * Shows the percentage by default.
+     * @return a new instance of a {@link SimpleProgressDialog}
+     */
     public static SimpleProgressDialog bar(){
         return SimpleProgressDialog.build()
                 .type(Type.BAR)
                 .percentage(true);
     }
+
+    /**
+     * Static method to build an indeterminate progress dialog of {@link Type#CIRCLE}
+     * @return a new instance of a {@link SimpleProgressDialog}
+     */
     public static SimpleProgressDialog indeterminateCircle(){
         return SimpleProgressDialog.build()
                 .type(Type.CIRCLE)
@@ -113,6 +128,7 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
      * @param task: The {@link SimpleProgressTask} associated with this dialog
      * @param cancelable: If a cancel button is shown to allow canceling the task
      * @param autoDismiss: Whether to dismiss the dialog once the task finishes
+     * @return this instance
      */
     public SimpleProgressDialog task(SimpleProgressTask<?,?,?> task, boolean cancelable, boolean autoDismiss){
         mTask = task;
