@@ -23,7 +23,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
-|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.3.2/testApp.apk)|
+|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.4/testApp.apk)|
 |-|-|-|-|-|
 
 
@@ -52,13 +52,13 @@ Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases
 In your module level ``build.gradle`` when using [mavenCentral](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments):
 ```groovy
 dependencies {
-    implementation 'io.github.eltos:simpledialogfragments:3.3.2'
+    implementation 'io.github.eltos:simpledialogfragments:3.4'
 }
 ```
 or if using [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments):
 ```groovy
 dependencies {
-    implementation 'com.github.eltos:simpledialogfragments:v3.3.2'
+    implementation 'com.github.eltos:simpledialogfragments:v3.4'
 }
 ```
 
