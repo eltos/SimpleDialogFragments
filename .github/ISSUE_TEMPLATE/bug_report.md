@@ -10,8 +10,12 @@ assignees: ''
 Describe the bug here, the expected behaviour and what you actually observed as detailed as possible
 
 
-**Steps to reproduce**
-1. ...
+**To Reproduce**
+```java
+Paste a minimal code example that causes the bug
+```
+
+1. Describe the steps to reproduce the bug
 2. ...
 
 

@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest a feature to help us improve
 title: ''
-labels: enhancement
+labels: idea
 assignees: ''
 
 ---
@@ -12,6 +12,11 @@ Describe your idea and use case, possibly considering constraints and synergies
 
 **Design**
 If applicable, add images supporting your proposal
+
+
+```java
+If applicable, add proposed method signatures
+```
 
 
 **Links**
