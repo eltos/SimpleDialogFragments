@@ -1,6 +1,8 @@
-# API documentation
+# Documentation
 
-[Javadoc](javadoc)
+**[Javadoc API](javadoc)**
+
+**[Github wiki](https://github.com/eltos/SimpleDialogFragments/wiki)**
 
 
 
