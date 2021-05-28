@@ -23,7 +23,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
-|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.4/testApp.apk)|
+|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.4/testApp.apk)|
 |-|-|-|-|-|
 
 
