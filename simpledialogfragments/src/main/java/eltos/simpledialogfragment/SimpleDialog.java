@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.util.TypedValue;
+import android.widget.Button;
 
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
@@ -94,7 +95,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     };
 
     @CallSuper
-    protected boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, @Nullable Bundle extras) {
         if (extras == null) extras = new Bundle();
         extras.putAll(getExtras());
         boolean handled = false;
@@ -120,9 +121,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     private AlertDialog dialog;
 
     public SimpleDialog(){
-        Bundle args = getArguments();
-        if (args == null) args = new Bundle();
-        setArguments(args);
+        getArgs(); // init arguments to never equal null
         // positive button default
         pos(android.R.string.ok);
     }
@@ -156,6 +155,20 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             return getString((Integer) value);
         }
         return null;
+    }
+
+    /**
+     * null-save method to get arguments
+     * @return dialog arguments bundle
+     */
+    @NonNull
+    protected final Bundle getArgs(){
+        Bundle args = getArguments();
+        if (args == null){
+            args = new Bundle();
+            setArguments(args);
+        }
+        return args;
     }
 
     /**
@@ -536,6 +549,18 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         dialog.setCancelable(isCancelable());
 
         return dialog;
+    }
+
+    protected @Nullable Button getPositiveButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+    }
+
+    protected @Nullable Button getNegativeButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+    }
+
+    protected @Nullable Button getNeutralButton(){
+        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
     }
 
 

@@ -23,6 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.view.InflateException;
@@ -44,6 +45,13 @@ import android.widget.TextView;
 
 public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         extends SimpleDialog<This> {
+
+    public static final String TAG = "CustomViewDialog.";
+
+    private static final String
+            POSITIVE_BUTTON_ENABLED = TAG + "pos_enabled",
+            NEGATIVE_BUTTON_ENABLED = TAG + "neg_enabled",
+            NEUTRAL_BUTTON_ENABLED = TAG + "neu_enabled";
 
 
     public static CustomViewDialog build(){
@@ -82,9 +90,40 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 	 * 
 	 * @param enabled whether to en- or disable the button
      */
-    protected final void setPositiveButtonEnabled(boolean enabled){
-        if (positiveButton != null) {
-            positiveButton.setEnabled(enabled);
+    public final void setPositiveButtonEnabled(boolean enabled){
+        setArg(POSITIVE_BUTTON_ENABLED, enabled);
+        if (getPositiveButton() != null) {
+            getPositiveButton().setEnabled(enabled);
+        }
+    }
+
+    /**
+     * Call this method to enable or disable the neutral button,
+     * e.g. if you want to consider for preconditions to be fulfilled
+     *
+     * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
+     *
+     * @param enabled whether to en- or disable the button
+     */
+    public final void setNeutralButtonEnabled(boolean enabled){
+        setArg(NEUTRAL_BUTTON_ENABLED, enabled);
+        if (getNeutralButton() != null) {
+            getNeutralButton().setEnabled(enabled);
+        }
+    }
+
+    /**
+     * Call this method to enable or disable the positive button,
+     * e.g. if you want to consider for preconditions to be fulfilled
+     *
+     * Note: call this in {@link CustomViewDialog#onDialogShown} rather than {@link CustomViewDialog#onCreateContentView}
+     *
+     * @param enabled whether to en- or disable the button
+     */
+    public final void setNegativeButtonEnabled(boolean enabled){
+        setArg(NEGATIVE_BUTTON_ENABLED, enabled);
+        if (getNegativeButton() != null) {
+            getNegativeButton().setEnabled(enabled);
         }
     }
 
@@ -172,7 +211,6 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     // Internal
 
 
-    private Button positiveButton;
     private LayoutInflater layoutInflater;
 
 
@@ -229,13 +267,21 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface d) {
-                positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                positiveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pressPositiveButton();
-                    }
-                });
+                // restore button states
+                setPositiveButtonEnabled(getArgs().getBoolean(POSITIVE_BUTTON_ENABLED, true));
+                setNegativeButtonEnabled(getArgs().getBoolean(NEGATIVE_BUTTON_ENABLED, true));
+                setNeutralButtonEnabled(getArgs().getBoolean(NEUTRAL_BUTTON_ENABLED, true));
+                // set click listener
+                Button positiveButton = getPositiveButton();
+                if (positiveButton != null) {
+                    positiveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pressPositiveButton();
+                        }
+                    });
+                }
+                // callback for subclasses
                 onDialogShown();
 
             }
@@ -246,7 +292,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
 
     @Override
     @CallSuper
-    protected boolean callResultListener(int which, Bundle extras) {
+    protected boolean callResultListener(int which, @Nullable Bundle extras) {
         Bundle results = onResult(which);
         if (extras == null) extras = new Bundle();
         if (results != null) extras.putAll(results);
