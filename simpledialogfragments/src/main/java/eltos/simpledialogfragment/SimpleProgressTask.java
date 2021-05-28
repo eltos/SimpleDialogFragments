@@ -69,20 +69,29 @@ public abstract class SimpleProgressTask<Params, Progress, Result> extends Async
             int v0 = -1, v1 = -1, v2 = -1;
             String s0 = null;
 
-            if (values[0] instanceof Number){
-                v0 = (int) values[0];
-                if (values.length > 1) v1 = (int) values[1];
-                if (values.length > 2) v2 = (int) values[2];
+            if (values instanceof Number[]){
+                Number[] val = (Number[]) values;
+                v0 = val[0].intValue();
+                if (values.length > 1) v1 = val[1].intValue();
+                if (values.length > 2) v2 = val[2].intValue();
             }
-            if (values[0] instanceof String){
+            if (values instanceof String[]){
                 s0 = (String) values[0];
                 mDialog.updateIndeterminate();
             }
-            if (values[0] instanceof Pair && ((Pair<?, ?>) values[0]).first instanceof Number && ((Pair<?, ?>) values[0]).second instanceof String){
-                v0 = (int) ((Pair<?, ?>) values[0]).first;
-                s0 = (String) ((Pair<?, ?>) values[0]).second;
-                if (values.length > 1) v1 = (int) ((Pair<?, ?>) values[1]).first;
-                if (values.length > 2) v2 = (int) ((Pair<?, ?>) values[2]).first;
+            if (values instanceof Pair<?, ?>[]){
+                Pair<?, ?>[] val = (Pair<?, ?>[]) values;
+                Pair<?, ?> val0 = val[0];
+                if (val0.first instanceof Number) v0 = ((Number) val0.first).intValue();
+                if (val0.second instanceof String) s0 = (String) val0.second;
+                if (val.length > 1){
+                    Pair<?, ?> val1 = val[1];
+                    if (val1.first instanceof Number) v1 = ((Number) val1.first).intValue();
+                }
+                if (val.length > 2){
+                    Pair<?, ?> val2 = val[2];
+                    if (val2.first instanceof Number) v2 = ((Number) val2.first).intValue();
+                }
             }
 
             if (v0 >= 0) mDialog.updateProgress(v0);
