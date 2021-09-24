@@ -76,7 +76,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      * @param which see {@link SimpleDialog.OnDialogResultListener}
      * @return the bundle to merge with the results or null
      */
-    protected Bundle onResult(int which){
+    protected @Nullable Bundle onResult(int which){
         return null;
     }
 
@@ -244,7 +244,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         String msg = getMessage();
         if (msg != null) {
             CharSequence message;
-            if (getArguments().getBoolean(HTML)) {
+            if (getArgs().getBoolean(HTML)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     message = Html.fromHtml(msg, 0);
                 } else {

@@ -119,21 +119,21 @@ public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>
         Calendar c = Calendar.getInstance();
         if (savedInstanceState != null){
             c.setTimeInMillis(savedInstanceState.getLong(DATE));
-        } else if (getArguments().containsKey(DATE)) {
-            c.setTimeInMillis(getArguments().getLong(DATE));
+        } else if (getArgs().containsKey(DATE)) {
+            c.setTimeInMillis(getArgs().getLong(DATE));
         }
 
         picker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), this);
 
-        if (getArguments().containsKey(MIN_DATE)) {
-            picker.setMinDate(getArguments().getLong(MIN_DATE));
+        if (getArgs().containsKey(MIN_DATE)) {
+            picker.setMinDate(getArgs().getLong(MIN_DATE));
         }
-        if (getArguments().containsKey(MAX_DATE)) {
-            picker.setMaxDate(getArguments().getLong(MAX_DATE));
+        if (getArgs().containsKey(MAX_DATE)) {
+            picker.setMaxDate(getArgs().getLong(MAX_DATE));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                && getArguments().containsKey(FIRST_DAY_OF_WEEK)) {
-            picker.setFirstDayOfWeek(getArguments().getInt(FIRST_DAY_OF_WEEK));
+                && getArgs().containsKey(FIRST_DAY_OF_WEEK)) {
+            picker.setFirstDayOfWeek(getArgs().getInt(FIRST_DAY_OF_WEEK));
         }
 
 

@@ -31,7 +31,7 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title("# " + getArguments().getInt(I, 1));
+        title("# " + getArgs().getInt(I, 1));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
             @Override
             public void onClick(View v) {
                 RecursiveDialog.build()
-                        .i(getArguments().getInt(I, 1)+1)
+                        .i(getArgs().getInt(I, 1)+1)
                         .neg()
                         .show(RecursiveDialog.this, RECURSIVE_DIALOG);
             }
@@ -56,7 +56,7 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
             @Override
             public void onClick(View v) {
                 RecursiveDialog.build()
-                        .i(getArguments().getInt(I, 1)+1)
+                        .i(getArgs().getInt(I, 1)+1)
                         .neg()
                         .show(getTargetFragment(), RECURSIVE_DIALOG, RECURSIVE_DIALOG);
                         // We don't use RecursiveDialog.this here as this dialog will be replaced
@@ -71,7 +71,7 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
         if (RECURSIVE_DIALOG.equals(dialogTag)){
-            Toast.makeText(getContext(), "# "+getArguments().getInt(I, 1)+": "+
+            Toast.makeText(getContext(), "# "+getArgs().getInt(I, 1)+": "+
                     (which == BUTTON_POSITIVE ? "+":"-"), Toast.LENGTH_SHORT).show();
             // do not return true here, so that the result is passed through to the activity
         }

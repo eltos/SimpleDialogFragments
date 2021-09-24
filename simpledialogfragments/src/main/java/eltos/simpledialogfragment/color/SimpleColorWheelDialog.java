@@ -124,9 +124,9 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         View hexLayout = view.findViewById(R.id.hexLayout);
 
 
-        int color = getArguments().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
-        int oldColor = getArguments().getInt(COLOR);
-        if (!getArguments().getBoolean(ALPHA)){
+        int color = getArgs().getInt(COLOR, ColorWheelView.DEFAULT_COLOR);
+        int oldColor = getArgs().getInt(COLOR);
+        if (!getArgs().getBoolean(ALPHA)){
             color = color | 0xFF000000;
             oldColor = oldColor | 0xFF000000;
         }
@@ -136,8 +136,8 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mAlphaSlider.setMax(255);
         mAlphaSlider.setProgress(255 - Color.alpha(color));
         mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
-        hexLayout.setVisibility(getArguments().getBoolean(HIDE_HEX) ? View.GONE : View.VISIBLE);
-        mOld.setVisibility(getArguments().containsKey(COLOR) ? View.VISIBLE : View.GONE);
+        hexLayout.setVisibility(getArgs().getBoolean(HIDE_HEX) ? View.GONE : View.VISIBLE);
+        mOld.setVisibility(getArgs().containsKey(COLOR) ? View.VISIBLE : View.GONE);
         mOld.setImageDrawable(new ColorDrawable(oldColor));
         final int finalOldColor = oldColor;
         mOld.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +164,7 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
 
 
 
-        mTransparency.setVisibility(getArguments().getBoolean(ALPHA) ? View.VISIBLE : View.GONE);
+        mTransparency.setVisibility(getArgs().getBoolean(ALPHA) ? View.VISIBLE : View.GONE);
 
         mAlphaSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

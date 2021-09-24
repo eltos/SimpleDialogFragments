@@ -158,7 +158,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      */
     @SuppressWarnings("unchecked cast")
     public This choicePreset(int[] positions){
-        getArguments().putIntArray(INITIALLY_CHECKED_POSITIONS, positions);
+        getArgs().putIntArray(INITIALLY_CHECKED_POSITIONS, positions);
         return (This) this;
     }
 
@@ -194,7 +194,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      */
     @SuppressWarnings("unchecked cast")
     public This choiceIdPreset(long[] ids){
-        getArguments().putLongArray(INITIALLY_CHECKED_IDS, ids);
+        getArgs().putLongArray(INITIALLY_CHECKED_IDS, ids);
         return (This) this;
     }
 
@@ -332,14 +332,14 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     protected View onCreateContentView(Bundle savedInstanceState) {
 
         View view;
-        if (getArguments().containsKey(GRID)){
+        if (getArgs().containsKey(GRID)){
             view = inflate(R.layout.simpledialogfragment_grid);
             mListView = (GridView) view.findViewById(R.id.gridView);
-            if (getArguments().containsKey(GRID_W)){
+            if (getArgs().containsKey(GRID_W)){
                 ((GridView) mListView).setColumnWidth(getResources().getDimensionPixelSize(
-                        getArguments().getInt(GRID_W)));
+                        getArgs().getInt(GRID_W)));
             }
-            ((GridView) mListView).setNumColumns(getArguments().getInt(GRID_N, GridView.AUTO_FIT));
+            ((GridView) mListView).setNumColumns(getArgs().getInt(GRID_N, GridView.AUTO_FIT));
         } else {
             view = inflate(R.layout.simpledialogfragment_list);
             mListView = (ListView) view.findViewById(R.id.listView);
@@ -354,7 +354,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(emptyView);
 
-        switch (getArguments().getInt(CHOICE_MODE, ListView.CHOICE_MODE_NONE)) {
+        switch (getArgs().getInt(CHOICE_MODE, ListView.CHOICE_MODE_NONE)) {
             case SINGLE_CHOICE:
             case SINGLE_CHOICE_DIRECT:
                 mAdapter.setChoiceMode(AdvancedAdapter.CHOICE_MODE_SINGLE);
@@ -365,7 +365,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         }
 
         mFilterEditText.setVisibility(View.GONE);
-        if (getArguments().getBoolean(FILTER)){
+        if (getArgs().getBoolean(FILTER)){
             mFilterEditText.setVisibility(View.VISIBLE);
             mFilterEditText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -398,24 +398,24 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
                 updatePosButton();
 
                 if (mAdapter.getCheckedItemCount() > 0 &&
-                        getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+                        getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
                     pressPositiveButton();
                 }
             }
         });
         mListView.setOnItemLongClickListener(this);
-        if (mListView instanceof ListView && !getArguments().getBoolean(SHOW_DIVIDER)){
+        if (mListView instanceof ListView && !getArgs().getBoolean(SHOW_DIVIDER)){
             ((ListView) mListView).setDivider(null);
         }
 
         if (savedInstanceState == null) {
             // initially checked items
-            if (getArguments().containsKey(INITIALLY_CHECKED_IDS)){
-                long[] idSet = getArguments().getLongArray(INITIALLY_CHECKED_IDS);
+            if (getArgs().containsKey(INITIALLY_CHECKED_IDS)){
+                long[] idSet = getArgs().getLongArray(INITIALLY_CHECKED_IDS);
                 mAdapter.setItemsCheckedFromIds(idSet);
             }
-            if (getArguments().containsKey(INITIALLY_CHECKED_POSITIONS)) {
-                int[] set = getArguments().getIntArray(INITIALLY_CHECKED_POSITIONS);
+            if (getArgs().containsKey(INITIALLY_CHECKED_POSITIONS)) {
+                int[] set = getArgs().getIntArray(INITIALLY_CHECKED_POSITIONS);
                 if (set != null) {
                     for (int i : set) {
                         mAdapter.setItemChecked(i, true);
@@ -449,7 +449,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     @Override
     protected void onDialogShown() {
         updatePosButton();
-        if (getArguments().getBoolean(FILTER)){
+        if (getArgs().getBoolean(FILTER)){
             // show keyboard
             InputMethodManager imm = (InputMethodManager) getActivity()
                     .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -460,11 +460,11 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     }
 
     private void updatePosButton(){
-        if (getArguments().getInt(CHOICE_MODE) == NO_CHOICE) {
+        if (getArgs().getInt(CHOICE_MODE) == NO_CHOICE) {
             setPositiveButtonEnabled(true);
         } else {
-            int min = getArguments().getInt(CHOICE_MIN_COUNT, -1);
-            int max = getArguments().getInt(CHOICE_MAX_COUNT, -1);
+            int min = getArgs().getInt(CHOICE_MIN_COUNT, -1);
+            int max = getArgs().getInt(CHOICE_MAX_COUNT, -1);
             setPositiveButtonEnabled(
                     (min < 0 || mAdapter.getCheckedItemCount() >= min) &&
                     (max < 0 || mAdapter.getCheckedItemCount() <= max));
@@ -477,7 +477,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         ArrayList<Integer> checked = mAdapter.getCheckedItemOriginalPositions();
         ArrayList<Long> checkedIds = mAdapter.getCheckedItemIds();
 
-        if (getArguments().getInt(CHOICE_MODE) != NO_CHOICE) {
+        if (getArgs().getInt(CHOICE_MODE) != NO_CHOICE) {
             result.putIntegerArrayList(SELECTED_POSITIONS, checked);
             long[] checkedIdsArray = new long[checkedIds.size()];
             for (int i = 0; i < checkedIdsArray.length; i++) {
@@ -486,8 +486,8 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             result.putLongArray(SELECTED_IDS, checkedIdsArray);
 
         }
-        if (getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE
-                || getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT) {
+        if (getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE
+                || getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT) {
             if (checked.size() >= 1){
                 result.putInt(SELECTED_SINGLE_POSITION, checked.get(0));
             }

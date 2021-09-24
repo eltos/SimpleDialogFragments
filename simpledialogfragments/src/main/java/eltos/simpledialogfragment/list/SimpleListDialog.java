@@ -120,7 +120,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * @return this instance
      */
     public SimpleListDialog items(ArrayList<SimpleListItem> items){
-        getArguments().putParcelableArrayList(DATA_SET, items);
+        getArgs().putParcelableArrayList(DATA_SET, items);
         return this;
     }
 
@@ -150,7 +150,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     protected SimpleListAdapter onCreateAdapter() {
 
         int layout;
-        switch (getArguments().getInt(CHOICE_MODE, NO_CHOICE)) {
+        switch (getArgs().getInt(CHOICE_MODE, NO_CHOICE)) {
             case SINGLE_CHOICE:
                 layout = R.layout.simple_list_item_single_choice;
                 break;
@@ -165,7 +165,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         }
 
 
-        mData = getArguments().getParcelableArrayList(DATA_SET);
+        mData = getArgs().getParcelableArrayList(DATA_SET);
         if (mData == null) mData = new ArrayList<>(0);
 
         return new SimpleListAdapter(layout, mData);
@@ -237,7 +237,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
                 textView = (TextView) convertView.getTag();
             }
 
-            if (getArguments().getBoolean(HIGHLIGHT)) {
+            if (getArgs().getBoolean(HIGHLIGHT)) {
                 textView.setText(highlight(getItem(position), getContext()));
             } else {
                 textView.setText(getItem(position));

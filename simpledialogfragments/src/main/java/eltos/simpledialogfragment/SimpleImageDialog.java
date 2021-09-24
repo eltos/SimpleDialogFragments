@@ -93,7 +93,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      */
     @Deprecated
     public SimpleImageDialog image(Bitmap image){
-        getArguments().putParcelable(BITMAP, image);
+        getArgs().putParcelable(BITMAP, image);
         return this;
     }
 
@@ -106,7 +106,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * @return this instance
      */
     public SimpleImageDialog image(Class<? extends Creator> builderClass){
-        getArguments().putSerializable(CREATOR_CLASS, builderClass);
+        getArgs().putSerializable(CREATOR_CLASS, builderClass);
         return this;
     }
 
@@ -117,7 +117,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
      * @return this instance
      */
     public SimpleImageDialog image(Uri imageUri){
-        getArguments().putParcelable(IMAGE_URI, imageUri);
+        getArgs().putParcelable(IMAGE_URI, imageUri);
         return this;
     }
 
@@ -203,7 +203,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
 
         View view;
 
-        int scale = getArguments().getInt(SCALE_TYPE, Scale.FIT.nativeInt);
+        int scale = getArgs().getInt(SCALE_TYPE, Scale.FIT.nativeInt);
 
         if (scale == Scale.FIT.nativeInt){
             view = inflate(R.layout.simpledialogfragment_image);
@@ -222,16 +222,16 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
         ImageView imageView = (ImageView) view.findViewById(R.id.image);
         ProgressBar loading = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        if (getArguments().containsKey(IMAGE_URI)) {
-            imageView.setImageURI((Uri) getArguments().getParcelable(IMAGE_URI));
-        } else if (getArguments().containsKey(DRAWABLE_RESOURCE)) {
-            imageView.setImageResource(getArguments().getInt(DRAWABLE_RESOURCE));
-        } else if (getArguments().containsKey(CREATOR_CLASS)) {
-            Bundle args = getArguments();
+        if (getArgs().containsKey(IMAGE_URI)) {
+            imageView.setImageURI((Uri) getArgs().getParcelable(IMAGE_URI));
+        } else if (getArgs().containsKey(DRAWABLE_RESOURCE)) {
+            imageView.setImageResource(getArgs().getInt(DRAWABLE_RESOURCE));
+        } else if (getArgs().containsKey(CREATOR_CLASS)) {
+            Bundle args = getArgs();
             args.putString(TAG, getTag());
             new ImageCreator(imageView, loading).execute(args);
-        } else if (getArguments().containsKey(BITMAP)) {
-            imageView.setImageBitmap((Bitmap) getArguments().getParcelable(BITMAP));
+        } else if (getArgs().containsKey(BITMAP)) {
+            imageView.setImageBitmap((Bitmap) getArgs().getParcelable(BITMAP));
         }
 
         return view;

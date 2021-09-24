@@ -128,27 +128,27 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     @SuppressWarnings("unchecked cast")
     protected final This setArg(String key, boolean value){
-        getArguments().putBoolean(key, value);
+        getArgs().putBoolean(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
     protected final This setArg(String key, String value){
-        getArguments().putString(key, value);
+        getArgs().putString(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
     protected final This setArg(String key, int value){
-        getArguments().putInt(key, value);
+        getArgs().putInt(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
     protected final This setArg(String key, long value){
-        getArguments().putLong(key, value);
+        getArgs().putLong(key, value);
         return (This) this;
     }
     @Nullable
     protected final String getArgString(String key){
-        Object value = getArguments().get(key);
+        Object value = getArgs().get(key);
         if (value instanceof String){
             return (String) value;
         } else if (value instanceof Integer){
@@ -321,7 +321,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @return whether the dialog is cancelable
      */
     public boolean isCancelable(){
-        return getArguments() == null || getArguments().getBoolean(CANCELABLE, true);
+        return getArgs().getBoolean(CANCELABLE, true);
     }
 
     /**
@@ -333,7 +333,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @return this instance
      */
     @SuppressWarnings("unchecked cast")
-    public This extra(Bundle extras){ getArguments().putBundle(BUNDLE, extras); return (This) this; }
+    public This extra(Bundle extras){ getArgs().putBundle(BUNDLE, extras); return (This) this; }
 
     /**
      * Gets the extras bundle provided
@@ -341,10 +341,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @return the extras bundle (which may be empty)
      */
     public @NonNull Bundle getExtras(){
-        Bundle bundle = null;
-        if (getArguments() != null){
-            bundle = getArguments().getBundle(BUNDLE);
-        }
+        Bundle bundle = getArgs().getBundle(BUNDLE);
         return bundle != null ? bundle : new Bundle();
     }
 
@@ -495,8 +492,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
         // dialog theme
         @StyleRes Integer theme = null;
-        if (getArguments().containsKey(THEME)){  // per-dialog theme
-            theme = getArguments().getInt(THEME);
+        if (getArgs().containsKey(THEME)){  // per-dialog theme
+            theme = getArgs().getInt(THEME);
         } else {  // theme specified by 'simpleDialogTheme' attribute
             TypedValue outValue = new TypedValue();
             getContext().getTheme().resolveAttribute(R.attr.simpleDialogTheme, outValue, true);
@@ -517,7 +514,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         dialog.setTitle(getTitle());
         String msg = getMessage();
         if (msg != null) {
-            if (getArguments().getBoolean(HTML)) {
+            if (getArgs().getBoolean(HTML)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     dialog.setMessage(Html.fromHtml(msg, 0));
                 } else {
@@ -543,8 +540,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             dialog.setButton(DialogInterface.BUTTON_NEUTRAL,
                     neutralButtonText, forwardOnClickListener);
         }
-        if (getArguments().containsKey(ICON_RESOURCE)){
-            dialog.setIcon(getArguments().getInt(ICON_RESOURCE));
+        if (getArgs().containsKey(ICON_RESOURCE)){
+            dialog.setIcon(getArgs().getInt(ICON_RESOURCE));
         }
         dialog.setCancelable(isCancelable());
 

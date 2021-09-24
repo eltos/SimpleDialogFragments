@@ -76,7 +76,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * @return this instance
      */
     public SimpleColorDialog colors(@ColorInt int[] colors){
-        getArguments().putIntArray(COLORS, colors);
+        getArgs().putIntArray(COLORS, colors);
         return this;
     }
 
@@ -102,7 +102,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      * @return this instance
      */
     public SimpleColorDialog colorPreset(@ColorInt int color){
-        getArguments().putInt(COLOR, color);
+        getArgs().putInt(COLOR, color);
         return this;
     }
 
@@ -234,13 +234,13 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     @Override
     protected AdvancedAdapter onCreateAdapter() {
 
-        int[] colors = getArguments().getIntArray(COLORS);
+        int[] colors = getArgs().getIntArray(COLORS);
         if (colors == null) colors = new int[0];
-        boolean custom = getArguments().getBoolean(CUSTOM);
+        boolean custom = getArgs().getBoolean(CUSTOM);
 
         // preset
-        if (mSelectedColor == NONE && getArguments().containsKey(COLOR)){
-            @ColorInt int preset = getArguments().getInt(COLOR, NONE);
+        if (mSelectedColor == NONE && getArgs().containsKey(COLOR)){
+            @ColorInt int preset = getArgs().getInt(COLOR, NONE);
             int index = indexOf(colors, preset);
             if (index < 0){ // custom preset
                 mSelectedColor = mCustomColor = preset;
@@ -277,7 +277,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     @Override
     protected boolean acceptsPositiveButtonPress() {
-        if (getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+        if (getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
             return mSelectedColor != NONE;
         }
         return true;
@@ -291,8 +291,8 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                     .title(getArgString(CUSTOM_TITLE))
                     .pos(getArgString(CUSTOM_POS))
                     .neut(getArgString(CUSTOM_NEUT))
-                    .alpha(getArguments().getBoolean(CUSTOM_ALPHA))
-                    .hideHexInput(getArguments().getBoolean(CUSTOM_HIDE_HEX));
+                    .alpha(getArgs().getBoolean(CUSTOM_ALPHA))
+                    .hideHexInput(getArgs().getBoolean(CUSTOM_HIDE_HEX));
             if (mCustomColor != NONE){
                 dialog.color(mCustomColor);
             } else if (mSelectedColor != NONE){
@@ -311,7 +311,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         if (PICKER_DIALOG_TAG.equals(dialogTag) && which == BUTTON_POSITIVE){
             mSelectedColor = mCustomColor = extras.getInt(SimpleColorWheelDialog.COLOR);
             notifyDataSetChanged();
-            if (getArguments().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+            if (getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
                 pressPositiveButton();
             }
             return true;
@@ -385,7 +385,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                 item.setStyle(ColorView.Style.CHECK);
             }
 
-            @ColorInt int outline = getArguments().getInt(OUTLINE, ColorView.NONE);
+            @ColorInt int outline = getArgs().getInt(OUTLINE, ColorView.NONE);
             if (outline != NONE){
                 float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         2 /*dp*/, getResources().getDisplayMetrics());

@@ -103,7 +103,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
     }
 
     protected String onValidateInput(@Nullable String input){
-        String pin = getArguments().getString(CHECK_PIN);
+        String pin = getArgs().getString(CHECK_PIN);
         if (pin != null && !pin.equals(getText())){
             return getString(R.string.wrong_pin);
         } else {
@@ -148,7 +148,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
         mInput = (PinEntryEditText) view.findViewById(R.id.pinEntry);
         mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
 
-        mInput.setMaxLength(getArguments().getInt(LENGTH, 4));
+        mInput.setMaxLength(getArgs().getInt(LENGTH, 4));
 
 
 //        // TODO: currently not supported by PinEntryEditText
@@ -196,7 +196,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
     }
 
     protected boolean posEnabled(){
-        return getText() != null && getText().length() == getArguments().getInt(LENGTH, 4);
+        return getText() != null && getText().length() == getArgs().getInt(LENGTH, 4);
     }
 
 

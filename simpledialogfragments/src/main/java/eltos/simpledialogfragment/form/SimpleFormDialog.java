@@ -174,7 +174,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
     public SimpleFormDialog fields(FormElement... elements){
         ArrayList<FormElement> list = new ArrayList<>(elements.length);
         Collections.addAll(list, elements);
-        getArguments().putParcelableArrayList(INPUT_FIELDS, list);
+        getArgs().putParcelableArrayList(INPUT_FIELDS, list);
         return this;
     }
     
@@ -254,7 +254,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
 
         setPositiveButtonEnabled(posButtonEnabled());
         
-        if (getArguments().getBoolean(AUTO_FOCUS, true)){
+        if (getArgs().getBoolean(AUTO_FOCUS, true)){
             requestFocus(0);
         }
     }
@@ -390,12 +390,12 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
 
 
     private boolean isFocusableIndex(int i){
-        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        ArrayList<FormElement> fields = getArgs().getParcelableArrayList(INPUT_FIELDS);
         return 0 <= i && fields != null && i < fields.size() && !(fields.get(i) instanceof Hint);
     }
 
     private int getNextFocusableIndex(int i){
-        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        ArrayList<FormElement> fields = getArgs().getParcelableArrayList(INPUT_FIELDS);
         do {
             i++;
             if (fields == null || i >= fields.size()) return Integer.MAX_VALUE;
@@ -452,7 +452,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
                                      @Nullable Bundle savedInstanceState) {
         mFormContainer = container;
 
-        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        ArrayList<FormElement> fields = getArgs().getParcelableArrayList(INPUT_FIELDS);
 
         if (fields != null) {
 
@@ -501,7 +501,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
 
     @Override
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-        ArrayList<FormElement> fields = getArguments().getParcelableArrayList(INPUT_FIELDS);
+        ArrayList<FormElement> fields = getArgs().getParcelableArrayList(INPUT_FIELDS);
         if (fields != null) {
             for (FormElementViewHolder<?> view : mViews) {
                 if (view instanceof OnDialogResultListener){

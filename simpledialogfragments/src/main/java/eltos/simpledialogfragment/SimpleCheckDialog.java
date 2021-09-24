@@ -84,7 +84,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
 
 
     private boolean canGoAhead() {
-        return mCheckBox.isChecked() || !getArguments().getBoolean(CHECKBOX_REQUIRED);
+        return mCheckBox.isChecked() || !getArgs().getBoolean(CHECKBOX_REQUIRED);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
         if (savedInstanceState != null){
             mCheckBox.setChecked(savedInstanceState.getBoolean(CHECKED, false));
         } else {
-            mCheckBox.setChecked(getArguments().getBoolean(CHECKED, false));
+            mCheckBox.setChecked(getArgs().getBoolean(CHECKED, false));
         }
 
         mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

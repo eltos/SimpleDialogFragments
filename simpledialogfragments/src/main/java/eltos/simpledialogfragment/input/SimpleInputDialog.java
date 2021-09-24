@@ -138,7 +138,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * @return this instance
      */
     public SimpleInputDialog suggest(String[] strings){
-        getArguments().putStringArray(SUGGESTIONS, strings);
+        getArgs().putStringArray(SUGGESTIONS, strings);
         return this;
     }
 
@@ -219,15 +219,15 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
 
         // Note: setting TYPE_CLASS_TEXT as default is very important!
-        mInput.setInputType(getArguments().getInt(INPUT_TYPE, InputType.TYPE_CLASS_TEXT));
-        if ((getArguments().getInt(INPUT_TYPE) & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_PHONE) {
+        mInput.setInputType(getArgs().getInt(INPUT_TYPE, InputType.TYPE_CLASS_TEXT));
+        if ((getArgs().getInt(INPUT_TYPE) & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_PHONE) {
             // format phone number automatically
             mInput.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         }
         //mInput.setHint(getArgString(HINT));
         mInputLayout.setHint(getArgString(HINT));
-        if (getArguments().getInt(MAX_LENGTH) > 0) {
-            mInputLayout.setCounterMaxLength(getArguments().getInt(MAX_LENGTH));
+        if (getArgs().getInt(MAX_LENGTH) > 0) {
+            mInputLayout.setCounterMaxLength(getArgs().getInt(MAX_LENGTH));
             mInputLayout.setCounterEnabled(true);
         }
 
@@ -263,7 +263,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         });
 
         // Auto complete
-        String[] suggestionList = getArguments().getStringArray(SUGGESTIONS);
+        String[] suggestionList = getArgs().getStringArray(SUGGESTIONS);
         if (suggestionList != null) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                     // android.R.layout.simple_dropdown_item_1line
@@ -276,8 +276,8 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     }
 
     protected boolean posEnabled(){
-        return (!isInputEmpty() || getArguments().getBoolean(ALLOW_EMPTY)) && (getText() == null
-                || getText().length() <= getArguments().getInt(MAX_LENGTH, getText().length()));
+        return (!isInputEmpty() || getArgs().getBoolean(ALLOW_EMPTY)) && (getText() == null
+                || getText().length() <= getArgs().getInt(MAX_LENGTH, getText().length()));
     }
 
 

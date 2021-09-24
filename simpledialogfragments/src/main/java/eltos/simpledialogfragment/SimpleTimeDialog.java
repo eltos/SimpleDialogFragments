@@ -84,16 +84,16 @@ public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>
             picker.setCurrentMinute(savedInstanceState.getInt(MINUTE));
 
         } else {
-            if (getArguments().containsKey(HOUR)) {
-                picker.setCurrentHour(getArguments().getInt(HOUR));
+            if (getArgs().containsKey(HOUR)) {
+                picker.setCurrentHour(getArgs().getInt(HOUR));
             }
-            if (getArguments().containsKey(MINUTE)) {
-                picker.setCurrentMinute(getArguments().getInt(MINUTE));
+            if (getArgs().containsKey(MINUTE)) {
+                picker.setCurrentMinute(getArgs().getInt(MINUTE));
             }
         }
 
-        if (getArguments().containsKey(VIEW_24_HOUR)) {
-            picker.setIs24HourView(getArguments().getBoolean(VIEW_24_HOUR));
+        if (getArgs().containsKey(VIEW_24_HOUR)) {
+            picker.setIs24HourView(getArgs().getBoolean(VIEW_24_HOUR));
         } else {
             picker.setIs24HourView(DateFormat.is24HourFormat(getContext())); // system default
         }
