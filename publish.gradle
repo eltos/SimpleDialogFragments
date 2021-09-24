@@ -6,7 +6,7 @@
  * If executed locally, create a local.properties files in the root directory
  * containing the required information below.
  * The secretKeyRingFile should be in binary format, e.g. gpg --export-secret-keys ID > ID.gpg
- * The PGP key should be published, e.g. to http://keys.gnupg.net
+ * The PGP public key should be published, e.g. to https://keys.openpgp.org/
  */
 
 // Create variables with empty default values
@@ -32,6 +32,7 @@ if (secretPropsFile.exists()) {
     ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
     ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
 }
+assert ext["signing.password"] != '' && ext["ossrhPassword"] != '';
 
 // Set up Sonatype repository
 nexusPublishing {
