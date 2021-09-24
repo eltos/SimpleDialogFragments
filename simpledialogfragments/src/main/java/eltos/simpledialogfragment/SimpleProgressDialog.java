@@ -53,7 +53,7 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
     /**
      * Result type if dialog was auto-dismissed due a to completed task
      */
-    public int COMPLETED = 5;
+    public static final int COMPLETED = 5;
 
     /**
      * Enum for various progress bar types.

@@ -705,6 +705,15 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
+        if (PROGRESS_DIALOG.equals(dialogTag)) {
+            switch (which) {
+                case SimpleProgressDialog.COMPLETED:
+                    Toast.makeText(this, R.string.completed, Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+
+        }
+
         if (RECURSIVE_DIALOG.equals(dialogTag)){
             Toast.makeText(getBaseContext(), "Activity: "+ (which == BUTTON_POSITIVE ? "+":"-"),
                     Toast.LENGTH_SHORT).show();
