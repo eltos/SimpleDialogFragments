@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements
                         .pos(R.string.nevermind)
                         .show(MainActivity.this, null, YES_NO_DIALOG);
             }
-        }, 3000);
+        }, 7000);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -708,9 +708,11 @@ public class MainActivity extends AppCompatActivity implements
                     return true;
                 case BUTTON_NEGATIVE:
                     Toast.makeText(this, R.string.discarded, Toast.LENGTH_SHORT).show();
+                    handler.removeCallbacksAndMessages(null);
                     return true;
                 case BUTTON_NEUTRAL:
                 case CANCELED:
+                    handler.removeCallbacksAndMessages(null);
                     Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
                     return true;
             }

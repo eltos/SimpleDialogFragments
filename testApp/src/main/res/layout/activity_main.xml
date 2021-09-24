@@ -1,549 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText"
-    tools:context="eltos.simpledialogfragments.MainActivity"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/scrollView">
+    tools:context="eltos.simpledialogfragments.MainActivity"
+    tools:ignore="HardcodedText">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:columnCount="4">
+            app:flexWrap="wrap">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
                 android:text="Alerts"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showInfo"
-                android:text="Info" />
+                android:text="Info"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
+                android:onClick="showYesNo"
+                android:text="Yes | No"
+                app:layout_flexGrow="1" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="showImage"
-                android:text="Image" />
+                android:text="Image"
+                app:layout_flexGrow="1" />
 
             <Button
                 android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showHtml"
-                android:text="HTML" />
+                android:text="HTML"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showQr"
-                android:text="QR code" />
+                android:text="QR code"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
-                android:onClick="showYesNo"
-                android:text="Yes | No" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showThemed"
-                android:text="Themed" />
+                android:text="Themed"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:flexWrap="wrap">
 
             <TextView
-                android:text="Lists and Choices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
+                android:text="Lists and Choices"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showDirectChoice"
-                android:text="Direct" />
+                android:text="Direct"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showSingleChoice"
-                android:text="Single" />
+                android:text="Single"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showMultiChoice"
-                android:text="Multi" />
+                android:text="Multi"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:flexWrap="wrap">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
                 android:text="Color picker"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showColorPicker"
-                android:text="1 color" />
+                android:text="1 color"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showHsvWheel"
-                android:text="HSV Wheel" />
+                android:text="HSV"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showMultiColorPicker"
-                android:text="N Colors" />
+                android:text="N Colors"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:flexWrap="wrap">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showProgressIndeterminate"
-                android:text="Indeterminate" />
+                android:text="Indeterminate"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showProgressTask"
-                android:text="Task" />
+                android:text="Task"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="3"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showProgressCircle"
-                android:text="Circular" />
+                android:text="Circular"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:flexWrap="wrap">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Inputs and Forms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showCheckBox"
-                android:text="Checkbox" />
+                android:text="Checkbox"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showEmailInput"
-                android:text="Email" />
+                android:text="Email"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
-                android:onClick="showLogin"
-                android:text="Login" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showNumberInput"
-                android:text="Number" />
+                android:text="Number"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showSimpleInput"
-                android:text="Simple input" />
+                android:text="Text input"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
+                android:onClick="showLogin"
+                android:text="Login"
+                app:layout_flexGrow="1" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="showPinInput"
-                android:text="Pin code" />
+                android:text="Pin"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:layout_columnSpan="3"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showForm"
-                android:text="Form with different input types" />
+                android:text="Form with different input types"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
-        <GridLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin">
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:flexWrap="wrap">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Date and Time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showDate"
-                android:text="Date" />
+                android:text="Date"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showTime"
-                android:text="Time" />
+                android:text="Time"
+                app:layout_flexGrow="1" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"
-                android:layout_margin="3dp"
                 android:onClick="showDatetime"
-                android:text="Datetime" />
+                android:text="Datetime"
+                app:layout_flexGrow="1" />
 
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="2"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="2"
-                android:layout_columnWeight="1" />
-
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="4"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="2"
-                android:layout_columnWeight="1"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="0"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="2"
-                android:layout_column="2"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="1"
-                android:layout_columnWeight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="2"
-                android:layout_columnWeight="1" />
-
-        </GridLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Various"/>
+            android:text="Various"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="showClipboardCopyDialog"
             android:text="Copy to clipboard dialog" />
 
         <Button
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="showRecursiveDialog"
@@ -551,6 +327,7 @@
 
         <Button
             android:id="@+id/flat_button"
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
