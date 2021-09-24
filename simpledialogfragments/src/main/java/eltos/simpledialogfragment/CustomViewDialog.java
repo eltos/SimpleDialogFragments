@@ -150,6 +150,35 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
     }
 
     /**
+     * Overwrite this method to modify what happens if the user presses
+     * the positive button. The default implementation dismisses the dialog
+     * and calls the result listener.
+     */
+    protected void onPositiveButtonClick(){
+        pressPositiveButton();
+    }
+
+    /**
+     * Overwrite this method to modify what happens if the user presses
+     * the negative button. The default implementation dismisses the dialog
+     * and calls the result listener.
+     */
+    protected void onNegativeButtonClick(){
+        getDialog().dismiss();
+        callResultListener(DialogInterface.BUTTON_NEGATIVE, null);
+    }
+
+    /**
+     * Overwrite this method to modify what happens if the user presses
+     * the neutral button. The default implementation dismisses the dialog
+     * and calls the result listener.
+     */
+    protected void onNeutralButtonClick(){
+        getDialog().dismiss();
+        callResultListener(DialogInterface.BUTTON_NEUTRAL, null);
+    }
+
+    /**
      * Simulates a positive button press.
      * You may use this method in combination with
      * ImeOptions such as {@link EditorInfo#IME_ACTION_DONE}
@@ -277,7 +306,25 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
                     positiveButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            pressPositiveButton();
+                            onPositiveButtonClick();
+                        }
+                    });
+                }
+                Button neutralButton = getNeutralButton();
+                if (neutralButton != null) {
+                    neutralButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onNeutralButtonClick();
+                        }
+                    });
+                }
+                Button negativeButton = getNegativeButton();
+                if (negativeButton != null) {
+                    negativeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onNegativeButtonClick();
                         }
                     });
                 }

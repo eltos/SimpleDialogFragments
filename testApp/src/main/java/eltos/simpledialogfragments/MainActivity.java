@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
+import java.util.Random;
 
 import eltos.simpledialogfragment.SimpleCheckDialog;
 import eltos.simpledialogfragment.SimpleDateDialog;
@@ -627,6 +628,16 @@ public class MainActivity extends AppCompatActivity implements
                 .show(this, RECURSIVE_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
+
+    }
+
+    public void showClipboardCopyDialog(View view){
+
+        int i = (new Random().nextInt(9000) + 1000);
+        ClipboardCopyDialog.build()
+                .title(R.string.message)
+                .msgHtml("This <b>HTML text</b> can be copied :)<br>Random number: <tt>" + i + "</tt>")
+                .show(this);
 
     }
 

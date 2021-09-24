@@ -262,6 +262,8 @@
     <string name="replace">Replace</string>
     <string name="creating_user_profile_wait">Please wait while a user profile is being created for you…</string>
     <string name="completed">Completed</string>
+    <string name="copy">Copy to clipboard</string>
+    <string name="copied">Copied</string>
 
 
 </resources>
