@@ -16,7 +16,6 @@
 
 package eltos.simpledialogfragment.input;
 
-import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,7 +24,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
@@ -134,11 +132,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
      * Helper for opening the soft keyboard
      */
     public void openKeyboard(){
-        InputMethodManager imm = (InputMethodManager) getActivity()
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.showSoftInput(mInput, InputMethodManager.SHOW_IMPLICIT);
-        }
+        showKeyboard(mInput);
     }
 
     @Override
@@ -206,8 +200,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
     @Override
     protected void onDialogShown() {
         setPositiveButtonEnabled(posEnabled());
-        mInput.requestFocus();
-        openKeyboard();
+        showKeyboard(mInput);
     }
 
     @Override

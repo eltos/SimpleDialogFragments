@@ -319,6 +319,13 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
         }
 
         /**
+         * Helper for opening the soft keyboard on a specified view
+         */
+        public void showKeyboard(final View view){
+            SimpleFormDialog.this.showKeyboard(view);
+        }
+
+        /**
          * Helper to clear the current focus
          */
         public void clearCurrentFocus(){

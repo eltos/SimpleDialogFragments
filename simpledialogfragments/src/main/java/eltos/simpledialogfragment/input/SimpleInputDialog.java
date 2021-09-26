@@ -29,7 +29,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
@@ -204,11 +203,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
      * Helper for opening the soft keyboard
      */
     public void openKeyboard(){
-        InputMethodManager imm = (InputMethodManager) getActivity()
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.showSoftInput(mInput, InputMethodManager.SHOW_IMPLICIT);
-        }
+        showKeyboard(mInput);
     }
 
     @Override
@@ -285,13 +280,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     @Override
     protected void onDialogShown() {
         setPositiveButtonEnabled(posEnabled());
-        mInput.requestFocus();
-        mInput.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                openKeyboard();
-            }
-        }, 100);
+        showKeyboard(mInput);
     }
 
     @Override
