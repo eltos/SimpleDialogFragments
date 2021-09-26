@@ -285,8 +285,13 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     @Override
     protected void onDialogShown() {
         setPositiveButtonEnabled(posEnabled());
-        //mInput.requestFocus();
-        openKeyboard();
+        mInput.requestFocus();
+        mInput.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                openKeyboard();
+            }
+        }, 100);
     }
 
     @Override

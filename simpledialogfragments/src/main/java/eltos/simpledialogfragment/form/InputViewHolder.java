@@ -248,7 +248,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             // because only the input EditText gets focused here, not the entire layout
             // See: https://code.google.com/p/android/issues/detail?id=178153
             // Workaround is resizing the dialog
-            input.post(new Runnable() {
+            input.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     InputMethodManager imm = (InputMethodManager) input.getContext()
@@ -257,7 +257,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
                         imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
                     }
                 }
-            });
+            }, 100);
         }
         if (field.forceSuggestion){
             input.showDropDown();
