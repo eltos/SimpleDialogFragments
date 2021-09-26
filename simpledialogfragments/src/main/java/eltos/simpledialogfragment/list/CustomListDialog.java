@@ -16,14 +16,12 @@
 
 package eltos.simpledialogfragment.list;
 
-import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.DimenRes;
 import androidx.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -451,11 +449,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         updatePosButton();
         if (getArgs().getBoolean(FILTER)){
             // show keyboard
-            InputMethodManager imm = (InputMethodManager) getActivity()
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.showSoftInput(mFilterEditText, InputMethodManager.SHOW_IMPLICIT);
-            }
+            showKeyboard(mFilterEditText);
         }
     }
 

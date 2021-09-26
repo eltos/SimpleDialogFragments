@@ -35,6 +35,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
 import android.text.Html;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 /**
@@ -558,6 +560,22 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     protected @Nullable Button getNeutralButton(){
         return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+    }
+
+    /**
+     * Helper for opening the soft keyboard on a specified view
+     */
+    public void showKeyboard(final View view){
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
+        }, 100);
     }
 
 
