@@ -19,6 +19,8 @@ package eltos.simpledialogfragment.list;
 import android.os.Bundle;
 import androidx.annotation.DimenRes;
 import androidx.annotation.StringRes;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -402,8 +404,15 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             }
         });
         mListView.setOnItemLongClickListener(this);
-        if (mListView instanceof ListView && !getArgs().getBoolean(SHOW_DIVIDER)){
-            ((ListView) mListView).setDivider(null);
+        if (mListView instanceof ListView){
+            if (getArgs().getBoolean(SHOW_DIVIDER)) {
+                ((ListView) mListView).setDivider(ResourcesCompat.getDrawable(getResources(),
+                        android.R.drawable.divider_horizontal_textfield, null));
+                ((ListView) mListView).setDividerHeight(2);
+            } else {
+                ((ListView) mListView).setDivider(null);
+            }
+
         }
 
         if (savedInstanceState == null) {

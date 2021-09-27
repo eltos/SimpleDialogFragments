@@ -292,7 +292,21 @@ public class MainActivity extends AppCompatActivity implements
         SimpleListDialog.build()
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
+                //.divider(true)
                 .items(getBaseContext(), R.array.choices)
+                .show(this, CHOICE_DIALOG);
+
+        /** Results: {@link MainActivity#onResult} **/
+
+    }
+
+    public void showDirectChoicePreset(View view){
+
+        SimpleListDialog.build()
+                .title(R.string.select_one)
+                .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
+                .choicePreset(1) // with a preset, the radio button icon is shown by default
+                .items(getBaseContext(), R.array.settings)
                 .show(this, CHOICE_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
@@ -308,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleListDialog.build()
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE)
+                //.checkIcon(SimpleListDialog.ICON_MULTI_CHOICE) // custom check icon type
                 .choiceMin(1)
                 .items(
                         new String[]{"Flavour A", "Flavour B", "Flavour C"},
@@ -325,9 +340,23 @@ public class MainActivity extends AppCompatActivity implements
         SimpleListDialog.build()
                 .title(R.string.select_up_to_5)
                 .choiceMode(SimpleListDialog.MULTI_CHOICE)
+                .choiceMin(1)
                 .choiceMax(5)
                 .items(getBaseContext(), R.array.activites)
                 .filterable(true)
+                .show(this, CHOICE_DIALOG);
+
+        /** Results: {@link MainActivity#onResult} **/
+
+    }
+
+
+    public void showActionChoice(View view){
+
+        SimpleListDialog.build()
+                .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
+                .layout(SimpleListDialog.LAYOUT_ACTION) // custom item layout
+                .items(getBaseContext(), R.array.actions)
                 .show(this, CHOICE_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/

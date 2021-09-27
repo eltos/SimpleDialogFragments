@@ -5,7 +5,20 @@
         <item>Even better choice</item>
         <item>Best choice</item>
         <item>Ultimate choice</item>
-        <item>A choice that will not reveal its character. Even after you have decided for it and selected this choice it will remain of unknown nature. Choose wise.</item>
+        <item>A choice with a very long text that will span multiple lines. This choice is of unknown nature and will remain mysterious. Choose wise.</item>
+    </string-array>
+
+    <string-array name="settings" >
+        <item>Once a day</item>
+        <item>Once a week</item>
+        <item>Once a month</item>
+        <item>Once a year</item>
+    </string-array>
+
+    <string-array name="actions" >
+        <item>Pick image</item>
+        <item>Pick video</item>
+        <item>Open camera</item>
     </string-array>
 
     <string-array name="activites" >
