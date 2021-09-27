@@ -292,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleListDialog.build()
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
+                //.divider(true)
                 .items(getBaseContext(), R.array.choices)
                 .show(this, CHOICE_DIALOG);
 
@@ -305,7 +306,6 @@ public class MainActivity extends AppCompatActivity implements
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE_DIRECT)
                 .choicePreset(1) // with a preset, the radio button icon is shown by default
-                .divider(true)
                 .items(getBaseContext(), R.array.settings)
                 .show(this, CHOICE_DIALOG);
 
