@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="showSingleChoice"
-                android:text="Single"
+                android:text="Single choice"
                 app:layout_flexGrow="1" />
 
             <Button
@@ -114,7 +114,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="showMultiChoice"
-                android:text="Multi"
+                android:text="Multi choice"
+                app:layout_flexGrow="1" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showDirectChoicePreset"
+                android:text="Direct with preset"
+                app:layout_flexGrow="1" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showActionChoice"
+                android:text="Action"
                 app:layout_flexGrow="1" />
 
         </com.google.android.flexbox.FlexboxLayout>
