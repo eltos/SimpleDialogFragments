@@ -39,8 +39,7 @@ import eltos.simpledialogfragment.R;
 @SuppressWarnings("unused")
 public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
-    protected static final String TAG = "SimpleListDialog.",
-            LAYOUT = TAG + "icon";
+    public static final String TAG = "SimpleListDialog.";
 
     public static final String
             SELECTED_LABELS = TAG + "selectedLabels",
@@ -158,10 +157,11 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * When using a custom layout resource, a {@link TextView} with id {@link android.R.id#text1}
      * is required.
      *
+     * @param layout the layout to use for each item
      * @return this instance
      */
-    public SimpleListDialog layout(@LayoutRes int icon){
-        return setArg(LAYOUT, icon);
+    public SimpleListDialog layout(@LayoutRes int layout){
+        return setArg(LAYOUT, layout);
     }
 
 
@@ -169,7 +169,8 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
     protected final static String
             DATA_SET = TAG + "data_set",
-            HIGHLIGHT = TAG + "highlight";
+            HIGHLIGHT = TAG + "highlight",
+            LAYOUT = TAG + "icon";
 
     ArrayList<SimpleListItem> mData;
 
