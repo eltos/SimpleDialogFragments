@@ -322,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleListDialog.build()
                 .title(R.string.select_one)
                 .choiceMode(SimpleListDialog.SINGLE_CHOICE)
-                //.checkIcon(SimpleListDialog.ICON_MULTI_CHOICE) // custom check icon type
+                //.layout(SimpleListDialog.ICON_MULTI_CHOICE) // custom item layout
                 .choiceMin(1)
                 .items(
                         new String[]{"Flavour A", "Flavour B", "Flavour C"},
