@@ -39,11 +39,19 @@ import eltos.simpledialogfragment.R;
 @SuppressWarnings("unused")
 public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
-    public static final String TAG = "SimpleListDialog.";
+    protected static final String TAG = "SimpleListDialog.",
+            LAYOUT = TAG + "icon";
 
     public static final String
             SELECTED_LABELS = TAG + "selectedLabels",
             SELECTED_SINGLE_LABEL = TAG + "selectedSingleLabel";
+
+    public static final @LayoutRes int
+            LAYOUT_AUTO = -1,
+            LAYOUT_PLAIN = R.layout.simple_list_item,
+            LAYOUT_SINGLE_CHOICE = R.layout.simple_list_item_single_choice,
+            LAYOUT_MULTI_CHOICE = R.layout.simple_list_item_multiple_choice,
+            LAYOUT_ACTION = R.layout.simple_list_item_action;
 
 
     public static SimpleListDialog build(){
@@ -137,6 +145,25 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
         return super.filterable(enabled);
     }
 
+    /**
+     * Set the item layout to use for the list, one of {@link SimpleListDialog#LAYOUT_AUTO},
+     * {@link SimpleListDialog#LAYOUT_PLAIN}, {@link SimpleListDialog#LAYOUT_SINGLE_CHOICE},
+     * {@link SimpleListDialog#LAYOUT_MULTI_CHOICE}, {@link SimpleListDialog#LAYOUT_ACTION}
+     * or a custom layout resource.
+     *
+     * When using {@link SimpleListDialog#LAYOUT_AUTO} (which is the default), an appropriate
+     * item layout will be chosen based on the {@link SimpleListDialog#choiceMode} and
+     * {@link SimpleListDialog#choicePreset} or {@link SimpleListDialog#choiceIdPreset} setting
+     *
+     * When using a custom layout resource, a {@link TextView} with id {@link android.R.id#text1}
+     * is required.
+     *
+     * @return this instance
+     */
+    public SimpleListDialog layout(@LayoutRes int icon){
+        return setArg(LAYOUT, icon);
+    }
+
 
 
 
@@ -149,19 +176,14 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
     @Override
     protected SimpleListAdapter onCreateAdapter() {
 
-        int layout;
-        switch (getArgs().getInt(CHOICE_MODE, NO_CHOICE)) {
-            case SINGLE_CHOICE:
-                layout = R.layout.simple_list_item_single_choice;
-                break;
-            case MULTI_CHOICE:
-                layout = R.layout.simple_list_item_multiple_choice;
-                break;
-            case NO_CHOICE:
-            case SINGLE_CHOICE_DIRECT:
-            default:
-                layout = R.layout.simple_list_item;
-                break;
+        int layout = getArgs().getInt(LAYOUT, LAYOUT_AUTO);
+        if (layout == LAYOUT_AUTO) {
+            int mode = getArgs().getInt(CHOICE_MODE, NO_CHOICE);
+            boolean has_preset = getArgs().containsKey(INITIALLY_CHECKED_POSITIONS) || getArgs().containsKey(INITIALLY_CHECKED_IDS);
+            layout = mode == SINGLE_CHOICE ? LAYOUT_SINGLE_CHOICE :
+                     mode == MULTI_CHOICE ? LAYOUT_MULTI_CHOICE :
+                     mode == SINGLE_CHOICE_DIRECT && has_preset ? LAYOUT_SINGLE_CHOICE :
+                             LAYOUT_PLAIN;
         }
 
 
