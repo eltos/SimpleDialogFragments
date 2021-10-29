@@ -88,20 +88,30 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
      * Shows the percentage by default.
      * @return a new instance of a {@link SimpleProgressDialog}
      */
-    public static SimpleProgressDialog bar(){
+    public static SimpleProgressDialog buildBar(){
         return SimpleProgressDialog.build()
                 .type(Type.BAR)
                 .percentage(true);
+    }
+
+    @Deprecated
+    public static SimpleProgressDialog bar(){
+        return SimpleProgressDialog.buildBar();
     }
 
     /**
      * Static method to build an indeterminate progress dialog of {@link Type#CIRCLE}
      * @return a new instance of a {@link SimpleProgressDialog}
      */
-    public static SimpleProgressDialog indeterminateCircle(){
+    public static SimpleProgressDialog buildIndeterminateCircle(){
         return SimpleProgressDialog.build()
                 .type(Type.CIRCLE)
                 .percentage(false);
+    }
+
+    @Deprecated
+    public static SimpleProgressDialog indeterminateCircle(){
+        return SimpleProgressDialog.buildIndeterminateCircle();
     }
 
     public SimpleProgressDialog(){

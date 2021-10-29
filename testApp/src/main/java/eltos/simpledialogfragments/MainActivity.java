@@ -571,7 +571,7 @@ public class MainActivity extends AppCompatActivity implements
     // ==   P r o g r e s s   ==
 
     public void showProgressIndeterminate(View view) {
-        SimpleProgressDialog.bar() // .bar() or .indeterminateCircle()
+        SimpleProgressDialog.buildBar() // .bar() or .indeterminateCircle()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
                 .show(this, PROGRESS_DIALOG);
@@ -594,7 +594,7 @@ public class MainActivity extends AppCompatActivity implements
         MyProgressTask task = new MyProgressTask();
         task.execute();
 
-        SimpleProgressDialog.bar()
+        SimpleProgressDialog.buildBar()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
                 .task(task, true, false)
@@ -621,7 +621,7 @@ public class MainActivity extends AppCompatActivity implements
         MyProgressStringTask task = new MyProgressStringTask();
         task.execute();
 
-        SimpleProgressDialog.indeterminateCircle()
+        SimpleProgressDialog.buildIndeterminateCircle()
                 .title(R.string.login)
                 .msg(R.string.creating_user_profile_wait)
                 .task(task, false, true)
