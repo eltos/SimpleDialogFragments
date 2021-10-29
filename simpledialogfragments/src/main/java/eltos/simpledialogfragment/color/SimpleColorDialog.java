@@ -286,20 +286,24 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (id == PICKER){
-            SimpleColorWheelDialog dialog = SimpleColorWheelDialog.build()
-                    .theme(getTheme())
-                    .title(getArgString(CUSTOM_TITLE))
-                    .pos(getArgString(CUSTOM_POS))
-                    .neut(getArgString(CUSTOM_NEUT))
-                    .alpha(getArgs().getBoolean(CUSTOM_ALPHA))
-                    .hideHexInput(getArgs().getBoolean(CUSTOM_HIDE_HEX));
-            if (mCustomColor != NONE){
-                dialog.color(mCustomColor);
-            } else if (mSelectedColor != NONE){
-                dialog.color(mSelectedColor);
-                mCustomColor = mSelectedColor;
+            ColorAdapter adapter = ((ColorAdapter) parent.getAdapter());
+            boolean deselect = getArgs().getInt(CHOICE_MODE) == MULTI_CHOICE && adapter.isItemChecked(position);
+            if (!deselect){
+                SimpleColorWheelDialog dialog = SimpleColorWheelDialog.build()
+                        .theme(getTheme())
+                        .title(getArgString(CUSTOM_TITLE))
+                        .pos(getArgString(CUSTOM_POS))
+                        .neut(getArgString(CUSTOM_NEUT))
+                        .alpha(getArgs().getBoolean(CUSTOM_ALPHA))
+                        .hideHexInput(getArgs().getBoolean(CUSTOM_HIDE_HEX));
+                if (mCustomColor != NONE){
+                    dialog.color(mCustomColor);
+                } else if (mSelectedColor != NONE){
+                    dialog.color(mSelectedColor);
+                    mCustomColor = mSelectedColor;
+                }
+                dialog.show(this, PICKER_DIALOG_TAG);
             }
-            dialog.show(this, PICKER_DIALOG_TAG);
             mSelectedColor = NONE;
         } else {
             mSelectedColor = (int) id;
