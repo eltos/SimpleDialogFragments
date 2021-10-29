@@ -23,7 +23,7 @@ A new approach of result handling ensures data integrity over rotation changes, 
 
 
 
-|[JavaDoc API](https://eltos.github.io/SimpleDialogFragments)|[Wiki](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.4/testApp.apk)|
+|[API](https://eltos.github.io/SimpleDialogFragments)|[Wiki](https://github.com/eltos/SimpleDialogFragments/wiki)|[Releases](https://github.com/eltos/SimpleDialogFragments/releases)|[Screenshots](https://github.com/eltos/SimpleDialogFragments/wiki/Showcase)|[Demo APK](https://github.com/eltos/SimpleDialogFragments/releases/download/v3.4/testApp.apk)|
 |-|-|-|-|-|
 
 
@@ -62,74 +62,27 @@ dependencies {
 }
 ```
 
+### Building dialogs
 
-### Examples
+Building dialogs is very easy and short handed:
 
-You can find more examples in the [testApp](testApp/src/main/java/eltos/simpledialogfragments/MainActivity.java) and the [Wiki](https://github.com/eltos/SimpleDialogFragments/wiki).
-
-**Alert dialog**
 ```java
 SimpleDialog.build()
             .title(R.string.hello)
             .msg(R.string.hello_world)
             .show(this);
 ```
-**Choice dialog**
-```java
-int[] data = new int[]{R.string.choice_A, R.string.choice_B, R.string.choice_C};
 
-SimpleListDialog.build()
-                .title(R.string.select_one)
-                .choiceMode(ListView.CHOICE_MODE_SINGLE_DIRECT)
-                .items(getBaseContext(), data)
-                .show(this, LIST_DIALOG);
-```
-**Color picker**
-```java
-SimpleColorDialog.build()
-                 .title(R.string.pick_a_color)
-                 .colorPreset(Color.RED)
-                 .allowCustom(true)
-                 .show(this, COLOR_DIALOG);
-```
-
-**Form dialog**
-```java
-SimpleFormDialog.build()
-                .title(R.string.register)
-                .msg(R.string.please_fill_in_form)
-                .fields(
-                        Input.name(USERNAME).required().hint(R.string.username).validatePatternAlphanumeric(),
-                        Input.password(PASSWORD).required().max(20).validatePatternStrongPassword(),
-                        Input.email(EMAIL).required(),
-                        Input.plain(COUNTRY).hint(R.string.country)
-                             .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
-                             .suggest(R.array.countries_locale).forceSuggestion(),
-                        Check.box(null).label(R.string.terms_accept).required()
-                )
-                .show(this, REGISTRATION_DIALOG);
-```
-
-**Progress bar dialog**
-```java
-MyTask task = new MyTask();
-task.execute();
-
-SimpleProgressDialog.bar()
-        .title(R.string.working)
-        .task(task, cancelable, autoDismiss)
-        .neg(R.string.continue_in_background)
-        .show(this);
-```
+Check the [wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki) for instructions and examples on how to build the different dialogs available.
 
 ### Receive Results
 Supply a tag when showing the dialog and let the hosting Activity or Fragment implement the `SimpleDialog.OnDialogResultListener`.  
-For details, please refere to the [wiki](https://github.com/eltos/SimpleDialogFragments/wiki/SimpleDialog#receiving-results).
+For details, please refere to the [wiki pages](https://github.com/eltos/SimpleDialogFragments/wiki/SimpleDialog#receiving-results).
+
 ```java
 @Override
 public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
-    if (PASSWORD_DIALOG.equals(dialogTag) && which == BUTTON_POSITIVE){
-        String pw = extras.getString(SimpleInputDialogFragment.TEXT);
+    if (YES_NO_DIALOG.equals(dialogTag) && which == BUTTON_POSITIVE){
         // ...
         return true;
     }
@@ -164,6 +117,3 @@ Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2
 You may only use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software in compliance with the License. For more information visit http://www.apache.org/licenses/LICENSE-2.0  
 The above copyright notice alongside a copy of the Apache License shall be included in all copies or substantial portions of the Software not only in source code but also in a license listing accessible by the user.  
 
- 
- 
-I would appreciate being notified when you release an application that uses this library. Thanks!
