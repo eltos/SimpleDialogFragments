@@ -205,27 +205,24 @@ public class MainActivity extends AppCompatActivity implements
             String content = extras.getString(QR_CONTENT);
             if (content == null) return null;
 
-            // Generate
             try {
+                // Generate QR code using com.google.zxing
                 EnumMap<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
                 hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
                 hints.put(EncodeHintType.CHARACTER_SET, "UTF8");
-                BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE,
-                        1024, 1024, hints);
-                int width = bitMatrix.getWidth(), height = bitMatrix.getHeight();
-                int[] pixels = new int[width * height];
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        pixels[y*width + x] = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
+                BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, 1024, 1024, hints);
+
+                // Convert to bitmap
+                Bitmap qr = Bitmap.createBitmap(bitMatrix.getWidth(), bitMatrix.getHeight(), Bitmap.Config.RGB_565);
+                for (int y = 0; y < qr.getHeight(); y++) {
+                    for (int x = 0; x < qr.getWidth(); x++) {
+                        qr.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                     }
                 }
-                Bitmap qr = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-                qr.setPixels(pixels, 0, width, 0, 0, width, height);
                 return qr;
-
-            } catch (WriterException ignored) {}
-
-            return null;
+            } catch (WriterException ignored) {
+                return null;
+            }
         }
     }
     public void showQr(View view){
