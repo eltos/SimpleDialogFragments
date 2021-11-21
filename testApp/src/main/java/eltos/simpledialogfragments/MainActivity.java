@@ -688,7 +688,7 @@ public class MainActivity extends AppCompatActivity implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             float[] hsv = new float[3];
             Color.colorToHSV(color, hsv);
-            hsv[2] *= 0.75;
+            hsv[2] *= 0.75f;
             getWindow().setStatusBarColor(Color.HSVToColor(hsv));
         }
     }
