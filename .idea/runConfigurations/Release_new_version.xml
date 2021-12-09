@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Release new version" type="CompoundRunConfigurationType">
+    <toRun name="publishToSonatype" type="GradleRunConfiguration" />
+    <toRun name="SimpleDialogFragments ['update version in README']" type="GradleRunConfiguration" />
+    <toRun name="generateJavadocHtml" type="GradleRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>

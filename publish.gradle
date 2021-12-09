@@ -47,3 +47,10 @@ nexusPublishing {
     }
 }
 
+task 'update version in README manu' {
+    doLast {
+        ant.replaceregexp(match: '(eltos:simpledialogfragments:v?)\\d(\\.\\d)*', replace: '\\1'+VERSION, flags: 'g', byline: true) {
+            fileset(dir: '.', includes: 'README.md')
+        }
+    }
+}
