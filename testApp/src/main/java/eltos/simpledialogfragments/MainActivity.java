@@ -143,6 +143,21 @@ public class MainActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
+    @SuppressWarnings("unused")
+    public void  lintTest(){
+        // The following produces a lint error
+        //TestLintDialog.build().show(this);
+    }
+
+
+
+
+
+
+
+
+
+
     // ==   A l e r t s   ==
 
     public void showInfo(View view){

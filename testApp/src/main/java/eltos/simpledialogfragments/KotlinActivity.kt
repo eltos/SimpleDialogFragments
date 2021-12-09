@@ -36,6 +36,12 @@ class KotlinActivity : AppCompatActivity(), OnDialogResultListener {
                 .show(this)
     }
 
+    @Suppress("Unused")
+    fun lintTest(){
+        // The following produces a lint error
+        //TestLintDialog.build().show(this)
+    }
+
 
     fun showProgressTask(view: View?) {
         val task = MyProgressTask()

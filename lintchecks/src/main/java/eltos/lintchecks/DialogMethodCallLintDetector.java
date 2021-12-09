@@ -43,7 +43,7 @@ import java.util.Objects;
 public class DialogMethodCallLintDetector extends Detector implements Detector.UastScanner {
 
     private static String BUILD_CALL_MESSAGE = "%1$s does not implement a `build` method. " +
-            "A **%2$s will be created** instead!\n" +
+            "A **%2$s** will be created instead!\n" +
             "Implement the method in %1$s or call `%2$s.build()` instead.";
     public static final Issue BUILD_CALL = Issue.create("BuildNotImplemented",
             "Calling not implemented build",
