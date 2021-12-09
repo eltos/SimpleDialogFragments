@@ -85,9 +85,9 @@ public class DialogMethodCallLintDetector extends Detector implements Detector.U
 
                 } else {
                     // when called as static reference
-                    if (!callingExpression.toString().equals(definingClass.getName())) {
+                    if (!callingExpression.asSourceString().equals(definingClass.getName())) {
                         context.report(BUILD_CALL, context.getLocation(node), String.format(
-                                BUILD_CALL_MESSAGE, callingExpression, definingClass.getName()));
+                                BUILD_CALL_MESSAGE, callingExpression.asSourceString(), definingClass.getName()));
                     }
                 }
 
