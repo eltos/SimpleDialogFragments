@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * This code checks classes extending a SimpleDialog for the issues listed below
  */
-
+@SuppressWarnings("UnstableApiUsage")
 public class DialogExtendLintDetector extends Detector implements Detector.UastScanner {
 
     private static String BUILD_OVERWRITE_MESSAGE = "Class extends SimpleDialog but does not " +

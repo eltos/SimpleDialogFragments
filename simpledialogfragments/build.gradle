@@ -19,17 +19,21 @@ android {
     }
 
     lintOptions{
+        checkDependencies true
         disable 'MissingTranslation'
     }
 }
 
 dependencies {
+    implementation project(':lintchecks')
+    lintChecks project(':lintchecks')
+    lintPublish project(':lintchecks')
+
     testImplementation  'junit:junit:4.12'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'com.alimuzaffar.lib:pinentryedittext:2.0.6'
-    lintChecks project(':lintchecks')
 }
 
 

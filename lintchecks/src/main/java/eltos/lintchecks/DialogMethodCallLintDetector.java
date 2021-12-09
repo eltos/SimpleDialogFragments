@@ -39,11 +39,11 @@ import java.util.Objects;
 /**
  * This code checks calls on SimpleDialogs methods for the issues listed below
  */
-
+@SuppressWarnings("UnstableApiUsage")
 public class DialogMethodCallLintDetector extends Detector implements Detector.UastScanner {
 
     private static String BUILD_CALL_MESSAGE = "%1$s does not implement a `build` method. " +
-            "A **%2$s will be created**\n" +
+            "A **%2$s will be created** instead!\n" +
             "Implement the method in %1$s or call `%2$s.build()` instead.";
     public static final Issue BUILD_CALL = Issue.create("BuildNotImplemented",
             "Calling not implemented build",
@@ -77,7 +77,7 @@ public class DialogMethodCallLintDetector extends Detector implements Detector.U
                     // when called on instance of a class
                     PsiClass callingClass = ((PsiClassType) type).resolve();
 
-                    if (callingClass != null && !Objects.equals(callingClass, definingClass)) {
+                    if (!definingClass.equals(callingClass)) {
 
                         context.report(BUILD_CALL, context.getLocation(node), String.format(
                                 BUILD_CALL_MESSAGE, callingClass.getName(), definingClass.getName()));
@@ -85,7 +85,7 @@ public class DialogMethodCallLintDetector extends Detector implements Detector.U
 
                 } else {
                     // when called as static reference
-                    if (!Objects.equals(definingClass.getName(), callingExpression.toString())) {
+                    if (!callingExpression.toString().equals(definingClass.getName())) {
                         context.report(BUILD_CALL, context.getLocation(node), String.format(
                                 BUILD_CALL_MESSAGE, callingExpression, definingClass.getName()));
                     }
