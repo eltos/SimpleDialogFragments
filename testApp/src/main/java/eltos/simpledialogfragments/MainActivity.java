@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements
             PHONE_NUMBER = "phoneNumber",
             USERNAME = "username",
             PASSWORD = "password",
-            PIN = "pin",
             KEEP_STARRED = "keepStarred",
             COUNTRY = "country",
             NEWSLETTER = "newsletter",
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private @ColorInt int color = 0xff9c27b0;
     private int counter = 0;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
 
     @Override
@@ -131,12 +130,8 @@ public class MainActivity extends AppCompatActivity implements
         ((TextView) findViewById(R.id.version_info)).setText(String.format("Version %s (%s)",
                 BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
-        findViewById(R.id.flat_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), FlatFragmentActivity.class));
-            }
-        });
+        findViewById(R.id.flat_button).setOnClickListener(
+                v -> startActivity(new Intent(getBaseContext(), FlatFragmentActivity.class)));
 
         newColor(color);
 
@@ -250,16 +245,13 @@ public class MainActivity extends AppCompatActivity implements
                 .show(this, YES_NO_DIALOG);
 
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() ->
                 SimpleDialog.build()
                         .title(R.string.ask_exit)
                         .msg(R.string.ask_changes_discard_too_late)
                         .pos(R.string.nevermind)
-                        .show(MainActivity.this, null, YES_NO_DIALOG);
-            }
-        }, 7000);
+                        .show(MainActivity.this, null, YES_NO_DIALOG),
+                7000);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -745,10 +737,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         if (PROGRESS_DIALOG.equals(dialogTag)) {
-            switch (which) {
-                case SimpleProgressDialog.COMPLETED:
-                    Toast.makeText(this, R.string.completed, Toast.LENGTH_SHORT).show();
-                    return true;
+            if (which == SimpleProgressDialog.COMPLETED) {
+                Toast.makeText(this, R.string.completed, Toast.LENGTH_SHORT).show();
+                return true;
             }
 
         }
@@ -779,12 +770,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (colors != null) {
                         for (int i = 0; i < colors.length; i++) {
                             @ColorInt final int color = colors[i];
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    newColor(color);
-                                }
-                            }, 1000*i);
+                            handler.postDelayed(() -> newColor(color), 1000*i);
                         }
                     }
                     return true;
@@ -940,12 +926,7 @@ public class MainActivity extends AppCompatActivity implements
         if (requestCode == REQUEST_ACCOUNTS_PERMISSION){
             // Another android bug requires this delay
             // See https://code.google.com/p/android/issues/detail?id=190966
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showEmailInput(null);
-                }
-            }, 10);
+            handler.postDelayed(() -> showEmailInput(null), 10);
 
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

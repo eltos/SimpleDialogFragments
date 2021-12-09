@@ -155,7 +155,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
          * @param extras the extras passed with {@link SimpleInputDialog#extra(Bundle)}
          * @return an error message to display or null if the input is valid
          */
-        String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
+        @Nullable String validate(String dialogTag, @Nullable String input, @NonNull Bundle extras);
     }
 
 
@@ -172,7 +172,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     private TextInputLayout mInputLayout;
 
 
-    protected String onValidateInput(@Nullable String input){
+    protected @Nullable String onValidateInput(@Nullable String input){
         Bundle extras = getExtras();
         if (getTargetFragment() instanceof InputValidator) {
             return ((InputValidator) getTargetFragment())

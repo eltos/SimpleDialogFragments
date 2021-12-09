@@ -62,7 +62,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
          * @param extras The extras supplied to {@link SimpleImageDialog#extra(Bundle)}
          * @return the image to be shown
          */
-        T create(@Nullable String tag, @NonNull Bundle extras);
+        @Nullable T create(@Nullable String tag, @NonNull Bundle extras);
     }
     public interface BitmapCreator extends Creator<Bitmap>{}
     public interface DrawableCreator extends Creator<Drawable>{}
