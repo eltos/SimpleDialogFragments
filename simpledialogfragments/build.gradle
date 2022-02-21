@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode rootProject.ext['VERSION_NR']
         versionName rootProject.ext['VERSION']
     }
@@ -28,10 +27,10 @@ dependencies {
     lintChecks project(':lintchecks')
     lintPublish project(':lintchecks')
 
-    testImplementation  'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    testImplementation  'junit:junit:4.13.2'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'com.alimuzaffar.lib:pinentryedittext:2.0.6'
 }
 

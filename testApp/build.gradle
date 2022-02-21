@@ -4,13 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId 'eltos.simpledialogfragments.test'
         minSdkVersion 14
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode rootProject.ext['VERSION_NR']
         versionName rootProject.ext['VERSION']
     }
@@ -29,10 +28,15 @@ android {
     }
 }
 
+repositories {
+    //mavenLocal()
+    //maven { url 'https://jitpack.io' }
+}
+
 dependencies {
-    testImplementation  'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    testImplementation  'junit:junit:4.13.2'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'com.google.zxing:core:3.3.3'
 
