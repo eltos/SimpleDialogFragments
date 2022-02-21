@@ -28,8 +28,8 @@ apply from: "publish.gradle"
 
 // Version number used for simpledialogfragments library, testApp and maven repository
 ext {
-    VERSION = '3.5.2'
-    VERSION_NR = 352
+    VERSION = '3.6'
+    VERSION_NR = 360
 }
 
 
