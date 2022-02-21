@@ -17,15 +17,14 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-
-    lintOptions{
+    lint {
         checkDependencies true
         disable 'MissingTranslation'
     }
 }
 
 dependencies {
-    implementation project(':lintchecks')
+    debugImplementation project(':lintchecks')
     lintChecks project(':lintchecks')
     lintPublish project(':lintchecks')
 

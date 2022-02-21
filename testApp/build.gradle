@@ -35,6 +35,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'com.google.zxing:core:3.3.3'
+
+    // sonatype maven
+    //implementation 'io.github.eltos:simpledialogfragments:3.5.1'
+
+    // jitpack
+    //implementation 'com.github.eltos:simpledialogfragments:v3.5'
+
+    // local project
     api project(path: ':simpledialogfragments')
-    lintChecks project(':lintchecks')
+
 }
