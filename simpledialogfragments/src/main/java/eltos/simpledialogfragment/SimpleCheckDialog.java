@@ -54,7 +54,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
      * @param checkBoxLabel the label as string
      * @return this instance
      */
-    public SimpleCheckDialog label(String checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
+    public SimpleCheckDialog label(CharSequence checkBoxLabel){ return setArg(CHECKBOX_LABEL, checkBoxLabel); }
 
     /**
      * Sets the checkbox's label

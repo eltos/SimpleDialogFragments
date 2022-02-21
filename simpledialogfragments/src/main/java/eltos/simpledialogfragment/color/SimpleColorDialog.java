@@ -140,34 +140,34 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
-     * See {@link SimpleColorWheelDialog#title(String)}
+     * See {@link SimpleColorWheelDialog#title(CharSequence)}
      *
      * @param text the title for the color wheel dialog
      * @return this instance
      */
-    public SimpleColorDialog setupColorWheelTitle(String text){
+    public SimpleColorDialog setupColorWheelTitle(CharSequence text){
         return setArg(CUSTOM_TITLE, text);
     }
 
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
-     * See {@link SimpleColorWheelDialog#pos(String)}
+     * See {@link SimpleColorWheelDialog#pos(CharSequence)}
      *
      * @param text the positive button text for the color wheel dialog
      * @return this instance
      */
-    public SimpleColorDialog setupColorWheelPosButton(String text){
+    public SimpleColorDialog setupColorWheelPosButton(CharSequence text){
         return setArg(CUSTOM_POS, text);
     }
 
     /**
      * Configures {@link SimpleColorWheelDialog} for custom color picking
-     * See {@link SimpleColorWheelDialog#neut(String)}
+     * See {@link SimpleColorWheelDialog#neut(CharSequence)}
      *
      * @param text the neutral button text for the color wheel dialog
      * @return this instance
      */
-    public SimpleColorDialog setupColorWheelNeutButton(String text){
+    public SimpleColorDialog setupColorWheelNeutButton(CharSequence text){
         return setArg(CUSTOM_NEUT, text);
     }
 

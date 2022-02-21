@@ -259,7 +259,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
      * @param title the string to be displayed
      * @return this instance
      */
-    public This emptyText(String title){ return setArg(EMPTY_TEXT, title); }
+    public This emptyText(CharSequence title){ return setArg(EMPTY_TEXT, title); }
 
     /**
      * Sets a string to be displayed if no items are currently visible
@@ -271,7 +271,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
     @Override
-    public This pos(String positiveButton) {
+    public This pos(CharSequence positiveButton) {
         pmFlag = true;
         return super.pos(positiveButton);
     }
