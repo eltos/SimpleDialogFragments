@@ -41,11 +41,11 @@ public class ClipboardCopyDialog extends CustomViewDialog<ClipboardCopyDialog> {
     protected void onNeutralButtonClick() {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip;
-        if (getArgs().getBoolean(HTML)){
+        if (getArgs().getBoolean(HTML) && getMessage() instanceof String){
             // HTML dialog message
-            String plainText = Html.fromHtml(getMessage()).toString();
+            String plainText = Html.fromHtml((String) getMessage()).toString();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                clip = ClipData.newHtmlText(getTitle(), plainText, getMessage());
+                clip = ClipData.newHtmlText(getTitle(), plainText, (String) getMessage());
             } else {
                 clip = ClipData.newPlainText(getTitle(), plainText);
             }

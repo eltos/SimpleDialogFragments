@@ -32,6 +32,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
@@ -162,9 +163,14 @@ public class MainActivity extends AppCompatActivity implements
 
     public void showInfo(View view){
 
+        // example on how to use spannable strings
+        Spannable sb = new SpannableString("Information: Hello world!");
+        sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         SimpleDialog.build()
                 .title(R.string.message)
-                .msg(R.string.hello_world)
+                //.msg(R.string.hello_world)
+                .msg(sb)
                 .show(this);
 
     }

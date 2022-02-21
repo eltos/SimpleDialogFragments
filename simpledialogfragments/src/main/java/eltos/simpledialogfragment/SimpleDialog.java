@@ -134,8 +134,8 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
-    protected final This setArg(String key, String value){
-        getArgs().putString(key, value);
+    protected final This setArg(String key, CharSequence value){
+        getArgs().putCharSequence(key, value);
         return (This) this;
     }
     @SuppressWarnings("unchecked cast")
@@ -149,10 +149,10 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         return (This) this;
     }
     @Nullable
-    protected final String getArgString(String key){
+    protected final CharSequence getArgString(String key){
         Object value = getArgs().get(key);
-        if (value instanceof String){
-            return (String) value;
+        if (value instanceof CharSequence){
+            return (CharSequence) value;
         } else if (value instanceof Integer){
             return getString((Integer) value);
         }
@@ -179,7 +179,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param title the title as string
      * @return this instance
      */
-    public This title(String title){ return setArg(TITLE, title); }
+    public This title(CharSequence title){ return setArg(TITLE, title); }
 
     /**
      * Sets this dialogs title
@@ -193,7 +193,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Gets the string representation of the title set
      * @return the dialog title
      */
-    public @Nullable String getTitle(){
+    public @Nullable CharSequence getTitle(){
         return getArgString(TITLE);
     }
 
@@ -203,7 +203,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param message title as string
      * @return this instance
      */
-    public This msg(String message){ return setArg(MESSAGE, message); }
+    public This msg(CharSequence message){ setArg(HTML, false); return setArg(MESSAGE, message); }
 
     /**
      * Sets this dialogs message
@@ -211,7 +211,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param messageResourceId the message as android string resource
      * @return this instance
      */
-    public This msg(@StringRes int messageResourceId){ return setArg(MESSAGE, messageResourceId); }
+    public This msg(@StringRes int messageResourceId){ setArg(HTML, false); return setArg(MESSAGE, messageResourceId); }
 
     /**
      * Sets this dialogs message as html styled string
@@ -233,7 +233,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * Gets the string representation of the message set
      * @return the dialog message
      */
-    public @Nullable String getMessage(){
+    public @Nullable CharSequence getMessage(){
         return getArgString(MESSAGE);
     }
 
@@ -243,7 +243,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param positiveButton the text as string
      * @return this instance
      */
-    public This pos(String positiveButton){ return setArg(POSITIVE_BUTTON_TEXT, positiveButton); }
+    public This pos(CharSequence positiveButton){ return setArg(POSITIVE_BUTTON_TEXT, positiveButton); }
 
     /**
      * Sets this dialogs positive button text
@@ -259,7 +259,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param negativeButton the text as string
      * @return this instance
      */
-    public This neg(String negativeButton){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButton); }
+    public This neg(CharSequence negativeButton){ return setArg(NEGATIVE_BUTTON_TEXT, negativeButton); }
 
     /**
      * Sets this dialogs negative button text
@@ -282,7 +282,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param neutralButton the text as string
      * @return this instance
      */
-    public This neut(String neutralButton){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButton); }
+    public This neut(CharSequence neutralButton){ return setArg(NEUTRAL_BUTTON_TEXT, neutralButton); }
 
     /**
      * Sets this dialogs neutral button text
@@ -514,30 +514,30 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         context = dialog.getContext();
 
         dialog.setTitle(getTitle());
-        String msg = getMessage();
+        CharSequence msg = getMessage();
         if (msg != null) {
-            if (getArgs().getBoolean(HTML)) {
+            if (getArgs().getBoolean(HTML) && msg instanceof String) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    dialog.setMessage(Html.fromHtml(msg, 0));
+                    dialog.setMessage(Html.fromHtml((String) msg, 0));
                 } else {
                     //noinspection deprecation
-                    dialog.setMessage(Html.fromHtml(msg));
+                    dialog.setMessage(Html.fromHtml((String) msg));
                 }
             } else {
                 dialog.setMessage(msg);
             }
         }
-        String positiveButtonText = getArgString(POSITIVE_BUTTON_TEXT);
+        CharSequence positiveButtonText = getArgString(POSITIVE_BUTTON_TEXT);
         if (positiveButtonText != null) {
             dialog.setButton(DialogInterface.BUTTON_POSITIVE,
                     positiveButtonText, forwardOnClickListener);
         }
-        String negativeButtonText = getArgString(NEGATIVE_BUTTON_TEXT);
+        CharSequence negativeButtonText = getArgString(NEGATIVE_BUTTON_TEXT);
         if (negativeButtonText != null) {
             dialog.setButton(DialogInterface.BUTTON_NEGATIVE,
                     negativeButtonText, forwardOnClickListener);
         }
-        String neutralButtonText = getArgString(NEUTRAL_BUTTON_TEXT);
+        CharSequence neutralButtonText = getArgString(NEUTRAL_BUTTON_TEXT);
         if (neutralButtonText != null) {
             dialog.setButton(DialogInterface.BUTTON_NEUTRAL,
                     neutralButtonText, forwardOnClickListener);

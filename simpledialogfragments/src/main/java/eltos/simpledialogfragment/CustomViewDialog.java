@@ -270,15 +270,15 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
         dialog.setView(intermediate);
 
 
-        String msg = getMessage();
+        CharSequence msg = getMessage();
         if (msg != null) {
             CharSequence message;
-            if (getArgs().getBoolean(HTML)) {
+            if (getArgs().getBoolean(HTML) && msg instanceof String) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    message = Html.fromHtml(msg, 0);
+                    message = Html.fromHtml((String) msg, 0);
                 } else {
                     //noinspection deprecation
-                    message = Html.fromHtml(msg);
+                    message = Html.fromHtml((String) msg);
                 }
             } else {
                 message = msg;
