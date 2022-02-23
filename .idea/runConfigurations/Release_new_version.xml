@@ -21,6 +21,7 @@
     <method v="2">
       <option name="LaunchBrowser.Before.Run" url="https://s01.oss.sonatype.org/#stagingRepositories" />
       <option name="LaunchBrowser.Before.Run" url="https://github.com/eltos/SimpleDialogFragments/releases" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="build" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
     </method>
   </configuration>
 </component>
