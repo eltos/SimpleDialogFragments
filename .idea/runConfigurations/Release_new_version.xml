@@ -10,9 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="javadoc" />
-          <option value="updateVersionInReadme" />
-          <option value="simpledialogfragments:publishReleasePublicationToSonatypeRepository" />
+          <option value="release" />
         </list>
       </option>
       <option name="vmOptions" value="" />
@@ -22,6 +20,7 @@
     <DebugAllEnabled>false</DebugAllEnabled>
     <method v="2">
       <option name="LaunchBrowser.Before.Run" url="https://s01.oss.sonatype.org/#stagingRepositories" />
+      <option name="LaunchBrowser.Before.Run" url="https://github.com/eltos/SimpleDialogFragments/releases" />
     </method>
   </configuration>
 </component>

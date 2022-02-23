@@ -54,3 +54,37 @@ task updateVersionInReadme {
         }
     }
 }
+
+task gitCommitAndTagVersion {
+    doFirst {
+        grgit.add(patterns: ['docs/javadoc', 'README.md', 'build.gradle'])
+        grgit.commit(message: 'Release v'+VERSION, sign: false)
+        grgit.tag.add(name:'v'+VERSION)
+    }
+}
+
+task checkVersionAlreadyExists {
+    doFirst {
+        assert !grgit.tag.list().name.contains('v'+VERSION),
+                "Version ${VERSION} defined in build.gradle already exists!"
+    }
+}
+
+// Release pipeline
+task postRelease {
+    dependsOn gitCommitAndTagVersion
+}
+task doRelease {
+    dependsOn 'simpledialogfragments:javadoc'
+    dependsOn 'simpledialogfragments:publishReleasePublicationToSonatypeRepository'
+    dependsOn updateVersionInReadme
+    finalizedBy postRelease
+}
+task preRelease {
+    dependsOn checkVersionAlreadyExists
+    finalizedBy doRelease
+}
+
+task release {
+    dependsOn preRelease
+}
