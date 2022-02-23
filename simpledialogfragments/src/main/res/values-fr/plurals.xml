@@ -3,7 +3,7 @@
     
     <plurals name="at_least_x_chars">
         <item quantity="one">Au moins %1$d caractère</item>
-        <item quantity="other">Au moins %1$d caractères</item>
+        <item quantity="many">Au moins %1$d caractères</item>
     </plurals>
     
 </resources>
