@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Release new version" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="Upload to Sonatype" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,8 +10,6 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="javadoc" />
-          <option value="updateVersionInReadme" />
           <option value="simpledialogfragments:publishReleasePublicationToSonatypeRepository" />
         </list>
       </option>
