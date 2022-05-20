@@ -109,7 +109,7 @@ Known extensions and projects using this library:
 
 ## License
 
-Copyright 2017-2021 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
+Copyright 2017-2022 Philipp Niedermayer ([github.com/eltos](https://github.com/eltos))
 
 Licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)  
 
