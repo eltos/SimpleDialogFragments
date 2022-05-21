@@ -1,0 +1,8 @@
+# Configuration file for jitpack.io
+
+
+# Specify JAVA version
+# https://jitpack.io/docs/BUILDING/#java-version
+jdk:
+  - openjdk11
+
