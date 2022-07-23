@@ -1,4 +1,10 @@
-<p align="center"><img src="media/logo_named_right.png" alt="" width="50%"></p>
+<p align="center" >
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="media/logo_named_right_darkmode.png">
+  <source media="(prefers-color-scheme: light)" srcset="media/logo_named_right.png">
+  <img width="50%" src="media/logo_named_right.png">
+</picture>
+</p>
 
 # SimpleDialogFragments
 
