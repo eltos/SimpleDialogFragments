@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.1'
+        classpath 'com.android.tools.build:gradle:7.1.3'
 
         // Required plugins added to classpath to facilitate pushing to maven
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
@@ -30,8 +30,8 @@ apply from: "publish.gradle"
 
 // Version number used for simpledialogfragments library, testApp and maven repository
 ext {
-    VERSION = '3.6'
-    VERSION_NR = 360
+    VERSION = '3.6.1'
+    VERSION_NR = 361
 }
 
 
