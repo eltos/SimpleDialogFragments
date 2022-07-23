@@ -11,4 +11,5 @@
     android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
     android:paddingRight="?android:attr/listPreferredItemPaddingRight"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:checkMark="@drawable/arrow_mark" />
+    android:checkMark="@drawable/arrow_mark"
+    android:checkMarkTint="?attr/colorPrimary"/>
