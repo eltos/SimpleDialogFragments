@@ -19,7 +19,7 @@
     </style>
 
 
-    <style name="MyDialogTheme" parent="SimpleDialogTheme">
+    <style name="MyDialogTheme" parent="SimpleDialogTheme.Material">
         <!-- customizations for all dialogs -->
         <item name="colorPrimary">@color/colorAccent</item>
     </style>

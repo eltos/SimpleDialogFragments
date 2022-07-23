@@ -30,7 +30,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -45,7 +45,7 @@ import eltos.simpledialogfragment.R;
  * An edit text with a clear button
  * 
  */
-public class ClearableEditText extends AppCompatAutoCompleteTextView implements OnTouchListener, OnFocusChangeListener {
+public class ClearableEditText extends MaterialAutoCompleteTextView implements OnTouchListener, OnFocusChangeListener {
 
 
 

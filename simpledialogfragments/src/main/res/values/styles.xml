@@ -18,7 +18,16 @@
         <item name="textInputStyle">@style/SimpleDialogMaterialTextInputStyle</item>
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
-    <style name="SimpleDialogMaterialTextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style name="SimpleDialogMaterialTextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+        <item name="endIconMode">none</item>
+    </style>
+
+    <!-- material 3 design -->
+    <style name="SimpleDialogTheme.Material3" parent="ThemeOverlay.Material3.Dialog">
+        <item name="textInputStyle">@style/SimpleDialogMaterial3TextInputStyle</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+    </style>
+    <style name="SimpleDialogMaterial3TextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
         <item name="endIconMode">none</item>
     </style>
 

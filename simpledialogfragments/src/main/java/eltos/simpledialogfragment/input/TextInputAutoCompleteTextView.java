@@ -18,7 +18,7 @@ package eltos.simpledialogfragment.input;
 
 import android.content.Context;
 import com.google.android.material.textfield.TextInputLayout;
-import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewParent;
@@ -27,7 +27,7 @@ import android.view.inputmethod.InputConnection;
 
 
 /**
- * A special sub-class of {@link AppCompatAutoCompleteTextView} designed for use
+ * A special sub-class of {@link MaterialAutoCompleteTextView} designed for use
  * as a child of {@link TextInputLayout}.
  *
  * Using this class allows us to display a hint in the IME when in 'extract' mode.
@@ -35,7 +35,7 @@ import android.view.inputmethod.InputConnection;
  * Created by eltos on 16.02.17 as suggested here: http://stackoverflow.com/a/41864063
  *
  */
-public class TextInputAutoCompleteTextView extends AppCompatAutoCompleteTextView {
+public class TextInputAutoCompleteTextView extends MaterialAutoCompleteTextView {
 
     public boolean doNotFilter = false;
 
