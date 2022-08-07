@@ -58,13 +58,13 @@ Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases
 In your module level ``build.gradle`` when using [mavenCentral](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments):
 ```groovy
 dependencies {
-    implementation 'io.github.eltos:simpledialogfragments:3.6.1'
+    implementation 'io.github.eltos:simpledialogfragments:3.6.2'
 }
 ```
 or if using [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments):
 ```groovy
 dependencies {
-    implementation 'com.github.eltos:simpledialogfragments:v3.6.1'
+    implementation 'com.github.eltos:simpledialogfragments:v3.6.2'
 }
 ```
 
