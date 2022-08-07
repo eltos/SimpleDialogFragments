@@ -50,7 +50,8 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
             PIN = TAG + "pin";
 
     public static SimplePinDialog build(){
-        return new SimplePinDialog();
+        return new SimplePinDialog()
+                .theme(eltos.simpledialogfragment.R.style.SimpleDialogTheme);
     }
 
 
