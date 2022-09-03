@@ -323,9 +323,9 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
 
-    private AbsListView mListView;
-    private AdvancedAdapter<?> mAdapter;
-    private EditText mFilterEditText;
+    protected AbsListView mListView;
+    protected AdvancedAdapter<?> mAdapter;
+    protected EditText mFilterEditText;
 
 
     @Override
@@ -462,7 +462,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         }
     }
 
-    private void updatePosButton(){
+    protected void updatePosButton(){
         if (getArgs().getInt(CHOICE_MODE) == NO_CHOICE) {
             setPositiveButtonEnabled(true);
         } else {
