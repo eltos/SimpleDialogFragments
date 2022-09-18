@@ -3,8 +3,8 @@ apply plugin: 'com.android.lint'
 
 dependencies {
     // If the Gradle plugin version is X.Y.Z, then the Lint library version is X+23.Y.Z
-    compileOnly "com.android.tools.lint:lint-api:30.1.1"
-    compileOnly "com.android.tools.lint:lint-checks:30.1.1"
+    compileOnly 'com.android.tools.lint:lint-api:30.3.0'
+    compileOnly 'com.android.tools.lint:lint-checks:30.3.0'
 }
 
 java {
