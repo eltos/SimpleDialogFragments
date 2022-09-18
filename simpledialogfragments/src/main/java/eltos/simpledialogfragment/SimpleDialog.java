@@ -564,6 +564,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     /**
      * Helper for opening the soft keyboard on a specified view
+     * @param view the view to be focused and receive keyboard input
      */
     public void showKeyboard(final View view){
         view.postDelayed(new Runnable() {

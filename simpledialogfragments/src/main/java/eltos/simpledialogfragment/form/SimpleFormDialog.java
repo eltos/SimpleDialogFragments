@@ -320,6 +320,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
 
         /**
          * Helper for opening the soft keyboard on a specified view
+         * @param view the view to be focused and receive keyboard input
          */
         public void showKeyboard(final View view){
             SimpleFormDialog.this.showKeyboard(view);
