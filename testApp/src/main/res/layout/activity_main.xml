@@ -277,6 +277,14 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="showMultilineInput"
+                android:text="Multiline"
+                app:layout_flexGrow="1" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:onClick="showForm"
                 android:text="Form with different input types"
                 app:layout_flexGrow="1" />

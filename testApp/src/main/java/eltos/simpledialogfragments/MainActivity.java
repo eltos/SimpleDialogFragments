@@ -518,6 +518,18 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    public void showMultilineInput(View view){
+
+        SimpleFormDialog.build()
+                .title("Multiline input")
+                .theme(R.style.MyMultilineDialogTheme) // custom theme controls maxLines visible
+                .fields(
+                        Input.plain("key").hint("Enter text here...").inputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+                )
+                .show(this, "tag");
+
+    }
+
 
     public void showForm(View view){
 
