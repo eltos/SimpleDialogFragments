@@ -522,9 +522,11 @@ public class MainActivity extends AppCompatActivity implements
 
         SimpleFormDialog.build()
                 .title("Multiline input")
-                .theme(R.style.MyMultilineDialogTheme) // custom theme controls maxLines visible
                 .fields(
-                        Input.plain("key").hint("Enter text here...").inputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+                        Input.plain("key").hint("Enter text here...")
+                                .multiLine() // shorthand for .inputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+                                //.wrap() // wrapping is enabled by default in multi line mode,
+                                //.wrap(false, 5) // but can be disabled (or enabled in single line mode)
                 )
                 .show(this, "tag");
 

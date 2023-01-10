@@ -51,6 +51,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
     int inputType = InputType.TYPE_CLASS_TEXT;
     int maxLength = -1;
     int minLength = -1;
+    protected Boolean wrap = null;
+    protected int maxLines = 0;
     private int suggestionArrayRes = NO_ID;
     private int[] suggestionStringResArray = null;
     private String[] suggestions = null;
@@ -243,6 +245,57 @@ public class Input extends FormElement<Input, InputViewHolder> {
      */
     public Input inputType(int inputType){
         this.inputType = inputType;
+        return this;
+    }
+
+    /**
+     * Sets the input type to {@link InputType#TYPE_TEXT_FLAG_MULTI_LINE}.
+     * @return this instance
+     */
+    public Input multiLine(){
+        return multiLine(5);
+    }
+
+    /**
+     * Sets the input type to {@link InputType#TYPE_TEXT_FLAG_MULTI_LINE}
+     * and the maximum number of lines to show
+     * @param maxLines the maximum number of lines to show. If the text exceeds this number of lines,
+     *                 the input field will scroll vertically.
+     * @return this instance
+     */
+    public Input multiLine(int maxLines){
+        this.maxLines = maxLines;
+        return inputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+    }
+
+    /**
+     * Enables wrapping of lines exceeding the width of the input field.
+     * @return this instance
+     */
+    public Input wrap(){
+        return this.wrap(5);
+    }
+
+    /**
+     * Enables wrapping of lines exceeding the width of the input field.
+     * @param maxLines the maximum number of lines to show. If the text exceeds this number of lines,
+     *                 the input field will scroll vertically.
+     * @return this instance
+     */
+    public Input wrap(int maxLines){
+        return this.wrap(true, maxLines);
+    }
+
+    /**
+     * Configures wrapping of lines exceeding the width of the input field.
+     * @param wrap en-/disable wrapping of lines (and dis-/enable horizontal scrolling)
+     * @param maxLines the maximum number of lines to show. If the text exceeds this number of lines,
+     *                 the input field will scroll vertically.
+     * @return this instance
+     */
+    public Input wrap(@Nullable Boolean wrap, int maxLines){
+        this.wrap = wrap;
+        this.maxLines = maxLines;
         return this;
     }
 
@@ -552,6 +605,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
         patternError = in.readString();
         patternErrorId = in.readInt();
         isSpinner = in.readByte() != 0;
+        wrap = Boolean.valueOf(in.readString());
+        maxLines = in.readInt();
     }
 
     public static final Creator<Input> CREATOR = new Creator<Input>() {
@@ -590,6 +645,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
         dest.writeString(patternError);
         dest.writeInt(patternErrorId);
         dest.writeByte((byte) (isSpinner ? 1 : 0));
+        dest.writeString(wrap.toString()); // nullable
+        dest.writeInt(maxLines);
     }
 
 

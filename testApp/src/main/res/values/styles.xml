@@ -25,13 +25,6 @@
     </style>
 
 
-    <style name="MyMultilineDialogTheme" parent="MyDialogTheme">
-        <item name="editTextStyle">@style/MyMultilineTextInputEditStyle</item>
-    </style>
-    <style name="MyMultilineTextInputEditStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:maxLines">3</item>
-    </style>
-
     <style name="MyFancyDialogTheme" parent="SimpleDialogTheme">
         <!-- customizations per dialog, passed via the SimpleDialog.theme(...) method -->
         <item name="android:colorBackground">#282828</item>
@@ -52,6 +45,7 @@
     <style name="MyTextInputEditStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:maxLines">3</item>
     </style>
 
     <!-- When customizing the theme for a SimpleImageDialog you must either

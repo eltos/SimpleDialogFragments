@@ -109,7 +109,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
         }
 
         // PW hide/visible toggle button
-        if (field.passwordToggleVisible){
+        if (field.passwordToggleVisible) {
             inputLayout.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
         }
 
@@ -119,6 +119,13 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             inputLayout.setCounterEnabled(true);
         }
 
+        // Multiline and wrapping
+        if (field.maxLines > 0) {
+            input.setMaxLines(field.maxLines);
+        }
+        if (field.wrap != null) {
+            input.setHorizontallyScrolling(!field.wrap); // can also be used to disable scrolling in multiline mode
+        }
 
         // IME action
         input.setImeOptions(actions.isLastFocusableElement() ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
