@@ -605,7 +605,8 @@ public class Input extends FormElement<Input, InputViewHolder> {
         patternError = in.readString();
         patternErrorId = in.readInt();
         isSpinner = in.readByte() != 0;
-        wrap = Boolean.valueOf(in.readString());
+        int w = in.readInt();
+        wrap = w < 0 ? null : w != 0;
         maxLines = in.readInt();
     }
 
@@ -645,7 +646,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
         dest.writeString(patternError);
         dest.writeInt(patternErrorId);
         dest.writeByte((byte) (isSpinner ? 1 : 0));
-        dest.writeString(wrap.toString()); // nullable
+        dest.writeInt(wrap == null ? -1 : wrap ? 1 : 0); // nullable
         dest.writeInt(maxLines);
     }
 
