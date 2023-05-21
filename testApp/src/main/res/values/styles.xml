@@ -1,35 +1,55 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <!-- Base application theme.
+         Example themes to inherit from:
+         - Theme.AppCompat.DayNight
+         - Theme.MaterialComponents.DayNight
+         - Theme.Material3.DayNight
+     -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorAccent</item>
 
-        <!-- Optional custom theme for all dialogs
-             Use simpleDialogTheme for simple dialogs only or alertDialogTheme for all dialogs
-             You can directly reference the default themes or use them as parent:
-             - SimpleDialogTheme
-             - SimpleDialogTheme.Material
+        <!-- Optional custom theme
+             - simpleDialogTheme applies to simple dialogs only
+             - alertDialogTheme applies to all dialogs (including simple dialogs)
+             - imageDialogTheme applies to image dialogs only
          -->
-        <item name="simpleDialogTheme">@style/MyDialogTheme</item>
-        <!--<item name="alertDialogTheme">@style/SimpleDialogTheme</item>-->
-        <!--<item name="alertDialogTheme">@style/SimpleDialogTheme.Material</item>-->
+        <item name="simpleDialogTheme">@style/MyDialogTheme.Material3</item>
+        <!--<item name="alertDialogTheme">@style/MyDialogTheme.MaterialComponents</item>-->
         <!--<item name="imageDialogTheme">@style/MyImageDialogTheme</item>-->
     </style>
 
 
-    <style name="MyDialogTheme" parent="SimpleDialogTheme.Material">
-        <!-- customizations for all dialogs -->
+    <!-- Customized theme for dialogs
+         Example themes to inherit from:
+             - SimpleDialogTheme.AppCompat
+             - SimpleDialogTheme.MaterialComponents
+             - SimpleDialogTheme.Material3
+     -->
+    <style name="MyDialogTheme.AppCompat" parent="SimpleDialogTheme.AppCompat">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+    <style name="MyDialogTheme.MaterialComponents" parent="SimpleDialogTheme.MaterialComponents">
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+    <style name="MyDialogTheme.Material3" parent="SimpleDialogTheme.Material3">
         <item name="colorPrimary">@color/colorAccent</item>
     </style>
 
 
-    <style name="MyFancyDialogTheme" parent="SimpleDialogTheme">
+
+
+
+    <!-- A very fancy theme with custom colors and custom text styles -->
+    <style name="MyFancyDialogTheme" parent="SimpleDialogTheme.Material3">
         <!-- customizations per dialog, passed via the SimpleDialog.theme(...) method -->
         <item name="android:colorBackground">#282828</item>
         <item name="colorPrimary">#a000ff</item>
         <item name="colorSecondary">#d50000</item>
+        <item name="colorSurface">#abcdef</item>
         <item name="android:textColorPrimary">#33691e</item>
         <item name="checkboxStyle">@style/MyCheckBoxStyle</item>
         <!-- MaterialComponent inputs have two style: for the TextInputLayout and the TextInputEditText -->
@@ -50,12 +70,11 @@
 
     <!-- When customizing the theme for a SimpleImageDialog you must either
             inherit from "ImageDialogTheme" or specify the two attributes as shown below -->
-    <style name="MyImageDialogThemeA" parent="MyDialogTheme">
+    <style name="MyImageDialogThemeA">
         <item name="android:windowMinWidthMinor">@null</item>   <!-- these are required if parent -->
         <item name="android:windowMinWidthMajor">@null</item>   <!-- is not ImageDialogTheme -->
         <!-- customizations -->
     </style>
-
     <style name="MyImageDialogThemeB" parent="ImageDialogTheme">
         <!-- customizations -->
     </style>

@@ -33,6 +33,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
@@ -504,11 +505,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             }
         }
         if (theme != null) {
-            dialog = new AlertDialog.Builder(getContext(), theme).create();
+            dialog = new MaterialAlertDialogBuilder(getContext(), theme).create();
             setStyle(STYLE_NORMAL, theme);
         } else {
             // default theme or 'alertDialogTheme'
-            dialog = new AlertDialog.Builder(getContext()).create();
+            dialog = new MaterialAlertDialogBuilder(getContext()).create();
         }
 
         context = dialog.getContext();

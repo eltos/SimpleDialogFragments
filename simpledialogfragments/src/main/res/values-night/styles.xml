@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- app compat -->
+    <style name="SimpleDialogTheme.AppCompat" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="colorSurface">#212121</item>
+    </style>
+
+
+</resources>

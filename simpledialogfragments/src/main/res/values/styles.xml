@@ -8,13 +8,14 @@
     <!-- base styles for all simple dialogs
     -->
 
-    <!-- default -->
-    <style name="SimpleDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+    <!-- app compat -->
+    <style name="SimpleDialogTheme.AppCompat" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
+        <item name="colorSurface">#fff</item>
     </style>
 
-    <!-- material design -->
-    <style name="SimpleDialogTheme.Material">
+    <!-- material components -->
+    <style name="SimpleDialogTheme.MaterialComponents" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="textInputStyle">@style/SimpleDialogMaterialTextInputStyle</item>
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
@@ -22,16 +23,18 @@
         <item name="endIconMode">none</item>
     </style>
 
-    <!-- material 3 design -->
+    <!-- material 3 -->
     <style name="SimpleDialogTheme.Material3" parent="ThemeOverlay.Material3.Dialog">
         <item name="textInputStyle">@style/SimpleDialogMaterial3TextInputStyle</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
     </style>
-    <style name="SimpleDialogMaterial3TextInputStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+    <style name="SimpleDialogMaterial3TextInputStyle" parent="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
         <item name="endIconMode">none</item>
     </style>
 
-
+    <!-- deprecated aliases -->
+    <style name="SimpleDialogTheme" parent="SimpleDialogTheme.MaterialComponents"/>
+    <style name="SimpleDialogTheme.Material" parent="SimpleDialogTheme.MaterialComponents"/>
 
 
 
@@ -41,10 +44,11 @@
     -->
 
     <!-- image dialog -->
-    <style name="ImageDialogTheme" parent="SimpleDialogTheme">
+    <style name="ImageDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
         <!-- these are required so that the dialog wraps the images dimensions -->
         <item name="android:windowMinWidthMinor">@null</item>
         <item name="android:windowMinWidthMajor">@null</item>
+        <item name="colorSurface">#0000</item>
     </style>
 
 </resources>

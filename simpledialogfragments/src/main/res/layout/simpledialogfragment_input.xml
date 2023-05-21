@@ -15,6 +15,7 @@
         app:counterOverflowTextAppearance="@style/OverflowText">
 
         <eltos.simpledialogfragment.input.TextInputAutoCompleteTextView
+            style="?attr/editTextStyle"
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

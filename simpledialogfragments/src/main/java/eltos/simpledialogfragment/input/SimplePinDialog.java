@@ -51,7 +51,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
 
     public static SimplePinDialog build(){
         return new SimplePinDialog()
-                .theme(eltos.simpledialogfragment.R.style.SimpleDialogTheme);
+                .theme(eltos.simpledialogfragment.R.style.SimpleDialogTheme_AppCompat);
     }
 
 
