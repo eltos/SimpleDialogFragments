@@ -67,6 +67,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
             NEUTRAL_BUTTON_TEXT = TAG + "neutralButtonText",
             ICON_RESOURCE = TAG + "iconResource",
             CANCELABLE = TAG + "cancelable",
+            FULLSCREEN = TAG + "fullscreen",
             THEME = TAG + "theme",
             HTML = TAG + "html",
             BUNDLE = TAG + "bundle";
@@ -328,6 +329,21 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     }
 
     /**
+     * Specifies whether this dialog is shown as fullscreen or basic dialog.
+     *
+     * @param fullscreen whether this dialog is fullscreen
+     * @return this instance
+     */
+    public This fullscreen(boolean fullscreen){ return setArg(FULLSCREEN, fullscreen); }
+
+    /**
+     * Set that this dialog is shown as fullscreen dialog.
+     *
+     * @return this instance
+     */
+    public This fullscreen(){ return fullscreen(true); }
+
+    /**
      * Pass extras to the dialog to retain specific information across configuration changes.
      * All extras supplied here will be contained in the extras bundle passed to
      * {@link OnDialogResultListener#onResult}
@@ -494,9 +510,9 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // dialog theme
-        @StyleRes Integer theme = null;
+        @StyleRes int theme = 0;
         if (getArgs().containsKey(THEME)){  // per-dialog theme
-            theme = getArgs().getInt(THEME);
+            theme = getArgs().getInt(THEME, theme);
         } else {  // theme specified by 'simpleDialogTheme' attribute
             TypedValue outValue = new TypedValue();
             getContext().getTheme().resolveAttribute(R.attr.simpleDialogTheme, outValue, true);
@@ -504,12 +520,14 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
                 theme = outValue.resourceId;
             }
         }
-        if (theme != null) {
-            dialog = new MaterialAlertDialogBuilder(getContext(), theme).create();
+        if (theme != 0)
             setStyle(STYLE_NORMAL, theme);
+
+        // build alert dialog
+        if (getArgs().getBoolean(FULLSCREEN)) {
+            dialog = new FullscreenAlertDialog(requireContext(), getTheme());
         } else {
-            // default theme or 'alertDialogTheme'
-            dialog = new MaterialAlertDialogBuilder(getContext()).create();
+            dialog = new MaterialAlertDialogBuilder(requireContext(), getTheme()).create();
         }
 
         context = dialog.getContext();
