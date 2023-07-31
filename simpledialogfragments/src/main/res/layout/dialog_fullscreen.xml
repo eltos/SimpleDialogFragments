@@ -17,7 +17,9 @@
             android:paddingEnd="16dp"
             android:paddingStart="6dp"
             android:background="?attr/colorSurface"
-            app:contentInsetStartWithNavigation="0dp"/>
+            app:contentInsetStartWithNavigation="0dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="6dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -26,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -22,6 +22,7 @@ public class FullscreenAlertDialog extends AlertDialog {
 
     Toolbar mToolbar;
     ViewGroup mContainer;
+    View mMessageContainer;
     TextView mMessage;
 
     protected FullscreenAlertDialog(@NonNull Context context, int themeResId) {
@@ -40,6 +41,7 @@ public class FullscreenAlertDialog extends AlertDialog {
         View intermediate = getLayoutInflater().inflate(R.layout.simpledialogfragment_custom_view, null, false);
         frame.addView(intermediate);
         mMessage = intermediate.findViewById(R.id.customMessage);
+        mMessageContainer = intermediate.findViewById(R.id.customMessageContainer);
         mContainer = (ViewGroup) intermediate.findViewById(R.id.customView);
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -68,12 +70,12 @@ public class FullscreenAlertDialog extends AlertDialog {
     public void setMessage(CharSequence message) {
         mMessage.setText(message);
         mMessage.setVisibility(message == null ? View.GONE : View.VISIBLE);
+        mMessageContainer.setVisibility(mMessage.getVisibility());
     }
 
     @Override
     public void setView(View view) {
         mContainer.addView(view);
-        // TODO: align content gravity top (not bottom)!
     }
 
     public void setButton(int whichButton, CharSequence text, Message msg) {
