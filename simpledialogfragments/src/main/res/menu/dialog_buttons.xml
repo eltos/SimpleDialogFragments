@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/button_pos"
+        android:title="@android:string/ok"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/button_neg"
+        android:title="@android:string/no"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/button_neu"
+        android:title="@android:string/cancel"
+        android:visible="false"
+        app:showAsAction="never" />
+</menu>
