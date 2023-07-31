@@ -30,6 +30,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -176,8 +177,7 @@ public class ClearableEditText extends MaterialAutoCompleteTextView implements O
         }
 
         if (xD == null){
-            //noinspection deprecation
-            xD = getResources().getDrawable(R.drawable.ic_clear_search);
+            xD = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_clear_search, context.getTheme());
         }
         if (xD != null) {
             xD.setBounds(0, 0, xD.getIntrinsicWidth(), xD.getIntrinsicHeight());

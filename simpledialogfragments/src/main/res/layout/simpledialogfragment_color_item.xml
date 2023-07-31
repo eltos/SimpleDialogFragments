@@ -22,6 +22,6 @@
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:visibility="invisible"
-        android:src="@drawable/ic_check_white" />
+        android:src="@drawable/ic_check" />
 
 </FrameLayout>

@@ -11,12 +11,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorAccent</item>
 
-        <!-- Optional custom theme
+        <!-- Default dialog themes
+             - @style/SimpleDialogTheme.AppCompat (for app theme Theme.AppCompat.DayNight)
+             - @style/SimpleDialogTheme.MaterialComponents (for app theme Theme.MaterialComponents.DayNight)
+             - @style/SimpleDialogTheme.Material3 (for app theme Theme.Material3.DayNight)
+         -->
+        <item name="simpleDialogTheme">@style/SimpleDialogTheme.Material3</item>
+
+        <!-- Custom dialog themes
              - simpleDialogTheme applies to simple dialogs only
              - alertDialogTheme applies to all dialogs (including simple dialogs)
              - imageDialogTheme applies to image dialogs only
          -->
-        <item name="simpleDialogTheme">@style/MyDialogTheme.Material3</item>
+        <!--<item name="simpleDialogTheme">@style/MyDialogTheme.Material3</item>-->
         <!--<item name="alertDialogTheme">@style/MyDialogTheme.MaterialComponents</item>-->
         <!--<item name="imageDialogTheme">@style/MyImageDialogTheme</item>-->
     </style>

@@ -198,15 +198,14 @@ public class ColorView extends FrameLayout implements Checkable {
 
         switch (mStyle) {
             case CHECK:
-                mCheckView.setImageResource(R.drawable.ic_check_white);
+                mCheckView.setImageResource(R.drawable.ic_check);
                 mCheckView.setColorFilter(isColorDark(mColor) ? Color.WHITE : Color.BLACK);
                 mColorView.setVisibility(VISIBLE);
                 mRippleView.setForeground(createRippleDrawable(getDarkRippleColor(mColor)));
                 break;
 
             case PALETTE:
-                mCheckView.setImageResource(mColor != NONE ? R.drawable.ic_palette_white :
-                        R.drawable.ic_palette_color);
+                mCheckView.setImageResource(R.drawable.ic_palette_color);
                 mCheckView.setVisibility(VISIBLE);
                 mDarkRippleDrawable = createRippleDrawable(getDarkRippleColor(mColor));
                 mLightRippleDrawable = createRippleDrawable(getLightRippleColor(mColor));
