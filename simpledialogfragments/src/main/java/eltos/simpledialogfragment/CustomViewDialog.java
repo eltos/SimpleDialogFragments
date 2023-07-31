@@ -92,9 +92,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      */
     public final void setPositiveButtonEnabled(boolean enabled){
         setArg(POSITIVE_BUTTON_ENABLED, enabled);
-        if (getPositiveButton() != null) {
-            getPositiveButton().setEnabled(enabled);
-        }
+        setButtonEnabled(DialogInterface.BUTTON_POSITIVE, enabled);
     }
 
     /**
@@ -107,9 +105,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      */
     public final void setNeutralButtonEnabled(boolean enabled){
         setArg(NEUTRAL_BUTTON_ENABLED, enabled);
-        if (getNeutralButton() != null) {
-            getNeutralButton().setEnabled(enabled);
-        }
+        setButtonEnabled(DialogInterface.BUTTON_NEUTRAL, enabled);
     }
 
     /**
@@ -122,9 +118,7 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
      */
     public final void setNegativeButtonEnabled(boolean enabled){
         setArg(NEGATIVE_BUTTON_ENABLED, enabled);
-        if (getNegativeButton() != null) {
-            getNegativeButton().setEnabled(enabled);
-        }
+        setButtonEnabled(DialogInterface.BUTTON_NEGATIVE, enabled);
     }
 
     /**
@@ -297,37 +291,16 @@ public abstract class CustomViewDialog<This extends CustomViewDialog<This>>
             @Override
             public void onShow(DialogInterface d) {
                 // restore button states
-                setPositiveButtonEnabled(getArgs().getBoolean(POSITIVE_BUTTON_ENABLED, true));
-                setNegativeButtonEnabled(getArgs().getBoolean(NEGATIVE_BUTTON_ENABLED, true));
-                setNeutralButtonEnabled(getArgs().getBoolean(NEUTRAL_BUTTON_ENABLED, true));
+                setButtonEnabled(DialogInterface.BUTTON_POSITIVE,
+                        getArgs().getBoolean(POSITIVE_BUTTON_ENABLED, true));
+                setButtonEnabled(DialogInterface.BUTTON_NEGATIVE,
+                        getArgs().getBoolean(NEGATIVE_BUTTON_ENABLED, true));
+                setButtonEnabled(DialogInterface.BUTTON_NEUTRAL,
+                        getArgs().getBoolean(NEUTRAL_BUTTON_ENABLED, true));
                 // set click listener
-                Button positiveButton = getPositiveButton();
-                if (positiveButton != null) {
-                    positiveButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onPositiveButtonClick();
-                        }
-                    });
-                }
-                Button neutralButton = getNeutralButton();
-                if (neutralButton != null) {
-                    neutralButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onNeutralButtonClick();
-                        }
-                    });
-                }
-                Button negativeButton = getNegativeButton();
-                if (negativeButton != null) {
-                    negativeButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            onNegativeButtonClick();
-                        }
-                    });
-                }
+                setButtonClickListener(DialogInterface.BUTTON_POSITIVE, v -> onPositiveButtonClick());
+                setButtonClickListener(DialogInterface.BUTTON_NEUTRAL, v -> onNeutralButtonClick());
+                setButtonClickListener(DialogInterface.BUTTON_NEGATIVE, v -> onNegativeButtonClick());
                 // callback for subclasses
                 onDialogShown();
 

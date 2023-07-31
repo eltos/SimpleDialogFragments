@@ -35,6 +35,7 @@ public class FullscreenAlertDialog extends AlertDialog {
     private CharSequence message;
     private View view;
     private Map<Integer, Pair<CharSequence, OnClickListener>> buttons = new HashMap<>(3);
+    private Map<Integer, Boolean> buttonStates = new HashMap<>(3);
 
     protected FullscreenAlertDialog(@NonNull Context context, int themeResId) {
         super(new ContextThemeWrapper(context, themeResId), R.style.FullscreenDialog);
@@ -65,6 +66,9 @@ public class FullscreenAlertDialog extends AlertDialog {
         setCancelable(cancelable);
         for (Map.Entry<Integer, Pair<CharSequence, OnClickListener>> button : buttons.entrySet()) {
             setButton(button.getKey(), button.getValue().first, button.getValue().second);
+        }
+        for (Map.Entry<Integer, Boolean> state : buttonStates.entrySet()){
+            setButtonEnabled(state.getKey(), state.getValue());
         }
 
     }
@@ -112,37 +116,48 @@ public class FullscreenAlertDialog extends AlertDialog {
         }
     }
 
+    @Deprecated
     public void setButton(int whichButton, CharSequence text, Message msg) {
         throw new NotImplementedError("Set the button passing an OnClickListener instead!");
+    }
+
+    private MenuItem getButtonMenuItem(int whichButton){
+        int id = whichButton == DialogInterface.BUTTON_POSITIVE ? R.id.button_pos :
+                whichButton == DialogInterface.BUTTON_NEGATIVE ? R.id.button_neg :
+                        whichButton == DialogInterface.BUTTON_NEUTRAL ? R.id.button_neu : -1;
+        return mToolbar.getMenu().findItem(id);
     }
 
     public void setButton(int whichButton, CharSequence text, OnClickListener listener) {
         buttons.put(whichButton, new Pair<>(text, listener));
 
         if (mToolbar != null) {
-            int id = whichButton == DialogInterface.BUTTON_POSITIVE ? R.id.button_pos :
-                        whichButton == DialogInterface.BUTTON_NEGATIVE ? R.id.button_neg :
-                            whichButton == DialogInterface.BUTTON_NEUTRAL ? R.id.button_neu : -1;
-            MenuItem item = mToolbar.getMenu().findItem(id);
+            MenuItem item = getButtonMenuItem(whichButton);
             item.setTitle(text);
             item.setVisible(text != null);
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    // TODO: handle enabled state
-                    listener.onClick(FullscreenAlertDialog.this, whichButton);
-                    dismiss();
-                    return true;
-                }
+            item.setOnMenuItemClickListener(item1 -> {
+                listener.onClick(FullscreenAlertDialog.this, whichButton);
+                return true;
             });
-            // TODO item.setEnabled();
+            mToolbar.invalidateMenu();
         }
     }
 
-    public Button getButton(int whichButton) {
-        // TODO: how to handle this???? Important to change enabled state etc.
+    public void setButtonEnabled(int whichButton, boolean enabled){
+        buttonStates.put(whichButton, enabled);
+        if (mToolbar != null) {
+            MenuItem item = getButtonMenuItem(whichButton);
+            item.setEnabled(enabled);
+            mToolbar.invalidateMenu();
+        }
+    }
 
-        return super.getButton(whichButton); // TODO mAlert.getButton(whichButton);
+
+    @Deprecated
+    public Button getButton(int whichButton) {
+        throw new NotImplementedError(
+                "Fullscreen Dialog has MenuItems instead of Buttons. " +
+                "Use setButton and setButtonEnabled methods!");
     }
 
     public void setIcon(int resId) {

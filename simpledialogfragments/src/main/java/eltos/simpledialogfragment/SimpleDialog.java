@@ -91,11 +91,9 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras);
     }
 
-    private DialogInterface.OnClickListener forwardOnClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            callResultListener(which, null);
-        }
+    private DialogInterface.OnClickListener forwardOnClickListener = (dialog, which) -> {
+        callResultListener(which, null);
+        dialog.dismiss();
     };
 
     @CallSuper
@@ -569,17 +567,48 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
         return dialog;
     }
 
-    protected @Nullable Button getPositiveButton(){
-        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+    /**
+     * Call this method to enable or disable a button
+     *
+     * Note: This method has no effect if the dialog is not yet shown
+     *
+     * @param enabled whether to en- or disable the button
+     */
+    protected void setButtonEnabled(int whichButton, boolean enabled){
+        if (dialog instanceof FullscreenAlertDialog){
+            ((FullscreenAlertDialog) dialog).setButtonEnabled(whichButton, enabled);
+        } else if (dialog != null){
+            Button button = dialog.getButton(whichButton);
+            if (button != null){
+                button.setEnabled(enabled);
+            }
+        }
     }
 
-    protected @Nullable Button getNegativeButton(){
-        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+    /**
+     * Call this method to overwrite the click listener for a button
+     *
+     * Note: This method has no effect if the dialog is not yet shown
+     *
+     * @param listener the click listener
+     */
+    protected void setButtonClickListener(int whichButton, View.OnClickListener listener){
+        if (dialog instanceof FullscreenAlertDialog){
+            CharSequence text = getArgString(
+                    whichButton == DialogInterface.BUTTON_POSITIVE ? POSITIVE_BUTTON_TEXT:
+                    whichButton == DialogInterface.BUTTON_NEGATIVE ? NEGATIVE_BUTTON_TEXT:
+                    whichButton == DialogInterface.BUTTON_NEUTRAL ? NEUTRAL_BUTTON_TEXT : null);
+            ((FullscreenAlertDialog) dialog).setButton(whichButton, text,
+                    (dialog, which) -> listener.onClick(null));
+        } else if (dialog != null){
+            Button button = dialog.getButton(whichButton);
+            if (button != null){
+                button.setOnClickListener(listener);
+            }
+        }
     }
 
-    protected @Nullable Button getNeutralButton(){
-        return dialog == null ? null : dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-    }
+
 
     /**
      * Helper for opening the soft keyboard on a specified view
