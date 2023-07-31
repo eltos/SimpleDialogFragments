@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements
                 .title(R.string.message)
                 //.msg(R.string.hello_world)
                 .msg(sb)
+                .icon(R.drawable.ic_info)
                 .show(this);
 
     }

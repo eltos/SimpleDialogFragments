@@ -36,6 +36,7 @@ public class FullscreenAlertDialog extends AlertDialog {
     private View view;
     private Map<Integer, Pair<CharSequence, OnClickListener>> buttons = new HashMap<>(3);
     private Map<Integer, Boolean> buttonStates = new HashMap<>(3);
+    private int icon = -1;
 
     protected FullscreenAlertDialog(@NonNull Context context, int themeResId) {
         super(new ContextThemeWrapper(context, themeResId), R.style.FullscreenDialog);
@@ -60,6 +61,7 @@ public class FullscreenAlertDialog extends AlertDialog {
 
         setTitle(title);
         setMessage(message);
+        setIcon(icon);
         setView(view);
 
         mToolbar.inflateMenu(R.menu.dialog_buttons);
@@ -75,7 +77,9 @@ public class FullscreenAlertDialog extends AlertDialog {
 
     public void setCancelable(boolean cancelable) {
         this.cancelable = cancelable;
-        if (mToolbar != null) {
+        if (mToolbar != null && icon < 0) {
+            // if user set a custom icon, don't show the cancel icon
+            // (user can still cancel with back button)
             if (cancelable) {
                 mToolbar.setNavigationContentDescription(android.R.string.cancel);
                 mToolbar.setNavigationIcon(R.drawable.ic_clear_search);
@@ -83,9 +87,9 @@ public class FullscreenAlertDialog extends AlertDialog {
             } else {
                 mToolbar.setNavigationIcon(null);
                 mToolbar.setNavigationOnClickListener(null);
-                // TODO: prevent back button press?
             }
         }
+        // TODO: prevent back button press if non-cancelable?
     }
 
     @Override
@@ -161,7 +165,11 @@ public class FullscreenAlertDialog extends AlertDialog {
     }
 
     public void setIcon(int resId) {
-        // TODO mAlert.setIcon(resId);
+        this.icon = resId;
+        if (mToolbar != null && icon >= 0) {
+            mToolbar.setNavigationIcon(resId);
+            mToolbar.setNavigationOnClickListener(null);
+        }
     }
 
 

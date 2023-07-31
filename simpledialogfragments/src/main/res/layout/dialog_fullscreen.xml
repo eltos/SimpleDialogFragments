@@ -14,12 +14,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:paddingEnd="16dp"
-            android:paddingStart="6dp"
-            android:background="?attr/colorSurface"
-            app:contentInsetStartWithNavigation="0dp"
-            android:paddingRight="16dp"
-            android:paddingLeft="6dp" />
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingEnd="12dp"
+            android:paddingRight="12dp"
+            android:background="?attr/colorSurface" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
