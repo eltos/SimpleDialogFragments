@@ -349,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements
     public void showMultiChoice(View view){
 
         SimpleListDialog.build()
+                .fullscreen()
                 .title(R.string.select_up_to_5)
                 .choiceMode(SimpleListDialog.MULTI_CHOICE)
                 .choiceMin(1)
@@ -479,6 +480,8 @@ public class MainActivity extends AppCompatActivity implements
     public void showLogin(View view){
 
         SimpleFormDialog.buildLogin(USERNAME, PASSWORD)
+                .msg("Please login to continue")
+                .fullscreen()
                 .show(this, LOGIN_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
@@ -539,6 +542,7 @@ public class MainActivity extends AppCompatActivity implements
         SimpleFormDialog.build()
                 .title(R.string.register)
                 .msg(R.string.please_fill_in_form)
+                .fullscreen()
                 .fields(
                         Input.name(FIRST_NAME).hint(R.string.first_name),
                         Input.name(SURNAME).hint(R.string.surname).required(),
