@@ -77,9 +77,8 @@ public class FullscreenAlertDialog extends AlertDialog {
 
     public void setCancelable(boolean cancelable) {
         this.cancelable = cancelable;
+        // show cancel icon (unless user set a custom icon)
         if (mToolbar != null && icon < 0) {
-            // if user set a custom icon, don't show the cancel icon
-            // (user can still cancel with back button)
             if (cancelable) {
                 mToolbar.setNavigationContentDescription(android.R.string.cancel);
                 mToolbar.setNavigationIcon(R.drawable.ic_clear_search);
@@ -89,7 +88,8 @@ public class FullscreenAlertDialog extends AlertDialog {
                 mToolbar.setNavigationOnClickListener(null);
             }
         }
-        // TODO: prevent back button press if non-cancelable?
+        // prevent back button press if non-cancelable
+        super.setCancelable(cancelable);
     }
 
     @Override
