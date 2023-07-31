@@ -48,9 +48,10 @@ A new approach of result handling ensures data integrity over rotation changes, 
   * Date and time pickers
   * Pin code dialog
   * Progress dialogs
-* Easy result handling even after rotation changes
+* [Easy result handling](https://github.com/eltos/SimpleDialogFragments/wiki/SimpleDialog#receiving-results) even after rotation changes
 * Persistence on rotation changes
-* Material design
+* [Material design](https://github.com/eltos/SimpleDialogFragments/wiki/Styles)
+* [Fullscreen dialogs](https://github.com/eltos/SimpleDialogFragments/wiki/Fullscreen-dialogs)
 * Customizable and extendable dialogs
 
 
