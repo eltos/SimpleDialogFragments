@@ -52,13 +52,12 @@ afterEvaluate {
 
                 // Two artifacts, the `aar` (or `jar`) and the sources
                 if (project.plugins.findPlugin("com.android.library")) {
-                    from components.release
+                    from components.findByName('release')
                 } else {
                     artifact("$buildDir/libs/${project.getName()}-${version}.jar")
                 }
 
                 artifact androidSourcesJar
-                artifact javadocJar
 
                 // Metadata
                 pom {

@@ -20,12 +20,6 @@ android {
         checkDependencies true
         disable 'MissingTranslation'
     }
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
 }
 
 dependencies {
