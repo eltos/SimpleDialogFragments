@@ -4,5 +4,5 @@
 # Specify JAVA version
 # https://jitpack.io/docs/BUILDING/#java-version
 jdk:
-  - openjdk11
+  - openjdk17
 
