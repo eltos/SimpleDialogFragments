@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import eltos.simpledialogfragment.R;
@@ -44,6 +45,8 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
     private TextView label;
     private ColorView colorView;
 
+    private ImageView clearButton;
+
     public ColorViewHolder(ColorField field) {
         super(field);
     }
@@ -59,6 +62,7 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
 
         label = (TextView) view.findViewById(R.id.label);
         colorView = (ColorView) view.findViewById(R.id.color);
+        clearButton = (ImageView) view.findViewById(R.id.clear_color);
 
         // Label
         String text = field.getText(context);
@@ -97,6 +101,15 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
             }
         });
 
+        if (!field.required) {
+            clearButton.setVisibility(View.VISIBLE);
+            clearButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    colorView.setColor(ColorView.NONE);
+                }
+            });
+        }
     }
 
 
