@@ -18,6 +18,8 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import android.util.TypedValue;
@@ -77,9 +79,9 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
 
         // Color preset
         if (savedInstanceState != null) {
-            colorView.setColor(savedInstanceState.getInt(SAVED_COLOR));
+            setColor(savedInstanceState.getInt(SAVED_COLOR));
         } else {
-            colorView.setColor(field.getInitialColor(context));
+            setColor(field.getInitialColor(context));
         }
         colorView.setOutlineWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 2 /*dp*/, context.getResources().getDisplayMetrics()));
@@ -101,15 +103,13 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
             }
         });
 
-        if (!field.required) {
-            clearButton.setVisibility(View.VISIBLE);
-            clearButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    colorView.setColor(ColorView.NONE);
-                }
-            });
-        }
+        clearButton.setOnClickListener(v -> setColor(ColorView.NONE));
+
+    }
+
+    private void setColor(@ColorInt int color){
+        colorView.setColor(color);
+        clearButton.setVisibility(field.required || colorView.getColor() == ColorView.NONE ? View.GONE : View.VISIBLE);
     }
 
 
@@ -161,7 +161,7 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
     public boolean onResult(@NonNull String dialogTag, int which, @NonNull Bundle extras) {
         if ((COLOR_DIALOG_TAG+field.resultKey).equals(dialogTag)){
             if (which == BUTTON_POSITIVE && colorView != null){
-                colorView.setColor(extras.getInt(SimpleColorDialog.COLOR, colorView.getColor()));
+                setColor(extras.getInt(SimpleColorDialog.COLOR, colorView.getColor()));
             }
             return true;
         }
