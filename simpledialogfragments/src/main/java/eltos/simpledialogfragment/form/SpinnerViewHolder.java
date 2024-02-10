@@ -32,7 +32,7 @@ import eltos.simpledialogfragment.R;
  * The ViewHolder class for {@link Spinner}
  * 
  * This class is used to create a SpinnerView and to maintain it's functionality
- * 
+ * <p>
  * Created by eltos on 23.02.17.
  */
 
@@ -60,7 +60,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
                              final SimpleFormDialog.DialogActions actions) {
 
         spinner = view.findViewById(R.id.spinner);
-        label = (TextView) view.findViewById(R.id.label);
+        label = view.findViewById(R.id.label);
 
         // Label
         String text = field.getText(context);
@@ -92,12 +92,9 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-        spinner.setSpinnerEventsListener(new CustomSpinnerView.OnSpinnerOpenListener() {
-            @Override
-            public void onOpen() {
-                if (getSelection() == NONE && field.required) {
-                    setSelection(0);
-                }
+        spinner.setSpinnerEventsListener(() -> {
+            if (getSelection() == NONE && field.required) {
+                setSelection(0);
             }
         });
 
@@ -189,7 +186,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             if (position == emptyIndex) {
-                TextView label = (TextView) view.findViewById(android.R.id.text1);
+                TextView label = view.findViewById(android.R.id.text1);
                 label.setText("");
                 label.setHint(getItem(position));
             }
@@ -200,7 +197,7 @@ class SpinnerViewHolder extends FormElementViewHolder<Spinner> {
         public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
             View view =  super.getDropDownView(position, convertView, parent);
             if (position == emptyIndex) {
-                TextView label = (TextView) view.findViewById(android.R.id.text1);
+                TextView label = view.findViewById(android.R.id.text1);
                 label.setText("");
                 label.setHint(getItem(position));
             }

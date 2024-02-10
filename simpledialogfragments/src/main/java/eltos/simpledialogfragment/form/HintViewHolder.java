@@ -18,7 +18,6 @@ package eltos.simpledialogfragment.form;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 
 import android.view.View;
 import android.widget.TextView;
@@ -47,7 +46,7 @@ class HintViewHolder extends FormElementViewHolder<Hint> {
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        TextView label = (TextView) view.findViewById(R.id.label);
+        TextView label = view.findViewById(R.id.label);
         label.setHint(field.getText(context));
 
     }

@@ -22,8 +22,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Toast;

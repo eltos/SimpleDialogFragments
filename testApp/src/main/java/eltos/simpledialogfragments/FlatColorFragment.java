@@ -18,6 +18,8 @@ package eltos.simpledialogfragments;
 
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,7 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
 public class FlatColorFragment extends SimpleColorDialog {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return extractContentView(savedInstanceState);
     }
 

@@ -17,14 +17,14 @@
 package eltos.simpledialogfragment.input;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 
@@ -33,13 +33,13 @@ import eltos.simpledialogfragment.R;
 
 /**
  * An simple dialog with an pin field.
- *
+ * <p>
  * Required pin can be specified
  * You can also use an {@link SimpleInputDialog.InputValidator} to validate input.
- *
+ * <p>
  * Results:
  *      PIN    String      The entered pin code
- *
+ * <p>
  * Created by eltos on 14.10.2015.
  */
 public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
@@ -140,8 +140,8 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
         View view = inflate(R.layout.simpledialogfragment_pin);
-        mInput = (PinEntryEditText) view.findViewById(R.id.pinEntry);
-        mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
+        mInput = view.findViewById(R.id.pinEntry);
+        mInputLayout = view.findViewById(R.id.inputLayout);
 
         mInput.setMaxLength(getArgs().getInt(LENGTH, 4));
 
@@ -155,17 +155,14 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
         }
 
         mInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        mInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
-                    if (posEnabled()) {
-                        pressPositiveButton();
-                    }
-                    return true;
+        mInput.setOnEditorActionListener((textView, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                if (posEnabled()) {
+                    pressPositiveButton();
                 }
-                return false;
+                return true;
             }
+            return false;
         });
 
         mInput.addTextChangedListener(new TextWatcher() {
@@ -180,12 +177,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
             }
         });
 
-        mInput.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
-            @Override
-            public void onPinEntered(CharSequence str) {
-                pressPositiveButton();
-            }
-        });
+        mInput.setOnPinEnteredListener(pin -> pressPositiveButton());
 
         return view;
     }
@@ -226,7 +218,7 @@ public class SimplePinDialog extends CustomViewDialog<SimplePinDialog> {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(PIN, getText());
     }

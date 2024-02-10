@@ -33,7 +33,7 @@ import eltos.simpledialogfragment.R;
 
 /**
  * A dialog that displays a filterable list in single- or multi-choice mode.
- *
+ * <p>
  * Created by eltos on 02.01.2017.
  */
 @SuppressWarnings("unused")
@@ -149,11 +149,11 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
      * {@link SimpleListDialog#LAYOUT_PLAIN}, {@link SimpleListDialog#LAYOUT_SINGLE_CHOICE},
      * {@link SimpleListDialog#LAYOUT_MULTI_CHOICE}, {@link SimpleListDialog#LAYOUT_ACTION}
      * or a custom layout resource.
-     *
+     * <p>
      * When using {@link SimpleListDialog#LAYOUT_AUTO} (which is the default), an appropriate
      * item layout will be chosen based on the {@link SimpleListDialog#choiceMode} and
      * {@link SimpleListDialog#choicePreset} or {@link SimpleListDialog#choiceIdPreset} setting
-     *
+     * <p>
      * When using a custom layout resource, a {@link TextView} with id {@link android.R.id#text1}
      * is required.
      *
@@ -254,7 +254,7 @@ public class SimpleListDialog extends CustomListDialog<SimpleListDialog> {
 
             if (convertView == null){
                 convertView = inflate(mLayout, parent, false);
-                textView = (TextView) convertView.findViewById(android.R.id.text1);
+                textView = convertView.findViewById(android.R.id.text1);
                 convertView.setTag(textView);
             } else {
                 textView = (TextView) convertView.getTag();

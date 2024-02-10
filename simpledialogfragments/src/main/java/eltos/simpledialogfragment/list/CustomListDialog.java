@@ -41,14 +41,14 @@ import eltos.simpledialogfragment.R;
  * A dialog that displays a list of items.
  * MULTI_CHOICE and SINGLE_CHOICE modes are supported.
  * Specify your custom adapter
- *
+ * <p>
  * Result:
  *      SELECTED_POSITIONS          Integer ArrayList   selected item positions
  *      SELECTED_IDS                Long[]              selected item ids
  * In SINGLE_CHOICE and SINGLE_CHOICE_DIRECT mode also:
  *      SELECTED_SINGLE_POSITION    int                 selected item position
  *      SELECTED_SINGLE_ID          long                selected item id
- *
+ * <p>
  * Created by eltos on 02.01.2017.
  */
 public abstract class CustomListDialog<This extends CustomListDialog<This>>
@@ -303,7 +303,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
     /**
      * Callback method to be invoked when an item in this view has been
      * clicked and held.
-     *
+     * <p>
      * Implementers can call Adapter#getItem(position) if they need to access
      * the data associated with the selected item.
      *
@@ -334,7 +334,7 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
         View view;
         if (getArgs().containsKey(GRID)){
             view = inflate(R.layout.simpledialogfragment_grid);
-            mListView = (GridView) view.findViewById(R.id.gridView);
+            mListView = view.findViewById(R.id.gridView);
             if (getArgs().containsKey(GRID_W)){
                 ((GridView) mListView).setColumnWidth(getResources().getDimensionPixelSize(
                         getArgs().getInt(GRID_W)));
@@ -342,11 +342,11 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
             ((GridView) mListView).setNumColumns(getArgs().getInt(GRID_N, GridView.AUTO_FIT));
         } else {
             view = inflate(R.layout.simpledialogfragment_list);
-            mListView = (ListView) view.findViewById(R.id.listView);
+            mListView = view.findViewById(R.id.listView);
         }
 
-        mFilterEditText = (EditText) view.findViewById(R.id.filter);
-        TextView emptyView = (TextView) view.findViewById(R.id.emptyView);
+        mFilterEditText = view.findViewById(R.id.filter);
+        TextView emptyView = view.findViewById(R.id.emptyView);
 
         emptyView.setText(getArgString(EMPTY_TEXT));
 
@@ -384,23 +384,18 @@ public abstract class CustomListDialog<This extends CustomListDialog<This>>
 
 
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemClickListener((adapterView, itemView, position, id) -> {
+            CustomListDialog.this.onItemClick(adapterView, itemView, position, id);
 
+            mAdapter.toggleChecked(position);
+            //mListView.invalidateViews();
+            mAdapter.notifyDataSetChanged();
 
-                CustomListDialog.this.onItemClick(parent, view, position, id);
+            updatePosButton();
 
-                mAdapter.toggleChecked(position);
-                //mListView.invalidateViews();
-                mAdapter.notifyDataSetChanged();
-
-                updatePosButton();
-
-                if (mAdapter.getCheckedItemCount() > 0 &&
-                        getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
-                    pressPositiveButton();
-                }
+            if (mAdapter.getCheckedItemCount() > 0 &&
+                    getArgs().getInt(CHOICE_MODE) == SINGLE_CHOICE_DIRECT){
+                pressPositiveButton();
             }
         });
         mListView.setOnItemLongClickListener(this);

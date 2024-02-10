@@ -18,8 +18,6 @@ package eltos.simpledialogfragment.form;
 
 import android.os.Parcel;
 
-import androidx.annotation.ArrayRes;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 
@@ -27,7 +25,7 @@ import androidx.annotation.StringRes;
  * A hint element to be used with {@link SimpleFormDialog}
  * 
  * This is simple hint text
- * 
+ * <p>
  * Created by philipp on 06.07.2018
  */
 

@@ -23,7 +23,7 @@ import android.widget.TimePicker;
 
 /**
  * A time-picker dialog
- *
+ * <p>
  * Created by eltos on 02.02.2017.
  */
 public class SimpleTimeDialog extends CustomViewDialog<SimpleTimeDialog>

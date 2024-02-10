@@ -40,10 +40,10 @@ import java.util.regex.Pattern;
 
 /**
  * Created by eltos on 04.12.2016.
- *
+ * <p>
  * This adapter keeps track of checked items even if they are currently not visible
  * due to filtering.
- *
+ * <p>
  * When extending this class, note the following:
  * - Set the underlying data set via {@link AdvancedAdapter#setData} or {@link AdvancedAdapter#setDataAndIds}
  * - Overwrite {@link AdvancedAdapter#getView}. You can either return with the super-call, that will

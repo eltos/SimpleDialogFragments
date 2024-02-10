@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import eltos.simpledialogfragment.R;
 
@@ -31,7 +30,7 @@ import eltos.simpledialogfragment.R;
  * The ViewHolder class for {@link Check}
  * 
  * This class is used to create a CheckBox and to maintain it's functionality
- * 
+ * <p>
  * Created by eltos on 23.02.17.
  */
 
@@ -53,7 +52,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
     protected void setUpView(View view, Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+        checkBox = view.findViewById(R.id.checkBox);
 
         // Label
         checkBox.setText(field.getText(context));
@@ -67,12 +66,7 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
 
         // Positive button state for single element forms
         if (actions.isOnlyFocusableElement()) {
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    actions.updatePosButtonState();
-                }
-            });
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> actions.updatePosButtonState());
         }
 
     }
@@ -98,13 +92,10 @@ class CheckViewHolder extends FormElementViewHolder<Check> {
         // and show a short flash of the box getting focused
         checkBox.setFocusableInTouchMode(true);
 
-        checkBox.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // finally remove focus
-                checkBox.setFocusable(false);
-                actions.clearCurrentFocus();
-            }
+        checkBox.postDelayed(() -> {
+            // finally remove focus
+            checkBox.setFocusable(false);
+            actions.clearCurrentFocus();
         }, 100);
 
         return checkBox.requestFocus();

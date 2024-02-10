@@ -38,7 +38,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * A dialog that displays an image
- *
+ * <p>
  * Created by eltos on 13.02.17.
  */
 public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
@@ -81,7 +81,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
 
     /**
      * Sets the bitmap to be displayed
-     *
+     * <p>
      * Deprecated: To avoid {@link android.os.TransactionTooLargeException}, use any of the
      * following (save the bitmap to the app's private storage if needed)
      * – {@link SimpleImageDialog#image(int)}
@@ -219,11 +219,11 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
         }
 
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        ProgressBar loading = (ProgressBar) view.findViewById(R.id.progressBar);
+        ImageView imageView = view.findViewById(R.id.image);
+        ProgressBar loading = view.findViewById(R.id.progressBar);
 
         if (getArgs().containsKey(IMAGE_URI)) {
-            imageView.setImageURI((Uri) getArgs().getParcelable(IMAGE_URI));
+            imageView.setImageURI(getArgs().getParcelable(IMAGE_URI));
         } else if (getArgs().containsKey(DRAWABLE_RESOURCE)) {
             imageView.setImageResource(getArgs().getInt(DRAWABLE_RESOURCE));
         } else if (getArgs().containsKey(CREATOR_CLASS)) {
@@ -231,7 +231,7 @@ public class SimpleImageDialog extends CustomViewDialog<SimpleImageDialog> {
             args.putString(TAG, getTag());
             new ImageCreator(imageView, loading).execute(args);
         } else if (getArgs().containsKey(BITMAP)) {
-            imageView.setImageBitmap((Bitmap) getArgs().getParcelable(BITMAP));
+            imageView.setImageBitmap(getArgs().getParcelable(BITMAP));
         }
 
         return view;

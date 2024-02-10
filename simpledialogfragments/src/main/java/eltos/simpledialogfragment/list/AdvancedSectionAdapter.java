@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 /**
  * An extension of AdvancedAdapter that provides a section indexer
- *
+ * <p>
  * Created by eltos on 02.02.2017.
  */
 public abstract class AdvancedSectionAdapter<T> extends AdvancedAdapter<T> implements SectionIndexer {
@@ -53,8 +53,7 @@ public abstract class AdvancedSectionAdapter<T> extends AdvancedAdapter<T> imple
 
     @Override
     public int getPositionForSection(int section) {
-        section = section < 0 ? 0 : section;
-        section = section >= mSections.size() ? mSections.size()-1 : section;
+        section = Math.max(0, Math.min(mSections.size() - 1, section));
         return mSections.get(section).startingPosition;
     }
 

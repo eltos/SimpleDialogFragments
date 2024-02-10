@@ -68,7 +68,7 @@ public abstract class FormElement<T extends FormElement, V extends FormElementVi
     /**
      * Set the required flag for this field.
      * This has different meanings depending on the element type
-     * 
+     * <p>
      * Input fields will display an error message if their input is empty.
      * Check fields will be required to be checked
      *

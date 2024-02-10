@@ -35,9 +35,9 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
  * 
  * This is an EditText that can be used to enter text, email-addresses, numbers, passwords etc.
  * Optionally supports auto-complete behaviour using suggestions.
- * 
+ * <p>
  * This will add a String to resource bundle containing the entered text.
- * 
+ * <p>
  * Created by eltos on 20.02.17.
  */
 
@@ -159,7 +159,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
     /**
      * Factory method for a spinner input field.
      * This disables editing and only uses suggestions.
-     *
+     * <p>
      * Make sure to supply the items via {@link Input#suggest}
      *
      * @param key the key that can be used to receive the entered text from the bundle in
@@ -393,7 +393,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      */
     public Input suggest(ArrayList<String> strings){
         if (strings != null && strings.size() > 0) {
-            return suggest(strings.toArray(new String[strings.size()]));
+            return suggest(strings.toArray(new String[0]));
         }
         return this;
     }
@@ -411,7 +411,7 @@ public class Input extends FormElement<Input, InputViewHolder> {
      * Specify whether this input may contain only one of the suggestions provided.
      * If enabled, the EditText will show an error message if something else was entered. This
      * will only take affect if suggestions were set by any of the {@link Input#suggest} methods
-     * 
+     * <p>
      * If the suggestion array is small, consider using a spinner instead.
      *
      * @param force whether to force the input to be one of the suggestions or not

@@ -37,11 +37,13 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import eltos.simpledialogfragment.R;
 
 /**
  * A widget to pick a hsv based color
- *
+ * <p>
  * Created by eltos on 03.02.2017.
  */
 public class ColorWheelView extends View {
@@ -276,7 +278,7 @@ public class ColorWheelView extends View {
 
         float padding = Math.max(dp(5), Math.min(dp(10), dp(7)*Math.min(w, h)/1000));
 
-        PointF center = new PointF(w/2, h/2);
+        PointF center = new PointF(w/2f, h/2f);
         float radius = (Math.min(w, h) - padding - size)/2;
 
 
@@ -433,7 +435,7 @@ public class ColorWheelView extends View {
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
 
         //canvas.drawOval(circleBox, colorPaint);
 
@@ -559,7 +561,7 @@ public class ColorWheelView extends View {
             super.updateGeometryDependant();
 
             for (int i = 0; i < mFields.length; i++) {
-                float alpha = 7.5f + 35*i + 15*(i/3);
+                float alpha = 7.5f + 35*i + 15*Math.floorDiv(i,3);
                 createFieldGeometry(mFields[i], alpha, 35);
             }
 
@@ -874,7 +876,7 @@ public class ColorWheelView extends View {
 
         void draw(Canvas canvas) {
             canvas.save();
-            canvas.rotate(-90, canvas.getWidth() / 2, canvas.getHeight() / 2);
+            canvas.rotate(-90, canvas.getWidth() / 2f, canvas.getHeight() / 2f);
             canvas.drawArc(boundingBox, 0, 360, false, paint);
             canvas.drawLines(marker, markerPaint);
             canvas.restore();

@@ -36,7 +36,7 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
  * The ViewHolder class for {@link ColorField}
  * 
  * This class is used to create a Color Box and to maintain it's functionality
- * 
+ * <p>
  * Created by eltos on 06.07.2018.
  */
 
@@ -62,20 +62,15 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
     protected void setUpView(View view, final Context context, Bundle savedInstanceState,
                              final SimpleFormDialog.DialogActions actions) {
 
-        label = (TextView) view.findViewById(R.id.label);
-        colorView = (ColorView) view.findViewById(R.id.color);
-        clearButton = (ImageView) view.findViewById(R.id.clear_color);
+        label = view.findViewById(R.id.label);
+        colorView = view.findViewById(R.id.color);
+        clearButton = view.findViewById(R.id.clear_color);
 
         // Label
         String text = field.getText(context);
         label.setText(text);
         label.setVisibility(text == null ? View.GONE : View.VISIBLE);
-        label.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorView.performClick();
-            }
-        });
+        view.setOnClickListener(v -> colorView.performClick());
 
         // Color preset
         if (savedInstanceState != null) {
@@ -90,18 +85,13 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
         colorView.setChecked(true);
 
 
-        colorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actions.showDialog(SimpleColorDialog.build()
-                        .title(field.getText(context))
-                        .colors(field.colors)
-                        .allowCustom(field.allowCustom)
-                        .colorPreset(colorView.getColor())
-                        .neut(),
-                        COLOR_DIALOG_TAG+field.resultKey);
-            }
-        });
+        colorView.setOnClickListener(v -> actions.showDialog(SimpleColorDialog.build()
+                .title(field.getText(context))
+                .colors(field.colors)
+                .allowCustom(field.allowCustom)
+                .colorPreset(colorView.getColor())
+                .neut(),
+                COLOR_DIALOG_TAG+field.resultKey));
 
         clearButton.setOnClickListener(v -> setColor(ColorView.NONE));
 

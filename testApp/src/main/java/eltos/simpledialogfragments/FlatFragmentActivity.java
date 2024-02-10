@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
 
 import eltos.simpledialogfragment.SimpleDialog;
 import eltos.simpledialogfragment.color.SimpleColorDialog;
@@ -65,12 +64,7 @@ public class FlatFragmentActivity extends AppCompatActivity implements SimpleDia
         }
 
         // call result listener
-        findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.callResultListener();
-            }
-        });
+        findViewById(R.id.ok).setOnClickListener(v -> fragment.callResultListener());
 
     }
 

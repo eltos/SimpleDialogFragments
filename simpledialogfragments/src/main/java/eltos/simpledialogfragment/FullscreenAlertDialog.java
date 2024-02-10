@@ -57,7 +57,7 @@ public class FullscreenAlertDialog extends AlertDialog {
         mToolbar = root.findViewById(R.id.toolbar);
         mMessage = intermediate.findViewById(R.id.customMessage);
         mMessageContainer = intermediate.findViewById(R.id.customMessageContainer);
-        mContainer = (ViewGroup) intermediate.findViewById(R.id.customView);
+        mContainer = intermediate.findViewById(R.id.customView);
 
         setTitle(title);
         setMessage(message);

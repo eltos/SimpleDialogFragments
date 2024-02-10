@@ -25,6 +25,7 @@ import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiModifierList;
 
 import org.jetbrains.uast.UClass;
@@ -43,11 +44,13 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
             "implement a static `build` method.";
     public static final Issue BUILD_OVERWRITE = Issue.create("BuildOverwrite",
             "Missing build method",
-            "This check checks for classes that extend a `SimpleDialog` " +
-                    "but do not implement a static `build` method.\n" +
-                    "\n" +
-                    "Implementing the method is required, as a call to the inherited build method " +
-                    "would otherwise unintentionally create an instance of the parent class.\n",
+            """
+                    This check checks for classes that extend a `SimpleDialog` but do not \
+                    implement a static `build` method.
+
+                    Implementing the method is required, as a call to the inherited build method \
+                    would otherwise unintentionally create an instance of the parent class.
+                    """,
             Category.USABILITY, 6, Severity.WARNING,
             new Implementation(DialogExtendLintDetector.class, Scope.JAVA_FILE_SCOPE));
 
@@ -55,11 +58,13 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
             "have a `public static String TAG` field.";
     public static final Issue TAG = Issue.create("DialogTag",
             "Missing TAG field",
-            "This check checks for classes that extend a `SimpleDialog` " +
-                    "but do not have a public static String `TAG` field.\n" +
-                    "\n" +
-                    "This field is required, as it is used as default identifier for result" +
-                    "receiving. If not given, the parent classes TAG would unintentionally be used.\n",
+            """
+                    This check checks for classes that extend a `SimpleDialog` but do not have a \
+                    public static String `TAG` field.
+
+                    This field is required, as it is used as default identifier for resultreceiving. \
+                    If not given, the parent classes TAG would unintentionally be used.
+                    """,
             Category.CORRECTNESS, 6, Severity.WARNING,
             new Implementation(DialogExtendLintDetector.class, Scope.JAVA_FILE_SCOPE));
 
@@ -79,12 +84,12 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
     @Override
     public void visitClass(JavaContext context, UClass declaration) {
         PsiModifierList classModifiers = declaration.getModifierList();
-        if (classModifiers == null || !classModifiers.hasModifierProperty("abstract")) {
+        if (classModifiers == null || !classModifiers.hasModifierProperty(PsiModifier.ABSTRACT)) {
             // check for static build method
             boolean hasBuildMethod = false;
             for (PsiMethod method : declaration.getMethods()) {
                 if ("build".equals(method.getName()) && method.getModifierList()
-                        .hasModifierProperty("static")) {
+                        .hasModifierProperty(PsiModifier.STATIC)) {
                     hasBuildMethod = true;
                     break;
                 }
@@ -99,8 +104,8 @@ public class DialogExtendLintDetector extends Detector implements Detector.UastS
             for (UField field : declaration.getFields()) {
                 PsiModifierList modifiers = field.getModifierList();
                 if ("TAG".equals(field.getName()) && LintUtils.isString(field.getType()) &&
-                        modifiers != null && modifiers.hasModifierProperty("public") &&
-                        modifiers.hasModifierProperty("static")) {
+                        modifiers != null && modifiers.hasModifierProperty(PsiModifier.PUBLIC) &&
+                        modifiers.hasModifierProperty(PsiModifier.STATIC)) {
                     hasTag = true;
                     break;
                 }

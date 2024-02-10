@@ -23,7 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +36,10 @@ import eltos.simpledialogfragment.list.CustomListDialog;
 
 /**
  * A dialog that let's the user select a color
- *
+ * <p>
  * Result:
  *      COLOR   int     Selected color (rgb)
- *
+ * <p>
  * Created by eltos on 17.04.2016.
  */
 public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> implements SimpleColorWheelDialog.OnDialogResultListener {
@@ -361,12 +361,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             if (addCustomField){
                 cs[cs.length-1] = PICKER;
             }
-            setData(cs, new ItemIdentifier<Integer>(){
-                @Nullable
-                public Long getIdForItem(Integer color) {
-                    return Long.valueOf(color);
-                }
-            });
+            setData(cs, Long::valueOf);
         }
 
         @Override

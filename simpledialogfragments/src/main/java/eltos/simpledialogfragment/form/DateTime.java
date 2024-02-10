@@ -26,15 +26,15 @@ import eltos.simpledialogfragment.SimpleDialog.OnDialogResultListener;
  * A color element to be used with {@link SimpleFormDialog}
  * 
  * One can pick a date, time or both here
- * 
+ * <p>
  * This will add a long to resource bundle containing the timestamp.
- * 
+ * <p>
  * Created by eltos on 13.02.19
  */
 
 public class DateTime extends FormElement<DateTime, DateTimeViewHolder> {
 
-    protected enum Type {DATE, TIME, DATETIME};
+    protected enum Type {DATE, TIME, DATETIME}
 
     protected Type type = Type.DATE;
     protected Long min, max, date;

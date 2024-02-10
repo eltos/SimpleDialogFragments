@@ -25,7 +25,7 @@ import androidx.annotation.CallSuper;
  * An {@link AsyncTask} for use with {@link SimpleProgressDialog}
  *
  * Automatically reflects the task's states in the dialog.
- *
+ * <p>
  * Created by eltos on 27.05.21.
  */
 public abstract class SimpleProgressTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
@@ -54,7 +54,7 @@ public abstract class SimpleProgressTask<Params, Progress, Result> extends Async
 
     /**
      * Updates the progress dialog by trying to guess the meaning of the supplied parameter(s):
-     *
+     * <p>
      * - if values is of numeric type
      *   - if values[0] &lt; 0, then progress is indeterminate
      *   - if values[0] &gt;= 0, then (int) values[0] is set as progress

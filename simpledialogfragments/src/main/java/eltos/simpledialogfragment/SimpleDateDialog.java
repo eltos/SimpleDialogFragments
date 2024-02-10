@@ -26,7 +26,7 @@ import java.util.Date;
 
 /**
  * A date-picker dialog
- *
+ * <p>
  * Created by eltos on 02.02.2017.
  */
 public class SimpleDateDialog extends CustomViewDialog<SimpleDateDialog>

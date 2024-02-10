@@ -29,9 +29,9 @@ import android.view.inputmethod.InputConnection;
 /**
  * A special sub-class of {@link MaterialAutoCompleteTextView} designed for use
  * as a child of {@link TextInputLayout}.
- *
+ * <p>
  * Using this class allows us to display a hint in the IME when in 'extract' mode.
- *
+ * <p>
  * Created by eltos on 16.02.17 as suggested here: http://stackoverflow.com/a/41864063
  *
  */

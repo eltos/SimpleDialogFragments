@@ -43,7 +43,7 @@ import android.widget.Button;
 /**
  * An easy to use and extendable dialog fragment that displays a text message.
  * This is the base class of all dialogs in this library.
- *
+ * <p>
  * Created by eltos on 03.08.2015.
  */
 
@@ -569,7 +569,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     /**
      * Call this method to enable or disable a button
-     *
+     * <p>
      * Note: This method has no effect if the dialog is not yet shown
      *
      * @param enabled whether to en- or disable the button
@@ -587,7 +587,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     /**
      * Call this method to overwrite the click listener for a button
-     *
+     * <p>
      * Note: This method has no effect if the dialog is not yet shown
      *
      * @param listener the click listener
@@ -598,7 +598,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
                     whichButton == DialogInterface.BUTTON_POSITIVE ? POSITIVE_BUTTON_TEXT:
                     whichButton == DialogInterface.BUTTON_NEGATIVE ? NEGATIVE_BUTTON_TEXT:
                     whichButton == DialogInterface.BUTTON_NEUTRAL ? NEUTRAL_BUTTON_TEXT : null);
-            ((FullscreenAlertDialog) dialog).setButton(whichButton, text,
+            dialog.setButton(whichButton, text,
                     (dialog, which) -> listener.onClick(null));
         } else if (dialog != null){
             Button button = dialog.getButton(whichButton);
@@ -615,14 +615,11 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      * @param view the view to be focused and receive keyboard input
      */
     public void showKeyboard(final View view){
-        view.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                view.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-                }
+        view.postDelayed(() -> {
+            view.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 100);
     }
@@ -635,7 +632,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      */
     @Deprecated
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(@NonNull FragmentManager manager, String tag) {
         try {
             super.show(manager, tag);
         } catch (IllegalStateException ignored){}
@@ -647,7 +644,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
      */
     @Deprecated
     @Override
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(@NonNull FragmentTransaction transaction, String tag) {
         try {
             return super.show(transaction, tag);
         } catch (IllegalStateException ignored){
@@ -657,7 +654,7 @@ public class SimpleDialog<This extends SimpleDialog<This>> extends DialogFragmen
 
     @Override
     @CallSuper
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
         callResultListener(OnDialogResultListener.CANCELED, null);
     }

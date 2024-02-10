@@ -25,10 +25,10 @@ import eltos.simpledialogfragment.R;
 
 /**
  * An extension for the input dialog that will ensure the input is a valid email address
- *
+ * <p>
  * Results:
  *      EMAIL    String      The entered email-address
- *
+ * <p>
  * Created by expos on 02.01.2017.
  */
 public class SimpleEMailDialog extends SimpleInputDialog {

@@ -31,10 +31,10 @@ import eltos.simpledialogfragment.R;
 
 /**
  * A dialog with a color wheel to pick a custom color. Supports transparency
- *
+ * <p>
  * Result:
  *      COLOR   int     Selected color (argb)
- *
+ * <p>
  * Created by eltos on 04.02.2017.
  */
 public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDialog> {
@@ -115,12 +115,12 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
     protected View onCreateContentView(Bundle savedInstanceState) {
 
         View view = inflate(R.layout.simpledialogfragment_color_wheel);
-        mColorWheelView = (ColorWheelView) view.findViewById(R.id.colorWheel);
+        mColorWheelView = view.findViewById(R.id.colorWheel);
         mTransparency = view.findViewById(R.id.transparencyBox);
-        mAlphaSlider = (SeekBar) view.findViewById(R.id.alpha);
-        mHexInput = (EditText) view.findViewById(R.id.hexEditText);
-        mNew = (ImageView) view.findViewById(R.id.colorNew);
-        mOld = (ImageView) view.findViewById(R.id.colorOld);
+        mAlphaSlider = view.findViewById(R.id.alpha);
+        mHexInput = view.findViewById(R.id.hexEditText);
+        mNew = view.findViewById(R.id.colorNew);
+        mOld = view.findViewById(R.id.colorOld);
         View hexLayout = view.findViewById(R.id.hexLayout);
 
 
@@ -140,25 +140,19 @@ public class SimpleColorWheelDialog extends CustomViewDialog<SimpleColorWheelDia
         mOld.setVisibility(getArgs().containsKey(COLOR) ? View.VISIBLE : View.GONE);
         mOld.setImageDrawable(new ColorDrawable(oldColor));
         final int finalOldColor = oldColor;
-        mOld.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mColorWheelView.setColor(finalOldColor);
-                mAlphaSlider.setProgress(255 - Color.alpha(finalOldColor));
-            }
+        mOld.setOnClickListener(v -> {
+            mColorWheelView.setColor(finalOldColor);
+            mAlphaSlider.setProgress(255 - Color.alpha(finalOldColor));
         });
 
 
 
         mHexInput.addTextChangedListener(hexEditWatcher);
-        mColorWheelView.setOnColorChangeListener(new ColorWheelView.OnColorChangeListener() {
-            @Override
-            public void onColorChange(int color) {
-                mHexInput.removeTextChangedListener(hexEditWatcher);
-                mHexInput.setText(String.format("%06X", color & 0xFFFFFF));
-                mHexInput.addTextChangedListener(hexEditWatcher);
-                mNew.setImageDrawable(new ColorDrawable(color));
-            }
+        mColorWheelView.setOnColorChangeListener(newColor -> {
+            mHexInput.removeTextChangedListener(hexEditWatcher);
+            mHexInput.setText(String.format("%06X", newColor & 0xFFFFFF));
+            mHexInput.addTextChangedListener(hexEditWatcher);
+            mNew.setImageDrawable(new ColorDrawable(newColor));
         });
 
 

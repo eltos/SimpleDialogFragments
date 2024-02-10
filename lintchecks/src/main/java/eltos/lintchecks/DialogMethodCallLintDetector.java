@@ -34,7 +34,6 @@ import org.jetbrains.uast.UExpression;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * This code checks calls on SimpleDialogs methods for the issues listed below
@@ -47,10 +46,12 @@ public class DialogMethodCallLintDetector extends Detector implements Detector.U
             "Implement the method in %1$s or call `%2$s.build()` instead.";
     public static final Issue BUILD_CALL = Issue.create("BuildNotImplemented",
             "Calling not implemented build",
-            "This check checks for calls to static build methods on classes extending " +
-                    "`SimpleDialog` that do not implement the build method itself.\n" +
-                    "\n" +
-                    "This will create an instance of the superclass instead of the intended dialog.\n",
+            """
+                    This check checks for calls to static build methods on classes extending \
+                    `SimpleDialog` that do not implement the build method itself.
+
+                    This will create an instance of the superclass instead of the intended dialog.
+                    """,
             Category.CORRECTNESS, 6, Severity.ERROR,
             new Implementation(DialogMethodCallLintDetector.class, Scope.JAVA_FILE_SCOPE));
 

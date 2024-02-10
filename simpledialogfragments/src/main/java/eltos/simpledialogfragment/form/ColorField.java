@@ -30,9 +30,9 @@ import eltos.simpledialogfragment.color.SimpleColorDialog;
  * A color element to be used with {@link SimpleFormDialog}
  * 
  * One can pick a color here
- * 
+ * <p>
  * This will add a ColorInt to resource bundle containing the color.
- * 
+ * <p>
  * Created by eltos on 06.07.18
  */
 

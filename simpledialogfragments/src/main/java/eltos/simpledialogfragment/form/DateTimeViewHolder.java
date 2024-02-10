@@ -38,7 +38,7 @@ import eltos.simpledialogfragment.SimpleTimeDialog;
  * The ViewHolder class for {@link DateTime}
  * 
  * This class is used to create a Date-Time Field and to maintain it's functionality
- * 
+ * <p>
  * Created by eltos on 06.07.2018.
  */
 
@@ -70,10 +70,10 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
 
         this.actions = actions;
 
-        date = (EditText) view.findViewById(R.id.date);
-        time = (EditText) view.findViewById(R.id.time);
-        dateLayout = (TextInputLayout) view.findViewById(R.id.dateLayout);
-        timeLayout = (TextInputLayout) view.findViewById(R.id.timeLayout);
+        date = view.findViewById(R.id.date);
+        time = view.findViewById(R.id.time);
+        dateLayout = view.findViewById(R.id.dateLayout);
+        timeLayout = view.findViewById(R.id.timeLayout);
 
         // Label
         String text = field.getText(context);
@@ -88,20 +88,14 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
                 || field.type == DateTime.Type.DATE ? View.VISIBLE : View.GONE);
         date.setInputType(InputType.TYPE_NULL);
         date.setKeyListener(null);
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //actions.clearCurrentFocus();
-                actions.hideKeyboard();
-                pickDate();
-            }
+        date.setOnClickListener(v -> {
+            //actions.clearCurrentFocus();
+            actions.hideKeyboard();
+            pickDate();
         });
-        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus && (day == null || field.required)){
-                    date.performClick();
-                }
+        date.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus && (day == null || field.required)){
+                date.performClick();
             }
         });
 
@@ -110,20 +104,14 @@ class DateTimeViewHolder extends FormElementViewHolder<DateTime> implements Simp
                 || field.type == DateTime.Type.TIME ? View.VISIBLE : View.GONE);
         time.setInputType(InputType.TYPE_NULL);
         time.setKeyListener(null);
-        time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //actions.clearCurrentFocus();
-                actions.hideKeyboard();
-                pickTime();
-            }
+        time.setOnClickListener(v -> {
+            //actions.clearCurrentFocus();
+            actions.hideKeyboard();
+            pickTime();
         });
-        time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus && (hour == null || minute == null || field.required)){
-                    time.performClick();
-                }
+        time.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus && (hour == null || minute == null || field.required)){
+                time.performClick();
             }
         });
 

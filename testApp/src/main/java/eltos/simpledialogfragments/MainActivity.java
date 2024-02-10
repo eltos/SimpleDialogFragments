@@ -810,7 +810,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (colors != null) {
                         for (int i = 0; i < colors.length; i++) {
                             @ColorInt final int color = colors[i];
-                            handler.postDelayed(() -> newColor(color), 1000*i);
+                            handler.postDelayed(() -> newColor(color), 1000L *i);
                         }
                     }
                     return true;

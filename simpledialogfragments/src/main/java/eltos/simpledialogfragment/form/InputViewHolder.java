@@ -22,13 +22,9 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -43,7 +39,7 @@ import eltos.simpledialogfragment.input.TextInputAutoCompleteTextView;
  * The ViewHolder class for {@link Input}
  * 
  * This class is used to create an EditText and to maintain it's functionality
- * 
+ * <p>
  * Created by philipp on 23.02.17.
  */
 
@@ -75,18 +71,12 @@ class InputViewHolder extends FormElementViewHolder<Input> {
             input.setText(field.getText(context));
             // Select all on first focus
             input.setSelectAllOnFocus(true);
-            input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        input.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                input.setSelectAllOnFocus(false);
-                                input.setOnFocusChangeListener(null);
-                            }
-                        }, 10);
-                    }
+            input.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    input.postDelayed(() -> {
+                        input.setSelectAllOnFocus(false);
+                        input.setOnFocusChangeListener(null);
+                    }, 10);
                 }
             });
         } else {
@@ -129,31 +119,25 @@ class InputViewHolder extends FormElementViewHolder<Input> {
 
         // IME action
         input.setImeOptions(actions.isLastFocusableElement() ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
-        input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_NEXT:
-                        // auto complete if suggestions forced
-                        if (field.forceSuggestion && input.isPopupShowing()
-                                && input.getAdapter().getCount() > 0) {
-                            input.setText(input.getAdapter().getItem(0).toString());
-                        }
-                    // fall through...
-                    case EditorInfo.IME_ACTION_DONE:
-                        // input.performCompletion();
-                        actions.continueWithNextElement(true);
-                        return true;
-                }
-                return false;
+        input.setOnEditorActionListener((textView, actionId, event) -> {
+            switch (actionId) {
+                case EditorInfo.IME_ACTION_NEXT:
+                    // auto complete if suggestions forced
+                    if (field.forceSuggestion && input.isPopupShowing()
+                            && input.getAdapter().getCount() > 0) {
+                        input.setText(input.getAdapter().getItem(0).toString());
+                    }
+                // fall through...
+                case EditorInfo.IME_ACTION_DONE:
+                    // input.performCompletion();
+                    actions.continueWithNextElement(true);
+                    return true;
             }
+            return false;
         });
-        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    validate(v.getContext());
-                }
+        input.setOnFocusChangeListener((inputView, hasFocus) -> {
+            if (!hasFocus){
+                validate(inputView.getContext());
             }
         });
 
@@ -185,16 +169,13 @@ class InputViewHolder extends FormElementViewHolder<Input> {
                     android.R.layout.simple_list_item_1, suggestions);
             input.setAdapter(adapter);
             input.setThreshold(1);
-            input.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (field.isSpinner && !field.required && position == input.getAdapter().getCount()-1){
-                        input.setText(null);
-                    }
-                    validate(view.getContext());
-                    actions.updatePosButtonState();
-                    actions.continueWithNextElement(true);
+            input.setOnItemClickListener((adapterView, itemView, position, id) -> {
+                if (field.isSpinner && !field.required && position == input.getAdapter().getCount()-1){
+                    input.setText(null);
                 }
+                validate(itemView.getContext());
+                actions.updatePosButtonState();
+                actions.continueWithNextElement(true);
             });
             if (field.isSpinner || (field.forceSuggestion && !field.passwordToggleVisible)) {
                 inputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE); // Background none not supported in combination with dropdown
@@ -204,12 +185,7 @@ class InputViewHolder extends FormElementViewHolder<Input> {
                 input.setInputType(InputType.TYPE_NULL);
                 input.setKeyListener(null);
                 input.doNotFilter = true;
-                input.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        actions.hideKeyboard();
-                    }
-                });
+                input.setOnClickListener(v -> actions.hideKeyboard());
             }
         }
     }

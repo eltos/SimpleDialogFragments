@@ -17,14 +17,15 @@
 package eltos.simpledialogfragment;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 /**
  * An simple dialog with a checkbox that can be set as required before proceeding
- *
+ * <p>
  * Created by eltos on 14.10.2015.
  */
 public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
@@ -92,7 +93,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
         // inflate and set your custom view here
 
         View view = inflate(R.layout.simpledialogfragment_check_box);
-        mCheckBox = (CheckBox) view.findViewById(R.id.checkBox);
+        mCheckBox = view.findViewById(R.id.checkBox);
 
         mCheckBox.setText(getArgString(CHECKBOX_LABEL));
 
@@ -102,12 +103,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
             mCheckBox.setChecked(getArgs().getBoolean(CHECKED, false));
         }
 
-        mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setPositiveButtonEnabled(canGoAhead());
-            }
-        });
+        mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> setPositiveButtonEnabled(canGoAhead()));
 
         return view;
     }
@@ -125,7 +121,7 @@ public class SimpleCheckDialog extends CustomViewDialog<SimpleCheckDialog> {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(CHECKED, mCheckBox.isChecked());
     }

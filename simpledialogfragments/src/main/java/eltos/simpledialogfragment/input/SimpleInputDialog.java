@@ -26,12 +26,10 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import eltos.simpledialogfragment.CustomViewDialog;
 import eltos.simpledialogfragment.R;
@@ -39,10 +37,10 @@ import eltos.simpledialogfragment.R;
 /**
  * An simple dialog with an input field. Supports suggestions, input validations and
  * max length options.
- *
+ * <p>
  * Results:
  *      TEXT    String      The entered text
- *
+ * <p>
  * Created by eltos on 14.10.2015.
  */
 public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
@@ -210,8 +208,8 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     public View onCreateContentView(Bundle savedInstanceState) {
         // inflate and set your custom view here
         View view = inflate(R.layout.simpledialogfragment_input);
-        mInput = (AutoCompleteTextView) view.findViewById(R.id.editText);
-        mInputLayout = (TextInputLayout) view.findViewById(R.id.inputLayout);
+        mInput = view.findViewById(R.id.editText);
+        mInputLayout = view.findViewById(R.id.inputLayout);
 
         // Note: setting TYPE_CLASS_TEXT as default is very important!
         mInput.setInputType(getArgs().getInt(INPUT_TYPE, InputType.TYPE_CLASS_TEXT));
@@ -235,15 +233,12 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
         }
 
         mInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        mInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
-                    pressPositiveButton();
-                    return true;
-                }
-                return false;
+        mInput.setOnEditorActionListener((textView, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                pressPositiveButton();
+                return true;
             }
+            return false;
         });
 
         mInput.addTextChangedListener(new TextWatcher() {
@@ -305,7 +300,7 @@ public class SimpleInputDialog extends CustomViewDialog<SimpleInputDialog> {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(TEXT, getText());
     }

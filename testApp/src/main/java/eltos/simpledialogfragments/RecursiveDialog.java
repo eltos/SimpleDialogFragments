@@ -39,28 +39,20 @@ public class RecursiveDialog extends CustomViewDialog<RecursiveDialog>
         LinearLayout main = new LinearLayout(getContext());
         Button b = new Button(getContext());
         b.setText(R.string.popup);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecursiveDialog.build()
-                        .i(getArgs().getInt(I, 1)+1)
-                        .neg()
-                        .show(RecursiveDialog.this, RECURSIVE_DIALOG);
-            }
-        });
+        b.setOnClickListener(v -> RecursiveDialog.build()
+                .i(getArgs().getInt(I, 1)+1)
+                .neg()
+                .show(RecursiveDialog.this, RECURSIVE_DIALOG));
         main.addView(b);
 
         Button b2 = new Button(getContext());
         b2.setText(R.string.replace);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecursiveDialog.build()
-                        .i(getArgs().getInt(I, 1)+1)
-                        .neg()
-                        .show(getTargetFragment(), RECURSIVE_DIALOG, RECURSIVE_DIALOG);
-                        // We don't use RecursiveDialog.this here as this dialog will be replaced
-            }
+        b2.setOnClickListener(v -> {
+            RecursiveDialog.build()
+                    .i(getArgs().getInt(I, 1)+1)
+                    .neg()
+                    .show(getTargetFragment(), RECURSIVE_DIALOG, RECURSIVE_DIALOG);
+                    // We don't use RecursiveDialog.this here as this dialog will be replaced
         });
         main.addView(b2);
 

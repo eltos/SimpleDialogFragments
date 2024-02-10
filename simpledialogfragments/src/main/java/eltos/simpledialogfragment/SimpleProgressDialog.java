@@ -16,7 +16,6 @@
 
 package eltos.simpledialogfragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,7 +30,7 @@ import java.text.NumberFormat;
 
 /**
  * A dialog that displays a progress
- *
+ * <p>
  * Created by eltos on 27.05.21.
  */
 public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog> {

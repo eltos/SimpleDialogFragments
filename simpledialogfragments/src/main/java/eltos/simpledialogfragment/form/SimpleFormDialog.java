@@ -37,7 +37,7 @@ import eltos.simpledialogfragment.SimpleDialog;
  * - Input fields ({@link Input})
  * - Check-boxes ({@link Check})
  * - Dropdown-menus ({@link Spinner})
- *
+ * <p>
  * Created by eltos on 20.02.17.
  */
 
@@ -441,7 +441,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
 
         // inflate custom view
         View view = inflate(R.layout.simpledialogfragment_form);
-        ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
+        ViewGroup container = view.findViewById(R.id.container);
 
         populateContainer(container, savedInstanceState);
 
@@ -497,7 +497,7 @@ public class SimpleFormDialog extends CustomViewDialog<SimpleFormDialog> impleme
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         for (int i = 0; i < mViews.size(); i++) {
             Bundle viewState = new Bundle();
             mViews.get(i).saveState(viewState);
