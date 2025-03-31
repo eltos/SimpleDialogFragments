@@ -401,11 +401,14 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
             if (pair.first == PICKER){
                 item.setColor(mCustomColor);
                 item.setStyle(ColorView.Style.PALETTE);
+                item.setContentDescription(getString(R.string.color_picker) + (mCustomColor == NONE ? "" : ": " + ColorView.colorToRGBString(mCustomColor)));
             } else {
                 item.setColor(pair.first);
                 item.setStyle(ColorView.Style.CHECK);
+                if (pair.second != null) {
+                    item.setContentDescription(pair.second);
+                }
             }
-            item.setContentDescription(pair.second);
 
             @ColorInt int outline = getArgs().getInt(OUTLINE, ColorView.NONE);
             if (outline != NONE){
