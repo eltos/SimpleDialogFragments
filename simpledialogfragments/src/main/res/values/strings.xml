@@ -20,4 +20,6 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="clear">Clear</string>
+    <string name="color_picker">Color picker</string>
+    <string name="clear_color">Clear color</string>
 </resources>

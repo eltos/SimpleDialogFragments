@@ -44,6 +44,7 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
     private @ColorInt int preset = NONE;
     private int presetId = NO_ID;
     protected int[] colors = SimpleColorDialog.DEFAULT_COLORS;
+    protected String[] colorNames = null;
     protected boolean allowCustom = true;
     protected int outline = NONE;
 
@@ -98,6 +99,28 @@ public class ColorField extends FormElement<ColorField, ColorViewHolder> {
     public ColorField colors(@ColorInt int[] colors){
         this.colors = colors;
         return this;
+    }
+
+    /**
+     * Sets the color names for accessibility purpose
+     *
+     * @param colorNames array of names that match the colors defined via {@link #colors(int[])}
+     * @return this instance
+     */
+    public ColorField colorNames(String[] colorNames) {
+        this.colorNames = colorNames;
+        return this;
+    }
+
+    /**
+     * Sets the color names for accessibility purpose
+     *
+     * @param context a context to resolve the resource
+     * @param colorNameArrayRes String array resource id
+     * @return this instance
+     */
+    public ColorField colorNames(Context context, @ArrayRes int colorNameArrayRes){
+        return colorNames(context.getResources().getStringArray(colorNameArrayRes));
     }
 
     /**

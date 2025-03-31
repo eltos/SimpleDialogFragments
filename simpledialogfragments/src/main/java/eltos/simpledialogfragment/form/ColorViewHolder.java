@@ -88,6 +88,7 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
         colorView.setOnClickListener(v -> actions.showDialog(SimpleColorDialog.build()
                 .title(field.getText(context))
                 .colors(field.colors)
+                .colorNames(field.colorNames)
                 .allowCustom(field.allowCustom)
                 .colorPreset(colorView.getColor())
                 .neut(),
@@ -99,6 +100,14 @@ class ColorViewHolder extends FormElementViewHolder<ColorField> implements Simpl
 
     private void setColor(@ColorInt int color){
         colorView.setColor(color);
+        if(field.colorNames != null && field.colorNames.length >= field.colors.length) {
+            for (int i = 0; i < field.colors.length; i++) {
+                if (field.colors[i] == color) {
+                    colorView.setContentDescription(field.colorNames[i]);
+                    break;
+                }
+            }
+        }
         clearButton.setVisibility(field.required || colorView.getColor() == ColorView.NONE ? View.GONE : View.VISIBLE);
     }
 
