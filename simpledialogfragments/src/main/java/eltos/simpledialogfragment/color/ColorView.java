@@ -46,6 +46,8 @@ import android.widget.Checkable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.Locale;
+
 import eltos.simpledialogfragment.R;
 
 
@@ -108,12 +110,17 @@ public class ColorView extends FrameLayout implements Checkable {
         return mColor;
     }
 
+    /**
+     * Will implicitly set content description. Thus custom content description must be set after this
+     * method is called
+     */
     public void setColor(@ColorInt int color) {
         if ((color & 0xFF000000) == 0 && color != 0){ // if alpha value omitted, set now
             color = color | 0xFF000000;
         }
         if (mColor != color) {
             mColor = color;
+            setContentDescription(colorToRGBString(mColor));
             update();
         }
     }
@@ -289,6 +296,12 @@ public class ColorView extends FrameLayout implements Checkable {
         return Color.HSVToColor(hsv);
     }
 
+    public static String colorToRGBString(int color) {
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+        return String.format(Locale.ROOT, "RGB(%d, %d, %d)", red, green, blue);
+    }
 
 }
 

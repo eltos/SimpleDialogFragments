@@ -23,6 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import android.util.TypedValue;
 import android.view.View;
@@ -93,6 +94,28 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
      */
     public SimpleColorDialog colors(Context context, @ArrayRes int colorArrayRes){
         return colors(context.getResources().getIntArray(colorArrayRes));
+    }
+
+    /**
+     * Sets the color names for accessibility purpose
+     *
+     * @param colorNames array of names that match the colors defined via {@link #colors(int[])}
+     * @return this instance
+     */
+    public SimpleColorDialog colorNames(String[] colorNames){
+        getArgs().putStringArray(COLOR_NAMES, colorNames);
+        return this;
+    }
+
+    /**
+     * Sets the color names for accessibility purpose
+     *
+     * @param context a context to resolve the resource
+     * @param colorNameArrayRes String array resource id
+     * @return this instance
+     */
+    public SimpleColorDialog colorNames(Context context, @ArrayRes int colorNameArrayRes){
+        return colorNames(context.getResources().getStringArray(colorNameArrayRes));
     }
 
     /**
@@ -183,9 +206,6 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         return setArg(OUTLINE, color);
     }
 
-
-
-
     public static final @ColorInt int[] DEFAULT_COLORS = new int[]{
             0xfff44336, 0xffe91e63, 0xff9c27b0, 0xff673ab7,
             0xff3f51b5, 0xff2196f3, 0xff03a9f4, 0xff00bcd4,
@@ -205,6 +225,8 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
 
     private static final String SELECTED = TAG + "selected";
     private static final String OUTLINE = TAG + "outline";
+
+    private static final String COLOR_NAMES = TAG + "color_names";
 
     private @ColorInt int mCustomColor = NONE;
     private @ColorInt int mSelectedColor = NONE;
@@ -256,7 +278,7 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
         // Selector provided by ColorView
         getListView().setSelector(new ColorDrawable(Color.TRANSPARENT));
 
-        return new ColorAdapter(colors, custom);
+        return new ColorAdapter(colors, getArgs().getStringArray(COLOR_NAMES), custom);
     }
 
     private int indexOf(int[] array, int item){
@@ -349,19 +371,19 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
     }
 
 
-    protected class ColorAdapter extends AdvancedAdapter<Integer>{
+    protected class ColorAdapter extends AdvancedAdapter<Pair<Integer, String>>{
 
-        public ColorAdapter(int[] colors, boolean addCustomField){
+        public ColorAdapter(int[] colors, String[] contentDescriptions, boolean addCustomField){
             if (colors == null) colors = new int[0];
 
-            Integer[] cs = new Integer[colors.length + (addCustomField ? 1 : 0)];
+            Pair<Integer, String>[] cs = new Pair[colors.length + (addCustomField ? 1 : 0)];
             for (int i = 0; i < colors.length; i++) {
-                cs[i] = colors[i];
+                cs[i] = Pair.create(colors[i], contentDescriptions != null && contentDescriptions.length > i ? contentDescriptions[i] : null);
             }
             if (addCustomField){
-                cs[cs.length-1] = PICKER;
+                cs[cs.length-1] = Pair.create(PICKER, getString(R.string.color_picker));
             }
-            setData(cs, Long::valueOf);
+            setData(cs, pair -> pair.first.longValue());
         }
 
         @Override
@@ -374,14 +396,18 @@ public class SimpleColorDialog extends CustomListDialog<SimpleColorDialog> imple
                 item = new ColorView(getContext());
             }
 
-            int color = getItem(position);
+            Pair<Integer, String> pair = getItem(position);
 
-            if ( color == PICKER){
+            if (pair.first == PICKER){
                 item.setColor(mCustomColor);
                 item.setStyle(ColorView.Style.PALETTE);
+                item.setContentDescription(getString(R.string.color_picker) + (mCustomColor == NONE ? "" : ": " + ColorView.colorToRGBString(mCustomColor)));
             } else {
-                item.setColor(getItem(position));
+                item.setColor(pair.first);
                 item.setStyle(ColorView.Style.CHECK);
+                if (pair.second != null) {
+                    item.setContentDescription(pair.second);
+                }
             }
 
             @ColorInt int outline = getArgs().getInt(OUTLINE, ColorView.NONE);

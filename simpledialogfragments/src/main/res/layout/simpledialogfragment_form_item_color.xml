@@ -35,6 +35,7 @@
         android:layout_gravity="center"
         android:scaleType="fitCenter"
         android:visibility="gone"
+        android:contentDescription="@string/clear_color"
         android:src="@drawable/ic_clear_search" />
 
 

@@ -393,13 +393,16 @@ public class MainActivity extends AppCompatActivity implements
                 pallet == SimpleColorDialog.BEIGE_COLOR_PALLET ? SimpleColorDialog.AUTO :
                         SimpleColorDialog.NONE;
 
-        SimpleColorDialog.build()
+        SimpleColorDialog dialog = SimpleColorDialog.build()
                 .title(R.string.pick_a_color)
                 .colors(this, pallet)
                 .colorPreset(color)
                 .allowCustom(true)
-                .showOutline(outline)
-                .show(this, COLOR_DIALOG);
+                .showOutline(outline);
+        if (pallet == SimpleColorDialog.MATERIAL_COLOR_PALLET) {
+            dialog.colorNames(this, R.array.material_color_names);
+        }
+        dialog.show(this, COLOR_DIALOG);
 
         /** Results: {@link MainActivity#onResult} **/
 
@@ -551,7 +554,9 @@ public class MainActivity extends AppCompatActivity implements
                         Input.plain(COUNTRY).hint(R.string.country)
                                 .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
                                 .suggest(R.array.countries_locale).forceSuggestion(),
-                        ColorField.picker(COLOR).label(R.string.favourite_color),
+                        ColorField.picker(COLOR).colors(SimpleColorDialog.DEFAULT_COLORS)
+                                .colorNames(this,R.array.material_color_names)
+                                .label(R.string.favourite_color),
                         Input.email(EMAIL).required(),
                         Check.box(NEWSLETTER).label(R.string.receive_newsletter).check(true),
                         Input.password(PASSWORD).max(20).required().validatePatternStrongPassword(),
