@@ -8,7 +8,7 @@
 
 # SimpleDialogFragments
 
-[![API 14+](https://img.shields.io/badge/API-14+-green.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
+[![API 21+](https://img.shields.io/badge/API-21+-green.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.eltos/simpledialogfragments.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
 [![JitPack](https://jitpack.io/v/eltos/SimpleDialogFragments.svg)](https://jitpack.io/#eltos/SimpleDialogFragments)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
@@ -62,13 +62,13 @@ Check the [release page](https://github.com/eltos/SimpleDialogFragments/releases
 In your module level ``build.gradle`` when using [mavenCentral](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments):
 ```groovy
 dependencies {
-    implementation 'io.github.eltos:simpledialogfragments:3.8.4'
+    implementation 'io.github.eltos:simpledialogfragments:3.9'
 }
 ```
 or if using [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments):
 ```groovy
 dependencies {
-    implementation 'com.github.eltos:simpledialogfragments:v3.8.4'
+    implementation 'com.github.eltos:simpledialogfragments:v3.9'
 }
 ```
 
