@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId 'eltos.simpledialogfragments.test'
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 34
         versionCode rootProject.ext['VERSION_NR']
         versionName rootProject.ext['VERSION']
@@ -30,8 +30,8 @@ repositories {
 
 dependencies {
     testImplementation  'junit:junit:4.13.2'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'com.google.zxing:core:3.5.2'
 
