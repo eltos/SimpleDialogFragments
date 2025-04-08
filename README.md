@@ -8,7 +8,7 @@
 
 # SimpleDialogFragments
 
-[![API 21+](https://img.shields.io/badge/API-21+-green.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
+[![Android API 21+](https://img.shields.io/badge/Android%20API-21+-teal.svg)](https://developer.android.com/about/dashboards/index.html#Platform)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.eltos/simpledialogfragments.svg)](https://search.maven.org/artifact/io.github.eltos/simpledialogfragments)
 [![JitPack](https://jitpack.io/v/eltos/SimpleDialogFragments.svg)](https://jitpack.io/#eltos/SimpleDialogFragments)
 [![Code Climate Rating](https://codeclimate.com/github/eltos/SimpleDialogFragments/badges/gpa.svg)](https://codeclimate.com/github/eltos/SimpleDialogFragments)
