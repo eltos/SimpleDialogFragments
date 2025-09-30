@@ -18,10 +18,10 @@ buildscript {
 
 plugins {
     // for publication to maven central via Sonatype nexus
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    id("org.jetbrains.dokka") version "1.4.32"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("org.jetbrains.dokka") version "2.0.0"
     // git integration
-    id('org.ajoberstar.grgit') version '5.0.0'
+    id('org.ajoberstar.grgit') version '5.3.3'
 }
 
 apply from: "publish.gradle"
@@ -32,6 +32,9 @@ ext {
     VERSION = '3.10'
     VERSION_NR = 3100
 }
+
+group = 'io.github.eltos'
+version = ext['VERSION']
 
 
 allprojects {

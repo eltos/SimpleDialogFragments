@@ -15,7 +15,6 @@ ext["signing.password"] = ''
 ext["signing.secretKeyRingFile"] = ''
 ext["ossrhUsername"] = ''
 ext["ossrhPassword"] = ''
-ext["sonatypeStagingProfileId"] = ''
 
 File secretPropsFile = project.rootProject.file('local.properties')
 if (secretPropsFile.exists()) {
@@ -27,7 +26,6 @@ if (secretPropsFile.exists()) {
     // Use system environment variables (e.g. for CI)
     ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
     ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
-    ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
     ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
     ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
     ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
@@ -37,12 +35,11 @@ if (secretPropsFile.exists()) {
 nexusPublishing {
     repositories {
         sonatype {
-            stagingProfileId = sonatypeStagingProfileId
             username = ossrhUsername
             password = ossrhPassword
-            // new sonatype infrastructure as of 2021-02-24
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            // new sonatype infrastructure as of 2025, see https://github.com/gradle-nexus/publish-plugin
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
         }
     }
 }
@@ -76,7 +73,8 @@ task postRelease {
 }
 task doRelease {
     dependsOn 'simpledialogfragments:javadoc'
-    dependsOn 'simpledialogfragments:publishReleasePublicationToSonatypeRepository'
+    dependsOn 'simpledialogfragments:publishToSonatype'
+    dependsOn 'closeSonatypeStagingRepository'
     dependsOn updateVersionInReadme
     finalizedBy postRelease
 }

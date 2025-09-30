@@ -42,12 +42,6 @@ dependencies {
 
 
 
-// for publication to maven central via Sonatype nexus
-ext {
-    PUBLISH_GROUP_ID = 'io.github.eltos'
-    PUBLISH_ARTIFACT_ID = 'simpledialogfragments'
-    PUBLISH_VERSION = rootProject.ext['VERSION']
-}
 
 apply from: 'publish.gradle'
 

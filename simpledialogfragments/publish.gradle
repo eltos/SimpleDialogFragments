@@ -38,17 +38,17 @@ artifacts {
     archives javadocJar
 }
 
-group = PUBLISH_GROUP_ID
-version = PUBLISH_VERSION
+group = rootProject.group
+version = rootProject.version
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 // The coordinates of the library
-                groupId PUBLISH_GROUP_ID
-                artifactId PUBLISH_ARTIFACT_ID
-                version PUBLISH_VERSION
+                groupId group
+                artifactId 'simpledialogfragments'
+                version version
 
                 // Artifacts
                 from components.release
