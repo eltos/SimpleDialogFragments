@@ -16,6 +16,7 @@
 
 package eltos.simpledialogfragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -282,13 +283,21 @@ public class SimpleProgressDialog extends CustomViewDialog<SimpleProgressDialog>
             setPositiveButtonEnabled(true);
             setNeutralButtonEnabled(false);
             if (getArgs().getBoolean(AUTO_DISMISS)){
-                dismiss();
+                dismissAllowingStateLoss(); // ok to fail if stopped, will dismiss in onResume
                 callResultListener(COMPLETED, new Bundle());
             }
         }
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getArgs().getBoolean(AUTO_DISMISS)) {
+            if (mTask != null && mTask.getStatus() == AsyncTask.Status.FINISHED) {
+                dismiss();
+            }
+        }
+    }
 
     /**
      * Set or update the progress text at the start of the progress bar /
