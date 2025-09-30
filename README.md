@@ -68,7 +68,7 @@ dependencies {
 or if using [JitPack](https://jitpack.io/#eltos/SimpleDialogFragments):
 ```groovy
 dependencies {
-    implementation 'com.github.eltos:simpledialogfragments:v3.9'
+    implementation 'com.github.eltos:simpledialogfragments:v3.10'
 }
 ```
 
